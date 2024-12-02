@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:OOP_EventsManagementSystem"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
+    <Grid 
+        Background="BlanchedAlmond">
 
     </Grid>
 </Window>
