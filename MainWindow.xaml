@@ -3,11 +3,17 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:OOP_EventsManagementSystem"
+        xmlns:utu="using:Uno.Toolkit.UI" 
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid 
-        Background="BlanchedAlmond">
+        Title="MainWindow" Height="450" Width="800"
+        Style="{StaticResource MaterialDesignWindow}">
 
+    <Grid Background="#FFF6EF">
+        <!-- AutoLayout container with rounded corners -->
+        <utu:AutoLayout CornerRadius="16" CounterAxisAlignment="Start">
+            <!-- Add your child elements here -->
+            <TextBlock Text="Hello World!" />
+            <Button Content="Click Me" />
+        </utu:AutoLayout>
     </Grid>
 </Window>
