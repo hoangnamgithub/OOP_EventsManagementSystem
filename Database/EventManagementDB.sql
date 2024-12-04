@@ -1,14 +1,18 @@
-USE EventManagementDB;
-USE master
--- Create Schemas
-CREATE SCHEMA Events;
-CREATE SCHEMA Shows;
-CREATE SCHEMA Employees;
-GO
 
+CREATE DATABASE EventManagementDB;
 DROP DATABASE EventManagementDB;
 
-DROP * TABLE FROM EventManagementDB
+USE master
+USE EventManagementDB;
+
+-- Create Schemas
+go
+CREATE SCHEMA Events;
+go
+CREATE SCHEMA Shows;
+go
+CREATE SCHEMA Employees;
+GO
 
 -- Events Schema
 -- Table: partner_role
@@ -69,6 +73,17 @@ CREATE TABLE Shows.equipment (
     FOREIGN KEY (equipment_type_id) REFERENCES Shows.equipment_type(equipment_type_id) ON DELETE CASCADE
 );
 
+-- Table: show
+CREATE TABLE Shows.show (
+    show_id INT PRIMARY KEY IDENTITY(1,1),
+    show_name NVARCHAR(200) NOT NULL,
+    show_description NVARCHAR(MAX) NULL,
+    event_id INT NOT NULL,
+    start_time DATETIME NOT NULL,
+    end_time DATETIME NOT NULL,
+    FOREIGN KEY (event_id) REFERENCES Events.event(event_id) ON DELETE CASCADE
+);
+
 -- Table: required
 CREATE TABLE Shows.required (
     required_id INT PRIMARY KEY IDENTITY(1,1),
@@ -86,17 +101,6 @@ CREATE TABLE Shows.performer (
     performer_name NVARCHAR(200) NOT NULL,
     genre NVARCHAR(100) NOT NULL,
     performer_contact NVARCHAR(MAX) NULL -- Consistent naming
-);
-
--- Table: show
-CREATE TABLE Shows.show (
-    show_id INT PRIMARY KEY IDENTITY(1,1),
-    show_name NVARCHAR(200) NOT NULL,
-    show_description NVARCHAR(MAX) NULL,
-    event_id INT NOT NULL,
-    start_time DATETIME NOT NULL,
-    end_time DATETIME NOT NULL,
-    FOREIGN KEY (event_id) REFERENCES Events.event(event_id) ON DELETE CASCADE
 );
 
 -- Table: participate
@@ -143,9 +147,3 @@ CREATE TABLE Employees.engaged (
     FOREIGN KEY (show_id) REFERENCES Shows.show(show_id) ON DELETE CASCADE,
     FOREIGN KEY (employee_id) REFERENCES Employees.employee(employee_id) ON DELETE CASCADE
 );
-
--- Indexing for performance
-CREATE INDEX idx_event_id ON Events.is_partner(event_id);
-CREATE INDEX idx_show_id ON Shows.participate(show_id);
-CREATE INDEX idx_employee_id ON Employees.engaged(employee_id);
-CREATE INDEX idx_partner_id ON Events.is_partner(partner_id);
