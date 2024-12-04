@@ -1,10 +1,12 @@
 USE EventManagementDB;
-
+USE master
 -- Create Schemas
 CREATE SCHEMA Events;
 CREATE SCHEMA Shows;
 CREATE SCHEMA Employees;
 GO
+
+DROP DATABASE EventManagementDB;
 
 DROP * TABLE FROM EventManagementDB
 

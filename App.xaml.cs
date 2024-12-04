@@ -9,6 +9,13 @@ namespace OOP_EventsManagementSystem
     /// </summary>
     public partial class App : Application
     {
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+
+            // Ensure the database and tables exist before running the app
+            DatabaseHelper.CreateDatabaseIfNotExists();
+        }
     }
 
 }
