@@ -108,12 +108,34 @@
             <Ellipse Width="29" Height="29" Fill="#FFFBF8" HorizontalAlignment="Left" Canvas.Left="238" Canvas.Top="170" />
             <Ellipse Width="8" Height="8" Fill="#262628" HorizontalAlignment="Left" Canvas.Left="259" Canvas.Top="180" />
         </Canvas>
-        <TextBox x:Name="txt_box_email" 
-                 HorizontalAlignment="Left" Margin="570,258,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="216" Background="{x:Null}" Foreground="#FF262628" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" BorderBrush="{x:Null}" FontFamily="Bahnschrift Light" FontSize="16" Visibility="Hidden"/>
-        <Rectangle Width="214" Height="1" Fill="Black" HorizontalAlignment="Right" Margin="0,332,64,267" />
-        <TextBox x:Name="txt_box_password" 
-                 HorizontalAlignment="Left" Margin="570,314,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="216" Background="{x:Null}" Foreground="#FF262628" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" BorderBrush="{x:Null}" FontFamily="Bahnschrift Light" FontSize="16" Visibility="Hidden"/>
-        
-    </Grid>
+            <TextBox x:Name="txt_box_email" 
+         HorizontalAlignment="Left" 
+         Margin="570,258,0,0" 
+         TextWrapping="NoWrap" 
+         Text="" 
+         VerticalAlignment="Top" 
+         Width="216" 
+         Background="{x:Null}" 
+         Foreground="#FF262628" 
+         SelectionBrush="{x:Null}" 
+         SelectionTextBrush="{x:Null}" 
+         BorderBrush="{x:Null}" 
+         FontFamily="Bahnschrift Light" 
+         FontSize="16"  />
+
+            <Rectangle Width="214" Height="1" Fill="Black" HorizontalAlignment="Right" Margin="0,332,64,267" />
+            <PasswordBox x:Name="txt_box_password" 
+             HorizontalAlignment="Left" 
+             Margin="570,314,0,0" 
+             VerticalAlignment="Top" 
+             Width="216" 
+             Background="{x:Null}" 
+             Foreground="#FF262628" 
+             BorderBrush="{x:Null}" 
+             FontFamily="Bahnschrift Light" 
+             FontSize="16" 
+             />
+
+        </Grid>
    </Border>
 </Window>
