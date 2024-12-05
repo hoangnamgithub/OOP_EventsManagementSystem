@@ -1,4 +1,8 @@
-﻿using System.Text;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -6,28 +10,27 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace OOP_EventsManagementSystem
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for SignUp.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class SignUp : Window
     {
-        public MainWindow()
+        public SignUp()
         {
             InitializeComponent();
         }
 
-        private void btn_signup_Click(object sender, RoutedEventArgs e)
+        private void btn_login_Click(object sender, RoutedEventArgs e)
         {
             // Tạo đối tượng trang SignUp
-            SignUp signUpWindow = new SignUp();
+            MainWindow mainWindow = new MainWindow();
 
             // Hiển thị trang SignUp
-            signUpWindow.Show();
+            mainWindow.Show();
 
             // Đóng trang Login (MainWindow)
             this.Close();
@@ -37,6 +40,6 @@ namespace OOP_EventsManagementSystem
             // Tắt cửa sổ hiện tại
             this.Close();
         }
-
     }
 }
+
