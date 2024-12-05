@@ -1,6 +1,7 @@
 ﻿using System.Configuration;
 using System.Data;
 using System.Windows;
+using OOP_EventsManagementSystem.Database;
 
 namespace OOP_EventsManagementSystem
 {
@@ -14,7 +15,7 @@ namespace OOP_EventsManagementSystem
             base.OnStartup(e);
 
             // Ensure the database and tables exist before running the app
-            DatabaseHelper.CreateDatabaseIfNotExists();
+            DatabaseHelper.InitializeDatabase();
         }
     }
 

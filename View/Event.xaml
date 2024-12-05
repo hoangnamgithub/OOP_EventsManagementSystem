@@ -10,7 +10,7 @@
              Background="Transparent">
     <Grid>
         <Border Background="#FFF6EF"
-        CornerRadius="16">
+        CornerRadius="12">
         </Border>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -23,13 +23,13 @@
                         <PathFigure StartPoint="16,0" IsClosed="True">
                             <PathFigure.Segments>
                                 <!-- Góc trái trên (bo góc) -->
-                                <ArcSegment Point="0,16" Size="16,16" SweepDirection="Counterclockwise"  />
+                                <ArcSegment Point="0,16" Size="12,12" SweepDirection="Counterclockwise"  />
 
                                 <!-- Cạnh trái -->
                                 <LineSegment Point="0,584" />
 
                                 <!-- Góc trái dưới (bo góc) -->
-                                <ArcSegment Point="16,600" Size="16,16" SweepDirection="Counterclockwise" />
+                                <ArcSegment Point="16,600" Size="12,12" SweepDirection="Counterclockwise" />
 
                                 <!-- Cạnh dưới -->
                                 <LineSegment Point="150,600" />
