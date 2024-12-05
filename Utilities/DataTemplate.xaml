@@ -1,0 +1,29 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:vm="clr-namespace:OOP_EventsManagementSystem.ViewModel"
+                    xmlns:view="clr-namespace:OOP_EventsManagementSystem.View" >
+    <DataTemplate DataType="{x:Type vm:EventVM}">
+        <view:Event />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:ShowVM}">
+        <view:Show />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:LocationVM}">
+        <view:Location />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:PartnerVM}">
+        <view:Partner />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:EmployeeVM}">
+        <view:Employee />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:EquipmentVM}">
+        <view:Equipment />
+    </DataTemplate>
+
+</ResourceDictionary>
