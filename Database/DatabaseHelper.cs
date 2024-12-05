@@ -32,9 +32,18 @@ namespace OOP_EventsManagementSystem.Database
                     string[] schemaScripts = GetSchemaCreationScripts();
                     foreach (var script in schemaScripts)
                     {
-                        using (var command = new SqlCommand(script, connection))
+                        try
                         {
-                            command.ExecuteNonQuery();
+                            using (var command = new SqlCommand(script, connection))
+                            {
+                                command.ExecuteNonQuery();
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine($"Error executing script: {script.Substring(0, Math.Min(script.Length, 100))}...");
+                            Console.WriteLine($"Error details: {ex.Message}");
+                            throw;
                         }
                     }
 
@@ -77,15 +86,25 @@ namespace OOP_EventsManagementSystem.Database
                       partner_description NVARCHAR(MAX) NULL
                   );",
 
+                @"IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[Events].[location]') AND type in (N'U'))
+                  CREATE TABLE Events.location (
+                      location_id INT PRIMARY KEY IDENTITY(1,1),
+                      location_name NVARCHAR(200) NOT NULL,
+                      address NVARCHAR(MAX) NOT NULL,
+                      cost DECIMAL(10, 2) NOT NULL CHECK (cost >= 0)
+                  );",
+
                 @"IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[Events].[event]') AND type in (N'U'))
                   CREATE TABLE Events.event (
                       event_id INT PRIMARY KEY IDENTITY(1,1),
                       event_name NVARCHAR(200) NOT NULL,
                       event_type_id INT NOT NULL,
                       event_description NVARCHAR(MAX) NULL,
+                      location_id INT NULL,
                       start_time DATETIME NOT NULL,
                       end_time DATETIME NOT NULL,
-                      FOREIGN KEY (event_type_id) REFERENCES Events.event_type(event_type_id) ON DELETE CASCADE ON UPDATE CASCADE
+                      FOREIGN KEY (event_type_id) REFERENCES Events.event_type(event_type_id) ON DELETE CASCADE,
+                      FOREIGN KEY (location_id) REFERENCES Events.location(location_id) ON DELETE SET NULL
                   );",
 
                 @"IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[Events].[is_partner]') AND type in (N'U'))
@@ -108,12 +127,13 @@ namespace OOP_EventsManagementSystem.Database
 
                 @"IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[Shows].[equipment]') AND type in (N'U'))
                   CREATE TABLE Shows.equipment (
-                      equipment_id INT PRIMARY KEY IDENTITY(1,1),
-                      equipment_name NVARCHAR(200) NOT NULL,
-                      equipment_type_id INT NOT NULL,
-                      available BIT NOT NULL,
-                      quantity INT NOT NULL DEFAULT 0,
-                      FOREIGN KEY (equipment_type_id) REFERENCES Shows.equipment_type(equipment_type_id) ON DELETE CASCADE
+                     equipment_id INT PRIMARY KEY IDENTITY(1,1),
+                     equipment_name NVARCHAR(200) NOT NULL,
+                     equipment_type_id INT NOT NULL,
+                     available BIT NOT NULL,
+                     quantity INT NOT NULL DEFAULT 0,
+                     cost DECIMAL(10, 2) NOT NULL CHECK (cost >= 0),
+                     FOREIGN KEY (equipment_type_id) REFERENCES Shows.equipment_type(equipment_type_id) ON DELETE CASCADE
                   );",
 
                 @"IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[Shows].[show]') AND type in (N'U'))
@@ -133,7 +153,6 @@ namespace OOP_EventsManagementSystem.Database
                       show_id INT NOT NULL,
                       equipment_id INT NOT NULL,
                       quantity INT NOT NULL CHECK (quantity >= 0),
-                      cost DECIMAL(10, 2) NOT NULL CHECK (cost >= 0),
                       FOREIGN KEY (show_id) REFERENCES Shows.show(show_id) ON DELETE CASCADE,
                       FOREIGN KEY (equipment_id) REFERENCES Shows.equipment(equipment_id) ON DELETE CASCADE
                   );",
@@ -186,7 +205,6 @@ namespace OOP_EventsManagementSystem.Database
                       employee_id INT NOT NULL,
                       start_time DATETIME NOT NULL,
                       end_time DATETIME NOT NULL,
-                      cost DECIMAL(10, 2) NOT NULL CHECK (cost >= 0),
                       FOREIGN KEY (show_id) REFERENCES Shows.show(show_id) ON DELETE CASCADE,
                       FOREIGN KEY (employee_id) REFERENCES Employees.employee(employee_id) ON DELETE CASCADE
                   );"
