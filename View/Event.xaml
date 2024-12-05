@@ -12,53 +12,78 @@
         <Border Background="#FFF6EF"
         CornerRadius="12">
         </Border>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width=" 150"/>
-                <ColumnDefinition Width=" 650"/>
-            </Grid.ColumnDefinitions>
-            <Path Fill="#FF262628">
-                <Path.Data>
-                    <PathGeometry>
-                        <PathFigure StartPoint="16,0" IsClosed="True">
-                            <PathFigure.Segments>
-                                <!-- Góc trái trên (bo góc) -->
-                                <ArcSegment Point="0,16" Size="12,12" SweepDirection="Counterclockwise"  />
+        <Canvas Width="850" Height="600">
+            <!-- Background Rectangle -->
+            <!-- Background Rectangle -->
+            <Rectangle Width="850" Height="600" Fill="#FFF6EF" RadiusX="12" RadiusY="12" />
 
-                                <!-- Cạnh trái -->
-                                <LineSegment Point="0,584" />
+            <Rectangle Width="850" Height="50" Fill="White" Canvas.Left="0" HorizontalAlignment="Center" VerticalAlignment="Center" />
 
-                                <!-- Góc trái dưới (bo góc) -->
-                                <ArcSegment Point="16,600" Size="12,12" SweepDirection="Counterclockwise" />
+            <!-- Sidebar -->
+            <Rectangle Width="140" Height="600" Fill="#262628" Canvas.Left="0" HorizontalAlignment="Left" VerticalAlignment="Center" />
 
-                                <!-- Cạnh dưới -->
-                                <LineSegment Point="150,600" />
+            <!-- Text elements -->
+            <TextBlock Text="easys" FontSize="36" FontWeight="Bold" Foreground="#D6DC82" 
+                       FontFamily="Bahnschrift SemiBold" Canvas.Left="24" Canvas.Top="40" HorizontalAlignment="Center" VerticalAlignment="Top" />
+            <TextBlock Text="MENU" FontSize="14" FontWeight="Normal" Foreground="#44444C" 
+                       FontFamily="Bahnschrift Light" Canvas.Left="10" Canvas.Top="113" />
 
-                                <!-- Cạnh phải -->
-                                <LineSegment Point="150,0" />
+            <!-- Event Title -->
+            <TextBlock Text="Today’s Events" FontSize="36" Foreground="#262628"
+                       FontFamily="Bahnschrift SemiBold" Canvas.Left="180" Canvas.Top="81" />
 
-                                <!-- Quay lại điểm bắt đầu -->
-                                <LineSegment Point="16,0" />
-                            </PathFigure.Segments>
-                        </PathFigure>
-                    </PathGeometry>
-                </Path.Data>
-            </Path>
-            <Rectangle Fill="#FFD6DC82" Height="35" Margin="0,126,0,439"/>
-            <Label 
-                   Content="easys" 
-                   Foreground="#D6DC82"
-                   HorizontalAlignment="Center" 
-                   FontFamily="Bahnschrift SemiBold"
-                   Margin="0,35,0,0" VerticalAlignment="Top" Height="50" Width="88" FontSize="30" />
-            <Label 
-                Content="Event" 
-                Foreground="#FF262628"
-                HorizontalAlignment="Left" 
-                FontFamily="Bahnschrift Light Condensed"
-                Margin="68,126,0,0" VerticalAlignment="Top" Height="35" Width="51" FontSize="20" />
+            <!-- Event Box -->
+            <Rectangle Width="228" Height="68" Fill="#D96073" RadiusX="16" RadiusY="16" 
+                       Canvas.Left="1130" Canvas.Top="175" />
+            <TextBlock Text="Add event" FontSize="32" Foreground="#FFF6EF"
+                       FontFamily="Poppins" Canvas.Left="1158" Canvas.Top="184" />
+
+            <Canvas Width="480" Height="233" Canvas.Left="345" Canvas.Top="393">
+                <!-- Rectangle6 -->
+                <Rectangle Width="480" Height="232" Fill="White" RadiusX="12" RadiusY="12" 
+                           Stroke="#000000" Canvas.Left="0" Canvas.Top="1" />
+                <Image Width="367" Height="232" Canvas.Top="1" Source="pack://application:,,,/Resources/Images/event2.jpg" HorizontalAlignment="Left" VerticalAlignment="Center">
+                    <Image.Clip>
+                        <RectangleGeometry Rect="0,0,367,232" RadiusX="16" RadiusY="16" />
+                    </Image.Clip>
+                </Image>
+                <Grid Height="90" Canvas.Left="498" Canvas.Top="27" Width="128">
+                    <TextBlock Text="9" FontSize="40" Foreground="#262628" FontFamily="Poppins" Margin="56,0,50,42" />
+                    <TextBlock Text="th" FontSize="16" Foreground="#262628" FontFamily="Poppins" Margin="83,10,31,61" />
+                    <TextBlock Text="16:00 | 23:00" FontSize="13" Foreground="#262628" FontFamily="Poppins" Margin="56,74,0,0" />
+                    <TextBlock Text="DEC" FontSize="30" Foreground="#262628" FontFamily="Poppins" Margin="56,43,17,11" />
+                    <TextBlock Text="MONDAY" FontSize="20" Foreground="#262628" FontFamily="Poppins" RenderTransformOrigin="0.5,0.5" Margin="0,36,44,30" >
+                        <TextBlock.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-90.101"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </TextBlock.RenderTransform>
+                    </TextBlock>
+                </Grid>
 
 
-        </Grid>
+                <TextBlock Text="GenFest 2024" FontSize="20" Foreground="#FFF6EF" FontFamily="Poppins" Canvas.Left="212" Canvas.Top="199" />
+            </Canvas>
+            <Rectangle Width="140" Height="35" Fill="#FFD6DC82" HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Top="135" />
+            <!-- Menu items -->
+            <TextBlock Text="Event" FontSize="18" FontWeight="Medium" Foreground="#262628" 
+                       FontFamily="Bahnschrift SemiCondensed" Canvas.Left="50" Canvas.Top="142" HorizontalAlignment="Left" VerticalAlignment="Center" />
+            <TextBlock Text="Event" FontSize="18" FontWeight="Medium" Foreground="#FFFFF6EF" 
+                FontFamily="Bahnschrift SemiCondensed" Canvas.Left="50" Canvas.Top="180" HorizontalAlignment="Left" VerticalAlignment="Center" />
+            <TextBlock Text="Event" FontSize="18" FontWeight="Medium" Foreground="#FFFFF6EF" 
+                FontFamily="Bahnschrift SemiCondensed" Canvas.Left="50" Canvas.Top="218" HorizontalAlignment="Left" VerticalAlignment="Center" />
+            <TextBlock Text="Event" FontSize="18" FontWeight="Medium" Foreground="#FFFFF6EF" 
+                FontFamily="Bahnschrift SemiCondensed" Canvas.Left="50" Canvas.Top="256" HorizontalAlignment="Left" VerticalAlignment="Center" />
+            <TextBlock Text="Event" FontSize="18" FontWeight="Medium" Foreground="#FFFFF6EF" 
+                FontFamily="Bahnschrift SemiCondensed" Canvas.Left="50" Canvas.Top="294" HorizontalAlignment="Left" VerticalAlignment="Center" />
+            <TextBlock Text="Event" FontSize="18" FontWeight="Medium" Foreground="#FFFFF6EF" 
+                FontFamily="Bahnschrift SemiCondensed" Canvas.Left="50" Canvas.Top="332" HorizontalAlignment="Left" VerticalAlignment="Center" />
+            <Button Content="Button" Canvas.Left="688" Canvas.Top="85" Click="Button_Click" Background="#FFD96073" BorderBrush="{x:Null}" Foreground="#FFFFF6EF" FontFamily="Bahnschrift SemiCondensed" Height="50" Width="100" FontSize="18"/>
+
+            <!-- More components can be added here with similar logic -->
+        </Canvas>
     </Grid>
 </UserControl>
