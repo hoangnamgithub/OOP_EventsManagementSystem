@@ -16,7 +16,7 @@ namespace OOP_EventsManagementSystem
 
             // Ensure the database and tables exist before running the app
             DatabaseHelper.InitializeDatabase();
+            SeedData.SeedEventTypes(); // Populate fake data for event types
         }
     }
-
 }
