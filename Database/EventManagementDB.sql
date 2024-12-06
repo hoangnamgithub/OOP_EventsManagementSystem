@@ -1,12 +1,12 @@
 
 CREATE DATABASE EventManagementDB;
-DROP DATABASE EventManagementDB;
 
+USE master;
 ALTER DATABASE EventManagementDB SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+DROP DATABASE EventManagementDB;
 
 ALTER DATABASE EventManagementDB SET MULTI_USER;
 
-USE master
 USE EventManagementDB;
 
 -- Create the database

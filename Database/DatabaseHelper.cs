@@ -74,6 +74,21 @@ namespace OOP_EventsManagementSystem.Database
                 "IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = 'Equipment') EXEC('CREATE SCHEMA Equipment');",
                 "IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = 'Account') EXEC('CREATE SCHEMA Account');",
 
+                // Employees Schema
+                @"CREATE TABLE Employees.employee_role (
+                    role_id INT PRIMARY KEY IDENTITY(1,1),
+                    role_name NVARCHAR(100) NOT NULL,
+                    salary DECIMAL(10, 2) NOT NULL CHECK (salary >= 0)
+                  );",
+
+                @"CREATE TABLE Employees.employee (
+                    employee_id INT PRIMARY KEY IDENTITY(1,1),
+                    full_name NVARCHAR(200) NOT NULL,
+                    contact NVARCHAR(MAX) NOT NULL,
+                    role_id INT NOT NULL,
+                    FOREIGN KEY (role_id) REFERENCES Employees.employee_role(role_id) ON DELETE CASCADE
+                  );",
+
                 // Account Schema
                 @"CREATE TABLE Account.permission (
                     permission_id INT PRIMARY KEY IDENTITY(1,1),
@@ -85,7 +100,9 @@ namespace OOP_EventsManagementSystem.Database
                     email NVARCHAR(200) NOT NULL UNIQUE,
                     password NVARCHAR(MAX) NOT NULL,
                     permission_id INT NOT NULL,
-                    FOREIGN KEY (permission_id) REFERENCES Account.permission(permission_id) ON DELETE CASCADE
+                    employee_id INT NULL,
+                    FOREIGN KEY (permission_id) REFERENCES Account.permission(permission_id) ON DELETE CASCADE,
+                    FOREIGN KEY (employee_id) REFERENCES Employees.employee(employee_id) ON DELETE SET NULL
                   );",
 
                 // Events Schema
@@ -199,21 +216,6 @@ namespace OOP_EventsManagementSystem.Database
                     equip_name_id INT NOT NULL,
                     FOREIGN KEY (event_id) REFERENCES Events.event(event_id) ON DELETE CASCADE,
                     FOREIGN KEY (equip_name_id) REFERENCES Equipment.equipment_name(equip_name_id) ON DELETE CASCADE
-                  );",
-
-                // Employees Schema
-                @"CREATE TABLE Employees.employee_role (
-                    role_id INT PRIMARY KEY IDENTITY(1,1),
-                    role_name NVARCHAR(100) NOT NULL,
-                    salary DECIMAL(10, 2) NOT NULL CHECK (salary >= 0)
-                  );",
-
-                @"CREATE TABLE Employees.employee (
-                    employee_id INT PRIMARY KEY IDENTITY(1,1),
-                    full_name NVARCHAR(200) NOT NULL,
-                    contact NVARCHAR(MAX) NOT NULL,
-                    role_id INT NOT NULL,
-                    FOREIGN KEY (role_id) REFERENCES Employees.employee_role(role_id) ON DELETE CASCADE
                   );",
 
                 @"CREATE TABLE Employees.engaged (
