@@ -96,46 +96,7 @@
             HorizontalAlignment="Left" VerticalAlignment="Top" Margin="445,84,0,0" />
             <!--Danh sach event-->
             <ScrollViewer VerticalScrollBarVisibility="Visible" Margin="40,125,40,45">
-                <ScrollViewer.Style>
-                    <Style TargetType="ScrollViewer">
-                        <Style.Resources>
-                            <!-- Style cho ScrollBar -->
-                            <Style TargetType="ScrollBar">
-                                <Setter Property="Width" Value="10" />
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="ScrollBar">
-                                            <Grid>
-                                                <!-- Loại bỏ nền Track -->
-                                                <Border Background="Transparent" CornerRadius="12" />
-                                                <Track Name="PART_Track">
-                                                    <Track.DecreaseRepeatButton>
-                                                        <RepeatButton Style="{x:Null}" IsEnabled="False" />
-                                                    </Track.DecreaseRepeatButton>
-                                                    <Track.Thumb>
-                                                        <!-- Con lăn (Thumb) -->
-                                                        <Thumb>
-                                                            <Thumb.Template>
-                                                                <ControlTemplate TargetType="Thumb">
-                                                                    <Border Background="#D96073" CornerRadius="12" />
-                                                                </ControlTemplate>
-                                                            </Thumb.Template>
-                                                        </Thumb>
-                                                    </Track.Thumb>
-                                                    <Track.IncreaseRepeatButton>
-                                                        <RepeatButton Style="{x:Null}" IsEnabled="False" />
-                                                    </Track.IncreaseRepeatButton>
-                                                </Track>
-                                            </Grid>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </Style.Resources>
-                    </Style>
-                </ScrollViewer.Style>
-
-
+                
                 <ItemsControl ItemsSource="{Binding Events}">
                     <ItemsControl.ItemsPanel>
                         <!-- Sử dụng WrapPanel để hiển thị các mục thành nhiều cột -->
@@ -154,7 +115,8 @@
                                 </Image>
                                 <TextBlock Text="{Binding Day}" Foreground="#262628" FontSize="20" FontFamily="Bahnschrift" FontWeight="Medium" Margin="165,7,0,0" />
                                 <TextBlock Text="{Binding Month}" Foreground="#262628" FontSize="20" FontFamily="Bahnschrift" FontWeight="Medium" Margin="165,24,0,0" />
-                                <TextBlock Text="{Binding Weekday}" Foreground="#262628" FontSize="12" FontFamily="Bahnschrift" Margin="165,43,0,0" />
+                                <TextBlock Text="{Binding Weekday}" Foreground="#262628" FontSize="10" FontFamily="Bahnschrift" Margin="165,43,0,0" />
+                                <TextBlock Text="{Binding Name}" Foreground="#FFFFFAF6" FontSize="16" FontFamily="Bahnschrift" Margin="15,112,0,0" HorizontalAlignment="Left" />
                             </Grid>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
