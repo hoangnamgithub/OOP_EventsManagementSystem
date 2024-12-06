@@ -9,6 +9,10 @@ SELECT * FROM Shows.genre;
 SELECT * FROM Shows.performer;
 SELECT * FROM Equipment.equipment_name;
 SELECT * FROM Equipment.equipment_type;
+select * from Account.permission;
+SELECT * FROM Account.account;
+select * from Employees.employee;
+
 
 DELETE FROM Equipment.equipment_name;
 
@@ -16,9 +20,10 @@ DELETE FROM Equipment.equipment_name;
 DBCC CHECKIDENT ('Equipment.equipment_name', RESEED, 0);
 
 SELECT *
-FROM Equipment.equipment_name 
-JOIN Equipment.equipment_type 
-ON Equipment.equipment_name.equip_type_id = Equipment.equipment_type.equip_type_id;
+FROM Employees.employee
+JOIN Employees.employee_role
+ON Employees.employee.role_id = Employees.employee_role.role_id
+order by Employees.employee_role.role_name;
 
 INSERT INTO Account.permission (permission) VALUES ('Admin');
 INSERT INTO Account.permission (permission) VALUES ('Employee');
@@ -87,7 +92,6 @@ INSERT INTO Shows.performer (full_name, contact_detail, cost) VALUES
 ('Oliver Queen', 'oliver.queen@example.com, +1334455666', 2250.00),
 ('Selina Kyle', 'selina.kyle@example.com, +1445566777', 1750.00),
 ('Lois Lane', 'lois.lane@example.com, +1556677888', 1925.00);
-
 
 INSERT INTO Events.event_type (type_name) VALUES
 ('Music Concert'),
@@ -230,7 +234,6 @@ INSERT INTO Equipment.equipment_type (type_name) VALUES
 ('Safety Equipment'),
 ('Power Generators'),
 ('Transportation Vehicles');
-
 
 INSERT INTO Equipment.equipment_name (equip_name, equip_cost, equip_type_id) VALUES
 ('Wireless Microphone', 200.00, 1),
@@ -408,3 +411,95 @@ INSERT INTO Events.partner (partner_name, partner_details) VALUES
 ('Culinary Creations', 'Specialized in unique food presentations.'),
 ('Vivid Visions', 'Bright and bold event designs.'),
 ('Seamless Services', 'Hassle-free event partner options.');
+
+-- Insert 100 fake employee entries into Employees.employee table
+INSERT INTO Employees.employee (full_name, contact, role_id) VALUES
+('Alice Johnson', '555-1234', 1),
+('Bob Smith', '555-1235', 2),
+('Charlie Brown', '555-1236', 3),
+('Diana Prince', '555-1237', 4),
+('Ethan Wright', '555-1238', 5),
+('Fiona Adams', '555-1239', 6),
+('George Carter', '555-1240', 7),
+('Hannah Baker', '555-1241', 8),
+('Ian Moore', '555-1242', 9),
+('Jack Wilson', '555-1243', 10),
+('Karen Miller', '555-1244', 1),
+('Leo Carter', '555-1245', 2),
+('Mia Martinez', '555-1246', 3),
+('Nathan White', '555-1247', 4),
+('Olivia Harris', '555-1248', 5),
+('Peter Thompson', '555-1249', 6),
+('Quinn Evans', '555-1250', 7),
+('Rachel King', '555-1251', 8),
+('Samuel Scott', '555-1252', 9),
+('Tina Rodriguez', '555-1253', 10),
+('Ulysses Clark', '555-1254', 1),
+('Victoria Lewis', '555-1255', 2),
+('Walter Allen', '555-1256', 3),
+('Xavier Young', '555-1257', 4),
+('Yara Hall', '555-1258', 5),
+('Zachary Adams', '555-1259', 6),
+('Abigail Brooks', '555-1260', 7),
+('Benjamin Parker', '555-1261', 8),
+('Caroline Gray', '555-1262', 9),
+('David Evans', '555-1263', 10),
+('Emily Carter', '555-1264', 1),
+('Franklin Diaz', '555-1265', 2),
+('Georgia Rivera', '555-1266', 3),
+('Hugo Sanders', '555-1267', 4),
+('Isabella Morales', '555-1268', 5),
+('James Bennett', '555-1269', 6),
+('Kaitlyn Reed', '555-1270', 7),
+('Luke Murphy', '555-1271', 8),
+('Madison Wood', '555-1272', 9),
+('Noah Mitchell', '555-1273', 10),
+('Olive Ward', '555-1274', 1),
+('Patrick Foster', '555-1275', 2),
+('Quentin Price', '555-1276', 3),
+('Rebecca Hughes', '555-1277', 4),
+('Simon Butler', '555-1278', 5),
+('Taylor Simmons', '555-1279', 6),
+('Umar Peterson', '555-1280', 7),
+('Vivian Harris', '555-1281', 8),
+('William Knight', '555-1282', 9),
+('Xenia Alexander', '555-1283', 10),
+('Youssef Bell', '555-1284', 1),
+('Zara Keller', '555-1285', 2),
+('Amos Gray', '555-1286', 3),
+('Bella Chapman', '555-1287', 4),
+('Carlos Henderson', '555-1288', 5),
+('Daisy Rivera', '555-1289', 6),
+('Eliot Brooks', '555-1290', 7),
+('Finn Carter', '555-1291', 8),
+('Gianna Ortiz', '555-1292', 9),
+('Harry Palmer', '555-1293', 10),
+('Isabel Moore', '555-1294', 1),
+('Jake Simmons', '555-1295', 2),
+('Kenny Lee', '555-1296', 3),
+('Laura Clarke', '555-1297', 4),
+('Mason Ward', '555-1298', 5),
+('Nina Taylor', '555-1299', 6),
+('Oscar Perry', '555-1300', 7),
+('Paula Murphy', '555-1301', 8),
+('Quincy Scott', '555-1302', 9),
+('Ryan Gray', '555-1303', 10),
+('Sophia Rivera', '555-1304', 1),
+('Travis Keller', '555-1305', 2),
+('Ursula Brooks', '555-1306', 3),
+('Victor Perry', '555-1307', 4),
+('Wendy Thompson', '555-1308', 5),
+('Xander Lewis', '555-1309', 6),
+('Yasmine Ward', '555-1310', 7),
+('Zane Carter', '555-1311', 8);
+
+
+-- Insert into Account.account with employee_id references and permission_id = 2
+INSERT INTO Account.account (email, password, permission_id, employee_id) 
+SELECT 
+    CONCAT('easys',Employees.employee.full_name, '@example.com') AS email,
+    'password123' AS password,
+    2 AS permission_id,
+    employee_id
+FROM Employees.employee;
+
