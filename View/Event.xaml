@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:OOP_EventsManagementSystem.View"
+             x:Name="EventUserControl"
              mc:Ignorable="d" 
              Height="600" 
              Width="850"
@@ -12,10 +13,10 @@
         CornerRadius="12">
         <Grid>
             <!-- Frame -->
-            <Grid Margin="15,12,15,17">
+            <Grid Margin="15,12,15,31">
                 <!-- Rectangle65 -->
                 <Border Background="#EFE9E4" CornerRadius="16" 
-                    Width="820" Height="516" VerticalAlignment="Top" Margin="0,47,0,0" >
+                    Width="820" Height="507" VerticalAlignment="Top" Margin="0,47,0,0" >
 
                 </Border>
                 <!-- Rectangle66 -->
@@ -36,7 +37,9 @@
             <Border Background="#D6DC82" CornerRadius="16" Width="63" Height="24" Margin="110,20,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" />
 
             <!-- Rectangle68 -->
-            <Border Background="#FFFAF6" CornerRadius="16" Width="170" Height="30" Margin="640,19,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" />
+            <Border Background="#FFFAF6" CornerRadius="16" Width="170" Height="30" Margin="640,19,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" >
+                <TextBox TextWrapping="NoWrap" Text="Search" FontSize="14" FontFamily="Bahnschrift" FontWeight="Regular" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" Foreground="#FF262628"/>
+            </Border>
 
             <!-- Image -->
             <Image Source="pack://application:,,,/Resources/Images/event2.jpg" Width="35" Height="35" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="563,18,0,0" ClipToBounds="True">
@@ -98,18 +101,41 @@
                         <Style.Resources>
                             <!-- Style cho ScrollBar -->
                             <Style TargetType="ScrollBar">
-                                <Setter Property="Background" Value="Transparent" />
-                                <Setter Property="Foreground" Value="#D96073" />
                                 <Setter Property="Width" Value="10" />
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="True">
-                                        <Setter Property="Background" Value="#D96073" />
-                                    </DataTrigger>
-                                </Style.Triggers>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="ScrollBar">
+                                            <Grid>
+                                                <!-- Loại bỏ nền Track -->
+                                                <Border Background="Transparent" CornerRadius="12" />
+                                                <Track Name="PART_Track">
+                                                    <Track.DecreaseRepeatButton>
+                                                        <RepeatButton Style="{x:Null}" IsEnabled="False" />
+                                                    </Track.DecreaseRepeatButton>
+                                                    <Track.Thumb>
+                                                        <!-- Con lăn (Thumb) -->
+                                                        <Thumb>
+                                                            <Thumb.Template>
+                                                                <ControlTemplate TargetType="Thumb">
+                                                                    <Border Background="#D96073" CornerRadius="12" />
+                                                                </ControlTemplate>
+                                                            </Thumb.Template>
+                                                        </Thumb>
+                                                    </Track.Thumb>
+                                                    <Track.IncreaseRepeatButton>
+                                                        <RepeatButton Style="{x:Null}" IsEnabled="False" />
+                                                    </Track.IncreaseRepeatButton>
+                                                </Track>
+                                            </Grid>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
                             </Style>
                         </Style.Resources>
                     </Style>
                 </ScrollViewer.Style>
+
+
                 <ItemsControl ItemsSource="{Binding Events}">
                     <ItemsControl.ItemsPanel>
                         <!-- Sử dụng WrapPanel để hiển thị các mục thành nhiều cột -->
@@ -134,7 +160,9 @@
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </ScrollViewer>
-
+        <Button Width="18" Height="18" Margin="10,566,816,10" Click="PowerOff_Click" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}">
+    <Image Source="pack://application:,,,/Resources/Images/poweroff.png" />
+</Button>
         </Grid>
     </Border>
 </UserControl>

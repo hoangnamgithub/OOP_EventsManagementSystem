@@ -30,5 +30,14 @@ namespace OOP_EventsManagementSystem.View
         {
             MessageBox.Show("Chi tiết sự kiện");
         }
+
+        private void PowerOff_Click(object sender, RoutedEventArgs e)
+        {
+            // Lấy cửa sổ chứa UserControl (MainWindow)
+            Window parentWindow = Window.GetWindow(this);
+
+            // Đóng cửa sổ (nếu tồn tại)
+            parentWindow?.Close();
+        }
     }
 }
