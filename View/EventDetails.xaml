@@ -77,7 +77,7 @@
             <!--Trang thai cua event-->
             <!--Scroll View -->
 
-            <Button Width="18" Height="18" Margin="13,569,753,13" Click="PowerOff_Click" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}">
+            <Button Width="18" Height="18" Margin="10,566,816,10" Click="PowerOff_Click" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}">
                 <Image Source="pack://application:,,,/Resources/Images/poweroff.png" />
             </Button>
             <Rectangle HorizontalAlignment="Left" Height="34" Margin="744,20,0,0" VerticalAlignment="Top" Width="81" Fill="White" RadiusX="16" RadiusY="16" Grid.ColumnSpan="2"/>
@@ -116,18 +116,17 @@
                     </ToggleButton.Triggers>
                 </ToggleButton>
             </Grid>
-            <Grid Height="144" Width="220" Margin="10">
-                <Rectangle Fill="#FFFFFAF6" RadiusX="12" RadiusY="12" />
-                <Image Source="{Binding ImagePath}" Width="212" Height="137" Margin="9">
+            <Grid Height="216" Width="330" Margin="38,100,482,280">
+                <Rectangle Fill="#FFFFFAF6" RadiusX="16" RadiusY="16" Height="216" Width="330" />
+                <Image Source="{Binding ImagePath}" Width="318" Height="205">
                     <Image.Clip>
-                        <RectangleGeometry RadiusX="12" RadiusY="12" Rect="0,0,152,125" />
+                        <RectangleGeometry RadiusX="16" RadiusY="16" Rect="0,4,228,197" />
                     </Image.Clip>
                 </Image>
-                <TextBlock Text="{Binding Day}" Foreground="#262628" FontSize="20" FontFamily="Bahnschrift" FontWeight="Medium" Margin="165,7,0,0" />
-                <TextBlock Text="{Binding Month}" Foreground="#262628" FontSize="20" FontFamily="Bahnschrift" FontWeight="Medium" Margin="165,24,0,0" />
-                <TextBlock Text="{Binding Weekday}" Foreground="#262628" FontSize="10" FontFamily="Bahnschrift" Margin="165,43,0,0" />
-                <TextBlock Text="{Binding Name}" Foreground="#FFFFFAF6" FontSize="16" FontFamily="Bahnschrift" Margin="15,112,0,0" HorizontalAlignment="Left" />
-       
+                <TextBlock Text="{Binding Day}" Foreground="#262628" FontSize="30" FontFamily="Bahnschrift" FontWeight="Medium" Margin="248,10,0,0" />
+                <TextBlock Text="{Binding Month}" Foreground="#262628" FontSize="30" FontFamily="Bahnschrift" FontWeight="Medium" Margin="248,36,0,0" />
+                <TextBlock Text="{Binding Weekday}" Foreground="#262628" FontSize="15" FontFamily="Bahnschrift" Margin="248,65,0,0" />
+                <TextBlock Text="{Binding Name}" Foreground="#FFFFFAF6" FontSize="24" FontFamily="Bahnschrift" Margin="23,175,0,0" HorizontalAlignment="Left" />
             </Grid>
 
 

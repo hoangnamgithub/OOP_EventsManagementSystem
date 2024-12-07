@@ -4,6 +4,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using System.Windows;
+using System.Windows.Controls;
 
 
 namespace OOP_EventsManagementSystem.ViewModel
@@ -34,7 +35,7 @@ namespace OOP_EventsManagementSystem.ViewModel
             Console.WriteLine($"{Name} đã được chọn!");
 
             // Lấy ứng dụng chính và kiểm tra Frame điều hướng
-            var frame = Application.Current.MainWindow.FindName("MainFrame") as System.Windows.Controls.Frame;
+            var frame = Application.Current.MainWindow.FindName("MainFrame") as Frame;
 
             if (frame != null)
             {
@@ -44,12 +45,11 @@ namespace OOP_EventsManagementSystem.ViewModel
                 // Cung cấp dữ liệu cho EventDetails nếu cần
                 eventDetails.DataContext = new EventDetailsVM(Name, Day, Month, Weekday, ImagePath);
 
-                // Chuyển hướng đến EventDetails.xaml
+                // Điều hướng đến EventDetails.xaml trong Frame
                 frame.Navigate(eventDetails);
-
-
             }
         }
+
     }
     public class EventListVM
     {

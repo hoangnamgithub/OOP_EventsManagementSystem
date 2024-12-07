@@ -15,19 +15,25 @@
         Background="Transparent"
         >
     <Border Background="#EFE9E4" CornerRadius="12">
-        <Grid x:Name="RootGrid">
+
+        <Grid x:Name="RootGrid" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
+                
+                <!-- Nội dung cửa sổ -->
+                <Border Background="White" CornerRadius="10" Padding="10">
+                    <TextBlock Text="" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,-10,0,0" Width="850"/>
+                </Border>
+            
             <!-- Container chính để hiển thị nội dung -->
-            <Frame Name="MainFrame" NavigationUIVisibility="Hidden" />
-            <Grid x:Name="MainContainer" Visibility="Collapsed">
-                 <local:Event />
-            </Grid>
-
-            <Grid Visibility="Collapsed">
-                <local:EventDetails />
-            </Grid>
-
-            <!-- Nội dung giao diện đăng nhập -->
+            <Frame x:Name="MainFrame" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" NavigationUIVisibility="Hidden"/>
+            
+                <!-- Nội dung giao diện đăng nhập -->
             <Grid x:Name="LoginContainer">
+                <Grid MouseLeftButtonDown="Grid_MouseLeftButtonDown">
+                    <!-- Nội dung cửa sổ -->
+                    <Border Background="White" CornerRadius="10" Padding="10">
+                        <TextBlock Text="" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,-10,0,0" Width="850"/>
+                    </Border>
+                </Grid>
                 <Button Width="18" Height="18" Margin="10,566,816,10" Click="PowerOff_Click" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}">
                     <Image Source="pack://application:,,,/Resources/Images/powerofff.png" />
                 </Button>
@@ -178,6 +184,7 @@ Click="btn_eye_Click" Foreground="{x:Null}">
    Stretch="Uniform" />
                 </Button>
             </Grid>
+            
         </Grid>
     </Border>
 </Window>

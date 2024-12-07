@@ -133,14 +133,13 @@
 
 
                                 <TextBlock Text="{Binding Name}" Foreground="#FFFFFAF6" FontSize="16" FontFamily="Bahnschrift" Margin="15,112,0,0" HorizontalAlignment="Left" />
-                                
-                               
+
+
                             </Grid>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </ScrollViewer>
-
             <Button Width="18" Height="18" Margin="10,566,816,10" Click="PowerOff_Click" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}">
     <Image Source="pack://application:,,,/Resources/Images/poweroff.png" />
 </Button>
