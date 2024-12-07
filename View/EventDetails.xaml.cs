@@ -1,17 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using OOP_EventsManagementSystem.ViewModel;
 
 namespace OOP_EventsManagementSystem.View
 {
@@ -23,6 +13,18 @@ namespace OOP_EventsManagementSystem.View
         public EventDetails()
         {
             InitializeComponent();
+        }
+
+        
+        // Đặt phương thức PowerOff_Click bên trong lớp
+        
+        private void PowerOff_Click(object sender, RoutedEventArgs e)
+        {
+            // Lấy cửa sổ chứa UserControl (MainWindow)
+            Window parentWindow = Window.GetWindow(this);
+
+            // Đóng cửa sổ (nếu tồn tại)
+            parentWindow?.Close();
         }
     }
 }

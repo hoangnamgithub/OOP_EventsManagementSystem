@@ -96,7 +96,6 @@
             HorizontalAlignment="Left" VerticalAlignment="Top" Margin="445,84,0,0" />
             <!--Danh sach event-->
             <ScrollViewer VerticalScrollBarVisibility="Visible" Margin="40,125,40,45">
-                
                 <ItemsControl ItemsSource="{Binding Events}">
                     <ItemsControl.ItemsPanel>
                         <!-- Sử dụng WrapPanel để hiển thị các mục thành nhiều cột -->
@@ -113,16 +112,36 @@
                                         <RectangleGeometry RadiusX="12" RadiusY="12" Rect="0,0,152,125" />
                                     </Image.Clip>
                                 </Image>
-                                <TextBlock Text="{Binding Day}" Foreground="#262628" FontSize="20" FontFamily="Bahnschrift" FontWeight="Medium" Margin="165,7,0,0" />
-                                <TextBlock Text="{Binding Month}" Foreground="#262628" FontSize="20" FontFamily="Bahnschrift" FontWeight="Medium" Margin="165,24,0,0" />
-                                <TextBlock Text="{Binding Weekday}" Foreground="#262628" FontSize="10" FontFamily="Bahnschrift" Margin="165,43,0,0" />
+                                <Button Command="{Binding ItemSelectedCommand}" CommandParameter="{Binding}" 
+        Background="Transparent" BorderBrush="Transparent" Margin="165,7,0,0" 
+        HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Height="90">
+                                    <Grid HorizontalAlignment="Left" VerticalAlignment="Top">
+                                        <!-- Day -->
+                                        <TextBlock Text="{Binding Day}" Foreground="#262628" FontSize="20" 
+                   FontFamily="Bahnschrift" FontWeight="Medium" Margin="0,0,175,65" />
+
+                                        <!-- Month -->
+                                        <TextBlock Text="{Binding Month}" Foreground="#262628" FontSize="20" 
+                   FontFamily="Bahnschrift" FontWeight="Medium" Margin="0,20,0,0"/>
+
+                                        <!-- Weekday -->
+                                        <TextBlock Text="{Binding Weekday}" Foreground="#262628" FontSize="10" 
+                   FontFamily="Bahnschrift" HorizontalAlignment="Left" 
+                   VerticalAlignment="Top" Margin="0,40,0,0"/>
+                                    </Grid>
+                                </Button>
+
+
                                 <TextBlock Text="{Binding Name}" Foreground="#FFFFFAF6" FontSize="16" FontFamily="Bahnschrift" Margin="15,112,0,0" HorizontalAlignment="Left" />
+                                
+                               
                             </Grid>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </ScrollViewer>
-        <Button Width="18" Height="18" Margin="10,566,816,10" Click="PowerOff_Click" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}">
+
+            <Button Width="18" Height="18" Margin="10,566,816,10" Click="PowerOff_Click" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}">
     <Image Source="pack://application:,,,/Resources/Images/poweroff.png" />
 </Button>
         </Grid>

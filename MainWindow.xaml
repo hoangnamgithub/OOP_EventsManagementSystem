@@ -17,8 +17,13 @@
     <Border Background="#EFE9E4" CornerRadius="12">
         <Grid x:Name="RootGrid">
             <!-- Container chính để hiển thị nội dung -->
+            <Frame Name="MainFrame" NavigationUIVisibility="Hidden" />
             <Grid x:Name="MainContainer" Visibility="Collapsed">
                  <local:Event />
+            </Grid>
+
+            <Grid Visibility="Collapsed">
+                <local:EventDetails />
             </Grid>
 
             <!-- Nội dung giao diện đăng nhập -->

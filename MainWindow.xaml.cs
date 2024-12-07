@@ -1,4 +1,5 @@
 ﻿using OOP_EventsManagementSystem.View;
+using OOP_EventsManagementSystem.ViewModel;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -22,6 +23,7 @@ namespace OOP_EventsManagementSystem
         public MainWindow()
         {
             InitializeComponent();
+            MainFrame.Navigate(new Event());
         }
 
         private void btn_eye_Click(object sender, RoutedEventArgs e)
