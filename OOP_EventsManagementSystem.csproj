@@ -20,10 +20,23 @@
   <ItemGroup>
     <None Remove="Resources\Fonts\Poppins-Regular.ttf" />
     <None Remove="Resources\Fonts\Poppins-SemiBold.ttf" />
+    <None Remove="Resources\Images\employee_d.png" />
+    <None Remove="Resources\Images\employee_t.png" />
+    <None Remove="Resources\Images\equipment_t.png" />
+    <None Remove="Resources\Images\equipmen_d.png" />
+    <None Remove="Resources\Images\event2.jpg" />
+    <None Remove="Resources\Images\event_den.png" />
+    <None Remove="Resources\Images\event_trang.png" />
     <None Remove="Resources\Images\eye_off.png" />
     <None Remove="Resources\Images\eye_on.png" />
+    <None Remove="Resources\Images\location_den.png" />
+    <None Remove="Resources\Images\location_trang.png" />
+    <None Remove="Resources\Images\partner_d.png" />
+    <None Remove="Resources\Images\partner_t.png" />
     <None Remove="Resources\Images\poweroff.png" />
     <None Remove="Resources\Images\powerofff.png" />
+    <None Remove="Resources\Images\show_den.png" />
+    <None Remove="Resources\Images\show_trang.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -32,16 +45,55 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Images\employee_d.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\employee_t.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\equipment_t.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\equipmen_d.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\event2.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\event_den.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\event_trang.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Images\eye_off.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Images\eye_on.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Images\location_den.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\location_trang.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\partner_d.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\partner_t.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Images\poweroff.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Images\powerofff.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\show_den.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\show_trang.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
