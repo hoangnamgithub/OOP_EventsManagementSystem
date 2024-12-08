@@ -16,25 +16,18 @@ namespace OOP_EventsManagementSystem.Database
                 {
                     connection.Open();
 
-                    // Check if database exists, drop and recreate it if necessary
-                    string dropDbQuery = $"IF DB_ID('{DatabaseName}') IS NOT NULL DROP DATABASE {DatabaseName};";
-                    using (var command = new SqlCommand(dropDbQuery, connection))
+                    // Check if the database exists
+                    var checkDbQuery = $"IF DB_ID('{DatabaseName}') IS NULL CREATE DATABASE {DatabaseName};";
+                    using (var command = new SqlCommand(checkDbQuery, connection))
                     {
                         command.ExecuteNonQuery();
-                        Console.WriteLine($"Database '{DatabaseName}' dropped.");
+                        Console.WriteLine($"Database '{DatabaseName}' verified/created.");
                     }
 
-                    string createDbQuery = $"CREATE DATABASE {DatabaseName};";
-                    using (var command = new SqlCommand(createDbQuery, connection))
-                    {
-                        command.ExecuteNonQuery();
-                        Console.WriteLine($"Database '{DatabaseName}' created.");
-                    }
-
-                    // Switch to the newly created database
+                    // Switch to the database
                     connection.ChangeDatabase(DatabaseName);
 
-                    // Execute schema and table creation logic
+                    // Check and create tables if they don't exist
                     string[] schemaScripts = GetSchemaCreationScripts();
                     foreach (var script in schemaScripts)
                     {
@@ -49,7 +42,6 @@ namespace OOP_EventsManagementSystem.Database
                         {
                             Console.WriteLine($"Error executing script: {script.Substring(0, Math.Min(script.Length, 100))}...");
                             Console.WriteLine($"Error details: {ex.Message}");
-                            throw;
                         }
                     }
 
@@ -62,6 +54,7 @@ namespace OOP_EventsManagementSystem.Database
                 throw;
             }
         }
+
 
         private static string[] GetSchemaCreationScripts()
         {
