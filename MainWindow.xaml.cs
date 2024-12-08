@@ -1,4 +1,5 @@
 ﻿using OOP_EventsManagementSystem.View;
+using OOP_EventsManagementSystem.ViewModel;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -22,8 +23,17 @@ namespace OOP_EventsManagementSystem
         public MainWindow()
         {
             InitializeComponent();
+            MainFrame.Navigate(new Event());
         }
 
+        private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ButtonState == MouseButtonState.Pressed)
+            {
+                // Di chuyển cửa sổ
+                this.DragMove();
+            }
+        }
         private void btn_eye_Click(object sender, RoutedEventArgs e)
         {
             if (isPasswordVisible)
@@ -59,25 +69,34 @@ namespace OOP_EventsManagementSystem
         }
         private void btn_login_Click(object sender, RoutedEventArgs e)
         {
-            // Tạo đối tượng Event UserControl
-            Event eventControl = new Event();
+            // Kiểm tra điều kiện login (nếu cần)
+            // Ví dụ: if (IsLoginValid()) { 
 
-            // Gắn Event UserControl vào container chính
-            MainContainer.Children.Clear(); // Xóa các thành phần cũ nếu cần
-            MainContainer.Children.Add(eventControl);
+            // Tạo đối tượng Event UserControl (nếu cần)
+            var eventControl = new Event();
 
-            // Hiển thị MainContainer
-            MainContainer.Visibility = Visibility.Visible;
+            // Chuyển hướng tới Event.xaml (hoặc Event UserControl)
+            var frame = Application.Current.MainWindow.FindName("MainFrame") as Frame;
+            if (frame != null)
+            {
+                // Điều hướng tới Event UserControl
+                frame.Navigate(eventControl);
+            }
 
-            // Ẩn các thành phần liên quan đến giao diện login
-            LoginContainer.Visibility = Visibility.Collapsed; // Đảm bảo LoginContainer được khai báo
+            // Ẩn LoginContainer sau khi điều hướng
+            LoginContainer.Visibility = Visibility.Collapsed;
+
+            
         }
+
 
         private void PowerOff_Click(object sender, RoutedEventArgs e)
         {
             // Tắt cửa sổ hiện tại
             this.Close();
         }
+
+      
 
     }
 }

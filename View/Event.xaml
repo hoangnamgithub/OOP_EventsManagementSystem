@@ -4,86 +4,145 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:OOP_EventsManagementSystem.View"
+             x:Name="EventUserControl"
              mc:Ignorable="d" 
              Height="600" 
              Width="850"
              Background="Transparent">
-    <Grid>
-        <Border Background="#FFF6EF"
+    <Border Background="#262628"
         CornerRadius="12">
-        </Border>
-        <Canvas Width="850" Height="600">
-            <!-- Background Rectangle -->
-            <!-- Background Rectangle -->
-            <Rectangle Width="850" Height="600" Fill="#FFF6EF" RadiusX="12" RadiusY="12" />
+        <Grid>
+            <!-- Frame -->
+            <Grid Margin="15,12,15,31">
+                <!-- Rectangle65 -->
+                <Border Background="#EFE9E4" CornerRadius="16" 
+                    Width="820" Height="507" VerticalAlignment="Top" Margin="0,47,0,0" >
 
-            <Rectangle Width="850" Height="50" Fill="White" Canvas.Left="0" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </Border>
+                <!-- Rectangle66 -->
+                <Border Background="#EFE9E4" CornerRadius="16" 
+                    Width="204" Height="88" VerticalAlignment="Top" HorizontalAlignment="Right" />
+                <!-- Vector2 -->
+                <Border Background="#EFE9E4" Width="99" Height="52" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,142,210,0" />
+            </Grid>
 
-            <!-- Sidebar -->
-            <Rectangle Width="140" Height="600" Fill="#262628" Canvas.Left="0" HorizontalAlignment="Left" VerticalAlignment="Center" />
+            <!-- Easys -->
+            <TextBlock Text="easys" Foreground="#D6DC82" FontSize="28" FontFamily="Bahnschrift" FontWeight="SemiBold"
+                   HorizontalAlignment="Left" VerticalAlignment="Top" Margin="25,12,0,0" />
 
-            <!-- Text elements -->
-            <TextBlock Text="easys" FontSize="36" FontWeight="Bold" Foreground="#D6DC82" 
-                       FontFamily="Bahnschrift SemiBold" Canvas.Left="24" Canvas.Top="40" HorizontalAlignment="Center" VerticalAlignment="Top" />
-            <TextBlock Text="MENU" FontSize="14" FontWeight="Normal" Foreground="#44444C" 
-                       FontFamily="Bahnschrift Light" Canvas.Left="10" Canvas.Top="113" />
+            <!-- Rectangle67 -->
+            <Border Background="#44444C" CornerRadius="16" Width="450" Height="30" Margin="106,17,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" />
 
-            <!-- Event Title -->
-            <TextBlock Text="Today’s Events" FontSize="36" Foreground="#262628"
-                       FontFamily="Bahnschrift SemiBold" Canvas.Left="180" Canvas.Top="81" />
+            <!-- Rectangle69 -->
+            <Border Background="#D6DC82" CornerRadius="16" Width="63" Height="24" Margin="110,20,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" />
 
-            <!-- Event Box -->
-            <Rectangle Width="228" Height="68" Fill="#D96073" RadiusX="16" RadiusY="16" 
-                       Canvas.Left="1130" Canvas.Top="175" />
-            <TextBlock Text="Add event" FontSize="32" Foreground="#FFF6EF"
-                       FontFamily="Poppins" Canvas.Left="1158" Canvas.Top="184" />
+            <!-- Rectangle68 -->
+            <Border Background="#FFFAF6" CornerRadius="16" Width="170" Height="30" Margin="640,19,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" >
+                <TextBox TextWrapping="NoWrap" Text="Search" FontSize="14" FontFamily="Bahnschrift" FontWeight="Regular" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" Foreground="#FF262628"/>
+            </Border>
 
-            <Canvas Width="480" Height="233" Canvas.Left="345" Canvas.Top="393">
-                <!-- Rectangle6 -->
-                <Rectangle Width="480" Height="232" Fill="White" RadiusX="12" RadiusY="12" 
-                           Stroke="#000000" Canvas.Left="0" Canvas.Top="1" />
-                <Image Width="367" Height="232" Canvas.Top="1" Source="pack://application:,,,/Resources/Images/event2.jpg" HorizontalAlignment="Left" VerticalAlignment="Center">
-                    <Image.Clip>
-                        <RectangleGeometry Rect="0,0,367,232" RadiusX="16" RadiusY="16" />
-                    </Image.Clip>
-                </Image>
-                <Grid Height="90" Canvas.Left="498" Canvas.Top="27" Width="128">
-                    <TextBlock Text="9" FontSize="40" Foreground="#262628" FontFamily="Poppins" Margin="56,0,50,42" />
-                    <TextBlock Text="th" FontSize="16" Foreground="#262628" FontFamily="Poppins" Margin="83,10,31,61" />
-                    <TextBlock Text="16:00 | 23:00" FontSize="13" Foreground="#262628" FontFamily="Poppins" Margin="56,74,0,0" />
-                    <TextBlock Text="DEC" FontSize="30" Foreground="#262628" FontFamily="Poppins" Margin="56,43,17,11" />
-                    <TextBlock Text="MONDAY" FontSize="20" Foreground="#262628" FontFamily="Poppins" RenderTransformOrigin="0.5,0.5" Margin="0,36,44,30" >
-                        <TextBlock.RenderTransform>
-                            <TransformGroup>
-                                <ScaleTransform/>
-                                <SkewTransform/>
-                                <RotateTransform Angle="-90.101"/>
-                                <TranslateTransform/>
-                            </TransformGroup>
-                        </TextBlock.RenderTransform>
-                    </TextBlock>
-                </Grid>
+            <!-- Image -->
+            <Image Source="pack://application:,,,/Resources/Images/event2.jpg" Width="35" Height="35" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="563,18,0,0" ClipToBounds="True">
+                <Image.Clip>
+                    <EllipseGeometry RadiusX="17.5" RadiusY="17.5" Center="17.5,17.5" />
+                </Image.Clip>
+            </Image>
+
+            <!-- TextBlocks for Navigation -->
+            <TextBlock Text="Event" Foreground="#262628" FontSize="13" FontFamily="Bahnschrift" FontWeight="Medium"
+                   HorizontalAlignment="Left" VerticalAlignment="Top" Margin="126,24,0,0" />
+            <TextBlock Text="Show" Foreground="#FFF6EF" FontSize="13" FontFamily="Bahnschrift" FontWeight="Medium"
+                   HorizontalAlignment="Left" VerticalAlignment="Top" Margin="186,24,0,0" />
+            <TextBlock Text="Partner" Foreground="#FFF6EF" FontSize="13" FontFamily="Bahnschrift" FontWeight="Medium"
+                   HorizontalAlignment="Left" VerticalAlignment="Top" Margin="246,24,0,0" />
+            <TextBlock Text="Location" Foreground="#FFF6EF" FontSize="13" FontFamily="Bahnschrift" FontWeight="Medium"
+                   HorizontalAlignment="Left" VerticalAlignment="Top" Margin="316,24,0,0" />
+            <TextBlock Text="Equipment" Foreground="#FFF6EF" FontSize="13" FontFamily="Bahnschrift" FontWeight="Medium"
+                   HorizontalAlignment="Left" VerticalAlignment="Top" Margin="468,24,0,0" />
+            <TextBlock Text="Employee" Foreground="#FFF6EF" FontSize="13" FontFamily="Bahnschrift" FontWeight="Medium"
+       HorizontalAlignment="Left" VerticalAlignment="Top" Margin="390,24,0,0" />
+
+            <!-- Chevron -->
+            <Border Width="22" Height="22" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="603,26,0,0">
+                <Polygon Points="5,5 15,5 10,10" Fill="#FFF6EF" />
+            </Border>
+
+            <!-- Search Icon -->
+
+            <!-- Rectangle5 -->
+            <Border Background="#D6DC82" CornerRadius="20
+" Width="88" Height="45" Margin="40,71,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" />
+            <TextBlock Text="Dec, 03" Foreground="#FFF6EF" FontSize="16" FontFamily="Bahnschrift" FontWeight="Bold"
+                   HorizontalAlignment="Left" VerticalAlignment="Top" Margin="56,84,0,0" Width="56" />
+            <TextBlock Text="(32)" Foreground="#262628" FontSize="14" FontFamily="Bahnschrift" FontWeight="Medium"
+            HorizontalAlignment="Left" VerticalAlignment="Top" Margin="117,71,0,0" Width="26" />
+
+            <!-- Vector Blocks -->
+
+            <!-- Add Event Button -->
+            <Border Background="#D96073" CornerRadius="16" Width="112" Height="37" Margin="657,75,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <TextBlock Text="Add Event" Foreground="#FFF6EF" FontSize="16" FontFamily="Bahnschrift" FontWeight="Medium" VerticalAlignment="Center" HorizontalAlignment="Center" />
+            </Border>
+            <Border Width="22" Height="22" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="788,26,0,0" RenderTransformOrigin="0.064,0.523">
+                <Polygon Points="5,5 15,5 10,10" Fill="#262628" />
+            </Border>
+
+            <!--Trang thai cua event-->
+            <TextBlock Text="Up Coming" Foreground="#262628" FontSize="16" FontFamily="Bahnschrift" FontWeight="Medium"
+             HorizontalAlignment="Left" VerticalAlignment="Top" Margin="185,84,0,0" />
+            <TextBlock Text="Happening" Foreground="#8F8F92" FontSize="16" FontFamily="Bahnschrift" FontWeight="Medium"
+            HorizontalAlignment="Left" VerticalAlignment="Top" Margin="315,84,0,0" />
+            <TextBlock Text="Completed" Foreground="#8F8F92" FontSize="16" FontFamily="Bahnschrift" FontWeight="Medium"
+            HorizontalAlignment="Left" VerticalAlignment="Top" Margin="445,84,0,0" />
+            <!--Danh sach event-->
+            <ScrollViewer VerticalScrollBarVisibility="Visible" Margin="40,125,40,45">
+                <ItemsControl ItemsSource="{Binding Events}">
+                    <ItemsControl.ItemsPanel>
+                        <!-- Sử dụng WrapPanel để hiển thị các mục thành nhiều cột -->
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Height="144" Width="220" Margin="10">
+                                <Rectangle Fill="#FFFFFAF6" RadiusX="12" RadiusY="12" />
+                                <Image Source="{Binding ImagePath}" Width="212" Height="137" Margin="9">
+                                    <Image.Clip>
+                                        <RectangleGeometry RadiusX="12" RadiusY="12" Rect="0,0,152,125" />
+                                    </Image.Clip>
+                                </Image>
+                                <Button Command="{Binding ItemSelectedCommand}" CommandParameter="{Binding}" 
+        Background="Transparent" BorderBrush="Transparent" Margin="165,7,0,0" 
+        HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Height="90">
+                                    <Grid HorizontalAlignment="Left" VerticalAlignment="Top">
+                                        <!-- Day -->
+                                        <TextBlock Text="{Binding Day}" Foreground="#262628" FontSize="20" 
+                   FontFamily="Bahnschrift" FontWeight="Medium" Margin="0,0,175,65" />
+
+                                        <!-- Month -->
+                                        <TextBlock Text="{Binding Month}" Foreground="#262628" FontSize="20" 
+                   FontFamily="Bahnschrift" FontWeight="Medium" Margin="0,20,0,0"/>
+
+                                        <!-- Weekday -->
+                                        <TextBlock Text="{Binding Weekday}" Foreground="#262628" FontSize="10" 
+                   FontFamily="Bahnschrift" HorizontalAlignment="Left" 
+                   VerticalAlignment="Top" Margin="0,40,0,0"/>
+                                    </Grid>
+                                </Button>
 
 
-                <TextBlock Text="GenFest 2024" FontSize="20" Foreground="#FFF6EF" FontFamily="Poppins" Canvas.Left="212" Canvas.Top="199" />
-            </Canvas>
-            <Rectangle Width="140" Height="35" Fill="#FFD6DC82" HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Top="135" />
-            <!-- Menu items -->
-            <TextBlock Text="Event" FontSize="18" FontWeight="Medium" Foreground="#262628" 
-                       FontFamily="Bahnschrift SemiCondensed" Canvas.Left="50" Canvas.Top="142" HorizontalAlignment="Left" VerticalAlignment="Center" />
-            <TextBlock Text="Event" FontSize="18" FontWeight="Medium" Foreground="#FFFFF6EF" 
-                FontFamily="Bahnschrift SemiCondensed" Canvas.Left="50" Canvas.Top="180" HorizontalAlignment="Left" VerticalAlignment="Center" />
-            <TextBlock Text="Event" FontSize="18" FontWeight="Medium" Foreground="#FFFFF6EF" 
-                FontFamily="Bahnschrift SemiCondensed" Canvas.Left="50" Canvas.Top="218" HorizontalAlignment="Left" VerticalAlignment="Center" />
-            <TextBlock Text="Event" FontSize="18" FontWeight="Medium" Foreground="#FFFFF6EF" 
-                FontFamily="Bahnschrift SemiCondensed" Canvas.Left="50" Canvas.Top="256" HorizontalAlignment="Left" VerticalAlignment="Center" />
-            <TextBlock Text="Event" FontSize="18" FontWeight="Medium" Foreground="#FFFFF6EF" 
-                FontFamily="Bahnschrift SemiCondensed" Canvas.Left="50" Canvas.Top="294" HorizontalAlignment="Left" VerticalAlignment="Center" />
-            <TextBlock Text="Event" FontSize="18" FontWeight="Medium" Foreground="#FFFFF6EF" 
-                FontFamily="Bahnschrift SemiCondensed" Canvas.Left="50" Canvas.Top="332" HorizontalAlignment="Left" VerticalAlignment="Center" />
-            <Button Content="Button" Canvas.Left="688" Canvas.Top="85" Click="Button_Click" Background="#FFD96073" BorderBrush="{x:Null}" Foreground="#FFFFF6EF" FontFamily="Bahnschrift SemiCondensed" Height="50" Width="100" FontSize="18"/>
+                                <TextBlock Text="{Binding Name}" Foreground="#FFFFFAF6" FontSize="16" FontFamily="Bahnschrift" Margin="15,112,0,0" HorizontalAlignment="Left" />
 
-            <!-- More components can be added here with similar logic -->
-        </Canvas>
-    </Grid>
+
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+            <Button Width="18" Height="18" Margin="10,566,816,10" Click="PowerOff_Click" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}">
+    <Image Source="pack://application:,,,/Resources/Images/poweroff.png" />
+</Button>
+        </Grid>
+    </Border>
 </UserControl>
