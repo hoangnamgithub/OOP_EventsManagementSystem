@@ -29,17 +29,20 @@
             <!-- Easys -->
             <TextBlock Text="easys" Foreground="#D6DC82" FontSize="28" FontFamily="Bahnschrift" FontWeight="SemiBold"
                    HorizontalAlignment="Left" VerticalAlignment="Top" Margin="25,12,0,0" />
+            <Button Width="18" Height="18" Margin="10,566,816,10" Click="PowerOff_Click" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}">
+                <Image Source="pack://application:,,,/Resources/Images/poweroff.png" />
+            </Button>
 
             <!-- Rectangle67 -->
             <Border Background="#44444C" CornerRadius="16" Width="450" Height="30" Margin="106,17,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" />
 
             <!-- Rectangle69 -->
             <Border Background="#D6DC82" CornerRadius="16" Width="63" Height="24" Margin="110,20,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" />
-
-            <!-- Rectangle68 -->
             <Border Background="#FFFAF6" CornerRadius="16" Width="170" Height="30" Margin="640,19,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" >
                 <TextBox TextWrapping="NoWrap" Text="Search" FontSize="14" FontFamily="Bahnschrift" FontWeight="Regular" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" Foreground="#FF262628"/>
             </Border>
+
+            <!-- Rectangle68 -->
 
             <!-- Image -->
             <Image Source="pack://application:,,,/Resources/Images/event2.jpg" Width="35" Height="35" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="563,18,0,0" ClipToBounds="True">
@@ -95,54 +98,6 @@
             <TextBlock Text="Completed" Foreground="#8F8F92" FontSize="16" FontFamily="Bahnschrift" FontWeight="Medium"
             HorizontalAlignment="Left" VerticalAlignment="Top" Margin="445,84,0,0" />
             <!--Danh sach event-->
-            <ScrollViewer VerticalScrollBarVisibility="Visible" Margin="40,125,40,45">
-                <ItemsControl ItemsSource="{Binding Events}">
-                    <ItemsControl.ItemsPanel>
-                        <!-- Sử dụng WrapPanel để hiển thị các mục thành nhiều cột -->
-                        <ItemsPanelTemplate>
-                            <WrapPanel Orientation="Horizontal" />
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Grid Height="144" Width="220" Margin="10">
-                                <Rectangle Fill="#FFFFFAF6" RadiusX="12" RadiusY="12" />
-                                <Image Source="{Binding ImagePath}" Width="212" Height="137" Margin="9">
-                                    <Image.Clip>
-                                        <RectangleGeometry RadiusX="12" RadiusY="12" Rect="0,0,152,125" />
-                                    </Image.Clip>
-                                </Image>
-                                <Button Command="{Binding ItemSelectedCommand}" CommandParameter="{Binding}" 
-        Background="Transparent" BorderBrush="Transparent" Margin="165,7,0,0" 
-        HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Height="90">
-                                    <Grid HorizontalAlignment="Left" VerticalAlignment="Top">
-                                        <!-- Day -->
-                                        <TextBlock Text="{Binding Day}" Foreground="#262628" FontSize="20" 
-                   FontFamily="Bahnschrift" FontWeight="Medium" Margin="0,0,175,65" />
-
-                                        <!-- Month -->
-                                        <TextBlock Text="{Binding Month}" Foreground="#262628" FontSize="20" 
-                   FontFamily="Bahnschrift" FontWeight="Medium" Margin="0,20,0,0"/>
-
-                                        <!-- Weekday -->
-                                        <TextBlock Text="{Binding Weekday}" Foreground="#262628" FontSize="10" 
-                   FontFamily="Bahnschrift" HorizontalAlignment="Left" 
-                   VerticalAlignment="Top" Margin="0,40,0,0"/>
-                                    </Grid>
-                                </Button>
-
-
-                                <TextBlock Text="{Binding Name}" Foreground="#FFFFFAF6" FontSize="16" FontFamily="Bahnschrift" Margin="15,112,0,0" HorizontalAlignment="Left" />
-
-
-                            </Grid>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </ScrollViewer>
-            <Button Width="18" Height="18" Margin="10,566,816,10" Click="PowerOff_Click" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}">
-    <Image Source="pack://application:,,,/Resources/Images/poweroff.png" />
-</Button>
         </Grid>
     </Border>
 </UserControl>
