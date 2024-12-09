@@ -33,12 +33,53 @@ Background="#FFFAF5F5"
 CornerRadius="16" 
 Margin="0,24,0,23" 
 Width="808">
-                            <TextBlock 
-    Text="Filled, centered, required width, tab 4"
-    VerticalAlignment="Center"
-    HorizontalAlignment="Center"
-    Padding="8" />
+                            <ScrollViewer VerticalScrollBarVisibility="Visible" Margin="10,10,0,10">
+                                <ItemsControl ItemsSource="{Binding Events}" Height="469" Width="771">
+                                    <ItemsControl.ItemsPanel>
+                                        <!-- Sử dụng WrapPanel để hiển thị các mục thành nhiều cột -->
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel Orientation="Horizontal" />
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid Height="144" Width="220" Margin="10">
+                                                <Rectangle Fill="#FFFFFAF6" RadiusX="12" RadiusY="12" />
+                                                <Image Source="{Binding ImagePath}" Width="212" Height="137" Margin="9">
+                                                    <Image.Clip>
+                                                        <RectangleGeometry RadiusX="12" RadiusY="12" Rect="0,0,152,125" />
+                                                    </Image.Clip>
+                                                </Image>
+                                                <Button Command="{Binding ItemSelectedCommand}" CommandParameter="{Binding}" 
+Background="Transparent" BorderBrush="Transparent" Margin="165,7,0,0" 
+HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Height="90">
+                                                    <Grid HorizontalAlignment="Left" VerticalAlignment="Top">
+                                                        <!-- Day -->
+                                                        <TextBlock Text="{Binding Day}" Foreground="#262628" FontSize="20" 
+           FontFamily="Bahnschrift" FontWeight="Medium" Margin="0,0,175,65" />
+
+                                                        <!-- Month -->
+                                                        <TextBlock Text="{Binding Month}" Foreground="#262628" FontSize="20" 
+           FontFamily="Bahnschrift" FontWeight="Medium" Margin="0,20,0,0"/>
+
+                                                        <!-- Weekday -->
+                                                        <TextBlock Text="{Binding Weekday}" Foreground="#262628" FontSize="10" 
+           FontFamily="Bahnschrift" HorizontalAlignment="Left" 
+           VerticalAlignment="Top" Margin="0,40,0,0"/>
+                                                    </Grid>
+                                                </Button>
+
+
+                                                <TextBlock Text="{Binding Name}" Foreground="#FFFFFAF6" FontSize="16" FontFamily="Bahnschrift" Margin="15,112,0,0" HorizontalAlignment="Left" />
+
+
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </ScrollViewer>
                         </Border>
+
                     </TabItem>
                     <TabItem
       Header="Show">
