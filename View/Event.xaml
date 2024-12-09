@@ -4,145 +4,147 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:OOP_EventsManagementSystem.View"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+     TextElement.FontWeight="Regular"
+     TextElement.FontSize="13"
+     TextOptions.TextFormattingMode="Ideal"
+     TextOptions.TextRenderingMode="Auto"
+     Background="{DynamicResource MaterialDesignPaper}"
+     FontFamily="{DynamicResource MaterialDesignFont}"
              x:Name="EventUserControl"
              mc:Ignorable="d" 
              Height="600" 
              Width="850"
-             Background="Transparent">
+            >
     <Border Background="#262628"
         CornerRadius="12">
         <Grid>
+            <materialDesign:Card Background="#FF313131" FontFamily="Poppins" FontSize="16"
+ >
+                <TabControl
+    HorizontalContentAlignment="Center"
+    Style="{StaticResource MaterialDesignFilledTabControl}"
+   >
+                    <TabItem
+      Header="Event" >
+                        <Border 
+Background="#FFFAF5F5" 
+CornerRadius="16" 
+Margin="0,24,0,23" 
+Width="808">
+                            <TextBlock 
+    Text="Filled, centered, required width, tab 4"
+    VerticalAlignment="Center"
+    HorizontalAlignment="Center"
+    Padding="8" />
+                        </Border>
+                    </TabItem>
+                    <TabItem
+      Header="Show">
+                        <Border 
+Background="#FFFAF5F5" 
+CornerRadius="16" 
+Margin="0,24,0,23" 
+Width="808">
+                            <TextBlock 
+    Text="Filled, centered, required width, tab 4"
+    VerticalAlignment="Center"
+    HorizontalAlignment="Center"
+    Padding="8" />
+                        </Border>
+                    </TabItem>
+                    <TabItem
+      Header="Partner">
+                        <Border 
+Background="#FFFAF5F5" 
+CornerRadius="16" 
+Margin="0,24,0,23" 
+Width="808">
+                            <TextBlock 
+    Text="Filled, centered, required width, tab 4"
+    VerticalAlignment="Center"
+    HorizontalAlignment="Center"
+    Padding="8" />
+                        </Border>
+                    </TabItem>
+                    <TabItem
+      Header="Location">
+                        <Border 
+    Background="#FFFAF5F5" 
+    CornerRadius="16" 
+    Margin="0,24,0,23" 
+    Width="808">
+                            <TextBlock 
+        Text="Filled, centered, required width, tab 4"
+        VerticalAlignment="Center"
+        HorizontalAlignment="Center"
+        Padding="8" />
+                        </Border>
+
+                    </TabItem>
+                    <TabItem
+Header="Employee">
+                        <Border 
+Background="#FFFAF5F5" 
+CornerRadius="16" 
+Margin="0,24,0,23" 
+Width="808">
+                            <TextBlock 
+    Text="Filled, centered, required width, tab 4"
+    VerticalAlignment="Center"
+    HorizontalAlignment="Center"
+    Padding="8" />
+                        </Border>
+                    </TabItem>
+                    <TabItem
+Header="Equipment">
+                        <Border 
+Background="#FFFAF5F5" 
+CornerRadius="16" 
+Margin="0,24,0,23" 
+Width="808">
+                            <TextBlock 
+    Text="Filled, centered, required width, tab 4"
+    VerticalAlignment="Center"
+    HorizontalAlignment="Center"
+    Padding="8" />
+                        </Border>
+                    </TabItem>
+                </TabControl>
+            </materialDesign:Card>
             <!-- Frame -->
-            <Grid Margin="15,12,15,31">
-                <!-- Rectangle65 -->
-                <Border Background="#EFE9E4" CornerRadius="16" 
-                    Width="820" Height="507" VerticalAlignment="Top" Margin="0,47,0,0" >
-
-                </Border>
-                <!-- Rectangle66 -->
-                <Border Background="#EFE9E4" CornerRadius="16" 
-                    Width="204" Height="88" VerticalAlignment="Top" HorizontalAlignment="Right" />
-                <!-- Vector2 -->
-                <Border Background="#EFE9E4" Width="99" Height="52" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,142,210,0" />
-            </Grid>
-
+            <Menu d:IsLocked="True"
+ />
             <!-- Easys -->
             <TextBlock Text="easys" Foreground="#D6DC82" FontSize="28" FontFamily="Bahnschrift" FontWeight="SemiBold"
-                   HorizontalAlignment="Left" VerticalAlignment="Top" Margin="25,12,0,0" />
+                   HorizontalAlignment="Left" VerticalAlignment="Top" Margin="47,6,0,0" Height="33" />
 
             <!-- Rectangle67 -->
-            <Border Background="#44444C" CornerRadius="16" Width="450" Height="30" Margin="106,17,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" />
 
             <!-- Rectangle69 -->
-            <Border Background="#D6DC82" CornerRadius="16" Width="63" Height="24" Margin="110,20,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" />
 
             <!-- Rectangle68 -->
-            <Border Background="#FFFAF6" CornerRadius="16" Width="170" Height="30" Margin="640,19,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" >
-                <TextBox TextWrapping="NoWrap" Text="Search" FontSize="14" FontFamily="Bahnschrift" FontWeight="Regular" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" Foreground="#FF262628"/>
-            </Border>
 
             <!-- Image -->
-            <Image Source="pack://application:,,,/Resources/Images/event2.jpg" Width="35" Height="35" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="563,18,0,0" ClipToBounds="True">
-                <Image.Clip>
-                    <EllipseGeometry RadiusX="17.5" RadiusY="17.5" Center="17.5,17.5" />
-                </Image.Clip>
-            </Image>
 
             <!-- TextBlocks for Navigation -->
-            <TextBlock Text="Event" Foreground="#262628" FontSize="13" FontFamily="Bahnschrift" FontWeight="Medium"
-                   HorizontalAlignment="Left" VerticalAlignment="Top" Margin="126,24,0,0" />
-            <TextBlock Text="Show" Foreground="#FFF6EF" FontSize="13" FontFamily="Bahnschrift" FontWeight="Medium"
-                   HorizontalAlignment="Left" VerticalAlignment="Top" Margin="186,24,0,0" />
-            <TextBlock Text="Partner" Foreground="#FFF6EF" FontSize="13" FontFamily="Bahnschrift" FontWeight="Medium"
-                   HorizontalAlignment="Left" VerticalAlignment="Top" Margin="246,24,0,0" />
-            <TextBlock Text="Location" Foreground="#FFF6EF" FontSize="13" FontFamily="Bahnschrift" FontWeight="Medium"
-                   HorizontalAlignment="Left" VerticalAlignment="Top" Margin="316,24,0,0" />
-            <TextBlock Text="Equipment" Foreground="#FFF6EF" FontSize="13" FontFamily="Bahnschrift" FontWeight="Medium"
-                   HorizontalAlignment="Left" VerticalAlignment="Top" Margin="468,24,0,0" />
-            <TextBlock Text="Employee" Foreground="#FFF6EF" FontSize="13" FontFamily="Bahnschrift" FontWeight="Medium"
-       HorizontalAlignment="Left" VerticalAlignment="Top" Margin="390,24,0,0" />
 
             <!-- Chevron -->
-            <Border Width="22" Height="22" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="603,26,0,0">
-                <Polygon Points="5,5 15,5 10,10" Fill="#FFF6EF" />
-            </Border>
 
             <!-- Search Icon -->
 
             <!-- Rectangle5 -->
-            <Border Background="#D6DC82" CornerRadius="20
-" Width="88" Height="45" Margin="40,71,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" />
-            <TextBlock Text="Dec, 03" Foreground="#FFF6EF" FontSize="16" FontFamily="Bahnschrift" FontWeight="Bold"
-                   HorizontalAlignment="Left" VerticalAlignment="Top" Margin="56,84,0,0" Width="56" />
-            <TextBlock Text="(32)" Foreground="#262628" FontSize="14" FontFamily="Bahnschrift" FontWeight="Medium"
-            HorizontalAlignment="Left" VerticalAlignment="Top" Margin="117,71,0,0" Width="26" />
 
             <!-- Vector Blocks -->
 
             <!-- Add Event Button -->
-            <Border Background="#D96073" CornerRadius="16" Width="112" Height="37" Margin="657,75,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
-                <TextBlock Text="Add Event" Foreground="#FFF6EF" FontSize="16" FontFamily="Bahnschrift" FontWeight="Medium" VerticalAlignment="Center" HorizontalAlignment="Center" />
-            </Border>
-            <Border Width="22" Height="22" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="788,26,0,0" RenderTransformOrigin="0.064,0.523">
-                <Polygon Points="5,5 15,5 10,10" Fill="#262628" />
-            </Border>
 
             <!--Trang thai cua event-->
-            <TextBlock Text="Up Coming" Foreground="#262628" FontSize="16" FontFamily="Bahnschrift" FontWeight="Medium"
-             HorizontalAlignment="Left" VerticalAlignment="Top" Margin="185,84,0,0" />
-            <TextBlock Text="Happening" Foreground="#8F8F92" FontSize="16" FontFamily="Bahnschrift" FontWeight="Medium"
-            HorizontalAlignment="Left" VerticalAlignment="Top" Margin="315,84,0,0" />
-            <TextBlock Text="Completed" Foreground="#8F8F92" FontSize="16" FontFamily="Bahnschrift" FontWeight="Medium"
-            HorizontalAlignment="Left" VerticalAlignment="Top" Margin="445,84,0,0" />
             <!--Danh sach event-->
-            <ScrollViewer VerticalScrollBarVisibility="Visible" Margin="40,125,40,45">
-                <ItemsControl ItemsSource="{Binding Events}">
-                    <ItemsControl.ItemsPanel>
-                        <!-- Sử dụng WrapPanel để hiển thị các mục thành nhiều cột -->
-                        <ItemsPanelTemplate>
-                            <WrapPanel Orientation="Horizontal" />
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Grid Height="144" Width="220" Margin="10">
-                                <Rectangle Fill="#FFFFFAF6" RadiusX="12" RadiusY="12" />
-                                <Image Source="{Binding ImagePath}" Width="212" Height="137" Margin="9">
-                                    <Image.Clip>
-                                        <RectangleGeometry RadiusX="12" RadiusY="12" Rect="0,0,152,125" />
-                                    </Image.Clip>
-                                </Image>
-                                <Button Command="{Binding ItemSelectedCommand}" CommandParameter="{Binding}" 
-        Background="Transparent" BorderBrush="Transparent" Margin="165,7,0,0" 
-        HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Height="90">
-                                    <Grid HorizontalAlignment="Left" VerticalAlignment="Top">
-                                        <!-- Day -->
-                                        <TextBlock Text="{Binding Day}" Foreground="#262628" FontSize="20" 
-                   FontFamily="Bahnschrift" FontWeight="Medium" Margin="0,0,175,65" />
-
-                                        <!-- Month -->
-                                        <TextBlock Text="{Binding Month}" Foreground="#262628" FontSize="20" 
-                   FontFamily="Bahnschrift" FontWeight="Medium" Margin="0,20,0,0"/>
-
-                                        <!-- Weekday -->
-                                        <TextBlock Text="{Binding Weekday}" Foreground="#262628" FontSize="10" 
-                   FontFamily="Bahnschrift" HorizontalAlignment="Left" 
-                   VerticalAlignment="Top" Margin="0,40,0,0"/>
-                                    </Grid>
-                                </Button>
-
-
-                                <TextBlock Text="{Binding Name}" Foreground="#FFFFFAF6" FontSize="16" FontFamily="Bahnschrift" Margin="15,112,0,0" HorizontalAlignment="Left" />
-
-
-                            </Grid>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </ScrollViewer>
             <Button Width="18" Height="18" Margin="10,566,816,10" Click="PowerOff_Click" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}">
-    <Image Source="pack://application:,,,/Resources/Images/poweroff.png" />
-</Button>
+                <Image Source="pack://application:,,,/Resources/Images/poweroff.png" />
+            </Button>
         </Grid>
     </Border>
 </UserControl>

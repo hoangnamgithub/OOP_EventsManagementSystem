@@ -113,7 +113,7 @@ HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,392,178,0"
                     <Ellipse Width="8" Height="8" Fill="#262628" HorizontalAlignment="Left" Canvas.Left="127" Canvas.Top="18" />
                     <Ellipse Width="8" Height="8" Fill="#262628" HorizontalAlignment="Left" Canvas.Left="188" Canvas.Top="18" />
                     <Polygon Points="100,20 20,150 180,150"
-        Fill="#C6C3F2" Height="150" Canvas.Left="151" Canvas.Top="124" Width="182"
+        Fill="#FFAA89E3" Height="150" Canvas.Left="151" Canvas.Top="124" Width="182"
           />
 
                     <Line X1="0" Y1="0" X2="36" Y2="0" Stroke="Black" StrokeThickness="2.4"
