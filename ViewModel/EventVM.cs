@@ -31,24 +31,29 @@ namespace OOP_EventsManagementSystem.ViewModel
         // Hàm xử lý khi người dùng nhấn vào sự kiện
         private void OnItemSelected(object parameter)
         {
-            // Logic xử lý khi nhấn vào một sự kiện
-            Console.WriteLine($"{Name} đã được chọn!");
-
-            // Lấy ứng dụng chính và kiểm tra Frame điều hướng
             var frame = Application.Current.MainWindow.FindName("MainFrame") as Frame;
 
             if (frame != null)
             {
-                // Tạo đối tượng EventDetails.xaml và truyền dữ liệu (nếu cần)
-                var eventDetails = new EventDetails(); // Tạo instance của UserControl EventDetails.xaml
+                // Kiểm tra trạng thái hiện tại của Frame
+                var currentDataContext = frame.Content is FrameworkElement currentElement
+                    ? currentElement.DataContext as EventDetailsVM
+                    : null;
 
-                // Cung cấp dữ liệu cho EventDetails nếu cần
-                eventDetails.DataContext = new EventDetailsVM(Name, Day, Month, Weekday, ImagePath);
+                // Nếu DataContext đã tồn tại, không khởi tạo lại
+                if (currentDataContext == null || currentDataContext.Name != Name)
+                {
+                    // Tạo hoặc cập nhật ViewModel nếu cần
+                    var eventDetailsVM = new EventDetailsVM(Name, Day, Month, Weekday, ImagePath);
+                    frame.DataContext = eventDetailsVM;
+                }
 
-                // Điều hướng đến EventDetails.xaml trong Frame
-                frame.Navigate(eventDetails);
+                // Điều hướng qua lại giữa UserControl
+                var targetView = new EventDetails();
+                frame.Navigate(targetView);
             }
         }
+
 
     }
     public class EventListVM

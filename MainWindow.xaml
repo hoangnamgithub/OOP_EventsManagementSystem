@@ -24,7 +24,7 @@
                 </Border>
             
             <!-- Container chính để hiển thị nội dung -->
-            <Frame x:Name="MainFrame" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" NavigationUIVisibility="Hidden"/>
+            <Frame x:Name="MainFrame"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" NavigationUIVisibility="Hidden"/>
             
                 <!-- Nội dung giao diện đăng nhập -->
             <Grid x:Name="LoginContainer">

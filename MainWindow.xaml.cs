@@ -19,7 +19,7 @@ namespace OOP_EventsManagementSystem
     public partial class MainWindow : Window
     {
         private bool isPasswordVisible = false; // Biến lưu trạng thái ẩn/hiển mật khẩu
-
+        public bool IsEditMode { get; set; } = false;
         public MainWindow()
         {
             InitializeComponent();
@@ -34,6 +34,33 @@ namespace OOP_EventsManagementSystem
                 this.DragMove();
             }
         }
+        
+        public void SwitchToEditMode()
+        {
+            if (MainFrame.Content is FrameworkElement currentElement)
+            {
+                var editModeView = new EventDetails_EditMode
+                {
+                    DataContext = currentElement.DataContext // Đồng bộ dữ liệu
+                };
+                MainFrame.Navigate(editModeView);
+            }
+            IsEditMode = true;
+        }
+
+        public void SwitchToViewMode()
+        {
+            if (MainFrame.Content is FrameworkElement currentElement)
+            {
+                var viewModeView = new EventDetails
+                {
+                    DataContext = currentElement.DataContext // Đồng bộ dữ liệu
+                };
+                MainFrame.Navigate(viewModeView);
+            }
+            IsEditMode = false;
+        }
+
         private void btn_eye_Click(object sender, RoutedEventArgs e)
         {
             if (isPasswordVisible)
