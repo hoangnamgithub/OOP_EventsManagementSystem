@@ -39,6 +39,6 @@ namespace OOP_EventsManagementSystem.View
             // Đóng cửa sổ (nếu tồn tại)
             parentWindow?.Close();
         }
-        
+
     }
 }

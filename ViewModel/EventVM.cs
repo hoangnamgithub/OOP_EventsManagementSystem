@@ -2,9 +2,9 @@
 using OOP_EventsManagementSystem.View;
 using System;
 using System.Collections.ObjectModel;
-using System.Windows.Input;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 
 namespace OOP_EventsManagementSystem.ViewModel

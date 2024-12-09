@@ -86,7 +86,7 @@ namespace OOP_EventsManagementSystem
             // Ẩn LoginContainer sau khi điều hướng
             LoginContainer.Visibility = Visibility.Collapsed;
 
-            
+
         }
 
 
@@ -96,7 +96,7 @@ namespace OOP_EventsManagementSystem
             this.Close();
         }
 
-      
+
 
     }
 }
