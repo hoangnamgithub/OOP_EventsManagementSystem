@@ -19,19 +19,43 @@ namespace OOP_EventsManagementSystem.View
         {
             if (Application.Current.MainWindow is MainWindow mainWindow)
             {
-                mainWindow.MainFrame.Navigate(new EventDetails_EditMode());
+                // Lấy DataContext hiện tại từ MainFrame
+                var currentDataContext = mainWindow.MainFrame.Content is FrameworkElement currentElement
+                    ? currentElement.DataContext
+                    : null;
+
+                // Tạo và điều hướng tới EventDetails_EditMode với DataContext
+                var editModeView = new EventDetails_EditMode
+                {
+                    DataContext = currentDataContext // Truyền DataContext vào
+                };
+
+                mainWindow.MainFrame.Navigate(editModeView);
                 mainWindow.IsEditMode = true; // Cập nhật trạng thái edit
             }
         }
+
 
         private void btnSwitchMode_Unchecked(object sender, RoutedEventArgs e)
         {
             if (Application.Current.MainWindow is MainWindow mainWindow)
             {
-                mainWindow.MainFrame.Navigate(new EventDetails());
+                // Lấy DataContext hiện tại từ MainFrame
+                var currentDataContext = mainWindow.MainFrame.Content is FrameworkElement currentElement
+                    ? currentElement.DataContext
+                    : null;
+
+                // Tạo và điều hướng tới EventDetails với DataContext
+                var viewModeView = new EventDetails
+                {
+                    DataContext = currentDataContext // Truyền DataContext vào
+                };
+
+                mainWindow.MainFrame.Navigate(viewModeView);
                 mainWindow.IsEditMode = false; // Cập nhật trạng thái normal
             }
         }
+
 
 
 

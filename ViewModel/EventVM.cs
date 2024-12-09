@@ -40,19 +40,23 @@ namespace OOP_EventsManagementSystem.ViewModel
                     ? currentElement.DataContext as EventDetailsVM
                     : null;
 
-                // Nếu DataContext đã tồn tại, không khởi tạo lại
+                // Nếu DataContext chưa tồn tại hoặc không đúng, tạo hoặc cập nhật DataContext mới
                 if (currentDataContext == null || currentDataContext.Name != Name)
                 {
-                    // Tạo hoặc cập nhật ViewModel nếu cần
+                    // Tạo ViewModel mới với dữ liệu hiện tại của sự kiện
                     var eventDetailsVM = new EventDetailsVM(Name, Day, Month, Weekday, ImagePath);
-                    frame.DataContext = eventDetailsVM;
+                    frame.DataContext = eventDetailsVM; // Gán DataContext cho Frame
                 }
 
-                // Điều hướng qua lại giữa UserControl
-                var targetView = new EventDetails();
+                // Điều hướng đến UserControl mới, truyền DataContext vào
+                var targetView = new EventDetails
+                {
+                    DataContext = currentDataContext // Truyền DataContext vào EventDetails
+                };
                 frame.Navigate(targetView);
             }
         }
+
 
 
     }

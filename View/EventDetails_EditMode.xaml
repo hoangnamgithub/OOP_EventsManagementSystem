@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:OOP_EventsManagementSystem.View"
              mc:Ignorable="d" 
-           
+            DataContext="{Binding}"
             Height="600" 
             Width="850"
             Background="Transparent">
