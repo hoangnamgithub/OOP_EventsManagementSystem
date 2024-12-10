@@ -4,23 +4,34 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OOP_EventsManagementSystem.View"
-
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:styles="clr-namespace:OOP_EventsManagementSystem.Styles"
+        xmlns:view="clr-namespace:OOP_EventsManagementSystem.View"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="MainWindow" 
         Height="600" 
         Width="850"
         AllowsTransparency="True"
         WindowStartupLocation="CenterScreen"
-        WindowStyle="None"
+        WindowStyle="None">
+    <Border CornerRadius="16" Background="#EFE9E4">
         
-        >
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="45"/>
-            <RowDefinition/>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="45" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <!-- Navigate Bar -->
+            <Grid>
+                <styles:NavigateBar  />
+            </Grid>
+            <!-- Header Section -->
+            <Grid Grid.Row="1">
+                <view:Event />
+            </Grid>
             
-        </Grid.RowDefinitions>
-        <Grid Background="Black"/>
-        <Grid Row ="1" Background="Beige"/>
-    </Grid>
+        </Grid>
+    </Border>
 </Window>

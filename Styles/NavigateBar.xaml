@@ -17,32 +17,42 @@
         <StackPanel Grid.Column="1" HorizontalAlignment="Center" Orientation="Horizontal" >
             <Border BorderBrush="#FFFFF6EF" BorderThickness="0,0,0,2"  Margin="5">
                 <Button Background="Transparent" BorderBrush="{x:Null}" Margin="0">
-                    <TextBlock FontFamily="Bahnschrift SemiLight" Text="easys" Foreground="#FFFFF6EF" 
-                   HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" />
+                    <TextBlock FontFamily="Bahnschrift SemiLight" Text="Event" Foreground="#FFFFF6EF" 
+                   HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" />
                 </Button>
             </Border>
 
             <Button Background="Transparent" BorderBrush="{x:Null}" Margin="5,5,5,5">
-                <TextBlock FontFamily="Bahnschrift SemiLight" Text="easys" Foreground="#FFFFF6EF" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18"  />
+                <TextBlock FontFamily="Bahnschrift SemiLight" Text="Show" Foreground="#FFFFF6EF" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14"  />
             </Button>
             <Button Background="Transparent" BorderBrush="{x:Null}" Margin="5,5,5,5">
-                <TextBlock FontFamily="Bahnschrift SemiLight" Text="easys" Foreground="#FFFFF6EF" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18"  />
+                <TextBlock FontFamily="Bahnschrift SemiLight" Text="Partner" Foreground="#FFFFF6EF" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14"  />
             </Button>
             <Button Background="Transparent" BorderBrush="{x:Null}" Margin="5,5,5,5">
-                <TextBlock FontFamily="Bahnschrift SemiLight" Text="easys" Foreground="#FFFFF6EF" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18"  />
+                <TextBlock FontFamily="Bahnschrift SemiLight" Text="Employee" Foreground="#FFFFF6EF" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14"  />
             </Button>
             <Button Background="Transparent" BorderBrush="{x:Null}" Margin="5,5,5,5">
-                <TextBlock FontFamily="Bahnschrift SemiLight" Text="easys" Foreground="#FFFFF6EF" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18"  />
+                <TextBlock FontFamily="Bahnschrift SemiLight" Text="Equipment" Foreground="#FFFFF6EF" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14"  />
             </Button>
             <Button Background="Transparent" BorderBrush="{x:Null}" Margin="5,5,5,5">
-                <TextBlock FontFamily="Bahnschrift SemiLight" Text="easys" Foreground="#FFFFF6EF" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18"  />
+                <TextBlock FontFamily="Bahnschrift SemiLight" Text="Location" Foreground="#FFFFF6EF" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14"  />
             </Button>
         </StackPanel>
-        <Image Grid.Column="2"  Source="pack://application:,,,/Resources/Images/event2.jpg"  Width="30" Height="30" Stretch="UniformToFill">
-            <Image.Clip >
-                <EllipseGeometry Center="15,15" RadiusX="15" RadiusY="15" />
-            </Image.Clip>
-        </Image>
+        <Button Grid.Column="2" Background="Transparent" Height="45" VerticalAlignment="Center" BorderBrush="{x:Null}" Click="AccountButton_Click">
+            <Image Source="pack://application:,,,/Resources/Images/event2.jpg" Width="30" Height="30" Stretch="UniformToFill">
+                <Image.Clip>
+                    <EllipseGeometry Center="15,15" RadiusX="15" RadiusY="15" />
+                </Image.Clip>
+            </Image>
+            <Button.ContextMenu>
+                <ContextMenu x:Name="AccountContextMenu">
+                    <MenuItem Header="Xem thông tin tài khoản" Click="ViewAccount_Click" />
+                    <MenuItem Header="Chỉnh sửa tài khoản" Click="EditAccount_Click" />
+                    <Separator />
+                    <MenuItem Header="Log Out" Click="Logout_Click" />
+                </ContextMenu>
+            </Button.ContextMenu>
+        </Button>
 
 
     </Grid>
