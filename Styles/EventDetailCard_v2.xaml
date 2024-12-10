@@ -26,7 +26,7 @@
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,0,0">
 
                             <!-- TextBlock -->
-                            <TextBlock Text="easys presents" FontSize="6" VerticalAlignment="Center" Margin="10,0,2,1" Foreground="#FFFCF8F8" />
+                            <TextBlock Text="easys presents" FontSize="6" VerticalAlignment="Center" Margin="10,0,2,1" Foreground="#FFF6EF" />
                             <!-- Red Line -->
                             <Rectangle Width="3" Height="15" Fill="#FFD6DC82" VerticalAlignment="Center" />
                         </StackPanel>
@@ -55,13 +55,13 @@
 
                             <Grid>
                                 <StackPanel Margin="10,0,0,0">
-                                    <TextBlock Text="START" FontWeight="Bold" FontSize="8" Foreground="#FFFCF8F8"/>
+                                    <TextBlock Text="START" FontWeight="Bold" FontSize="8" Foreground="black"/>
                                     <TextBlock Text="dd/mm" Foreground="#FFFCF8F8"/>
                                 </StackPanel>
                             </Grid>
                             <Grid Grid.Column="1">
                                 <StackPanel Margin="10,0,0,0">
-                                    <TextBlock Text="END" FontWeight="Bold" FontSize="8" Foreground="#FFFCF8F8"/>
+                                    <TextBlock Text="END" FontWeight="Bold" FontSize="8" Foreground="Black"/>
                                     <TextBlock Text="dd/mm" Foreground="#FFFCF8F8"/>
                                 </StackPanel>
                             </Grid>
