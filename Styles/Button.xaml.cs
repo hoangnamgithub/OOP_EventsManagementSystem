@@ -44,5 +44,10 @@ namespace OOP_EventsManagementSystem.Styles
             get { return (Brush)GetValue(ButtonBackgroundProperty); }
             set { SetValue(ButtonBackgroundProperty, value); }
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

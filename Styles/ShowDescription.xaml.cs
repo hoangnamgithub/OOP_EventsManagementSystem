@@ -10,19 +10,23 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace OOP_EventsManagementSystem.Styles
 {
     /// <summary>
-    /// Interaction logic for ShowForm.xaml
+    /// Interaction logic for ShowDescription.xaml
     /// </summary>
-    public partial class ShowForm : UserControl
+    public partial class ShowDescription : Window
     {
-        public ShowForm()
+        public ShowDescription()
         {
             InitializeComponent();
+        }
+
+        private void btn_close_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }
