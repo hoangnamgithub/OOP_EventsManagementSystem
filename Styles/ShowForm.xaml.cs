@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace OOP_EventsManagementSystem.View
+namespace OOP_EventsManagementSystem.Styles
 {
     /// <summary>
-    /// Interaction logic for Event.xaml
+    /// Interaction logic for ShowForm.xaml
     /// </summary>
-    public partial class Event : UserControl
+    public partial class ShowForm : UserControl
     {
-        public Event()
+        public ShowForm()
         {
             InitializeComponent();
         }
