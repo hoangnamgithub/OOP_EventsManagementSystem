@@ -1,6 +1,8 @@
-﻿using OOP_EventsManagementSystem.View;
-using OOP_EventsManagementSystem.ViewModel;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -11,26 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace OOP_EventsManagementSystem
+namespace OOP_EventsManagementSystem.Styles
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for EventDetail.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class EventDetail : UserControl
     {
-        
-
-        public MainWindow()
+        public EventDetail()
         {
             InitializeComponent();
-
-           
         }
-
-        private void Menu_SuggestionChosen(object sender, RoutedPropertyChangedEventArgs<object> e)
-        {
-
-        }
-
     }
 }
