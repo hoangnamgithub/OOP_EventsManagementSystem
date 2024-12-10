@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OOP_EventsManagementSystem.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,14 +16,29 @@ using System.Windows.Shapes;
 
 namespace OOP_EventsManagementSystem.View
 {
-    /// <summary>
-    /// Interaction logic for Event.xaml
-    /// </summary>
     public partial class Event : UserControl
     {
         public Event()
         {
             InitializeComponent();
+
+            // Gắn một ViewModel mẫu cho mục đích minh họa
+            DataContext = new EventListVM();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Chi tiết sự kiện");
+        }
+
+        private void PowerOff_Click(object sender, RoutedEventArgs e)
+        {
+            // Lấy cửa sổ chứa UserControl (MainWindow)
+            Window parentWindow = Window.GetWindow(this);
+
+            // Đóng cửa sổ (nếu tồn tại)
+            parentWindow?.Close();
+        }
+
     }
 }

@@ -5,143 +5,187 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:OOP_EventsManagementSystem.View"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:sys="clr-namespace:System;assembly=mscorlib"
-             xmlns:styles="clr-namespace:OOP_EventsManagementSystem.Styles"
+     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+     TextElement.FontWeight="Regular"
+     TextElement.FontSize="13"
+     TextOptions.TextFormattingMode="Ideal"
+     TextOptions.TextRenderingMode="Auto"
+     Background="{DynamicResource MaterialDesignPaper}"
+     FontFamily="{DynamicResource MaterialDesignFont}"
+             x:Name="EventUserControl"
              mc:Ignorable="d" 
-             d:DesignHeight="555" d:DesignWidth="850">
-    <Grid>
-        <materialDesign:Card
->
-            <TabControl
-   HorizontalContentAlignment="Left" Margin="20,0,0,0"
-  >
-                <TabItem
-                       Header="Up Coming">
-                    <ScrollViewer>
-                        <ItemsControl>
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <WrapPanel Orientation="Horizontal" />
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <Rectangle Height="130" Width="240" RadiusX="16" RadiusY="16"
-                                  Fill="#FFD6E8FF" Margin="12" />
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                            <ItemsControl.ItemsSource>
-                                <x:Array Type="{x:Type sys:Object}">
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                </x:Array>
-                            </ItemsControl.ItemsSource>
-                        </ItemsControl>
-                    </ScrollViewer>
-                </TabItem>
-                <TabItem
-     Header="Happening">
-                    <ScrollViewer>
-                        <ItemsControl>
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <WrapPanel Orientation="Horizontal" />
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <Rectangle Height="130" Width="240" RadiusX="16" RadiusY="16"
-      Fill="DarkKhaki" Margin="12" />
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                            <ItemsControl.ItemsSource>
-                                <x:Array Type="{x:Type sys:Object}">
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                </x:Array>
-                            </ItemsControl.ItemsSource>
-                        </ItemsControl>
-                    </ScrollViewer>
-                </TabItem>
-                <TabItem
-     Header="Completed">
-                    <ScrollViewer>
-                        <ItemsControl>
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <WrapPanel Orientation="Horizontal" />
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <Rectangle Height="130" Width="240" RadiusX="16" RadiusY="16"
-      Fill="LightPink" Margin="12" />
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                            <ItemsControl.ItemsSource>
-                                <x:Array Type="{x:Type sys:Object}">
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                </x:Array>
-                            </ItemsControl.ItemsSource>
-                        </ItemsControl>
-                    </ScrollViewer>
-                </TabItem>
-
-            </TabControl>
-        </materialDesign:Card>
+             Height="600" 
+             Width="850"
+            >
+    <Border Background="#262628"
+        CornerRadius="12">
         <Grid>
-            <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100" />
-            <ColumnDefinition />
-            <ColumnDefinition Width="300" />
-        </Grid.ColumnDefinitions>
+            <materialDesign:Card Background="#FF313131" FontFamily="Poppins" FontSize="16"
+ >
+                <TabControl
+    HorizontalContentAlignment="Center"
+    Style="{StaticResource MaterialDesignFilledTabControl}"
+   >
+                    <TabItem
+      Header="Event" >
+                        <Border 
+Background="#FFFAF5F5" 
+CornerRadius="16" 
+Margin="0,24,0,23" 
+Width="808">
+                            <ScrollViewer VerticalScrollBarVisibility="Visible" Margin="10,10,0,10">
+                                <ItemsControl ItemsSource="{Binding Events}" Height="469" Width="771">
+                                    <ItemsControl.ItemsPanel>
+                                        <!-- Sử dụng WrapPanel để hiển thị các mục thành nhiều cột -->
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel Orientation="Horizontal" />
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid Height="144" Width="220" Margin="10">
+                                                <Rectangle Fill="#FFFFFAF6" RadiusX="12" RadiusY="12" />
+                                                <Image Source="{Binding ImagePath}" Width="212" Height="137" Margin="9">
+                                                    <Image.Clip>
+                                                        <RectangleGeometry RadiusX="12" RadiusY="12" Rect="0,0,152,125" />
+                                                    </Image.Clip>
+                                                </Image>
+                                                <Button Command="{Binding ItemSelectedCommand}" CommandParameter="{Binding}" 
+Background="Transparent" BorderBrush="Transparent" Margin="165,7,0,0" 
+HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Height="90">
+                                                    <Grid HorizontalAlignment="Left" VerticalAlignment="Top">
+                                                        <!-- Day -->
+                                                        <TextBlock Text="{Binding Day}" Foreground="#262628" FontSize="20" 
+           FontFamily="Bahnschrift" FontWeight="Medium" Margin="0,0,175,65" />
 
-        <Grid Grid.Column="2">
-            <Rectangle Fill="#D6DC82" RadiusX="20" RadiusY="20" Margin="50,10,165,510" />
-            <TextBlock Text="12 Oct" Foreground="White"  
-        VerticalAlignment="Center" HorizontalAlignment="Center" Margin="50,10,165,510" FontSize="18" FontFamily="Bahnschrift SemiBold" />
-            <styles:Button ButtonText="Add" ButtonBackground="#D96073" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,5,50,0" />
+                                                        <!-- Month -->
+                                                        <TextBlock Text="{Binding Month}" Foreground="#262628" FontSize="20" 
+           FontFamily="Bahnschrift" FontWeight="Medium" Margin="0,20,0,0"/>
+
+                                                        <!-- Weekday -->
+                                                        <TextBlock Text="{Binding Weekday}" Foreground="#262628" FontSize="10" 
+           FontFamily="Bahnschrift" HorizontalAlignment="Left" 
+           VerticalAlignment="Top" Margin="0,40,0,0"/>
+                                                    </Grid>
+                                                </Button>
+
+
+                                                <TextBlock Text="{Binding Name}" Foreground="#FFFFFAF6" FontSize="16" FontFamily="Bahnschrift" Margin="15,112,0,0" HorizontalAlignment="Left" />
+
+
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </ScrollViewer>
+                        </Border>
+
+                    </TabItem>
+                    <TabItem
+      Header="Show">
+                        <Border 
+Background="#FFFAF5F5" 
+CornerRadius="16" 
+Margin="0,24,0,23" 
+Width="808">
+                            <TextBlock 
+    Text="Filled, centered, required width, tab 4"
+    VerticalAlignment="Center"
+    HorizontalAlignment="Center"
+    Padding="8" />
+                        </Border>
+                    </TabItem>
+                    <TabItem
+      Header="Partner">
+                        <Border 
+Background="#FFFAF5F5" 
+CornerRadius="16" 
+Margin="0,24,0,23" 
+Width="808">
+                            <TextBlock 
+    Text="Filled, centered, required width, tab 4"
+    VerticalAlignment="Center"
+    HorizontalAlignment="Center"
+    Padding="8" />
+                        </Border>
+                    </TabItem>
+                    <TabItem
+      Header="Location">
+                        <Border 
+    Background="#FFFAF5F5" 
+    CornerRadius="16" 
+    Margin="0,24,0,23" 
+    Width="808">
+                            <TextBlock 
+        Text="Filled, centered, required width, tab 4"
+        VerticalAlignment="Center"
+        HorizontalAlignment="Center"
+        Padding="8" />
+                        </Border>
+
+                    </TabItem>
+                    <TabItem
+Header="Employee">
+                        <Border 
+Background="#FFFAF5F5" 
+CornerRadius="16" 
+Margin="0,24,0,23" 
+Width="808">
+                            <TextBlock 
+    Text="Filled, centered, required width, tab 4"
+    VerticalAlignment="Center"
+    HorizontalAlignment="Center"
+    Padding="8" />
+                        </Border>
+                    </TabItem>
+                    <TabItem
+Header="Equipment">
+                        <Border 
+Background="#FFFAF5F5" 
+CornerRadius="16" 
+Margin="0,24,0,23" 
+Width="808">
+                            <TextBlock 
+    Text="Filled, centered, required width, tab 4"
+    VerticalAlignment="Center"
+    HorizontalAlignment="Center"
+    Padding="8" />
+                        </Border>
+                    </TabItem>
+                </TabControl>
+            </materialDesign:Card>
+            <!-- Frame -->
+            <Menu d:IsLocked="True"
+ />
+            <!-- Easys -->
+            <TextBlock Text="easys" Foreground="#D6DC82" FontSize="28" FontFamily="Bahnschrift" FontWeight="SemiBold"
+                   HorizontalAlignment="Left" VerticalAlignment="Top" Margin="47,6,0,0" Height="33" />
+
+            <!-- Rectangle67 -->
+
+            <!-- Rectangle69 -->
+
+            <!-- Rectangle68 -->
+
+            <!-- Image -->
+
+            <!-- TextBlocks for Navigation -->
+
+            <!-- Chevron -->
+
+            <!-- Search Icon -->
+
+            <!-- Rectangle5 -->
+
+            <!-- Vector Blocks -->
+
+            <!-- Add Event Button -->
+
+            <!--Trang thai cua event-->
+            <!--Danh sach event-->
+            <Button Width="18" Height="18" Margin="10,566,816,10" Click="PowerOff_Click" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}">
+                <Image Source="pack://application:,,,/Resources/Images/poweroff.png" />
+            </Button>
         </Grid>
-        </Grid>
-    </Grid>
+    </Border>
 </UserControl>

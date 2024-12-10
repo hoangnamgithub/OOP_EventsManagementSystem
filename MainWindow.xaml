@@ -4,32 +4,185 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OOP_EventsManagementSystem.View"
-        xmlns:sys="clr-namespace:System;assembly=mscorlib"
-        xmlns:styles="clr-namespace:OOP_EventsManagementSystem.Styles"
-        xmlns:view="clr-namespace:OOP_EventsManagementSystem.View"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+
         mc:Ignorable="d"
         Title="MainWindow" 
         Height="600" 
         Width="850"
         AllowsTransparency="True"
         WindowStartupLocation="CenterScreen"
-        WindowStyle="None">
-    <Border CornerRadius="16" Background="#EFE9E4">
-        
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="45" />
-                <RowDefinition />
-            </Grid.RowDefinitions>
+        WindowStyle="None"
+        Background="Transparent"
+        >
+    <Border Background="#EFE9E4" CornerRadius="12">
 
-            <!-- Navigate Bar -->
-            <Grid>
-                <styles:NavigateBar  />
-            </Grid>
-            <!-- Header Section -->
-            <Grid Grid.Row="1">
-                <view:Event />
+        <Grid x:Name="RootGrid" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
+                
+                <!-- Nội dung cửa sổ -->
+                <Border Background="White" CornerRadius="10" Padding="10">
+                    <TextBlock Text="" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,-10,0,0" Width="850"/>
+                </Border>
+            
+            <!-- Container chính để hiển thị nội dung -->
+            <Frame x:Name="MainFrame" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" NavigationUIVisibility="Hidden"/>
+            
+                <!-- Nội dung giao diện đăng nhập -->
+            <Grid x:Name="LoginContainer">
+                <Grid MouseLeftButtonDown="Grid_MouseLeftButtonDown">
+                    <!-- Nội dung cửa sổ -->
+                    <Border Background="#EFE9E4" CornerRadius="10" Padding="10">
+                        <TextBlock Text="" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,-10,0,0" Width="850"/>
+                    </Border>
+                </Grid>
+                <Button Width="18" Height="18" Margin="10,566,816,10" Click="PowerOff_Click" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}">
+                    <Image Source="pack://application:,,,/Resources/Images/powerofff.png" />
+                </Button>
+
+
+                <!-- Rectangle9 -->
+                <Rectangle Width="320" Height="570" Fill="#FDF6F0" RadiusX="12" RadiusY="12" 
+           HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="516,0,0,18" />
+
+                <!-- "easys" Text -->
+                <TextBlock Text="easys" FontSize="24" FontFamily="Bahnschrift" FontWeight="SemiBold"
+           Foreground="#D96073" Margin="651,54,0,514" HorizontalAlignment="Left" RenderTransformOrigin="1.14,0.609" />
+
+                <!-- Welcome Back -->
+                <TextBlock Text="Welcome back!" FontSize="36" FontFamily="Bahnschrift" FontWeight="SemiBold"
+           Foreground="#262628" HorizontalAlignment="Right" Margin="0,124,53,435" />
+
+                <!-- Please Enter Your Details -->
+                <TextBlock Text="Please enter your details" FontSize="12" FontFamily="Bahnschrift" FontWeight="Light"
+           Foreground="#262628" HorizontalAlignment="Right" Margin="0,172,101,402" />
+
+                <!-- Email -->
+                <TextBlock Text="Email" FontSize="18" FontFamily="Bahnschrift" FontWeight="Normal"
+           Foreground="#262628" HorizontalAlignment="Right" Margin="0,231,240,349" />
+
+                <!-- Email Line -->
+                <Rectangle Width="214" Height="1" Fill="Black" HorizontalAlignment="Right" Margin="0,276,64,323" />
+
+                <!-- Password -->
+                <TextBlock Text="Password" FontSize="18" FontFamily="Bahnschrift" FontWeight="Normal"
+           Foreground="#262628" HorizontalAlignment="Right" Margin="0,284,206,291" />
+
+                <!-- Password Line -->
+
+                <!-- Log In Button -->
+                <Button x:Name="btn_login" Content="Log In" Width="85" Height="41" Background="#D96073" Foreground="White" 
+FontFamily="Bahnschrift" FontSize="14" FontWeight="Normal" 
+HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,392,178,0"
+            Click="btn_login_Click">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}" 
+            CornerRadius="20" 
+            BorderThickness="0">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+
+
+                <!-- Sign Up Button -->
+                <Button x:Name="btn_signup" Content="Sign Up" Width="85" Height="41" Background="#262628" Foreground="White" 
+        FontFamily="Bahnschrift" FontSize="14" FontWeight="Normal" 
+        HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,392,71,0" 
+        Click="btn_signup_Click">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}" 
+    CornerRadius="20" 
+    BorderThickness="0">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button >
+                <Canvas HorizontalAlignment="Left" Height="NaN" Margin="92,146,0,146" Width="333">
+                    <Rectangle Width="121" Height="256" Fill="#D6DC82" HorizontalAlignment="Left" Canvas.Left="92" Canvas.Top="18" />
+
+                    <Ellipse Width="158" Fill="#D96073" HorizontalAlignment="Left" Height="158" Canvas.Top="118" />
+                    <Ellipse Width="30" Height="31" Fill="#FFFBF8" HorizontalAlignment="Left" Canvas.Left="59" Canvas.Top="148" />
+                    <Ellipse Width="28" Height="29" Fill="#FFFBF8" HorizontalAlignment="Left" Canvas.Left="123" Canvas.Top="142" />
+                    <Ellipse Width="29" Height="29" Fill="#FFFBF8" HorizontalAlignment="Left" Canvas.Left="109" />
+                    <Ellipse Width="29" Height="29" Fill="#FFFBF8" HorizontalAlignment="Left" Canvas.Left="169" />
+                    <Ellipse Width="8" Height="8" Fill="#262628" HorizontalAlignment="Left" Canvas.Left="79" Canvas.Top="160" />
+                    <Ellipse Width="8" Height="8" Fill="#262628" HorizontalAlignment="Left" Canvas.Left="141" Canvas.Top="156" />
+                    <Ellipse Width="8" Height="8" Fill="#262628" HorizontalAlignment="Left" Canvas.Left="127" Canvas.Top="18" />
+                    <Ellipse Width="8" Height="8" Fill="#262628" HorizontalAlignment="Left" Canvas.Left="188" Canvas.Top="18" />
+                    <Polygon Points="100,20 20,150 180,150"
+        Fill="#FFAA89E3" Height="150" Canvas.Left="151" Canvas.Top="124" Width="182"
+          />
+
+                    <Line X1="0" Y1="0" X2="36" Y2="0" Stroke="Black" StrokeThickness="2.4"
+      HorizontalAlignment="Left" Height="252" Canvas.Left="259" Canvas.Top="204" />
+                    <Line X1="0" Y1="0" X2="23" Y2="0" Stroke="Black" StrokeThickness="3.5"
+        RenderTransformOrigin="0,0" HorizontalAlignment="Left" Height="432" Canvas.Left="156" Canvas.Top="26">
+                        <Line.RenderTransform>
+                            <RotateTransform Angle="90" />
+                        </Line.RenderTransform>
+                    </Line>
+
+                    <Ellipse Width="29" Height="29" Fill="#FFFBF8" HorizontalAlignment="Left" Canvas.Left="238" Canvas.Top="170" />
+                    <Ellipse Width="8" Height="8" Fill="#262628" HorizontalAlignment="Left" Canvas.Left="259" Canvas.Top="180" />
+                </Canvas>
+                <TextBox x:Name="txt_box_email" 
+ HorizontalAlignment="Left" 
+ Margin="570,258,0,0" 
+ TextWrapping="NoWrap" 
+ Text="" 
+ VerticalAlignment="Top" 
+ Width="216" 
+ Background="{x:Null}" 
+ Foreground="#FF262628" 
+ SelectionBrush="{x:Null}" 
+ SelectionTextBrush="{x:Null}" 
+ BorderBrush="{x:Null}" 
+ FontFamily="Bahnschrift Light" 
+ FontSize="16"  />
+
+                <Rectangle Width="214" Height="1" Fill="Black" HorizontalAlignment="Right" Margin="0,332,64,267" />
+                <!-- PasswordBox -->
+                <PasswordBox x:Name="txt_box_password"
+             HorizontalAlignment="Left"
+             Margin="570,310,0,0"
+             VerticalAlignment="Top"
+             Width="179"
+             Background="Transparent"
+             Foreground="#FF262628"
+             BorderBrush="Transparent"
+             FontFamily="Bahnschrift Light"
+             FontSize="16" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" />
+
+                <!-- TextBox (Hiển thị mật khẩu khi không ẩn) -->
+                <TextBox x:Name="txt_box_password_visible"
+         HorizontalAlignment="Left"
+         Margin="570,310,0,0"
+         VerticalAlignment="Top"
+         Width="179"
+         Background="Transparent"
+         Foreground="#FF262628"
+         BorderBrush="Transparent"
+         FontFamily="Bahnschrift Light"
+         FontSize="16"
+         Visibility="Collapsed" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" />
+
+                <!-- Button Eye -->
+                <Button x:Name="btn_eye"
+HorizontalAlignment="Left"
+Margin="754,300,0,0"
+VerticalAlignment="Top"
+Width="32"
+Height="32"
+Background="Transparent"
+BorderBrush="Transparent"
+Click="btn_eye_Click" Foreground="{x:Null}">
+                    <Image x:Name="img_eye" 
+   Source="pack://application:,,,/Resources/Images/eye_off.png" 
+   Stretch="Uniform" />
+                </Button>
             </Grid>
             
         </Grid>

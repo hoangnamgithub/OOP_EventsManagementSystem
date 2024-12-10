@@ -1,0 +1,20 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
+    <!-- Primary Colors -->
+    <SolidColorBrush x:Key="PrimaryHueLightBrush" Color="#D6DC82" />
+    <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#C6C3F2" />
+    <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="#262628" />
+
+    <!-- Secondary Colors -->
+    <SolidColorBrush x:Key="SecondaryHueLightBrush" Color="#FFF6EF" />
+    <SolidColorBrush x:Key="SecondaryHueMidBrush" Color="#D96073" />
+    <SolidColorBrush x:Key="SecondaryHueDarkBrush" Color="#262628" />
+
+    <!-- Override MaterialDesign Brushes -->
+    <SolidColorBrush x:Key="MaterialDesignTabControlBackground" Color="#262628" />
+    <SolidColorBrush x:Key="MaterialDesignTabSelectedBackground" Color="#C6C3F2" />
+    <SolidColorBrush x:Key="MaterialDesignTabSelectedForeground" Color="White" />
+    <SolidColorBrush x:Key="MaterialDesignTabUnselectedBackground" Color="#FFF6EF" />
+    <SolidColorBrush x:Key="MaterialDesignTabUnselectedForeground" Color="#D96073" />
+</ResourceDictionary>
