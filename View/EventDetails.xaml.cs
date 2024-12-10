@@ -1,7 +1,7 @@
-﻿using System;
+﻿using OOP_EventsManagementSystem.ViewModel;
+using System;
 using System.Windows;
 using System.Windows.Controls;
-using OOP_EventsManagementSystem.ViewModel;
 
 namespace OOP_EventsManagementSystem.View
 {
@@ -15,9 +15,9 @@ namespace OOP_EventsManagementSystem.View
             InitializeComponent();
         }
 
-        
+
         // Đặt phương thức PowerOff_Click bên trong lớp
-        
+
         private void PowerOff_Click(object sender, RoutedEventArgs e)
         {
             // Lấy cửa sổ chứa UserControl (MainWindow)
