@@ -26,8 +26,7 @@
                             </ItemsControl.ItemsPanel>
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <Rectangle Height="130" Width="240" RadiusX="16" RadiusY="16"
-                                  Fill="#FFD6E8FF" Margin="12" />
+                                    <styles:EventDetail Margin="5,5,5,5"/>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                             <ItemsControl.ItemsSource>
