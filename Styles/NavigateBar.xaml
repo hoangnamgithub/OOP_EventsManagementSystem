@@ -16,13 +16,13 @@
         <TextBlock Grid.Column="0" FontFamily="Bahnschrift SemiBold" FontWeight="SemiBold" Text="easys" Foreground="#D6DC82" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"  />
         <StackPanel Grid.Column="1" HorizontalAlignment="Center" Orientation="Horizontal" >
             <Border BorderBrush="#FFFFF6EF" BorderThickness="0,0,0,2"  Margin="5">
-                <Button Background="Transparent" BorderBrush="{x:Null}" Margin="0">
+                <Button Background="Transparent" BorderBrush="{x:Null}" Margin="0" Command="{Binding NavigateToEventCommand}">
                     <TextBlock FontFamily="Bahnschrift SemiLight" Text="Event" Foreground="#FFFFF6EF" 
                    HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" />
                 </Button>
             </Border>
 
-            <Button Background="Transparent" BorderBrush="{x:Null}" Margin="5,5,5,5">
+            <Button Background="Transparent" BorderBrush="{x:Null}" Margin="5,5,5,5" Command="{Binding NavigateToShowCommand}">
                 <TextBlock FontFamily="Bahnschrift SemiLight" Text="Show" Foreground="#FFFFF6EF" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14"  />
             </Button>
             <Button Background="Transparent" BorderBrush="{x:Null}" Margin="5,5,5,5">

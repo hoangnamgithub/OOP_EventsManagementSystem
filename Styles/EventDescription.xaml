@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OOP_EventsManagementSystem.Styles"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-
+        ResizeMode="NoResize"
+        Owner="{x:Null}"
         mc:Ignorable="d"
         Title="EventDescription" 
         Height="600" 
@@ -14,8 +15,8 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         Background="Transparent">
-    <Border CornerRadius="16" Background="#EFE9E4" BorderThickness="10"  Margin="10" BorderBrush="#FFD96073" >
-        <Grid>
+    <Border MouseDown="Grid_MouseDown" CornerRadius="16" Background="#EFE9E4" BorderThickness="10"  Margin="10" BorderBrush="#FFD96073" >
+        <Grid >
             <ScrollViewer Margin="5">
                 <Grid>
                     <Grid.ColumnDefinitions>

@@ -27,8 +27,7 @@ namespace OOP_EventsManagementSystem.Styles
 
         private void AccountButton_Click(object sender, RoutedEventArgs e)
         {
-            // Kiểm tra xem ContextMenu có xuất hiện không khi nhấn nút
-            MessageBox.Show("Nút đã được nhấn");
+      
             AccountContextMenu.IsOpen = true;
         }
 
@@ -46,8 +45,18 @@ namespace OOP_EventsManagementSystem.Styles
 
         private void Logout_Click(object sender, RoutedEventArgs e)
         {
-            // Xử lý logic khi người dùng chọn "Log Out"
-            MessageBox.Show("Đăng xuất");
+            // Hiển thị thông báo xác nhận
+            MessageBoxResult result = MessageBox.Show("Bạn có chắc chắn muốn đăng xuất và thoát ứng dụng?",
+                                                      "Xác nhận",
+                                                      MessageBoxButton.YesNo,
+                                                      MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                // Đóng toàn bộ ứng dụng
+                Application.Current.Shutdown();
+            }
+
         }
 
     }

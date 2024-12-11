@@ -1,22 +1,21 @@
 ﻿<Window x:Class="OOP_EventsManagementSystem.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:OOP_EventsManagementSystem.View"
-        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:styles="clr-namespace:OOP_EventsManagementSystem.Styles"
         xmlns:view="clr-namespace:OOP_EventsManagementSystem.View"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="MainWindow" 
         Height="600" 
         Width="850"
         AllowsTransparency="True"
         WindowStartupLocation="CenterScreen"
-        WindowStyle="None">
+        WindowStyle="None"
+        DataContext="{Binding Main, Source={StaticResource Locator}}">
+
     <Border CornerRadius="16" Background="#EFE9E4">
-        
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="45" />
@@ -24,14 +23,14 @@
             </Grid.RowDefinitions>
 
             <!-- Navigate Bar -->
-            <Grid>
-                <styles:NavigateBar  />
+            <Grid MouseDown="Grid_MouseDown">
+                <styles:NavigateBar />
             </Grid>
-            <!-- Header Section -->
+
+            <!-- Content Section -->
             <Grid Grid.Row="1">
-                <view:Event />
+                <ContentControl Content="{Binding CurrentView}" />
             </Grid>
-            
         </Grid>
     </Border>
 </Window>

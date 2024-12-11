@@ -41,5 +41,14 @@ namespace OOP_EventsManagementSystem.Styles
         {
 
         }
+        // Sự kiện kéo cửa sổ
+        private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                // Kích hoạt tính năng kéo của Window
+                this.DragMove();
+            }
+        }
     }
 }

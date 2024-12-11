@@ -33,7 +33,7 @@ namespace OOP_EventsManagementSystem.ViewModel
         {
             // Logic khi nhấn nút Add (mở ShowDescription)
             var eventDescriptionWindow = new EventDescription();
-            eventDescriptionWindow.ShowDialog();
+            eventDescriptionWindow.Show();
         }
 
         // Implementation of INotifyPropertyChanged

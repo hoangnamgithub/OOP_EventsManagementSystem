@@ -27,6 +27,14 @@ namespace OOP_EventsManagementSystem
            
         }
 
+        private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                // Kích hoạt tính năng kéo của Window
+                this.DragMove();
+            }
+        }
         private void Menu_SuggestionChosen(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
 
