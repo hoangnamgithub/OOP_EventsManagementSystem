@@ -27,5 +27,19 @@ namespace OOP_EventsManagementSystem.Styles
         {
             this.Close();
         }
+
+        private void btn_search_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void btn_edit_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btn_delete_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
