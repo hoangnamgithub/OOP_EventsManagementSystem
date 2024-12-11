@@ -10,17 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace OOP_EventsManagementSystem.View
+namespace OOP_EventsManagementSystem.Styles
 {
     /// <summary>
-    /// Interaction logic for Employee.xaml
+    /// Interaction logic for AccountDescription.xaml
     /// </summary>
-    public partial class Employee : Page
+    public partial class AccountDescription : Window
     {
-        public Employee()
+        public AccountDescription()
         {
             InitializeComponent();
         }

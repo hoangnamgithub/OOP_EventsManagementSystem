@@ -7,14 +7,16 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
 
         mc:Ignorable="d"
-        Title="EventDescription" 
-        Height="600" 
+        Title="EventDescription"
+        d:DesignWidth ="875"
+        Height="450" 
         Width="850"
         AllowsTransparency="True"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         Background="Transparent">
-    <Border CornerRadius="16" Background="#EFE9E4" BorderThickness="10"  Margin="10" BorderBrush="#FFD96073" >
+    <Border CornerRadius="16" Background="#EFE9E4" BorderThickness="10"  Margin="10" BorderBrush="#FFD96073" Height="auto" 
+        Width="auto">
         <Grid>
             <ScrollViewer Margin="5">
                 <Grid>
@@ -145,7 +147,7 @@ Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
                             </Border>
                         </Grid>
                     </StackPanel>
-                    
+
                     <StackPanel Grid.Column="1">
                         <!--List Show -->
                         <Grid >
