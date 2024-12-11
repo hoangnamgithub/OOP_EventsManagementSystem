@@ -8,12 +8,10 @@
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:styles="clr-namespace:OOP_EventsManagementSystem.Styles"
              xmlns:vm="clr-namespace:OOP_EventsManagementSystem.ViewModel"
+             DataContext="{Binding Source={StaticResource Locator}, Path=EventVM}"
              mc:Ignorable="d" 
              d:DesignHeight="555" d:DesignWidth="850"
              >
-    <UserControl.DataContext>
-        <vm:EventVM />
-    </UserControl.DataContext>
     <Grid >
         <materialDesign:Card
 >

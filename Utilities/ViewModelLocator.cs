@@ -11,6 +11,7 @@ namespace OOP_EventsManagementSystem.Utilities
     {
         // Property để cung cấp MainWindowViewModel
         public MainWindowVM Main => new MainWindowVM();
+        public EventVM EventVM => new EventVM();
     }
 }
 

@@ -1,4 +1,5 @@
 ﻿using OOP_EventsManagementSystem.Styles;
+using OOP_EventsManagementSystem.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,7 @@ namespace OOP_EventsManagementSystem.View
         public Event()
         {
             InitializeComponent();
+            this.DataContext = new EventVM();
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)

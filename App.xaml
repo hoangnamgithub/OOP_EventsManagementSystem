@@ -9,7 +9,7 @@
         <utilities:ViewModelLocator x:Key="Locator" />
 
         <!-- Các tài nguyên khác -->
-        <ResourceDictionary>
+        <ResourceDictionary x:Key="Material">
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Utilities/DataTemplate.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />

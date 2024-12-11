@@ -1,30 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Runtime.CompilerServices;
+﻿using OOP_EventsManagementSystem.Utilities;
 using System.Windows.Input;
-using OOP_EventsManagementSystem.Utilities;
+using OOP_EventsManagementSystem.View;
 
-namespace OOP_EventsManagementSystem.ViewModel
+public class MainWindowVM : ViewModelBase
 {
-    public class MainWindowVM : ViewModelBase
+    private object _currentView;
+    public object CurrentView
     {
-        private string _someProperty;
-
-        public string SomeProperty
+        get { return _currentView; }
+        set
         {
-            get { return _someProperty; }
-            set
-            {
-                if (_someProperty != value)
-                {
-                    _someProperty = value;
-                    OnPropertyChanged(nameof(SomeProperty));
-                }
-            }
+            _currentView = value;
+            OnPropertyChanged(nameof(CurrentView));
         }
+    }
+
+    public ICommand NavigateToEventCommand { get; set; }
+
+    public MainWindowVM()
+    {
+        NavigateToEventCommand = new RelayCommand(OnNavigateToEvent); // Chỗ này đã sửa
+    }
+
+    // Phương thức OnNavigateToEvent nhận tham số kiểu object
+    private void OnNavigateToEvent(object parameter)
+    {
+        // Thiết lập CurrentView để hiển thị UserControl Event
+        CurrentView = new Event();  // Điều này sẽ hiển thị UserControl Event.xaml
     }
 }

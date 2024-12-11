@@ -24,7 +24,7 @@
 
             <!-- Navigate Bar -->
             <Grid MouseDown="Grid_MouseDown">
-                <styles:NavigateBar />
+                <styles:NavigateBar DataContext="{Binding MainWindowVM}" />
             </Grid>
 
             <!-- Content Section -->
