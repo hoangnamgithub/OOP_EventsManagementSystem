@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              Height="130" Width="240">
     <Grid Background="Transparent">
-        <Border Background="#dad1b2" BorderBrush="Black" BorderThickness="0"
+        <Border Background="#262628" BorderBrush="Black" BorderThickness="0"
                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch" CornerRadius="5">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -21,7 +21,7 @@
                             <RowDefinition Height="70*"/>
                             <RowDefinition Height="8*"/>
                         </Grid.RowDefinitions>
-                        <Grid Grid.Row="0" Grid.Column="1" Background="#5e7374">
+                        <Grid Grid.Row="0" Grid.Column="1" Background="#c6c3f2">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="70*"/>
                                 <ColumnDefinition Width="30*"/>
@@ -32,8 +32,8 @@
                                        VerticalAlignment="Center" 
                                        FontFamily="Poppins" FontWeight="Bold"
                                        LineStackingStrategy="BlockLineHeight"
-                                       LineHeight="16" Foreground="#FFDAD1B2"/>
-                         
+                                       LineHeight="16" Foreground="#FF262628"/>
+
 
                         </Grid>
 
@@ -42,42 +42,48 @@
                                 <RowDefinition Height="10*"/>
                                 <RowDefinition Height="80*"/>
                                 <RowDefinition Height="5*"/>
-                                
+
                             </Grid.RowDefinitions>
 
                             <Grid Grid.Row="1">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
-                                </Grid.ColumnDefinitions>
 
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="55*"/>
                                     <RowDefinition Height="45*"/>
                                 </Grid.RowDefinitions>
 
+                                <Grid Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Grid.Row="1" Grid.Column="1" Margin="5,0,0,0">
+                                        <StackPanel>
+                                            <TextBlock Text="Venue" FontFamily="Poppins" FontWeight="Bold" Foreground="#FFFFF6EF"/>
+                                            <TextBlock Text="venueName" FontSize="10" FontFamily="Poppins" Foreground="#FFFFF6EF"/>
+                                        </StackPanel>
+                                    </Grid>
+                                    <Grid Grid.Row="1" Grid.Column="0" Margin="5,0,0,0">
+                                        <StackPanel VerticalAlignment="Center">
+                                            <TextBlock Text="startTime" FontSize="10" FontFamily="Poppins" Foreground="#FFFFF6EF"/>
+                                            <TextBlock Text="endTime" FontSize="10" FontFamily="Poppins" Foreground="#FFFFF6EF"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </Grid>
+
+
+
                                 <Grid Grid.Row="0" Grid.Column="0" Margin="5,0,0,0">
                                     <StackPanel>
-                                        <TextBlock Text="Name" FontFamily="Poppins" FontWeight="Bold"/>
-                                        <TextBlock Text="eventName" FontSize="10" FontFamily="Poppins" TextWrapping="Wrap"/>
+                                        <TextBlock Text="Name" FontFamily="Poppins" FontWeight="Bold" Foreground="#FFFFF6EF"/>
+                                        <TextBlock Text="eventName" FontSize="10" FontFamily="Poppins" TextWrapping="Wrap" Foreground="#FFFFF6EF"/>
                                     </StackPanel>
                                 </Grid>
-                                <Grid Grid.Row="0" Grid.Column="1" Margin="5,0,0,0">
-                                    <StackPanel>
-                                        <TextBlock Text="Venue" FontFamily="Poppins" FontWeight="Bold"/>
-                                        <TextBlock Text="venueName" FontSize="10" FontFamily="Poppins"/>
-                                    </StackPanel>
-                                </Grid>
-                                <Grid Grid.Row="1" Grid.Column="0" Margin="5,0,0,0">
-                                    <StackPanel VerticalAlignment="Center">
-                                        <TextBlock Text="startTime" FontSize="10" FontFamily="Poppins"/>
-                                        <TextBlock Text="endTime" FontSize="10" FontFamily="Poppins"/>
-                                    </StackPanel>
-                                </Grid>
+
                             </Grid>
                         </Grid>
 
-                        <Grid Grid.Row="2" Background="#5e7374">
+                        <Grid Grid.Row="2" Background="#c6c3f2">
                             <TextBlock Text="EASYS" FontSize="6" 
                                        HorizontalAlignment="Right" 
                                        Margin="0,0,5,0" 
@@ -85,15 +91,15 @@
                                        FontWeight="Bold" 
                                        VerticalAlignment="Center"
                                        LineStackingStrategy="BlockLineHeight"
-                                       LineHeight="9" Foreground="#FFDAD1B2"/>
+                                       LineHeight="9" Foreground="#FF262628"/>
                         </Grid>
-                        </Grid>
+                    </Grid>
                     <Grid Grid.Column="0">
 
                     </Grid>
                 </Grid>
                 <Border Grid.Column="1" CornerRadius="0,100,100,0" Margin="0,5,5,5">
-                    <Grid Background="#5e7374" Margin="0,0,0,0">
+                    <Grid Background="#c6c3f2" Margin="0,0,0,0">
 
                     </Grid>
                 </Border>

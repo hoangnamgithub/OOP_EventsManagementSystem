@@ -13,7 +13,7 @@ namespace OOP_EventsManagementSystem
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-
+            //test
             // Ensure the database and tables exist before running the app
             DatabaseHelper.InitializeDatabase();
         }

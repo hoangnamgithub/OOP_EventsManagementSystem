@@ -7,8 +7,12 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:styles="clr-namespace:OOP_EventsManagementSystem.Styles"
+             xmlns:vm="clr-namespace:OOP_EventsManagementSystem.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="555" d:DesignWidth="850">
+    <UserControl.DataContext>
+        <vm:EventVM />
+    </UserControl.DataContext>
     <Grid>
         <materialDesign:Card
 >
@@ -26,7 +30,7 @@
                             </ItemsControl.ItemsPanel>
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <styles:EventDetail Margin="10,10,10,10"/>
+                                    <styles:EventDetailCard_v2 Margin="0,10,10,10"/>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                             <ItemsControl.ItemsSource>
@@ -137,9 +141,11 @@
 
         <Grid Grid.Column="2">
             <Rectangle Fill="#D6DC82" RadiusX="20" RadiusY="20" Margin="50,10,165,510" />
-            <TextBlock Text="12 Oct" Foreground="White"  
+                <TextBlock Text="{Binding CurrentDate}" Foreground="White"  
         VerticalAlignment="Center" HorizontalAlignment="Center" Margin="50,10,165,510" FontSize="18" FontFamily="Bahnschrift SemiBold" />
+
             <styles:Button ButtonText="Add" ButtonBackground="#D96073" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,5,50,0"  />
+
         </Grid>
         </Grid>
     </Grid>
