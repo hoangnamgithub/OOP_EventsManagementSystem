@@ -14,7 +14,7 @@
         </Grid.ColumnDefinitions>
         <!--Left Col-->
         <Grid Grid.Column="0">
-            <Border CornerRadius="8" Background="#C6C3F2">
+            <Border CornerRadius="8" Background="#FF39366F">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="15*"/>
@@ -26,25 +26,25 @@
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,0,0">
 
                             <!-- TextBlock -->
-                            <TextBlock Text="easys presents" FontSize="6" VerticalAlignment="Center" Margin="10,0,2,1" Foreground="#FFF6EF" />
+                            <TextBlock Text="easys presents" FontSize="6" VerticalAlignment="Center" Margin="10,0,2,1" Foreground="#FFD6DC82" FontFamily="Bahnschrift SemiLight" />
                             <!-- Red Line -->
-                            <Rectangle Width="3" Height="15" Fill="#FFD6DC82" VerticalAlignment="Center" />
+                            <Rectangle Width="120" Height="2" Fill="#FF9FA455" VerticalAlignment="Center" />
                         </StackPanel>
                     </Grid>
                     <!--Main content-->
                     <Grid Grid.Row="1">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="13*"/>
+                            <RowDefinition Height="20*"/>
                             <RowDefinition Height="18*"/>
                             <RowDefinition Height="27*"/>
                             <RowDefinition Height="27*"/>
                         </Grid.RowDefinitions>
 
-                        <Grid Grid.Row="0" Background="White">
-                            <TextBlock Text="EVENT NAME" VerticalAlignment="Bottom" Margin="10,0,0,0" FontSize="13" FontWeight="Bold" Foreground="#FF262628"/>
+                        <Grid Grid.Row="0" Background="Transparent">
+                            <TextBlock Text="EVENT NAME" VerticalAlignment="Bottom" Margin="10,0,0,0" FontSize="18" FontWeight="Bold" Foreground="White" FontFamily="Bahnschrift SemiCondensed"/>
                         </Grid>
                         <Grid Grid.Row="1">
-                            <TextBlock Text="VENUE" VerticalAlignment="Top" Margin="10,0,0,0" FontSize="13" FontWeight="Bold" Foreground="#FFFCF8F8"/>
+                            <TextBlock Text="VENUE" VerticalAlignment="Top" Margin="10,0,0,0" FontSize="14" FontWeight="Bold" Foreground="White" FontFamily="Bahnschrift SemiCondensed"/>
                         </Grid>
                         <Grid Grid.Row="3">
                             <Grid.ColumnDefinitions>
@@ -54,15 +54,15 @@
                             </Grid.ColumnDefinitions>
 
                             <Grid>
-                                <StackPanel Margin="10,0,0,0">
-                                    <TextBlock Text="START" FontWeight="Bold" FontSize="8" Foreground="black"/>
-                                    <TextBlock Text="dd/mm" Foreground="#FFFCF8F8"/>
+                                <StackPanel Margin="10,0,0,0" VerticalAlignment="Center">
+                                    <TextBlock Text="START" FontWeight="Bold" FontSize="8" Foreground="#FFD6DC82" FontFamily="Bahnschrift SemiLight"/>
+                                    <TextBlock Text="dd/mm" Foreground="White" FontFamily="Bahnschrift SemiLight Condensed"/>
                                 </StackPanel>
                             </Grid>
                             <Grid Grid.Column="1">
-                                <StackPanel Margin="10,0,0,0">
-                                    <TextBlock Text="END" FontWeight="Bold" FontSize="8" Foreground="Black"/>
-                                    <TextBlock Text="dd/mm" Foreground="#FFFCF8F8"/>
+                                <StackPanel Margin="10,0,0,0 " VerticalAlignment="Center">
+                                    <TextBlock Text="END" FontWeight="Bold" FontSize="8" Foreground="#FFD6DC82" FontFamily="Bahnschrift SemiLight"/>
+                                    <TextBlock Text="dd/mm" Foreground="White" FontFamily="Bahnschrift SemiLight Condensed"/>
                                 </StackPanel>
                             </Grid>
                             <Grid Grid.Column="2">
@@ -74,7 +74,7 @@
                                     <Rectangle Width="6" Height="50" Fill="White" Margin="1,0" />
                                     <Rectangle Width="2" Height="50" Fill="White" Margin="1,0" />
                                     <Rectangle Width="4" Height="50" Fill="White" Margin="1,0" />
-                                    <Rectangle Width="8" Height="50" Fill="#D6DC82" Margin="1,0" />
+                                    <Rectangle Width="8" Height="50" Fill="#FFD96073" Margin="1,0" />
                                     <Rectangle Width="3" Height="50" Fill="White" Margin="1,0" />
                                     <Rectangle Width="1" Height="50" Fill="White" Margin="1,0" />
                                     <Rectangle Width="7" Height="50" Fill="White" Margin="1,0" />
@@ -91,8 +91,81 @@
         </Grid>
         <!--Right Col-->
         <Grid Grid.Column="1">
-            <Border CornerRadius="8" Background="#D96073">
-                <mascos:CuteMascot/>
+            <Border CornerRadius="8" Background="#FF39366F">
+                <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Height="158">
+                    <Rectangle Fill="#D6DC82" Margin="43,0,0,0" Height="84" VerticalAlignment="Center"/>
+                    <Polygon Points="50,5 0,100 100,100"
+        Fill="#C6C3F2" Height="80"  Margin="-2,56,4,22"
+      />
+                    <Line X1="0" Y1="0" X2="23" Y2="0" Stroke="Black" StrokeThickness="3"
+    RenderTransformOrigin="0,0" HorizontalAlignment="Left" Height="10" VerticalAlignment="Top" Margin="70,40,0,0" Width="29">
+                        <Line.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="90"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Line.RenderTransform>
+                    </Line>
+                    <Ellipse Width="47" Fill="#D96073" HorizontalAlignment="Left" Margin="32,88,0,23" />
+                    <Ellipse Width="11" Fill="#FFFBF8" HorizontalAlignment="Left" Margin="34,100,0,47" RenderTransformOrigin="0.5,0.5" >
+                        <Ellipse.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleX="-1"/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Ellipse.RenderTransform>
+                    </Ellipse>
+                    <Ellipse Width="3" Fill="#262628" HorizontalAlignment="Center" Margin="0,103,0,52" />
+                    <Ellipse Width="11" Fill="#FFFBF8" HorizontalAlignment="Left" Margin="50,101,0,46" RenderTransformOrigin="0.5,0.5" >
+                        <Ellipse.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleX="-1"/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Ellipse.RenderTransform>
+                    </Ellipse>
+                    <Ellipse Width="3" Fill="#262628" HorizontalAlignment="Left" Margin="51,103,0,52" />
+                    <Ellipse Width="13" Fill="#FFFBF8" HorizontalAlignment="Left" Margin="53,30,0,115" RenderTransformOrigin="0.5,0.5" >
+                        <Ellipse.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleX="-1"/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Ellipse.RenderTransform>
+                    </Ellipse>
+                    <Ellipse Width="3" Fill="#262628" HorizontalAlignment="Left" Margin="54,34,0,121" />
+                    <Ellipse Width="13" Fill="#FFFBF8" HorizontalAlignment="Left" Margin="41,67,0,78" RenderTransformOrigin="0.5,0.5" >
+                        <Ellipse.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleX="-1"/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Ellipse.RenderTransform>
+                    </Ellipse>
+                    <Ellipse Width="3" Fill="#262628" HorizontalAlignment="Left" Margin="41,71,0,84" />
+                    <Line X1="0" Y1="0" X2="23" Y2="0" Stroke="Black" StrokeThickness="1"
+                        RenderTransformOrigin="0,0" HorizontalAlignment="Left" Height="10" VerticalAlignment="Top" Margin="29,83,0,0" Width="18">
+                        <Line.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform />
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Line.RenderTransform>
+                    </Line>
+                </Grid>
+
             </Border>
         </Grid>
         <Line X1="0" Y1="0" X2="0" Y2="125" 

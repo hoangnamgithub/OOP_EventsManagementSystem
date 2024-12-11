@@ -9,7 +9,8 @@
     <Grid>
         <Border CornerRadius="20" Background="{Binding ButtonBackground, RelativeSource={RelativeSource AncestorType=UserControl}}" 
                 Width="100" Height="35" Margin="5,5,5,5">
-            <Button Width="100" Height="35" Background="Transparent" BorderBrush="{x:Null}" Click="Button_Click">
+            <Button Width="100" Height="35" Background="Transparent" BorderBrush="{x:Null}" 
+                    Command="{Binding ButtonCommand, RelativeSource={RelativeSource AncestorType=UserControl}}">
                 <TextBlock Text="{Binding ButtonText, RelativeSource={RelativeSource AncestorType=UserControl}}" 
                            FontFamily="Bahnschrift SemiBold" FontSize="18"  />
             </Button>

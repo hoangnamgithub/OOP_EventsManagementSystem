@@ -1,19 +1,49 @@
-using OOP_EventsManagementSystem.Utilities;
-using OOP_EventsManagementSystem.View;
+﻿using OOP_EventsManagementSystem.Styles;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Collections.ObjectModel;
-using System.Windows;
-using System.Windows.Controls;
+using System.ComponentModel;
 using System.Windows.Input;
-
+using OOP_EventsManagementSystem.Utilities;
 
 namespace OOP_EventsManagementSystem.ViewModel
 {
-    internal class EventVM
+    public class EventVM : INotifyPropertyChanged
     {
+        public ICommand AddCommand { get; set; }
+        private DateTime _currentDate;
+        public DateTime CurrentDate
+        {
+            get { return _currentDate; }
+            set
+            {
+                if (_currentDate != value)
+                {
+                    _currentDate = value;
+                    OnPropertyChanged(nameof(CurrentDate));
+                }
+            }
+        }
+
+        // Constructor
+        public EventVM()
+        {
+            AddCommand = new RelayCommand(ExecuteAddCommand);
+            CurrentDate = DateTime.Now;
+        }
+        private void ExecuteAddCommand(object obj)
+        {
+            // Logic khi nhấn nút Add (mở ShowDescription)
+            var eventDescriptionWindow = new EventDescription();
+            eventDescriptionWindow.ShowDialog();
+        }
+
+        // Implementation of INotifyPropertyChanged
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+
     }
+
 }

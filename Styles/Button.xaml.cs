@@ -25,6 +25,17 @@ namespace OOP_EventsManagementSystem.Styles
             InitializeComponent();
         }
 
+        // DependencyProperty cho Command
+        public static readonly DependencyProperty ButtonCommandProperty =
+            DependencyProperty.Register("ButtonCommand", typeof(ICommand), typeof(Button), new PropertyMetadata(null));
+
+        public ICommand ButtonCommand
+        {
+            get { return (ICommand)GetValue(ButtonCommandProperty); }
+            set { SetValue(ButtonCommandProperty, value); }
+        }
+    
+
         // Dependency Property for Text
         public static readonly DependencyProperty ButtonTextProperty =
             DependencyProperty.Register("ButtonText", typeof(string), typeof(Button), new PropertyMetadata("Start"));
@@ -45,9 +56,5 @@ namespace OOP_EventsManagementSystem.Styles
             set { SetValue(ButtonBackgroundProperty, value); }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }

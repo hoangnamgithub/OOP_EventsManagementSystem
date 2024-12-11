@@ -23,6 +23,7 @@
   <ItemGroup>
     <None Remove="Resources\Fonts\Poppins-Regular.ttf" />
     <None Remove="Resources\Fonts\Poppins-SemiBold.ttf" />
+    <None Remove="Resources\Images\delete-outline.png" />
     <None Remove="Resources\Images\employee_d.png" />
     <None Remove="Resources\Images\employee_t.png" />
     <None Remove="Resources\Images\equipment_t.png" />
@@ -34,8 +35,10 @@
     <None Remove="Resources\Images\eye_on.png" />
     <None Remove="Resources\Images\location_den.png" />
     <None Remove="Resources\Images\location_trang.png" />
+    <None Remove="Resources\Images\magnify.png" />
     <None Remove="Resources\Images\partner_d.png" />
     <None Remove="Resources\Images\partner_t.png" />
+    <None Remove="Resources\Images\pencil-outline.png" />
     <None Remove="Resources\Images\poweroff.png" />
     <None Remove="Resources\Images\powerofff.png" />
     <None Remove="Resources\Images\show_den.png" />
@@ -48,6 +51,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Images\delete-outline.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Images\employee_d.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
@@ -81,10 +87,16 @@
     <Resource Include="Resources\Images\location_trang.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Images\magnify.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Images\partner_d.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Images\partner_t.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\pencil-outline.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Images\poweroff.png">

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OOP_EventsManagementSystem.Styles;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,13 @@ namespace OOP_EventsManagementSystem.View
         public Event()
         {
             InitializeComponent();
+        }
+
+        private void AddButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Mở cửa sổ ShowDescription khi nút Add được nhấn
+            var showDescriptionWindow = new ShowDescription();
+            showDescriptionWindow.ShowDialog();
         }
     }
 }

@@ -16,13 +16,27 @@ using System.Windows.Shapes;
 namespace OOP_EventsManagementSystem.Styles
 {
     /// <summary>
-    /// Interaction logic for CuteMascot.xaml
+    /// Interaction logic for SearchBar.xaml
     /// </summary>
-    public partial class CuteMascot : UserControl
+    public partial class SearchBar : UserControl
     {
-        public CuteMascot()
+        public SearchBar()
         {
             InitializeComponent();
+        }
+
+        private void btn_search_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void btn_edit_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btn_delete_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
