@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:OOP_EventsManagementSystem.Styles"
              xmlns:mascos="clr-namespace:OOP_EventsManagementSystem.Styles"
              mc:Ignorable="d" 
-             Height="130" Width="290">
+             Height="130" Width="260">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="72*"/>
@@ -97,6 +97,6 @@
         </Grid>
         <Line X1="0" Y1="0" X2="0" Y2="125" 
           Stroke="White" StrokeThickness="2" StrokeDashArray="5,3"
-          HorizontalAlignment="Left" Margin="208,12,0,7" Grid.ColumnSpan="2" />
+          HorizontalAlignment="Left" Margin="187,12,0,7" Width="1" Grid.ColumnSpan="2" />
     </Grid>
 </UserControl>
