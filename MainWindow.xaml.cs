@@ -27,10 +27,5 @@ namespace OOP_EventsManagementSystem
            
         }
 
-        private void Menu_SuggestionChosen(object sender, RoutedPropertyChangedEventArgs<object> e)
-        {
-
-        }
-
     }
 }
