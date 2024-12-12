@@ -68,7 +68,7 @@
                             <StackPanel Margin="20">
                             <TextBlock Text="Name"/>
                             <Border CornerRadius="16" Background="White">
-                                <TextBox BorderThickness="0,0,0,0"/>
+                                <TextBox Name="Name_" BorderThickness="0,0,0,0"/>
                             </Border>
                             <TextBlock Text="Contact"/>
                             <Border CornerRadius="16" Background="White">
