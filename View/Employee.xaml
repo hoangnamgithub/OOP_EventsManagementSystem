@@ -34,7 +34,7 @@
                 </Grid.RowDefinitions>
                 <Border CornerRadius="16" Grid.Row="1" Background="White">
                     <Grid>
-                        <DataGrid Background="Transparent" d:ItemsSource="{d:SampleData ItemCount=10}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                        <DataGrid Name="employee_table" Background="Transparent" d:ItemsSource="{d:SampleData ItemCount=10}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                         
                     </DataGrid>
                 </Grid>
