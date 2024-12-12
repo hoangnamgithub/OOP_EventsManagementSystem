@@ -4,9 +4,65 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:OOP_EventsManagementSystem.View"
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
+             d:DesignHeight="555" d:DesignWidth="850"
+             Background="#EFE9E4">
+    <Grid >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="6*"/>
+            <ColumnDefinition Width="4*"/>
+        </Grid.ColumnDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Show and Performer" FontFamily="Bahnschrift SemiBold" FontSize="18" Margin="10,5,0,5"  />
+            <Border Grid.Row="1" Background="White" CornerRadius="16" Height="115" Width="280" HorizontalAlignment="Right" Margin="15">
+                <StackPanel>
+                    <TextBlock Text="Participate in more than 100 events this year" TextWrapping="Wrap" FontFamily="Bahnschrift SemiLight" FontSize="18" Margin="10,12,10,5"  />
+                    <TextBlock Text="Play in about 200 hour per month" TextWrapping="Wrap" FontFamily="Bahnschrift SemiLight" FontSize="18" Margin="10,5,10,5"  />
+                </StackPanel>
+            </Border>
+            <StackPanel Grid.Row="2">
+                <TextBlock Text="Show and Performer" FontFamily="Bahnschrift SemiBold" FontSize="18" Margin="10,5,15,5" HorizontalAlignment="Right" />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Border Background="White" CornerRadius="16" Height="320" Width="280" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="15,0,10,0">
+                        <Grid>
+                        <TextBlock Text="Genre" FontFamily="Bahnschrift SemiBold" FontSize="18" Margin="10,5,15,290" HorizontalAlignment="Left" />
+                        
+                            <lvc:CartesianChart Margin="15,25,15,0">
+                                <lvc:CartesianChart.Series>
+                                    <lvc:ColumnSeries Title="Doanh thu" Values="{Binding Values}" />
+                                </lvc:CartesianChart.Series>
+                                <lvc:CartesianChart.AxisX>
+                                    <lvc:Axis Title="Tháng" Labels="{Binding Labels}" />
+                                </lvc:CartesianChart.AxisX>
+                                <lvc:CartesianChart.AxisY>
+                                    <lvc:Axis Title="Tần suất" />
+                                </lvc:CartesianChart.AxisY>
+                            </lvc:CartesianChart>
+                        </Grid>
+
+                    </Border>
+                    <Border Grid.Column="1" Background="White" CornerRadius="16" Height="380" Width="175" HorizontalAlignment="Right" Margin="15,0,15,15">
+                        <StackPanel>
+                            <Image Source="pack://application:,,,/Resources/Images/diewasmile.jpg" Height="150" Width="150" VerticalAlignment="Top" Margin="10"/>
+                            <TextBlock Text="Die with a smile" FontFamily="Bahnschrift SemiBold" FontSize="18" Margin="10,5,15,5" HorizontalAlignment="Center" />
+                        </StackPanel>
+                        
+                    </Border>
+                </Grid>
+                
+            </StackPanel>
             
+        </Grid>
     </Grid>
 </UserControl>

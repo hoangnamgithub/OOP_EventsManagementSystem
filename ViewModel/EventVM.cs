@@ -9,10 +9,11 @@ namespace OOP_EventsManagementSystem.ViewModel
     public class EventVM : INotifyPropertyChanged
     {
         public ICommand AddCommand { get; set; }
+
         private DateTime _currentDate;
         public DateTime CurrentDate
         {
-            get { return _currentDate; }
+            get => _currentDate;
             set
             {
                 if (_currentDate != value)
@@ -23,17 +24,43 @@ namespace OOP_EventsManagementSystem.ViewModel
             }
         }
 
-        // Constructor
+        private bool _isAddButtonEnabled;
+        public bool IsAddButtonEnabled
+        {
+            get => _isAddButtonEnabled;
+            set
+            {
+                if (_isAddButtonEnabled != value)
+                {
+                    _isAddButtonEnabled = value;
+                    OnPropertyChanged(nameof(IsAddButtonEnabled));
+                    CommandManager.InvalidateRequerySuggested(); // Update CanExecute
+                }
+            }
+        }
+
         public EventVM()
         {
-            AddCommand = new RelayCommand(ExecuteAddCommand);
+            AddCommand = new RelayCommand(ExecuteAddCommand, CanExecuteAddCommand);
+            IsAddButtonEnabled = true;
             CurrentDate = DateTime.Now;
         }
+
         private void ExecuteAddCommand(object obj)
         {
-            // Logic khi nhấn nút Add (mở ShowDescription)
+            IsAddButtonEnabled = false; // Disable the button
+
             var eventDescriptionWindow = new EventDescription();
+            eventDescriptionWindow.Closed += (s, e) =>
+            {
+                IsAddButtonEnabled = true; // Enable the button when the window is closed
+            };
             eventDescriptionWindow.Show();
+        }
+
+        private bool CanExecuteAddCommand(object obj)
+        {
+            return IsAddButtonEnabled;
         }
 
         // Implementation of INotifyPropertyChanged
@@ -42,8 +69,5 @@ namespace OOP_EventsManagementSystem.ViewModel
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
-
     }
-
 }
