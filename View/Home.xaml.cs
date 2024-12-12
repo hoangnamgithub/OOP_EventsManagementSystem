@@ -12,19 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using OOP_EventsManagementSystem.ViewModel;
 
 namespace OOP_EventsManagementSystem.View
 {
     /// <summary>
-    /// Interaction logic for Show.xaml
+    /// Interaction logic for Home.xaml
     /// </summary>
-    public partial class Show : UserControl
+    public partial class Home : UserControl
     {
-        public Show()
+        public Home()
         {
             InitializeComponent();
-            this.DataContext = new ShowVM();
         }
     }
 }

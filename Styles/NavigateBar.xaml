@@ -14,31 +14,30 @@
             <ColumnDefinition Width="10*"/>
         </Grid.ColumnDefinitions>
         <TextBlock Grid.Column="0" FontFamily="Bahnschrift SemiBold" FontWeight="SemiBold" Text="easys" Foreground="#D6DC82" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"  />
-        <StackPanel Grid.Column="1" HorizontalAlignment="Center" Orientation="Horizontal" >
-            <Border BorderBrush="#FFFFF6EF" BorderThickness="0,0,0,2"  Margin="5">
-                <Button Background="Transparent" BorderBrush="{x:Null}" Margin="0">
-                    <TextBlock FontFamily="Bahnschrift SemiLight" Text="Event" Foreground="#FFFFF6EF" 
-                   HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" />
-                </Button>
-            </Border>
-
-            <Button Background="Transparent" BorderBrush="{x:Null}" Margin="5,5,5,5">
-                <TextBlock FontFamily="Bahnschrift SemiLight" Text="Show" Foreground="#FFFFF6EF" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14"  />
-            </Button>
-            <Button Background="Transparent" BorderBrush="{x:Null}" Margin="5,5,5,5">
-                <TextBlock FontFamily="Bahnschrift SemiLight" Text="Partner" Foreground="#FFFFF6EF" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14"  />
-            </Button>
-            <Button Background="Transparent" BorderBrush="{x:Null}" Margin="5,5,5,5">
-                <TextBlock FontFamily="Bahnschrift SemiLight" Text="Employee" Foreground="#FFFFF6EF" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14"  />
-            </Button>
-            <Button Background="Transparent" BorderBrush="{x:Null}" Margin="5,5,5,5">
-                <TextBlock FontFamily="Bahnschrift SemiLight" Text="Equipment" Foreground="#FFFFF6EF" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14"  />
-            </Button>
-            <Button Background="Transparent" BorderBrush="{x:Null}" Margin="5,5,5,5">
-                <TextBlock FontFamily="Bahnschrift SemiLight" Text="Location" Foreground="#FFFFF6EF" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14"  />
-            </Button>
-        </StackPanel>
-        <Button Grid.Column="2" Background="Transparent" Height="45" VerticalAlignment="Center" BorderBrush="{x:Null}" Click="AccountButton_Click">
+        <StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal" Width="592" Margin="0,0,24,0" >
+                    <Button Background="Transparent" BorderBrush="{x:Null}" Margin="0" Command="{Binding HomeCommand}">
+                        <TextBlock FontFamily="Bahnschrift SemiLight" Text="Home" Foreground="#FFFFF6EF" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" />
+                    </Button>
+                    <Button Background="Transparent" BorderBrush="{x:Null}" Margin="0" Command="{Binding EventCommand}">
+                        <TextBlock FontFamily="Bahnschrift SemiLight" Text="Event" Foreground="#FFFFF6EF" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" />
+                    </Button>
+                    <Button Background="Transparent" BorderBrush="{x:Null}" Margin="5,5,5,5" Command="{Binding ShowCommand}">
+                        <TextBlock FontFamily="Bahnschrift SemiLight" Text="Show" Foreground="#FFFFF6EF" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14"  />
+                    </Button>
+                    <Button Background="Transparent" BorderBrush="{x:Null}" Margin="5,5,5,5" Command="{Binding PartnerCommand}">
+                        <TextBlock FontFamily="Bahnschrift SemiLight" Text="Partner" Foreground="#FFFFF6EF" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14"  />
+                    </Button>
+                    <Button Background="Transparent" BorderBrush="{x:Null}" Margin="5,5,5,5" Command="{Binding EmployeeCommand}">
+                        <TextBlock FontFamily="Bahnschrift SemiLight" Text="Employee" Foreground="#FFFFF6EF" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14"  />
+                    </Button>
+                    <Button Background="Transparent" BorderBrush="{x:Null}" Margin="5,5,5,5" Command="{Binding EquipmentCommand}">
+                        <TextBlock FontFamily="Bahnschrift SemiLight" Text="Equipment" Foreground="#FFFFF6EF" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14"  />
+                    </Button>
+                    <Button Background="Transparent" BorderBrush="{x:Null}" Margin="5,5,5,5" Command="{Binding LocationCommand}">
+                        <TextBlock FontFamily="Bahnschrift SemiLight" Text="Location" Foreground="#FFFFF6EF" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14"  />
+                    </Button>
+                </StackPanel>
+                <Button Grid.Column="2" Background="Transparent" Height="45" VerticalAlignment="Center" BorderBrush="{x:Null}" Click="AccountButton_Click">
             <Image Source="pack://application:,,,/Resources/Images/event2.jpg" Width="30" Height="30" Stretch="UniformToFill">
                 <Image.Clip>
                     <EllipseGeometry Center="15,15" RadiusX="15" RadiusY="15" />

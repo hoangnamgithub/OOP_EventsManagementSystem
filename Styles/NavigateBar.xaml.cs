@@ -12,6 +12,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using OOP_EventsManagementSystem.Utilities;
+using OOP_EventsManagementSystem.View;
+using OOP_EventsManagementSystem.ViewModel;
+
 
 namespace OOP_EventsManagementSystem.Styles
 {
@@ -20,15 +24,18 @@ namespace OOP_EventsManagementSystem.Styles
     /// </summary>
     public partial class NavigateBar : UserControl
     {
+        
+        
         public NavigateBar()
         {
             InitializeComponent();
-        }
+            this.DataContext = this;
+           
 
-        private void AccountButton_Click(object sender, RoutedEventArgs e)
+        }
+            private void AccountButton_Click(object sender, RoutedEventArgs e)
         {
-            // Kiểm tra xem ContextMenu có xuất hiện không khi nhấn nút
-            MessageBox.Show("Nút đã được nhấn");
+            
             AccountContextMenu.IsOpen = true;
         }
 
@@ -46,9 +53,27 @@ namespace OOP_EventsManagementSystem.Styles
 
         private void Logout_Click(object sender, RoutedEventArgs e)
         {
-            // Xử lý logic khi người dùng chọn "Log Out"
-            MessageBox.Show("Đăng xuất");
+            // Hiển thị hộp thoại xác nhận
+            MessageBoxResult result = MessageBox.Show("Bạn có chắc chắn muốn đăng xuất không?", "Xác nhận đăng xuất", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            // Nếu người dùng chọn Yes, thực hiện đăng xuất
+            if (result == MessageBoxResult.Yes)
+            {
+                // Đóng toàn bộ cửa sổ đang mở
+                foreach (Window window in Application.Current.Windows)
+                {
+                    if (window != Window.GetWindow(this))
+                    {
+                        window.Close();
+                    }
+                }
+
+                // Đóng cửa sổ chính sau cùng
+                Window.GetWindow(this).Close();
+            }
         }
+
+
 
     }
 }

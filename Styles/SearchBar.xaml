@@ -8,9 +8,8 @@
              d:DesignHeight="35" Width="380">
     <Grid>
         <Border Height="35" Width="280" CornerRadius="16" Background="#FFDCDCE6" HorizontalAlignment="Left">
-            <TextBlock Text="Search......" Margin="10,0,8,0" VerticalAlignment="Center" FontSize="14" FontFamily="Bahnschrift SemiLight" Foreground="#FF6A6A6A" />
+            <TextBox x:Name="SearchBox" Text="Search......" Foreground="Gray" Margin="5,0,30,0" VerticalAlignment="Center" FontSize="14" FontFamily="Bahnschrift SemiLight" CaretBrush="{x:Null}" Background="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" GotFocus="SearchBox_GotFocus" LostFocus="SearchBox_LostFocus"/>
         </Border>
-        <TextBox Margin="5,0,130,0" VerticalAlignment="Center" FontSize="14" FontFamily="Bahnschrift SemiLight" CaretBrush="{x:Null}" Background="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" />
         <Image Source="pack://application:,,,/Resources/Images/magnify.png" Margin="145,0,0,0" Width="20" Height="20"/>
         <Button x:Name="btn_search" Width="20" Height="20" Margin="145,0,0,0" Click="btn_search_Click" Background="{x:Null}" BorderBrush="{x:Null}" />
         <Border Height="30" Width="30" CornerRadius="16" Background="#FFDCDCE6" Margin="230,0,0,0">

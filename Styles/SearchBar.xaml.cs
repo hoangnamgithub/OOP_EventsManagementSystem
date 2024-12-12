@@ -24,7 +24,8 @@ namespace OOP_EventsManagementSystem.Styles
         {
             InitializeComponent();
         }
-
+        private void SearchBox_GotFocus(object sender, RoutedEventArgs e) { if (SearchBox.Text == "Search......") { SearchBox.Text = ""; SearchBox.CaretBrush = System.Windows.Media.Brushes.Black; } }
+        private void SearchBox_LostFocus(object sender, RoutedEventArgs e) { if (string.IsNullOrWhiteSpace(SearchBox.Text)) { SearchBox.Text = "Search......"; SearchBox.CaretBrush = System.Windows.Media.Brushes.Transparent; } }
         private void btn_search_Click(object sender, RoutedEventArgs e)
         {
 

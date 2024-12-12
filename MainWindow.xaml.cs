@@ -23,14 +23,11 @@ namespace OOP_EventsManagementSystem
         public MainWindow()
         {
             InitializeComponent();
-
+            DataContext = new MainWindowVM();
            
         }
 
-        private void Menu_SuggestionChosen(object sender, RoutedPropertyChangedEventArgs<object> e)
-        {
-
-        }
+        private void NavigateBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) { if (e.ButtonState == MouseButtonState.Pressed) { this.DragMove(); } }
 
     }
 }

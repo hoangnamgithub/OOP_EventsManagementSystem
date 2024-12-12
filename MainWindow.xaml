@@ -24,14 +24,13 @@
             </Grid.RowDefinitions>
 
             <!-- Navigate Bar -->
-            <Grid>
-                <styles:NavigateBar  />
+            <Grid MouseLeftButtonDown="NavigateBar_MouseLeftButtonDown">
+                <styles:NavigateBar  DataContext="{Binding}"/>
             </Grid>
             <!-- Header Section -->
-            <Grid Grid.Row="1">
-                <view:Event />
-            </Grid>
-            
+            <ContentControl Grid.Row="1" Content="{Binding CurrentView}" />
+
+
         </Grid>
     </Border>
 </Window>
