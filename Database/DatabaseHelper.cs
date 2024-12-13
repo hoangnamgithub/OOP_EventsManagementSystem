@@ -84,28 +84,30 @@ namespace OOP_EventsManagementSystem.Database
         {
             return new string[]
             {
-                // Employees schema
-        @"IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='employee_role' AND xtype='U') CREATE TABLE Employees.employee_role (
+        @"
+        IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='employee_role' AND xtype='U') CREATE TABLE Employees.employee_role (
             role_id INT PRIMARY KEY IDENTITY(1,1),
             role_name NVARCHAR(100) NOT NULL,
             salary DECIMAL(10, 2) NOT NULL
-        );",
+        );
 
-        @"IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='employee' AND xtype='U') CREATE TABLE Employees.employee (
+
+        IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='employee' AND xtype='U') CREATE TABLE Employees.employee (
             employee_id INT PRIMARY KEY IDENTITY(1,1),
             full_name NVARCHAR(100) NOT NULL,
             contact NVARCHAR(50),
             role_id INT NOT NULL,
-            FOREIGN KEY (role_id) REFERENCES Employees.employee_role(role_id)
-        );",
+            manager_id INT,
+            FOREIGN KEY (role_id) REFERENCES Employees.employee_role(role_id),
+            FOREIGN KEY (manager_id) REFERENCES Employees.employee(employee_id)
+        );
 
-        // Accounts schema
-        @"IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='permission' AND xtype='U') CREATE TABLE Accounts.permission (
+        IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='permission' AND xtype='U') CREATE TABLE Accounts.permission (
             permission_id INT PRIMARY KEY IDENTITY(1,1),
             permission NVARCHAR(100) NOT NULL
-        );",
+        );
 
-        @"IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='account' AND xtype='U') CREATE TABLE Accounts.account (
+        IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='account' AND xtype='U') CREATE TABLE Accounts.account (
             account_id INT PRIMARY KEY IDENTITY(1,1),
             email NVARCHAR(100) NOT NULL,
             password NVARCHAR(100) NOT NULL,
@@ -113,71 +115,77 @@ namespace OOP_EventsManagementSystem.Database
             employee_id INT NOT NULL,
             FOREIGN KEY (permission_id) REFERENCES Accounts.permission(permission_id),
             FOREIGN KEY (employee_id) REFERENCES Employees.employee(employee_id)
-        );",
+        );
 
-        // Events schema
-        @"IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='sponsor_tier' AND xtype='U') CREATE TABLE Events.sponsor_tier (
+        IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='sponsor_tier' AND xtype='U') CREATE TABLE Events.sponsor_tier (
             sponsor_tier_id INT PRIMARY KEY IDENTITY(1,1),
             tier_name NVARCHAR(100) NOT NULL
-        );",
+        );
 
-        @"IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='sponsors' AND xtype='U') CREATE TABLE Events.sponsors (
+        IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='sponsors' AND xtype='U') CREATE TABLE Events.sponsors (
             sponsor_id INT PRIMARY KEY IDENTITY(1,1),
             sponsor_name NVARCHAR(100) NOT NULL,
             sponsor_details NVARCHAR(MAX)
-        );",
+        );
 
-        @"IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='event_type' AND xtype='U') CREATE TABLE Events.event_type (
+        IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='event_type' AND xtype='U') CREATE TABLE Events.event_type (
             event_type_id INT PRIMARY KEY IDENTITY(1,1),
             type_name NVARCHAR(100) NOT NULL
-        );",
+        );
 
-        @"IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='venue' AND xtype='U') CREATE TABLE Events.venue (
+        IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='venue' AND xtype='U') CREATE TABLE Events.venue (
             venue_id INT PRIMARY KEY IDENTITY(1,1),
             venue_name NVARCHAR(100) NOT NULL,
             cost DECIMAL(10, 2) NOT NULL,
             address NVARCHAR(MAX),
             capacity INT NOT NULL
-        );",
+        );
 
-        @"IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='event' AND xtype='U') CREATE TABLE Events.event (
+        IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='event' AND xtype='U') CREATE TABLE Events.event (
             event_id INT PRIMARY KEY IDENTITY(1,1),
             event_name NVARCHAR(100) NOT NULL,
             event_description NVARCHAR(MAX),
             expted_attendee INT NOT NULL,
             start_date DATE NOT NULL,
             end_date DATE NOT NULL,
-            account_id INT NOT NULL,
-            venue_id INT NOT NULL,
             event_type_id INT NOT NULL,
-            FOREIGN KEY (account_id) REFERENCES Accounts.account(account_id),
-            FOREIGN KEY (venue_id) REFERENCES Events.venue(venue_id),
-            FOREIGN KEY (event_type_id) REFERENCES Events.event_type(event_type_id)
-        );",
+            venue_id INT NOT NULL,
+            FOREIGN KEY (event_type_id) REFERENCES Events.event_type(event_type_id),
+            FOREIGN KEY (venue_id) REFERENCES Events.venue(venue_id)
+        );
 
-        @"IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='is_sponsor' AND xtype='U') CREATE TABLE Events.is_sponsor (
+        IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='need' AND xtype='U') CREATE TABLE Employees.need (
+            need_id INT PRIMARY KEY IDENTITY(1,1),
+            role_id INT NOT NULL,
+            event_id INT NOT NULL,
+            quantity INT NOT NULL,
+            FOREIGN KEY (role_id) REFERENCES Employees.employee_role(role_id),
+            FOREIGN KEY (event_id) REFERENCES Events.event(event_id)
+        );
+
+        IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='is_sponsor' AND xtype='U') CREATE TABLE Events.is_sponsor (
             is_sponsor_id INT PRIMARY KEY IDENTITY(1,1),
             event_id INT NOT NULL,
             sponsor_id INT NOT NULL,
             sponsor_tier_id INT NOT NULL,
             FOREIGN KEY (event_id) REFERENCES Events.event(event_id),
             FOREIGN KEY (sponsor_id) REFERENCES Events.sponsors(sponsor_id),
-            FOREIGN KEY (sponsor_tier_id) REFERENCES Events.sponsor_tier(sponsor_tier_id)
-        );",
+            FOREIGN KEY (sponsor_tier_id) REFERENCES Events.sponsor_tier(sponsor_tier_id),
+            UNIQUE (event_id, sponsor_id, sponsor_tier_id)
+        );
 
-        // Shows schema
-        @"IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='genre' AND xtype='U') CREATE TABLE Shows.genre (
+        IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='genre' AND xtype='U') CREATE TABLE Shows.genre (
             genre_id INT PRIMARY KEY IDENTITY(1,1),
             genre NVARCHAR(100) NOT NULL
-        );",
+        );
 
-        @"IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='performer' AND xtype='U') CREATE TABLE Shows.performer (
+        IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='performer' AND xtype='U') CREATE TABLE Shows.performer (
             performer_id INT PRIMARY KEY IDENTITY(1,1),
             full_name NVARCHAR(100) NOT NULL,
             contact_detail NVARCHAR(50)
-        );",
+        );
 
-        @"IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='show' AND xtype='U') CREATE TABLE Shows.show (
+        IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='show' AND xtype='U') CREATE TABLE Shows.show (
             show_id INT PRIMARY KEY IDENTITY(1,1),
             show_name NVARCHAR(100) NOT NULL,
             cost DECIMAL(10, 2) NOT NULL,
@@ -185,57 +193,56 @@ namespace OOP_EventsManagementSystem.Database
             genre_id INT NOT NULL,
             FOREIGN KEY (performer_id) REFERENCES Shows.performer(performer_id),
             FOREIGN KEY (genre_id) REFERENCES Shows.genre(genre_id)
-        );",
+        );
 
-        @"IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='show_schedule' AND xtype='U') CREATE TABLE Shows.show_schedule (
+        IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='show_schedule' AND xtype='U') CREATE TABLE Shows.show_schedule (
             show_time_id INT PRIMARY KEY IDENTITY(1,1),
             start_date DATE NOT NULL,
             est_duration INT NOT NULL,
             show_id INT NOT NULL,
             FOREIGN KEY (show_id) REFERENCES Shows.show(show_id)
-        );",
+        );
 
-        // Equipments schema
-        @"IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='equipment_type' AND xtype='U') CREATE TABLE Equipments.equipment_type (
+        IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='equipment_type' AND xtype='U') CREATE TABLE Equipments.equipment_type (
             equip_type_id INT PRIMARY KEY IDENTITY(1,1),
             type_name NVARCHAR(100) NOT NULL
-        );",
+        );
 
-        @"IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='equipment_name' AND xtype='U') CREATE TABLE Equipments.equipment_name (
+        IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='equipment_name' AND xtype='U') CREATE TABLE Equipments.equipment_name (
             equip_name_id INT PRIMARY KEY IDENTITY(1,1),
             equip_name NVARCHAR(100) NOT NULL,
             equip_cost DECIMAL(10, 2) NOT NULL,
             equip_type_id INT NOT NULL,
             FOREIGN KEY (equip_type_id) REFERENCES Equipments.equipment_type(equip_type_id)
-        );",
+        );
 
-        @"IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='equipment' AND xtype='U') CREATE TABLE Equipments.equipment (
+        IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='equipment' AND xtype='U') CREATE TABLE Equipments.equipment (
             equipment_id INT PRIMARY KEY IDENTITY(1,1),
             equip_name_id INT NOT NULL,
-            available BIT NOT NULL,
+            condition NVARCHAR(100),
             FOREIGN KEY (equip_name_id) REFERENCES Equipments.equipment_name(equip_name_id)
-        );",
+        );
 
-        @"IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='required' AND xtype='U') CREATE TABLE Equipments.required (
+        IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='required' AND xtype='U') CREATE TABLE Equipments.required (
             required_id INT PRIMARY KEY IDENTITY(1,1),
             quantity INT NOT NULL,
             event_id INT NOT NULL,
             equip_name_id INT NOT NULL,
             FOREIGN KEY (event_id) REFERENCES Events.event(event_id),
-            FOREIGN KEY (equip_name_id) REFERENCES Equipments.equipment_name(equip_name_id)
-        );",
+            FOREIGN KEY (equip_name_id) REFERENCES Equipments.equipment_name(equip_name_id),
+            UNIQUE (event_id, equip_name_id)
+        );
 
-        // Employees.engaged table
-        @"IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='engaged' AND xtype='U') CREATE TABLE Employees.engaged (
+        IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='engaged' AND xtype='U') CREATE TABLE Employees.engaged (
             engaged_id INT PRIMARY KEY IDENTITY(1,1),
-            role_id INT NOT NULL,
+            account_id INT NOT NULL,
             event_id INT NOT NULL,
-            quantity INT NOT NULL,
-            FOREIGN KEY (role_id) REFERENCES Employees.employee_role(role_id),
-            FOREIGN KEY (event_id) REFERENCES Events.event(event_id)
-        );"
+            FOREIGN KEY (account_id) REFERENCES Accounts.account(account_id),
+            FOREIGN KEY (event_id) REFERENCES Events.event(event_id),
+            UNIQUE (account_id, event_id)
+        );
+        "
             };
         }
-
     }
 }
