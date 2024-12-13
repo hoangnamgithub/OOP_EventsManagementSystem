@@ -241,7 +241,7 @@ namespace OOP_EventsManagementSystem.Database
             Console.WriteLine("Seeded employee roles successfully.");
         }
 
-        // fix see employee
+        // fix seed employee
         private static void SeedEmployeeData(EventManagementDbContext context)
         {
             if (context.Employees.Any())
