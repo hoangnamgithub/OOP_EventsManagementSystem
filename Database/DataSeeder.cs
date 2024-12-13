@@ -318,17 +318,19 @@ namespace OOP_EventsManagementSystem.Database
             }
 
             var permissions = new List<Permission>
-    {
-        new Permission { Permission1 = "Admin" },
-        new Permission { Permission1 = "Manager" },
-        new Permission { Permission1 = "Employee" }
-    };
+            {
+                new Permission { Permission1 = "Admin" },
+                new Permission { Permission1 = "Manager" },
+                new Permission { Permission1 = "Employee" }
+            };
 
             context.Permissions.AddRange(permissions);
             context.SaveChanges();
 
             Console.WriteLine("Seeded permission data successfully.");
         }
+
+
 
     }
 }
