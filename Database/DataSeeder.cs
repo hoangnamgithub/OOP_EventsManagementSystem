@@ -1,5 +1,6 @@
 ﻿using Bogus;
 using OOP_EventsManagementSystem.Model;
+using System.Data.Entity;
 
 namespace OOP_EventsManagementSystem.Database
 {
@@ -29,7 +30,11 @@ namespace OOP_EventsManagementSystem.Database
 
                 SeedEmployeeData(context);
 
+                AssignRandomManagers(context);
+
                 SeedPermissions(context);
+
+                SeedAccounts(context);
 
             }
         }
@@ -207,41 +212,28 @@ namespace OOP_EventsManagementSystem.Database
             }
 
             var roles = new List<EmployeeRole>
-            {
-                new EmployeeRole { RoleName = "PlanningAndCoordination", Salary = 4000.00M },
-                new EmployeeRole { RoleName = "PlanningAndCoordinationManager", Salary = 6100.00M },
-                new EmployeeRole { RoleName = "Logistics", Salary = 3500.00M },
-                new EmployeeRole { RoleName = "LogisticsManager", Salary = 5500.00M },
-                new EmployeeRole { RoleName = "TechnicalSupport", Salary = 3500.00M },
-                new EmployeeRole { RoleName = "TechnicalSupportManager", Salary = 6000.00M },
-                new EmployeeRole { RoleName = "MarketingAndPromotions", Salary = 4000.00M },
-                new EmployeeRole { RoleName = "MarketingAndPromotionsManager", Salary = 6000.00M },
-                new EmployeeRole { RoleName = "SalesAndTicketing", Salary = 3500.00M },
-                new EmployeeRole { RoleName = "SalesAndTicketingManager", Salary = 5500.00M },
-                new EmployeeRole { RoleName = "Catering", Salary = 4000.00M },
-                new EmployeeRole { RoleName = "CateringManager", Salary = 6000.00M },
-                new EmployeeRole { RoleName = "Security", Salary = 3000.00M },
-                new EmployeeRole { RoleName = "SecurityManager", Salary = 5000.00M },
-                new EmployeeRole { RoleName = "FinanceAndBudgeting", Salary = 4500.00M },
-                new EmployeeRole { RoleName = "FinanceAndBudgetingManager", Salary = 6500.00M },
-                new EmployeeRole { RoleName = "CustomerService", Salary = 3500.00M },
-                new EmployeeRole { RoleName = "CustomerServiceManager", Salary = 5500.00M },
-                new EmployeeRole { RoleName = "DesignAndDecor", Salary = 4000.00M },
-                new EmployeeRole { RoleName = "DesignAndDecorManager", Salary = 6000.00M },
-                new EmployeeRole { RoleName = "EntertainmentAndProgramming", Salary = 4500.00M },
-                new EmployeeRole { RoleName = "EntertainmentAndProgrammingManager", Salary = 6500.00M },
-                new EmployeeRole { RoleName = "VenueManagement", Salary = 3500.00M },
-                new EmployeeRole { RoleName = "VenueManagementManager", Salary = 5500.00M },
-                new EmployeeRole { RoleName = "PublicRelations", Salary = 4000.00M },
-                new EmployeeRole { RoleName = "PublicRelationsManager", Salary = 6000.00M }
-            };
+    {
+        new EmployeeRole { RoleName = "PlanningAndCoordination", Salary = 4000.00M },
+        new EmployeeRole { RoleName = "Logistics", Salary = 3500.00M },
+        new EmployeeRole { RoleName = "TechnicalSupport", Salary = 3500.00M },
+        new EmployeeRole { RoleName = "MarketingAndPromotions", Salary = 4000.00M },
+        new EmployeeRole { RoleName = "SalesAndTicketing", Salary = 3500.00M },
+        new EmployeeRole { RoleName = "Catering", Salary = 4000.00M },
+        new EmployeeRole { RoleName = "Security", Salary = 3000.00M },
+        new EmployeeRole { RoleName = "FinanceAndBudgeting", Salary = 4500.00M },
+        new EmployeeRole { RoleName = "CustomerService", Salary = 3500.00M },
+        new EmployeeRole { RoleName = "DesignAndDecor", Salary = 4000.00M },
+        new EmployeeRole { RoleName = "EntertainmentAndProgramming", Salary = 4500.00M },
+        new EmployeeRole { RoleName = "VenueManagement", Salary = 3500.00M },
+        new EmployeeRole { RoleName = "PublicRelations", Salary = 4000.00M },
+        new EmployeeRole { RoleName = "Coordinator", Salary = 6000.00M } // General Manager role
+    };
 
             context.EmployeeRoles.AddRange(roles);
             context.SaveChanges();
             Console.WriteLine("Seeded employee roles successfully.");
         }
 
-        // fix seed employee
         private static void SeedEmployeeData(EventManagementDbContext context)
         {
             if (context.Employees.Any())
@@ -264,24 +256,8 @@ namespace OOP_EventsManagementSystem.Database
             {
                 try
                 {
-                    // Step 1: Create managers first
-                    foreach (var role in roles.Where(r => r.RoleName.EndsWith("Manager")))
-                    {
-                        var manager = new Employee
-                        {
-                            FullName = faker.Name.FullName(),
-                            Contact = faker.Phone.PhoneNumber(),
-                            RoleId = role.RoleId,
-                            ManagerId = null // Managers don't have managers
-                        };
-
-                        context.Employees.Add(manager);
-                    }
-
-                    context.SaveChanges();
-
-                    // Step 2: Assign employees to their respective roles
-                    foreach (var role in roles.Where(r => !r.RoleName.EndsWith("Manager")))
+                    // Step 1: Create employees for each role
+                    foreach (var role in roles)
                     {
                         for (int i = 0; i < 100; i++) // Create 100 employees per role as an example
                         {
@@ -289,8 +265,7 @@ namespace OOP_EventsManagementSystem.Database
                             {
                                 FullName = faker.Name.FullName(),
                                 Contact = faker.Phone.PhoneNumber(),
-                                RoleId = role.RoleId,
-                                ManagerId = null // Leave ManagerId as null
+                                RoleId = role.RoleId
                             };
 
                             context.Employees.Add(employee);
@@ -299,7 +274,7 @@ namespace OOP_EventsManagementSystem.Database
 
                     context.SaveChanges();
                     transaction.Commit();
-                    Console.WriteLine("Employees added without setting ManagerId.");
+                    Console.WriteLine("Employees added successfully.");
                 }
                 catch (Exception ex)
                 {
@@ -307,6 +282,22 @@ namespace OOP_EventsManagementSystem.Database
                     Console.WriteLine($"Error seeding data: {ex.Message}");
                 }
             }
+        }
+
+        private static void AssignRandomManagers(EventManagementDbContext context)
+        {
+            var employees = context.Employees.ToList();
+            var random = new Random();
+
+            // Assign random managers to each role
+            foreach (var role in context.EmployeeRoles.Where(r => r.RoleName != "Manager"))
+            {
+                var manager = employees[random.Next(employees.Count)];
+                role.ManagerId = manager.EmployeeId;
+            }
+
+            context.SaveChanges();
+            Console.WriteLine("Assigned random managers to roles successfully.");
         }
 
         private static void SeedPermissions(EventManagementDbContext context)
@@ -329,6 +320,69 @@ namespace OOP_EventsManagementSystem.Database
 
             Console.WriteLine("Seeded permission data successfully.");
         }
+
+        private static void SeedAccounts(EventManagementDbContext context)
+        {
+            if (context.Accounts.Any())
+            {
+                Console.WriteLine("Accounts already seeded.");
+                return;
+            }
+
+            var employees = context.Employees.Include(e => e.Role).ToList();
+            var permissions = context.Permissions.ToList();
+            var roles = context.EmployeeRoles.ToList();
+
+            if (!employees.Any() || !permissions.Any() || !roles.Any())
+            {
+                Console.WriteLine("No employees, roles, or permissions found. Please seed these tables first.");
+                return;
+            }
+
+            var accounts = new List<Account>();
+
+            foreach (var employee in employees)
+            {
+                // Determine permission based on employee_id in manager_id
+                int permissionId = permissions.FirstOrDefault(p => p.Permission1 == "Employee")?.PermissionId ?? 0;
+
+                var managerRole = roles.FirstOrDefault(r => r.ManagerId == employee.EmployeeId);
+                if (managerRole != null)
+                {
+                    permissionId = permissions.FirstOrDefault(p => p.Permission1 == "Manager")?.PermissionId ?? 0;
+                }
+
+                if (permissionId == 0)
+                {
+                    Console.WriteLine($"Permission not found for employee: {employee.FullName}");
+                    continue;
+                }
+
+                // Create account for the employee
+                var account = new Account
+                {
+                    Email = $"{employee.FullName.Replace(" ", "").ToLower()}@easys.com",
+                    Password = Guid.NewGuid().ToString().Substring(0, 8), // Generate a random password
+                    PermissionId = permissionId,
+                    EmployeeId = employee.EmployeeId
+                };
+
+                accounts.Add(account);
+            }
+
+            if (accounts.Any())
+            {
+                context.Accounts.AddRange(accounts);
+                context.SaveChanges();
+                Console.WriteLine("Seeded account data successfully.");
+            }
+            else
+            {
+                Console.WriteLine("No accounts were created. Please check the seeding logic.");
+            }
+        }
+
+
 
 
 

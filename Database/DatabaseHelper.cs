@@ -84,23 +84,48 @@ namespace OOP_EventsManagementSystem.Database
         {
             return new string[]
             {
-        @"
-        IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='employee_role' AND xtype='U') CREATE TABLE Employees.employee_role (
-            role_id INT PRIMARY KEY IDENTITY(1,1),
-            role_name NVARCHAR(100) NOT NULL,
-            salary DECIMAL(10, 2) NOT NULL
-        );
+            @"
+
+IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='employee_role' AND xtype='U')
+CREATE TABLE Employees.employee_role (
+    role_id INT PRIMARY KEY IDENTITY(1,1),
+    role_name NVARCHAR(100) NOT NULL,
+    salary DECIMAL(10, 2) NOT NULL,
+    manager_id INT NULL -- Temporary, without FK
+);
 
 
-        IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='employee' AND xtype='U') CREATE TABLE Employees.employee (
-            employee_id INT PRIMARY KEY IDENTITY(1,1),
-            full_name NVARCHAR(100) NOT NULL,
-            contact NVARCHAR(50),
-            role_id INT NOT NULL,
-            manager_id INT,
-            FOREIGN KEY (role_id) REFERENCES Employees.employee_role(role_id),
-            FOREIGN KEY (manager_id) REFERENCES Employees.employee(employee_id)
-        );
+IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='employee' AND xtype='U')
+CREATE TABLE Employees.employee (
+    employee_id INT PRIMARY KEY IDENTITY(1,1),
+    full_name NVARCHAR(100) NOT NULL,
+    contact NVARCHAR(50),
+    role_id INT NOT NULL -- Temporary, without FK
+);
+
+
+-- Check and add FK_employee_role constraint
+IF NOT EXISTS (
+    SELECT * 
+    FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS 
+    WHERE CONSTRAINT_NAME = 'FK_employee_role' AND TABLE_NAME = 'employee'
+)
+BEGIN
+    ALTER TABLE Employees.employee
+    ADD CONSTRAINT FK_employee_role FOREIGN KEY (role_id) REFERENCES Employees.employee_role(role_id);
+END
+
+-- Check and add FK_employee_manager constraint
+IF NOT EXISTS (
+    SELECT * 
+    FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS 
+    WHERE CONSTRAINT_NAME = 'FK_employee_manager' AND TABLE_NAME = 'employee_role'
+)
+BEGIN
+    ALTER TABLE Employees.employee_role
+    ADD CONSTRAINT FK_employee_manager FOREIGN KEY (manager_id) REFERENCES Employees.employee(employee_id);
+END
+
 
         IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='permission' AND xtype='U') CREATE TABLE Accounts.permission (
             permission_id INT PRIMARY KEY IDENTITY(1,1),

@@ -63,7 +63,7 @@ public partial class EventManagementDbContext : DbContext
     {
         modelBuilder.Entity<Account>(entity =>
         {
-            entity.HasKey(e => e.AccountId).HasName("PK__account__46A222CD64F7C24F");
+            entity.HasKey(e => e.AccountId).HasName("PK__account__46A222CDFD70DB66");
 
             entity.ToTable("account", "Accounts");
 
@@ -90,7 +90,7 @@ public partial class EventManagementDbContext : DbContext
 
         modelBuilder.Entity<Employee>(entity =>
         {
-            entity.HasKey(e => e.EmployeeId).HasName("PK__employee__C52E0BA8D5B9AED1");
+            entity.HasKey(e => e.EmployeeId).HasName("PK__employee__C52E0BA81C92FDA3");
 
             entity.ToTable("employee", "Employees");
 
@@ -101,41 +101,41 @@ public partial class EventManagementDbContext : DbContext
             entity.Property(e => e.FullName)
                 .HasMaxLength(100)
                 .HasColumnName("full_name");
-            entity.Property(e => e.ManagerId).HasColumnName("manager_id");
             entity.Property(e => e.RoleId).HasColumnName("role_id");
-
-            entity.HasOne(d => d.Manager).WithMany(p => p.InverseManager)
-                .HasForeignKey(d => d.ManagerId)
-                .HasConstraintName("FK__employee__manage__276EDEB3");
 
             entity.HasOne(d => d.Role).WithMany(p => p.Employees)
                 .HasForeignKey(d => d.RoleId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__employee__role_i__267ABA7A");
+                .HasConstraintName("FK_employee_role");
         });
 
         modelBuilder.Entity<EmployeeRole>(entity =>
         {
-            entity.HasKey(e => e.RoleId).HasName("PK__employee__760965CCB29F0903");
+            entity.HasKey(e => e.RoleId).HasName("PK__employee__760965CC99BA328E");
 
             entity.ToTable("employee_role", "Employees");
 
             entity.Property(e => e.RoleId).HasColumnName("role_id");
+            entity.Property(e => e.ManagerId).HasColumnName("manager_id");
             entity.Property(e => e.RoleName)
                 .HasMaxLength(100)
                 .HasColumnName("role_name");
             entity.Property(e => e.Salary)
                 .HasColumnType("decimal(10, 2)")
                 .HasColumnName("salary");
+
+            entity.HasOne(d => d.Manager).WithMany(p => p.EmployeeRoles)
+                .HasForeignKey(d => d.ManagerId)
+                .HasConstraintName("FK_employee_manager");
         });
 
         modelBuilder.Entity<Engaged>(entity =>
         {
-            entity.HasKey(e => e.EngagedId).HasName("PK__engaged__EAEA56F03793528E");
+            entity.HasKey(e => e.EngagedId).HasName("PK__engaged__EAEA56F0213F16AF");
 
             entity.ToTable("engaged", "Employees");
 
-            entity.HasIndex(e => new { e.AccountId, e.EventId }, "UQ__engaged__24952DBEC02571B1").IsUnique();
+            entity.HasIndex(e => new { e.AccountId, e.EventId }, "UQ__engaged__24952DBE5DA0CFC4").IsUnique();
 
             entity.Property(e => e.EngagedId).HasColumnName("engaged_id");
             entity.Property(e => e.AccountId).HasColumnName("account_id");
@@ -154,7 +154,7 @@ public partial class EventManagementDbContext : DbContext
 
         modelBuilder.Entity<Equipment>(entity =>
         {
-            entity.HasKey(e => e.EquipmentId).HasName("PK__equipmen__197068AF8199B96F");
+            entity.HasKey(e => e.EquipmentId).HasName("PK__equipmen__197068AFAB4CEB02");
 
             entity.ToTable("equipment", "Equipments");
 
@@ -172,7 +172,7 @@ public partial class EventManagementDbContext : DbContext
 
         modelBuilder.Entity<EquipmentName>(entity =>
         {
-            entity.HasKey(e => e.EquipNameId).HasName("PK__equipmen__03FCFCF4F13CEC38");
+            entity.HasKey(e => e.EquipNameId).HasName("PK__equipmen__03FCFCF493E3C24E");
 
             entity.ToTable("equipment_name", "Equipments");
 
@@ -193,7 +193,7 @@ public partial class EventManagementDbContext : DbContext
 
         modelBuilder.Entity<EquipmentType>(entity =>
         {
-            entity.HasKey(e => e.EquipTypeId).HasName("PK__equipmen__39BE18CCA89FD5D3");
+            entity.HasKey(e => e.EquipTypeId).HasName("PK__equipmen__39BE18CCA2DF0365");
 
             entity.ToTable("equipment_type", "Equipments");
 
@@ -205,7 +205,7 @@ public partial class EventManagementDbContext : DbContext
 
         modelBuilder.Entity<Event>(entity =>
         {
-            entity.HasKey(e => e.EventId).HasName("PK__event__2370F727131BAFAA");
+            entity.HasKey(e => e.EventId).HasName("PK__event__2370F7271CBB3EA1");
 
             entity.ToTable("event", "Events");
 
@@ -233,7 +233,7 @@ public partial class EventManagementDbContext : DbContext
 
         modelBuilder.Entity<EventType>(entity =>
         {
-            entity.HasKey(e => e.EventTypeId).HasName("PK__event_ty__BB84C6F3E1920A30");
+            entity.HasKey(e => e.EventTypeId).HasName("PK__event_ty__BB84C6F3B8DC4C3D");
 
             entity.ToTable("event_type", "Events");
 
@@ -245,7 +245,7 @@ public partial class EventManagementDbContext : DbContext
 
         modelBuilder.Entity<Genre>(entity =>
         {
-            entity.HasKey(e => e.GenreId).HasName("PK__genre__18428D429749F672");
+            entity.HasKey(e => e.GenreId).HasName("PK__genre__18428D422E66A0F6");
 
             entity.ToTable("genre", "Shows");
 
@@ -257,11 +257,11 @@ public partial class EventManagementDbContext : DbContext
 
         modelBuilder.Entity<IsSponsor>(entity =>
         {
-            entity.HasKey(e => e.IsSponsorId).HasName("PK__is_spons__01D739A98E50B1BA");
+            entity.HasKey(e => e.IsSponsorId).HasName("PK__is_spons__01D739A95284DC5C");
 
             entity.ToTable("is_sponsor", "Events");
 
-            entity.HasIndex(e => new { e.EventId, e.SponsorId, e.SponsorTierId }, "UQ__is_spons__B494436DB9C86CCA").IsUnique();
+            entity.HasIndex(e => new { e.EventId, e.SponsorId, e.SponsorTierId }, "UQ__is_spons__B494436DDFB14EF9").IsUnique();
 
             entity.Property(e => e.IsSponsorId).HasColumnName("is_sponsor_id");
             entity.Property(e => e.EventId).HasColumnName("event_id");
@@ -286,7 +286,7 @@ public partial class EventManagementDbContext : DbContext
 
         modelBuilder.Entity<Need>(entity =>
         {
-            entity.HasKey(e => e.NeedId).HasName("PK__need__56F592347EF08028");
+            entity.HasKey(e => e.NeedId).HasName("PK__need__56F59234CDDF8C9F");
 
             entity.ToTable("need", "Employees");
 
@@ -308,7 +308,7 @@ public partial class EventManagementDbContext : DbContext
 
         modelBuilder.Entity<Performer>(entity =>
         {
-            entity.HasKey(e => e.PerformerId).HasName("PK__performe__E95FC00D358927A1");
+            entity.HasKey(e => e.PerformerId).HasName("PK__performe__E95FC00DC5CC2BCA");
 
             entity.ToTable("performer", "Shows");
 
@@ -323,7 +323,7 @@ public partial class EventManagementDbContext : DbContext
 
         modelBuilder.Entity<Permission>(entity =>
         {
-            entity.HasKey(e => e.PermissionId).HasName("PK__permissi__E5331AFA93B982FB");
+            entity.HasKey(e => e.PermissionId).HasName("PK__permissi__E5331AFA28620EFE");
 
             entity.ToTable("permission", "Accounts");
 
@@ -335,11 +335,11 @@ public partial class EventManagementDbContext : DbContext
 
         modelBuilder.Entity<Required>(entity =>
         {
-            entity.HasKey(e => e.RequiredId).HasName("PK__required__44DEE6FC6C3505BB");
+            entity.HasKey(e => e.RequiredId).HasName("PK__required__44DEE6FC13FBE2FF");
 
             entity.ToTable("required", "Equipments");
 
-            entity.HasIndex(e => new { e.EventId, e.EquipNameId }, "UQ__required__734F38E9AB5C80FC").IsUnique();
+            entity.HasIndex(e => new { e.EventId, e.EquipNameId }, "UQ__required__734F38E9CB07B571").IsUnique();
 
             entity.Property(e => e.RequiredId).HasColumnName("required_id");
             entity.Property(e => e.EquipNameId).HasColumnName("equip_name_id");
@@ -359,7 +359,7 @@ public partial class EventManagementDbContext : DbContext
 
         modelBuilder.Entity<Show>(entity =>
         {
-            entity.HasKey(e => e.ShowId).HasName("PK__show__2B97D71C844758FD");
+            entity.HasKey(e => e.ShowId).HasName("PK__show__2B97D71C1D35D456");
 
             entity.ToTable("show", "Shows");
 
@@ -386,7 +386,7 @@ public partial class EventManagementDbContext : DbContext
 
         modelBuilder.Entity<ShowSchedule>(entity =>
         {
-            entity.HasKey(e => e.ShowTimeId).HasName("PK__show_sch__ADED92E3E628D1A4");
+            entity.HasKey(e => e.ShowTimeId).HasName("PK__show_sch__ADED92E35057D8EF");
 
             entity.ToTable("show_schedule", "Shows");
 
@@ -403,7 +403,7 @@ public partial class EventManagementDbContext : DbContext
 
         modelBuilder.Entity<Sponsor>(entity =>
         {
-            entity.HasKey(e => e.SponsorId).HasName("PK__sponsors__BE37D454E93ADC38");
+            entity.HasKey(e => e.SponsorId).HasName("PK__sponsors__BE37D45440C19F8C");
 
             entity.ToTable("sponsors", "Events");
 
@@ -416,7 +416,7 @@ public partial class EventManagementDbContext : DbContext
 
         modelBuilder.Entity<SponsorTier>(entity =>
         {
-            entity.HasKey(e => e.SponsorTierId).HasName("PK__sponsor___07C90ECDD472F025");
+            entity.HasKey(e => e.SponsorTierId).HasName("PK__sponsor___07C90ECD2A8701BE");
 
             entity.ToTable("sponsor_tier", "Events");
 
@@ -428,7 +428,7 @@ public partial class EventManagementDbContext : DbContext
 
         modelBuilder.Entity<Venue>(entity =>
         {
-            entity.HasKey(e => e.VenueId).HasName("PK__venue__82A8BE8DEC883494");
+            entity.HasKey(e => e.VenueId).HasName("PK__venue__82A8BE8D5E44825A");
 
             entity.ToTable("venue", "Events");
 
