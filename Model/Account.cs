@@ -17,7 +17,7 @@ public partial class Account
 
     public virtual Employee Employee { get; set; } = null!;
 
-    public virtual ICollection<Event> Events { get; set; } = new List<Event>();
+    public virtual ICollection<Engaged> Engageds { get; set; } = new List<Engaged>();
 
     public virtual Permission Permission { get; set; } = null!;
 }

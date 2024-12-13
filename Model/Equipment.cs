@@ -9,7 +9,7 @@ public partial class Equipment
 
     public int EquipNameId { get; set; }
 
-    public bool Available { get; set; }
+    public string? Condition { get; set; }
 
     public virtual EquipmentName EquipName { get; set; } = null!;
 }

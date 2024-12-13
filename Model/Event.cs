@@ -17,19 +17,17 @@ public partial class Event
 
     public DateOnly EndDate { get; set; }
 
-    public int AccountId { get; set; }
-
-    public int VenueId { get; set; }
-
     public int EventTypeId { get; set; }
 
-    public virtual Account Account { get; set; } = null!;
+    public int VenueId { get; set; }
 
     public virtual ICollection<Engaged> Engageds { get; set; } = new List<Engaged>();
 
     public virtual EventType EventType { get; set; } = null!;
 
     public virtual ICollection<IsSponsor> IsSponsors { get; set; } = new List<IsSponsor>();
+
+    public virtual ICollection<Need> Needs { get; set; } = new List<Need>();
 
     public virtual ICollection<Required> Requireds { get; set; } = new List<Required>();
 

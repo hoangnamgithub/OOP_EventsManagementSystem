@@ -13,7 +13,13 @@ public partial class Employee
 
     public int RoleId { get; set; }
 
+    public int? ManagerId { get; set; }
+
     public virtual ICollection<Account> Accounts { get; set; } = new List<Account>();
+
+    public virtual ICollection<Employee> InverseManager { get; set; } = new List<Employee>();
+
+    public virtual Employee? Manager { get; set; }
 
     public virtual EmployeeRole Role { get; set; } = null!;
 }
