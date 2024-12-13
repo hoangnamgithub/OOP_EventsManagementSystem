@@ -16,6 +16,7 @@ namespace OOP_EventsManagementSystem
             //test
             // Ensure the database and tables exist before running the app
             DatabaseHelper.InitializeDatabase();
+            DataSeeder.SeedData();
         }
     }
 
