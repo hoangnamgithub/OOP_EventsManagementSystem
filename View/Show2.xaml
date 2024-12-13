@@ -15,7 +15,7 @@
             <ColumnDefinition Width="4*"/>
         </Grid.ColumnDefinitions>
         <Polygon Points="75,10 0,150 150,150" Width="150"
-            Fill="#C6C3F2"  Margin="114,35,246,415" RenderTransformOrigin="0.5,0.5"
+            Fill="#C6C3F2"  Margin="-340,37,700,413" RenderTransformOrigin="0.5,0.5"
 >
             <Polygon.RenderTransform>
                 <TransformGroup>
@@ -26,7 +26,7 @@
                 </TransformGroup>
             </Polygon.RenderTransform>
         </Polygon>
-        <Ellipse Width="106" Fill="#D96073" HorizontalAlignment="Left" Margin="18,124,0,330" />
+        <Ellipse Width="106" Fill="#D96073" HorizontalAlignment="Left" Margin="-436,126,0,328" />
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
@@ -34,21 +34,20 @@
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
             <TextBlock Text="Show and Performer" FontFamily="Bahnschrift SemiBold" FontSize="22" Margin="15,15,15,0"  />
-            <Border Grid.Row="1" Background="White" CornerRadius="16" Height="105" Width="288" HorizontalAlignment="Right" Margin="15">
+            <Border Grid.Row="1" Background="White" CornerRadius="16" Height="105" Width="288" HorizontalAlignment="Left" Margin="-449,15,0,15">
                 <StackPanel>
                     <TextBlock TextWrapping="Wrap" FontFamily="Bahnschrift SemiLight" FontSize="18" Margin="10,12,55,5"><Run Text="Participate in more than"/><Run Text=" "/><Run Text="100 events" Foreground="#FFBEC658" /><Run Text=" "/><Run Text="this year"/></TextBlock>
                     <TextBlock TextWrapping="Wrap" FontFamily="Bahnschrift SemiLight" FontSize="18" Margin="10,5,10,5"><Run Text="Play in about" /><Run Text=" "/><Run Text="200 hour" Foreground="#FFBEC658"/><Run Text=" "/><Run Text="per month" /></TextBlock>
                 </StackPanel>
             </Border>
             <StackPanel Grid.Row="2">
-                <TextBlock FontFamily="Bahnschrift SemiBold" FontSize="18" Margin="10,5,95,5" HorizontalAlignment="Right"><Run Text="Top " /><Run Text="1" FontSize="24" /><Run Text=" Show" /></TextBlock>
 
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <Border Background="White" CornerRadius="16" Height="320" Width="280" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="15,0,10,0">
+                    <Border Background="White" CornerRadius="16" Height="320" Width="280" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-340,0,0,0">
                         <Grid>
                             <TextBlock Text="Genre" FontFamily="Bahnschrift SemiBold" FontSize="18" Margin="10,5,15,290" HorizontalAlignment="Left" />
 
@@ -66,24 +65,21 @@
                         </Grid>
 
                     </Border>
-                    <Border Grid.Column="1" Background="White" CornerRadius="16" Height="380" Width="185" HorizontalAlignment="Right" Margin="0,0,15,15">
-                        <StackPanel>
-
-                            <Button x:Name="btn_show" Height="180" Width="180" Background="Transparent" BorderBrush="Transparent">
-                                <Image Source="pack://application:,,,/Resources/Images/diewasmile.jpg"   />
-                            </Button>
-
-                            <TextBlock Text="Die with a smile" FontFamily="Bahnschrift SemiBold" FontSize="18" Margin="10,5,15,0" HorizontalAlignment="Center" />
-                            <TextBlock Text="-Bruno Mars-" FontFamily="Bahnschrift Light Condensed" FontSize="18" Margin="10,0,15,5" HorizontalAlignment="Center" Foreground="#FF5C5656" />
-                        </StackPanel>
-
+                    <Border Grid.Column="1" Background="White" CornerRadius="16" Height="506" Width="478" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,-117,0,0">
+                        <Grid>
+                            <TextBlock FontFamily="Bahnschrift SemiBold" FontSize="18" Height="32" HorizontalAlignment="Left" Margin="259,16,0,458" Width="92"><Run Text="Top " /><Run Text="1" FontSize="24" /><Run Text=" Show" /></TextBlock>
+                            <TextBlock Text="Die with a smile" FontFamily="Bahnschrift SemiBold" FontSize="18" Margin="222,48,0,0" HorizontalAlignment="Left" Height="25" VerticalAlignment="Top" />
+                            <TextBlock Text="-Bruno Mars-" FontFamily="Bahnschrift Light Condensed" FontSize="18" Margin="270,73,0,0" HorizontalAlignment="Left" Foreground="#FF5C5656" Height="20" VerticalAlignment="Top" />
+                            <Image Source="pack://application:,,,/Resources/Images/diewasmile.jpg" Height="100" Width="100" Margin="362,16,16,390" />
+                            <DataGrid d:ItemsSource="{d:SampleData ItemCount=100}" Background="Transparent" Margin="5,130,5,15"/>
+                        </Grid>
                     </Border>
                 </Grid>
 
             </StackPanel>
 
         </Grid>
-        <Ellipse Width="20" Fill="#FFFBF8" HorizontalAlignment="Left" Margin="51,164,0,371" RenderTransformOrigin="0.5,0.5" >
+        <Ellipse Width="20" Fill="#FFFBF8" HorizontalAlignment="Left" Margin="-403,166,0,369" RenderTransformOrigin="0.5,0.5" >
             <Ellipse.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform ScaleX="-1"/>
@@ -93,7 +89,7 @@
                 </TransformGroup>
             </Ellipse.RenderTransform>
         </Ellipse>
-        <Ellipse Width="20" Fill="#FFFBF8" HorizontalAlignment="Left" Margin="88,144,0,391" RenderTransformOrigin="0.5,0.5" >
+        <Ellipse Width="20" Fill="#FFFBF8" HorizontalAlignment="Left" Margin="-366,146,0,389" RenderTransformOrigin="0.5,0.5" >
             <Ellipse.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform ScaleX="-1"/>
@@ -103,9 +99,9 @@
                 </TransformGroup>
             </Ellipse.RenderTransform>
         </Ellipse>
-        <Ellipse Width="5" Fill="#262628" HorizontalAlignment="Left" Margin="98,148,0,401" />
-        <Ellipse Width="5" Fill="#262628" HorizontalAlignment="Left" Margin="61,168,0,381" />
-        <Ellipse Width="33" Fill="#FFFBF8" HorizontalAlignment="Left" Margin="143,76,0,445" RenderTransformOrigin="0.5,0.5" >
+        <Ellipse Width="5" Fill="#262628" HorizontalAlignment="Left" Margin="-356,150,0,399" />
+        <Ellipse Width="5" Fill="#262628" HorizontalAlignment="Left" Margin="-393,170,0,379" />
+        <Ellipse Width="33" Fill="#FFFBF8" HorizontalAlignment="Left" Margin="-311,78,0,443" RenderTransformOrigin="0.5,0.5" >
             <Ellipse.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform ScaleX="-1"/>
@@ -116,7 +112,7 @@
             </Ellipse.RenderTransform>
         </Ellipse>
         <Line X1="0" Y1="0" X2="23" Y2="0" Stroke="Black" StrokeThickness="2"
-            RenderTransformOrigin="0,0" HorizontalAlignment="Left" Height="7" VerticalAlignment="Top" Margin="159,92,0,0" Width="23">
+            RenderTransformOrigin="0,0" HorizontalAlignment="Left" Height="7" VerticalAlignment="Top" Margin="-295,94,0,0" Width="23">
             <Line.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -126,7 +122,7 @@
                 </TransformGroup>
             </Line.RenderTransform>
         </Line>
-        <Ellipse Width="8" Fill="#262628" HorizontalAlignment="Left" Margin="153,98,0,450" RenderTransformOrigin="0.5,0.5" >
+        <Ellipse Width="8" Fill="#262628" HorizontalAlignment="Left" Margin="-313,111,0,437" RenderTransformOrigin="0.5,0.5" >
             <Ellipse.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -142,29 +138,27 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
-            <Border Background="White" Height="300" Width="185" CornerRadius="16" HorizontalAlignment="Left" Margin="0,-22,0,0">
-                <StackPanel VerticalAlignment="Bottom">
-                    
-                    <TextBlock Text="Adele" FontFamily="Bahnschrift SemiBold" FontSize="18" Margin="10,5,15,0" HorizontalAlignment="Center" />
-                    <Button x:Name="btn_performer" Width="180" Height="180" Background="Transparent" BorderBrush="Transparent">
-                        <Rectangle Width="150" Height="150" >
-                            <Rectangle.Fill>
-                                <ImageBrush ImageSource="pack://application:,,,/Resources/Images/adele.jpg" Stretch="UniformToFill" />
-                            </Rectangle.Fill>
-                        </Rectangle>
-                    </Button>
-                </StackPanel>
+            <Border Background="White" Height="407" Width="320" CornerRadius="16" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.RowSpan="3" Margin="0,0,0,-107">
+                <Grid>
+                    <TextBlock Text="Adele" FontFamily="Bahnschrift SemiBold" FontSize="18" Margin="124,49,0,0" HorizontalAlignment="Left" Height="23" VerticalAlignment="Top" />
+                    <Rectangle Width="100" Height="100" VerticalAlignment="Top" Margin="15,15,205,0">
+                        <Rectangle.Fill>
+                            <ImageBrush ImageSource="pack://application:,,,/Resources/Images/adele.jpg" Stretch="UniformToFill" />
+                        </Rectangle.Fill>
+                    </Rectangle>
+                    <DataGrid d:ItemsSource="{d:SampleData ItemCount=100}" Background="Transparent" Margin="5,120,5,15"/>
+                </Grid>
             </Border>
-            <TextBlock Grid.Row="1" FontFamily="Bahnschrift SemiBold" FontSize="18" Margin="55,5,85,5" HorizontalAlignment="Left"><Run Text="Top " /><Run Text="1" FontSize="24" /><Run Text=" Performer" /></TextBlock>
-            <Border Grid.Row="2" Background="White" CornerRadius="16" Height="105" Width="320" HorizontalAlignment="Left"  Margin="0,15,10,10">
+            <TextBlock FontFamily="Bahnschrift SemiBold" FontSize="18" Margin="121,15,0,0" HorizontalAlignment="Left" Height="30" VerticalAlignment="Top"><Run Text="Top " /><Run Text="1" FontSize="24" /><Run Text=" Performer" /></TextBlock>
+            <Border Grid.Row="2" Background="White" CornerRadius="16" Height="105" Width="320" HorizontalAlignment="Left"  Margin="455,15,0,10">
                 <StackPanel>
                     <TextBlock TextWrapping="Wrap" FontFamily="Bahnschrift SemiLight" FontSize="18" Margin="10,12,55,5"><Run Text="Participate in more than"/><Run Text=" "/><Run Text="100 events" Foreground="#FFBEC658" /><Run Text=" "/><Run Text="this year"/></TextBlock>
                     <TextBlock TextWrapping="Wrap" FontFamily="Bahnschrift SemiLight" FontSize="18" Margin="10,5,10,5"><Run Text="Her song in" /><Run Text=" "/><Run Text="Top 10" Foreground="#FFBEC658"/><Run Text=" "/><Run Text="song of the month" /></TextBlock>
                 </StackPanel>
             </Border>
         </Grid>
-        <Image Source="pack://application:,,,/Resources/Images/party-popper.png" Margin="433,65,32,444"/>
-        <Image Source="pack://application:,,,/Resources/Images/party-popper.png" Margin="259,341,36,168" Grid.Column="1"/>
+        <Image Source="pack://application:,,,/Resources/Images/party-popper.png" Margin="-264,65,729,444"/>
+        <Image Source="pack://application:,,,/Resources/Images/party-popper.png" Margin="639,341,-344,168" Grid.Column="1"/>
 
     </Grid>
 </UserControl>
