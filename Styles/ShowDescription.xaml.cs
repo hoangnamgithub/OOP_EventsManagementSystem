@@ -28,5 +28,7 @@ namespace OOP_EventsManagementSystem.Styles
         {
             this.Close();
         }
+        private void MouseLeftButtonDown(object sender, MouseButtonEventArgs e) { if (e.ButtonState == MouseButtonState.Pressed) { this.DragMove(); } }
+
     }
 }

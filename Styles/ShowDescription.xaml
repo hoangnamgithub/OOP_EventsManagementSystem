@@ -11,7 +11,7 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         Background="Transparent">
-    <Border CornerRadius="16" Background="#D96073" Height="265" Width="500" >
+    <Border CornerRadius="16" Background="#D96073" Height="265" Width="500" MouseLeftButtonDown="MouseLeftButtonDown">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="40"/>
