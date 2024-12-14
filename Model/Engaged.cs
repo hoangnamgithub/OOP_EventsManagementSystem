@@ -7,13 +7,11 @@ public partial class Engaged
 {
     public int EngagedId { get; set; }
 
-    public int RoleId { get; set; }
+    public int AccountId { get; set; }
 
     public int EventId { get; set; }
 
-    public int Quantity { get; set; }
+    public virtual Account Account { get; set; } = null!;
 
     public virtual Event Event { get; set; } = null!;
-
-    public virtual EmployeeRole Role { get; set; } = null!;
 }

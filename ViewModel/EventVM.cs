@@ -2,6 +2,11 @@
 using System;
 using System.ComponentModel;
 using System.Windows.Input;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using Microsoft.EntityFrameworkCore;
+using OOP_EventsManagementSystem.Model;
+using Microsoft.Identity.Client;
 using OOP_EventsManagementSystem.Utilities;
 
 namespace OOP_EventsManagementSystem.ViewModel
@@ -9,6 +14,9 @@ namespace OOP_EventsManagementSystem.ViewModel
     public class EventVM : INotifyPropertyChanged
     {
         public ICommand AddCommand { get; set; }
+        private readonly EventManagementDbContext _context;
+
+        public ObservableCollection<Model.Event> Events { get; set; }
 
         private DateTime _currentDate;
         public DateTime CurrentDate
@@ -44,8 +52,14 @@ namespace OOP_EventsManagementSystem.ViewModel
             AddCommand = new RelayCommand(ExecuteAddCommand, CanExecuteAddCommand);
             IsAddButtonEnabled = true;
             CurrentDate = DateTime.Now;
+            _context = new EventManagementDbContext();
+            LoadData();
         }
-
+        private void LoadData()
+        {
+            Events = new ObservableCollection<Model.Event>(_context.Events.Include(e => e.Venue).ToList());
+            OnPropertyChanged(nameof(Events));
+        }
         private void ExecuteAddCommand(object obj)
         {
             IsAddButtonEnabled = false; // Disable the button

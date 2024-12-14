@@ -13,5 +13,9 @@ public partial class ShowSchedule
 
     public int ShowId { get; set; }
 
+    public int EventId { get; set; }
+
+    public virtual Event Event { get; set; } = null!;
+
     public virtual Show Show { get; set; } = null!;
 }

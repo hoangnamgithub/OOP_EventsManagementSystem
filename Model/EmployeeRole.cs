@@ -11,7 +11,11 @@ public partial class EmployeeRole
 
     public decimal Salary { get; set; }
 
+    public int? ManagerId { get; set; }
+
     public virtual ICollection<Employee> Employees { get; set; } = new List<Employee>();
 
-    public virtual ICollection<Engaged> Engageds { get; set; } = new List<Engaged>();
+    public virtual Employee? Manager { get; set; }
+
+    public virtual ICollection<Need> Needs { get; set; } = new List<Need>();
 }

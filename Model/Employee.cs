@@ -15,5 +15,7 @@ public partial class Employee
 
     public virtual ICollection<Account> Accounts { get; set; } = new List<Account>();
 
+    public virtual ICollection<EmployeeRole> EmployeeRoles { get; set; } = new List<EmployeeRole>();
+
     public virtual EmployeeRole Role { get; set; } = null!;
 }

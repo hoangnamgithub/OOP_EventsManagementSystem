@@ -85,11 +85,14 @@
                             <RowDefinition Height="27*"/>
                         </Grid.RowDefinitions>
 
-                        <Grid x:Name="grid4" Grid.Row="0" Background="Transparent">
-                            <TextBlock x:Name="textBlock1" Text="EVENT NAME" VerticalAlignment="Bottom" Margin="10,0,0,0" FontSize="18" FontWeight="Bold" Foreground="White" FontFamily="Bahnschrift SemiCondensed"/>
+
+
+                        <Grid Grid.Row="0" Background="White">
+                            <TextBlock Text="{Binding EventName}" VerticalAlignment="Bottom" Margin="10,0,0,0" FontSize="13" FontWeight="Bold" Foreground="#FF262628"/>
                         </Grid>
-                        <Grid x:Name="grid5" Grid.Row="1">
-                            <TextBlock x:Name="textBlock2" Text="VENUE" VerticalAlignment="Top" Margin="10,0,0,0" FontSize="14" FontWeight="Bold" Foreground="White" FontFamily="Bahnschrift SemiCondensed"/>
+                        <Grid Grid.Row="1">
+                            <TextBlock Text="{Binding Venue.VenueName}" VerticalAlignment="Top" Margin="10,0,0,0" FontSize="13" FontWeight="Bold" Foreground="#FFFCF8F8"/>
+
                         </Grid>
                         <Grid x:Name="grid6" Grid.Row="3">
                             <Grid.ColumnDefinitions>
@@ -98,16 +101,18 @@
                                 <ColumnDefinition Width="40*"/>
                             </Grid.ColumnDefinitions>
 
-                            <Grid x:Name="grid7">
-                                <StackPanel x:Name="stackPanel1" Margin="10,0,0,0" VerticalAlignment="Center">
-                                    <TextBlock x:Name="textBlock3" Text="START" FontWeight="Bold" FontSize="8" Foreground="#FFD6DC82" FontFamily="Bahnschrift SemiLight"/>
-                                    <TextBlock x:Name="textBlock4" Text="dd/mm" Foreground="White" FontFamily="Bahnschrift SemiLight Condensed"/>
+
+                            <Grid>
+                                <StackPanel Margin="10,0,0,0">
+                                    <TextBlock Text="START" FontWeight="Bold" FontSize="8" Foreground="black"/>
+                                    <TextBlock Text="{Binding StartDate, StringFormat={}{0:dd/MM}}" Foreground="#FFFCF8F8"/>
                                 </StackPanel>
                             </Grid>
-                            <Grid x:Name="grid8" Grid.Column="1">
-                                <StackPanel x:Name="stackPanel2" Margin="10,0,0,0 " VerticalAlignment="Center">
-                                    <TextBlock x:Name="textBlock5" Text="END" FontWeight="Bold" FontSize="8" Foreground="#FFD6DC82" FontFamily="Bahnschrift SemiLight"/>
-                                    <TextBlock x:Name="textBlock6" Text="dd/mm" Foreground="White" FontFamily="Bahnschrift SemiLight Condensed"/>
+                            <Grid Grid.Column="1">
+                                <StackPanel Margin="10,0,0,0">
+                                    <TextBlock Text="END" FontWeight="Bold" FontSize="8" Foreground="Black"/>
+                                    <TextBlock Text="{Binding EndDate, StringFormat={}{0:dd/MM}}" Foreground="#FFFCF8F8"/>
+
                                 </StackPanel>
                             </Grid>
                             <Grid x:Name="grid9" Grid.Column="2">
