@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OOP_EventsManagementSystem.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,7 @@ namespace OOP_EventsManagementSystem.View
         public Event()
         {
             InitializeComponent();
+            DataContext = new EventVM();
         }
     }
 }

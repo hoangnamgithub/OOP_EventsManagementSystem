@@ -41,10 +41,10 @@
                         </Grid.RowDefinitions>
 
                         <Grid Grid.Row="0" Background="White">
-                            <TextBlock Text="EVENT NAME" VerticalAlignment="Bottom" Margin="10,0,0,0" FontSize="13" FontWeight="Bold" Foreground="#FF262628"/>
+                            <TextBlock Text="{Binding EventName}" VerticalAlignment="Bottom" Margin="10,0,0,0" FontSize="13" FontWeight="Bold" Foreground="#FF262628"/>
                         </Grid>
                         <Grid Grid.Row="1">
-                            <TextBlock Text="VENUE" VerticalAlignment="Top" Margin="10,0,0,0" FontSize="13" FontWeight="Bold" Foreground="#FFFCF8F8"/>
+                            <TextBlock Text="{Binding Venue.VenueName}" VerticalAlignment="Top" Margin="10,0,0,0" FontSize="13" FontWeight="Bold" Foreground="#FFFCF8F8"/>
                         </Grid>
                         <Grid Grid.Row="3">
                             <Grid.ColumnDefinitions>
@@ -56,13 +56,13 @@
                             <Grid>
                                 <StackPanel Margin="10,0,0,0">
                                     <TextBlock Text="START" FontWeight="Bold" FontSize="8" Foreground="black"/>
-                                    <TextBlock Text="dd/mm" Foreground="#FFFCF8F8"/>
+                                    <TextBlock Text="{Binding StartDate, StringFormat={}{0:dd/MM}}" Foreground="#FFFCF8F8"/>
                                 </StackPanel>
                             </Grid>
                             <Grid Grid.Column="1">
                                 <StackPanel Margin="10,0,0,0">
                                     <TextBlock Text="END" FontWeight="Bold" FontSize="8" Foreground="Black"/>
-                                    <TextBlock Text="dd/mm" Foreground="#FFFCF8F8"/>
+                                    <TextBlock Text="{Binding EndDate, StringFormat={}{0:dd/MM}}" Foreground="#FFFCF8F8"/>
                                 </StackPanel>
                             </Grid>
                             <Grid Grid.Column="2">

@@ -19,10 +19,9 @@
             <TabControl
    HorizontalContentAlignment="Left" Margin="20,0,0,0"
   >
-                <TabItem
-                       Header="Up Coming">
+                <TabItem Header="Up Coming">
                     <ScrollViewer>
-                        <ItemsControl>
+                        <ItemsControl ItemsSource="{Binding Events}">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <WrapPanel Orientation="Horizontal" />
@@ -33,28 +32,10 @@
                                     <styles:EventDetailCard_v2 Margin="0,10,10,10"/>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
-                            <ItemsControl.ItemsSource>
-                                <x:Array Type="{x:Type sys:Object}">
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                </x:Array>
-                            </ItemsControl.ItemsSource>
                         </ItemsControl>
                     </ScrollViewer>
                 </TabItem>
+
                 <TabItem
      Header="Happening">
                     <ScrollViewer>
