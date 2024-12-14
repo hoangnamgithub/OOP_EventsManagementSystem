@@ -8,119 +8,8 @@
              Height="555" Width="850"
              Background="#EFE9E4">
     <UserControl.Resources>
-        <Storyboard x:Key="Left1">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="stackPanel" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.7000000" Value="190.8"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="stackPanel" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="audio" Storyboard.TargetProperty="(FrameworkElement.Width)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="270"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.7000000" Value="170"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="audio" Storyboard.TargetProperty="(FrameworkElement.Height)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="180"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.7000000" Value="100"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="light" Storyboard.TargetProperty="(FrameworkElement.Width)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="170"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.7000000" Value="270"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="light" Storyboard.TargetProperty="(FrameworkElement.Height)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="100"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.7000000" Value="180"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="auxiliary" Storyboard.TargetProperty="(FrameworkElement.Width)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="170"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.7000000" Value="170"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="auxiliary" Storyboard.TargetProperty="(FrameworkElement.Height)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="100"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.7000000" Value="100"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="special" Storyboard.TargetProperty="(FrameworkElement.Width)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="170"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.7000000" Value="170"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="special" Storyboard.TargetProperty="(FrameworkElement.Height)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="100"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.7000000" Value="100"/>
-            </DoubleAnimationUsingKeyFrames>
-        </Storyboard>
-        <Storyboard x:Key="Left2">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="stackPanel" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="185.6"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.7000000" Value="376"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="stackPanel" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="-12.8"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="audio" Storyboard.TargetProperty="(FrameworkElement.Width)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="170"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.7000000" Value="170"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="audio" Storyboard.TargetProperty="(FrameworkElement.Height)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="100"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.7000000" Value="100"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="light" Storyboard.TargetProperty="(FrameworkElement.Width)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="270"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.7000000" Value="170"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="light" Storyboard.TargetProperty="(FrameworkElement.Height)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="180"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.7000000" Value="100"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="auxiliary" Storyboard.TargetProperty="(FrameworkElement.Width)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="170"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.7000000" Value="270"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="auxiliary" Storyboard.TargetProperty="(FrameworkElement.Height)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="100"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.7000000" Value="180"/>
-            </DoubleAnimationUsingKeyFrames>
-        </Storyboard>
-        <Storyboard x:Key="Left3">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="stackPanel" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="376"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.7000000" Value="572.8"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="audio" Storyboard.TargetProperty="(FrameworkElement.Width)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="170"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.7000000" Value="170"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="audio" Storyboard.TargetProperty="(FrameworkElement.Height)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="100"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.7000000" Value="100"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="light" Storyboard.TargetProperty="(FrameworkElement.Width)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="170"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.7000000" Value="170"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="light" Storyboard.TargetProperty="(FrameworkElement.Height)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="100"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.7000000" Value="100"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="auxiliary" Storyboard.TargetProperty="(FrameworkElement.Width)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="270"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.7000000" Value="170"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="auxiliary" Storyboard.TargetProperty="(FrameworkElement.Height)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="180"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.7000000" Value="100"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="special" Storyboard.TargetProperty="(FrameworkElement.Width)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="170"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.7000000" Value="270"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="special" Storyboard.TargetProperty="(FrameworkElement.Height)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="100"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.7000000" Value="180"/>
-            </DoubleAnimationUsingKeyFrames>
-        </Storyboard>
-        <Storyboard x:Key="Right1">
+      
+        <Storyboard x:Key="Right">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetName="stackPanel" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
                 <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
                 <EasingDoubleKeyFrame KeyTime="00:00:00.7000000" Value="-193.6"/>
@@ -169,141 +58,67 @@
                 <EasingDoubleKeyFrame KeyTime="00:00:00.7000000" Value="180"/>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
-        <Storyboard x:Key="Right2">
+      
+       
+        <Storyboard x:Key="Left">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetName="stackPanel" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
                 <SplineDoubleKeyFrame KeyTime="00:00:00" Value="-193.6"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.7000000" Value="-379.2"/>
+                <SplineDoubleKeyFrame KeyTime="00:00:00.7000000" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="stackPanel" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
+                <SplineDoubleKeyFrame KeyTime="00:00:00.7000000" Value="0"/>
             </DoubleAnimationUsingKeyFrames>
             <DoubleAnimationUsingKeyFrames Storyboard.TargetName="audio" Storyboard.TargetProperty="(FrameworkElement.Width)">
                 <SplineDoubleKeyFrame KeyTime="00:00:00" Value="170"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.7000000" Value="170"/>
+                <SplineDoubleKeyFrame KeyTime="00:00:00.7000000" Value="270"/>
             </DoubleAnimationUsingKeyFrames>
             <DoubleAnimationUsingKeyFrames Storyboard.TargetName="audio" Storyboard.TargetProperty="(FrameworkElement.Height)">
                 <SplineDoubleKeyFrame KeyTime="00:00:00" Value="100"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.7000000" Value="100"/>
+                <SplineDoubleKeyFrame KeyTime="00:00:00.7000000" Value="180"/>
             </DoubleAnimationUsingKeyFrames>
             <DoubleAnimationUsingKeyFrames Storyboard.TargetName="light" Storyboard.TargetProperty="(FrameworkElement.Width)">
                 <SplineDoubleKeyFrame KeyTime="00:00:00" Value="170"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.7000000" Value="170"/>
+                <SplineDoubleKeyFrame KeyTime="00:00:00.7000000" Value="170"/>
             </DoubleAnimationUsingKeyFrames>
             <DoubleAnimationUsingKeyFrames Storyboard.TargetName="light" Storyboard.TargetProperty="(FrameworkElement.Height)">
                 <SplineDoubleKeyFrame KeyTime="00:00:00" Value="100"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.7000000" Value="100"/>
+                <SplineDoubleKeyFrame KeyTime="00:00:00.7000000" Value="100"/>
             </DoubleAnimationUsingKeyFrames>
             <DoubleAnimationUsingKeyFrames Storyboard.TargetName="auxiliary" Storyboard.TargetProperty="(FrameworkElement.Width)">
                 <SplineDoubleKeyFrame KeyTime="00:00:00" Value="170"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.7000000" Value="170"/>
+                <SplineDoubleKeyFrame KeyTime="00:00:00.7000000" Value="170"/>
             </DoubleAnimationUsingKeyFrames>
             <DoubleAnimationUsingKeyFrames Storyboard.TargetName="auxiliary" Storyboard.TargetProperty="(FrameworkElement.Height)">
                 <SplineDoubleKeyFrame KeyTime="00:00:00" Value="100"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.7000000" Value="100"/>
+                <SplineDoubleKeyFrame KeyTime="00:00:00.7000000" Value="100"/>
             </DoubleAnimationUsingKeyFrames>
             <DoubleAnimationUsingKeyFrames Storyboard.TargetName="special" Storyboard.TargetProperty="(FrameworkElement.Width)">
                 <SplineDoubleKeyFrame KeyTime="00:00:00" Value="170"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.7000000" Value="170"/>
+                <SplineDoubleKeyFrame KeyTime="00:00:00.7000000" Value="170"/>
             </DoubleAnimationUsingKeyFrames>
             <DoubleAnimationUsingKeyFrames Storyboard.TargetName="special" Storyboard.TargetProperty="(FrameworkElement.Height)">
                 <SplineDoubleKeyFrame KeyTime="00:00:00" Value="100"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.7000000" Value="100"/>
+                <SplineDoubleKeyFrame KeyTime="00:00:00.7000000" Value="100"/>
             </DoubleAnimationUsingKeyFrames>
             <DoubleAnimationUsingKeyFrames Storyboard.TargetName="visual" Storyboard.TargetProperty="(FrameworkElement.Width)">
                 <SplineDoubleKeyFrame KeyTime="00:00:00" Value="270"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.7000000" Value="170"/>
+                <SplineDoubleKeyFrame KeyTime="00:00:00.7000000" Value="170"/>
             </DoubleAnimationUsingKeyFrames>
             <DoubleAnimationUsingKeyFrames Storyboard.TargetName="visual" Storyboard.TargetProperty="(FrameworkElement.Height)">
                 <SplineDoubleKeyFrame KeyTime="00:00:00" Value="180"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.7000000" Value="100"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="technical" Storyboard.TargetProperty="(FrameworkElement.Width)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="170"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.7000000" Value="270"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="technical" Storyboard.TargetProperty="(FrameworkElement.Height)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="100"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.7000000" Value="180"/>
-            </DoubleAnimationUsingKeyFrames>
-        </Storyboard>
-        <Storyboard x:Key="Right3">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="stackPanel" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="-379.2"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.7000000" Value="-568"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="audio" Storyboard.TargetProperty="(FrameworkElement.Width)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="170"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.7000000" Value="170"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="audio" Storyboard.TargetProperty="(FrameworkElement.Height)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="100"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.7000000" Value="100"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="light" Storyboard.TargetProperty="(FrameworkElement.Width)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="170"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.7000000" Value="170"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="light" Storyboard.TargetProperty="(FrameworkElement.Height)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="100"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.7000000" Value="100"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="auxiliary" Storyboard.TargetProperty="(FrameworkElement.Width)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="170"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.7000000" Value="170"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="auxiliary" Storyboard.TargetProperty="(FrameworkElement.Height)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="100"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.7000000" Value="100"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="special" Storyboard.TargetProperty="(FrameworkElement.Width)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="170"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.7000000" Value="170"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="special" Storyboard.TargetProperty="(FrameworkElement.Height)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="100"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.7000000" Value="100"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="visual" Storyboard.TargetProperty="(FrameworkElement.Width)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="170"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.7000000" Value="170"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="visual" Storyboard.TargetProperty="(FrameworkElement.Height)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="100"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.7000000" Value="100"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="technical" Storyboard.TargetProperty="(FrameworkElement.Width)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="270"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.7000000" Value="170"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="technical" Storyboard.TargetProperty="(FrameworkElement.Height)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="180"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.7000000" Value="100"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="structures" Storyboard.TargetProperty="(FrameworkElement.Width)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="170"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.7000000" Value="270"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="structures" Storyboard.TargetProperty="(FrameworkElement.Height)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="100"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.7000000" Value="180"/>
-            </DoubleAnimationUsingKeyFrames>
-            <ColorAnimationUsingKeyFrames Storyboard.TargetName="button" Storyboard.TargetProperty="(Control.Foreground).(SolidColorBrush.Color)">
-                <EasingColorKeyFrame KeyTime="00:00:00.6000000" Value="#DD000000"/>
-            </ColorAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="button" Storyboard.TargetProperty="(Control.FontSize)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00.6000000" Value="48"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="button" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00.6000000" Value="11.2"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="button" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00.6000000" Value="1.6"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="buttonLeft" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00.6000000" Value="150.4"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="buttonLeft" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00.6000000" Value="150.4"/>
+                <SplineDoubleKeyFrame KeyTime="00:00:00.7000000" Value="100"/>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
     </UserControl.Resources>
+
+    <UserControl.Triggers>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="ButtonLeft">
+            <BeginStoryboard Storyboard="{StaticResource Left}" />
+        </EventTrigger>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="ButtonRight">
+            <BeginStoryboard Storyboard="{StaticResource Right}" />
+        </EventTrigger>
+    </UserControl.Triggers>
     <Grid Margin="-587,0,-596,0">
         <Grid.RowDefinitions>
             <RowDefinition Height="298*"/>
@@ -318,6 +133,7 @@
                     <TranslateTransform/>
                 </TransformGroup>
             </StackPanel.RenderTransform>
+            
             <Rectangle x:Name="special" Height="100" Width="170" Fill="White" RadiusX="16" RadiusY="16" Margin="10,0,10,0"/>
 
             <Rectangle x:Name="auxiliary" Height="100" Width="170" Fill="White" RadiusX="16" RadiusY="16" Margin="10,0,10,0"/>
@@ -329,7 +145,7 @@
         </StackPanel>
         <Rectangle x:Name="Details" Fill="White" RadiusX="16" RadiusY="16" Margin="786,260,786,0" Height="252" VerticalAlignment="Top" Grid.RowSpan="2"/>
 
-        <Button x:Name="ButtonRight" Background="{x:Null}" BorderBrush="{x:Null}" Click="ButtonRight_Click" Height="100" Width="100" Foreground="#DD000000" RenderTransformOrigin="0.5,0.5" Margin="1358,92,575,106" FontSize="48" >
+        <Button x:Name="ButtonRight" Background="{x:Null}" BorderBrush="{x:Null}"  Height="100" Width="100" Foreground="#DD000000" RenderTransformOrigin="0.5,0.5" Margin="1358,92,575,106" FontSize="48" >
             <TextBlock Text=">" HorizontalAlignment="Center" VerticalAlignment="Center" />
             <Button.RenderTransform>
                 <TransformGroup>
@@ -340,7 +156,7 @@
                 </TransformGroup>
             </Button.RenderTransform>
         </Button>
-        <Button x:Name="ButtonLeft" Background="{x:Null}" BorderBrush="{x:Null}" Click="ButtonLeft_Click" Height="100" Width="100" Foreground="#DD000000" RenderTransformOrigin="0.5,0.5" Margin="577,92,1356,106" FontSize="48" >
+        <Button x:Name="ButtonLeft" Background="{x:Null}" BorderBrush="{x:Null}"  Height="100" Width="100" Foreground="#DD000000" RenderTransformOrigin="0.5,0.5" Margin="577,92,1356,106" FontSize="48" >
             <TextBlock Text='O' HorizontalAlignment="Center" VerticalAlignment="Center" />
             <Button.RenderTransform>
                 <TransformGroup>
