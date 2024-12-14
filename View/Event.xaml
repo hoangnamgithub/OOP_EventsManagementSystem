@@ -1,20 +1,20 @@
 ﻿<UserControl x:Class="OOP_EventsManagementSystem.View.Event"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:OOP_EventsManagementSystem.View"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:styles="clr-namespace:OOP_EventsManagementSystem.Styles"
              xmlns:vm="clr-namespace:OOP_EventsManagementSystem.ViewModel"
              mc:Ignorable="d"
-             d:DesignHeight="555" d:DesignWidth="850">
-
+             d:DesignHeight="555"
+             d:DesignWidth="850">
     <Grid>
         <materialDesign:Card>
-            <TabControl HorizontalContentAlignment="Left" Margin="5,0,0,0">
-
+            <TabControl HorizontalContentAlignment="Left"
+                        Margin="5,0,0,0">
                 <!-- Up Coming Tab -->
                 <TabItem Header="Up Coming">
                     <ScrollViewer>
@@ -26,13 +26,12 @@
                             </ItemsControl.ItemsPanel>
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <styles:EventDetailCard_v2 Margin="5,10,10,10"/>
+                                    <styles:EventDetailCard_v2 Margin="5,10,10,10" />
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
                     </ScrollViewer>
                 </TabItem>
-
                 <!-- Happening Tab -->
                 <TabItem Header="Happening">
                     <ScrollViewer>
@@ -44,13 +43,12 @@
                             </ItemsControl.ItemsPanel>
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <styles:EventDetailCard_v2 Margin="5,10,10,10"/>
+                                    <styles:EventDetailCard_v2 Margin="5,10,10,10" />
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
                     </ScrollViewer>
                 </TabItem>
-
                 <!-- Completed Tab -->
                 <TabItem Header="Completed">
                     <ScrollViewer>
@@ -62,13 +60,12 @@
                             </ItemsControl.ItemsPanel>
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <styles:EventDetailCard_v2 Margin="5,10,10,10"/>
+                                    <styles:EventDetailCard_v2 Margin="5,10,10,10" />
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
                     </ScrollViewer>
                 </TabItem>
-
             </TabControl>
         </materialDesign:Card>
         <Grid>
@@ -78,21 +75,28 @@
                 <ColumnDefinition Width="300" />
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="2">
-
-                <Rectangle Fill="#D6DC82" RadiusX="20" RadiusY="20" Margin="50,10,165,510" />
-                <TextBlock Text="{Binding CurrentDate, StringFormat={}{0:dd MMM}}" 
-                           Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" 
-                           Margin="50,10,165,510" FontSize="18" FontFamily="Bahnschrift SemiBold" />
-
+                <Rectangle Fill="#D6DC82"
+                           RadiusX="20"
+                           RadiusY="20"
+                           Margin="50,10,165,510" />
+                <TextBlock Text="{Binding CurrentDate, StringFormat={}{0:dd MMM}}"
+                           Foreground="White"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           Margin="50,10,165,510"
+                           FontSize="18"
+                           FontFamily="Bahnschrift SemiBold" />
                 <!-- Add Button -->
-                <Button Style="{StaticResource PinkButton}" 
-                        Content="Add" 
-                        Foreground="White" Width="100" 
-                        Height="45" Command="{Binding AddCommand}" 
-                        VerticalAlignment="Top" 
+                <Button Style="{StaticResource PinkButton}"
+                        Content="Add"
+                        Foreground="White"
+                        Width="100"
+                        Height="45"
+                        Command="{Binding AddCommand}"
+                        VerticalAlignment="Top"
                         HorizontalAlignment="Right"
                         Margin="0,5,45,0"
-                        IsEnabled="{Binding IsAddButtonEnabled}"/>
+                        IsEnabled="{Binding IsAddButtonEnabled}" />
             </Grid>
         </Grid>
     </Grid>

@@ -25,16 +25,16 @@ namespace OOP_EventsManagementSystem.Styles
         public EventDescription()
         {
             InitializeComponent();
-            ConfirmCommand = new RelayCommand(ExecuteConfirmCommand); 
+            ConfirmCommand = new RelayCommand(ExecuteConfirmCommand);
             CancelCommand = new RelayCommand(ExecuteCancelCommand);
             this.DataContext = this;
         }
         private void ExecuteConfirmCommand(object parameter)
-        { 
+        {
 
-        } 
-        private void ExecuteCancelCommand(object parameter) 
-        { 
+        }
+        private void ExecuteCancelCommand(object parameter)
+        {
             this.Close();
         }
         private void SearchBox_GotFocus(object sender, RoutedEventArgs e) { if (SearchBox.Text == "Search......") { SearchBox.Text = ""; SearchBox.CaretBrush = System.Windows.Media.Brushes.Black; } }
