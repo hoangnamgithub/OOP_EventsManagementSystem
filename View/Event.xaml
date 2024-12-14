@@ -8,23 +8,17 @@
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:styles="clr-namespace:OOP_EventsManagementSystem.Styles"
              xmlns:vm="clr-namespace:OOP_EventsManagementSystem.ViewModel"
-             mc:Ignorable="d" 
-
-             
+             mc:Ignorable="d"
              d:DesignHeight="555" d:DesignWidth="850">
 
     <Grid>
+        <materialDesign:Card>
+            <TabControl HorizontalContentAlignment="Left" Margin="5,0,0,0">
 
-        <materialDesign:Card
->
-            <TabControl
-   HorizontalContentAlignment="Left" Margin="5,0,0,0"
-  >
-
+                <!-- Up Coming Tab -->
                 <TabItem Header="Up Coming">
                     <ScrollViewer>
-                        <ItemsControl ItemsSource="{Binding Events}">
-
+                        <ItemsControl ItemsSource="{Binding UpcomingEvents}">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <WrapPanel Orientation="Horizontal" />
@@ -39,10 +33,10 @@
                     </ScrollViewer>
                 </TabItem>
 
-                <TabItem
-     Header="Happening">
+                <!-- Happening Tab -->
+                <TabItem Header="Happening">
                     <ScrollViewer>
-                        <ItemsControl>
+                        <ItemsControl ItemsSource="{Binding HappeningEvents}">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <WrapPanel Orientation="Horizontal" />
@@ -50,36 +44,17 @@
                             </ItemsControl.ItemsPanel>
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <Rectangle Height="130" Width="240" RadiusX="16" RadiusY="16"
-      Fill="DarkKhaki" Margin="12" />
+                                    <styles:EventDetailCard_v2 Margin="5,10,10,10"/>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
-                            <ItemsControl.ItemsSource>
-                                <x:Array Type="{x:Type sys:Object}">
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                </x:Array>
-                            </ItemsControl.ItemsSource>
                         </ItemsControl>
                     </ScrollViewer>
                 </TabItem>
-                <TabItem
-     Header="Completed">
+
+                <!-- Completed Tab -->
+                <TabItem Header="Completed">
                     <ScrollViewer>
-                        <ItemsControl>
+                        <ItemsControl ItemsSource="{Binding CompletedEvents}">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <WrapPanel Orientation="Horizontal" />
@@ -87,29 +62,9 @@
                             </ItemsControl.ItemsPanel>
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <Rectangle Height="130" Width="240" RadiusX="16" RadiusY="16"
-      Fill="LightPink" Margin="12" />
+                                    <styles:EventDetailCard_v2 Margin="5,10,10,10"/>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
-                            <ItemsControl.ItemsSource>
-                                <x:Array Type="{x:Type sys:Object}">
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                    <sys:Object />
-                                </x:Array>
-                            </ItemsControl.ItemsSource>
                         </ItemsControl>
                     </ScrollViewer>
                 </TabItem>
@@ -123,18 +78,21 @@
                 <ColumnDefinition Width="300" />
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="2">
-                
+
                 <Rectangle Fill="#D6DC82" RadiusX="20" RadiusY="20" Margin="50,10,165,510" />
                 <TextBlock Text="{Binding CurrentDate, StringFormat={}{0:dd MMM}}" 
-           Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" 
-           Margin="50,10,165,510" FontSize="18" FontFamily="Bahnschrift SemiBold" />
+                           Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                           Margin="50,10,165,510" FontSize="18" FontFamily="Bahnschrift SemiBold" />
 
-
-                <!-- Sử dụng Button UserControl -->
-                <Button Style="{StaticResource PinkButton}" Content="Add" Foreground="White" Width="100" Height="45" Command="{Binding AddCommand}" VerticalAlignment="Top" HorizontalAlignment="Right"
-Margin="0,5,45,0"
-                    IsEnabled="{Binding IsAddButtonEnabled}"/>
-
+                <!-- Add Button -->
+                <Button Style="{StaticResource PinkButton}" 
+                        Content="Add" 
+                        Foreground="White" Width="100" 
+                        Height="45" Command="{Binding AddCommand}" 
+                        VerticalAlignment="Top" 
+                        HorizontalAlignment="Right"
+                        Margin="0,5,45,0"
+                        IsEnabled="{Binding IsAddButtonEnabled}"/>
             </Grid>
         </Grid>
     </Grid>

@@ -1,21 +1,20 @@
-﻿using OOP_EventsManagementSystem.Utilities;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
+using OOP_EventsManagementSystem.Model;
+using OOP_EventsManagementSystem.Styles;
+using OOP_EventsManagementSystem.Utilities;
 using OOP_EventsManagementSystem.View;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using Microsoft.EntityFrameworkCore;
-using OOP_EventsManagementSystem.Model;
-using Microsoft.Identity.Client;
-using OOP_EventsManagementSystem.Styles;
-
 
 namespace OOP_EventsManagementSystem.ViewModel
 {
@@ -24,7 +23,9 @@ namespace OOP_EventsManagementSystem.ViewModel
         public ICommand AddCommand { get; set; }
         private readonly EventManagementDbContext _context;
 
-        public ObservableCollection<Model.Event> Events { get; set; }
+        public ObservableCollection<Model.Event> UpcomingEvents { get; set; }
+        public ObservableCollection<Model.Event> HappeningEvents { get; set; }
+        public ObservableCollection<Model.Event> CompletedEvents { get; set; }
 
         private DateTime _currentDate;
         public DateTime CurrentDate
@@ -63,11 +64,20 @@ namespace OOP_EventsManagementSystem.ViewModel
             _context = new EventManagementDbContext();
             LoadData();
         }
+
         private void LoadData()
         {
-            Events = new ObservableCollection<Model.Event>(_context.Events.Include(e => e.Venue).ToList());
-            OnPropertyChanged(nameof(Events));
+            var allEvents = _context.Events.Include(e => e.Venue).ToList();
+
+            UpcomingEvents = new ObservableCollection<Model.Event>(allEvents.Where(e => e.StartDate.ToDateTime(TimeOnly.MinValue) > DateTime.Now));
+            HappeningEvents = new ObservableCollection<Model.Event>(allEvents.Where(e => e.StartDate.ToDateTime(TimeOnly.MinValue) <= DateTime.Now && e.EndDate.ToDateTime(TimeOnly.MinValue) >= DateTime.Now));
+            CompletedEvents = new ObservableCollection<Model.Event>(allEvents.Where(e => e.EndDate.ToDateTime(TimeOnly.MinValue) < DateTime.Now));
+
+            OnPropertyChanged(nameof(UpcomingEvents));
+            OnPropertyChanged(nameof(HappeningEvents));
+            OnPropertyChanged(nameof(CompletedEvents));
         }
+
         private void ExecuteAddCommand(object obj)
         {
             IsAddButtonEnabled = false; // Disable the button
