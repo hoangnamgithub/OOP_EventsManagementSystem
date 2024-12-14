@@ -31,5 +31,7 @@ public partial class Event
 
     public virtual ICollection<Required> Requireds { get; set; } = new List<Required>();
 
+    public virtual ICollection<ShowSchedule> ShowSchedules { get; set; } = new List<ShowSchedule>();
+
     public virtual Venue Venue { get; set; } = null!;
 }

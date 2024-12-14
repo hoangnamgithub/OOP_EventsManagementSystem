@@ -185,7 +185,8 @@ END
             event_id INT NOT NULL,
             quantity INT NOT NULL,
             FOREIGN KEY (role_id) REFERENCES Employees.employee_role(role_id),
-            FOREIGN KEY (event_id) REFERENCES Events.event(event_id)
+            FOREIGN KEY (event_id) REFERENCES Events.event(event_id),
+            UNIQUE (role_id, event_id)
         );
 
         IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='is_sponsor' AND xtype='U') CREATE TABLE Events.is_sponsor (
@@ -225,7 +226,10 @@ END
             start_date DATE NOT NULL,
             est_duration INT NOT NULL,
             show_id INT NOT NULL,
-            FOREIGN KEY (show_id) REFERENCES Shows.show(show_id)
+            event_id INT NOT NULL,
+            FOREIGN KEY (show_id) REFERENCES Shows.show(show_id),
+            FOREIGN KEY (event_id) REFERENCES Events.event(event_id),
+            UNIQUE (show_id, event_id)
         );
 
         IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='equipment_type' AND xtype='U') CREATE TABLE Equipments.equipment_type (
