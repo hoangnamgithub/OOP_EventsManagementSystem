@@ -22,21 +22,26 @@
   >
 
                 <TabItem Header="Up Coming">
-                    <ScrollViewer>
-                        <ItemsControl ItemsSource="{Binding Events}">
+                    <Grid>
+                        <styles:SearchBar HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,5"/>
+                        <ScrollViewer Margin="5,50,5,0">
+                            <ItemsControl ItemsSource="{Binding Events}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel Orientation="Horizontal" />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Button Height="auto" Width="auto" Background="Transparent" BorderBrush="Transparent" Command="{Binding DataContext.OpenEventDetailCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}">
+                                            <styles:EventDetailCard_v2 />
+                                        </Button>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
 
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <WrapPanel Orientation="Horizontal" />
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <styles:EventDetailCard_v2 Margin="5,10,10,10"/>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </ScrollViewer>
+                    </Grid>
                 </TabItem>
 
                 <TabItem

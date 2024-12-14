@@ -27,7 +27,7 @@ namespace OOP_EventsManagementSystem.View
         public Event()
         {
             InitializeComponent();
-            DataContext = new EventVM();
+            this.DataContext = new EventVM();
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)

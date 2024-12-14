@@ -25,14 +25,14 @@
                     <StackPanel>
                         <Grid Margin="10">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="40"/>
-                                <RowDefinition Height="130"/>
-                                <RowDefinition Height="90"/>
-                                <RowDefinition Height="30"/>
-                                <RowDefinition Height="25"/>
-                                <RowDefinition Height="30"/>
-                                <RowDefinition Height="25"/>
-                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
                             </Grid.RowDefinitions>
                             <TextBlock Text=" Event Description" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20" FontFamily="Bahnschrift SemiBold"/>
                             <local:EventDetailCard_v2 Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center"  />

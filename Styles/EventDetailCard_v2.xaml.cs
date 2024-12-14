@@ -24,5 +24,7 @@ namespace OOP_EventsManagementSystem.Styles
         {
             InitializeComponent();
         }
+
+        
     }
 }

@@ -22,6 +22,9 @@ namespace OOP_EventsManagementSystem.ViewModel
     public class EventVM : INotifyPropertyChanged
     {
         public ICommand AddCommand { get; set; }
+        public ICommand OpenEventDetailCommand { get; set; }
+
+
         private readonly EventManagementDbContext _context;
 
         public ObservableCollection<Model.Event> Events { get; set; }
@@ -58,10 +61,18 @@ namespace OOP_EventsManagementSystem.ViewModel
         public EventVM()
         {
             AddCommand = new RelayCommand(ExecuteAddCommand, CanExecuteAddCommand);
+            OpenEventDetailCommand = new RelayCommand(ExecuteOpenEventDetailCommand);
             IsAddButtonEnabled = true;
             CurrentDate = DateTime.Now;
             _context = new EventManagementDbContext();
             LoadData();
+        }
+        // Thực thi lệnh để mở cửa sổ EventDescription
+        private void ExecuteOpenEventDetailCommand(object obj)
+        {
+            var eventDescriptionWindow = new EventDescription();
+            eventDescriptionWindow.Show();
+            
         }
         private void LoadData()
         {

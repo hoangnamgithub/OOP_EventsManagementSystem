@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:OOP_EventsManagementSystem.Styles"
              mc:Ignorable="d" 
-             Height="130" Width="260">
+             Height="130" Width="240">
     <UserControl.Resources>
         <Storyboard x:Key="HoldOver">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetName="grid12" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)">
@@ -44,6 +44,7 @@
             <BeginStoryboard Storyboard="{StaticResource RvsHoldOver}" />
         </EventTrigger>
     </UserControl.Triggers>
+
     <Grid x:Name="grid12" RenderTransformOrigin="0.5,0.5">
         <Grid.RenderTransform>
             <TransformGroup>
@@ -62,9 +63,9 @@
             <Border x:Name="border" CornerRadius="8" Background="#FF554FC5">
                 <Grid x:Name="grid1">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="15*"/>
-                        <RowDefinition Height="80*"/>
-                        <RowDefinition Height="5*"/>
+                        <RowDefinition Height="15"/>
+                        <RowDefinition Height="70"/>
+                        <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
 
                     <Grid x:Name="grid2" Grid.Row="0">
@@ -80,9 +81,9 @@
                     <Grid x:Name="grid3" Grid.Row="1">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto"/>
-                            <RowDefinition Height="18*"/>
-                            <RowDefinition Height="27*"/>
-                            <RowDefinition Height="27*"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
                         </Grid.RowDefinitions>
 
 
@@ -91,49 +92,50 @@
                             <TextBlock Text="{Binding EventName}" TextWrapping="Wrap" VerticalAlignment="Bottom" Margin="10,0,10,0" FontSize="15" Foreground="#FFFCF8F8" FontFamily="Bahnschrift SemiBold" />
                         </Grid>
                         <Grid Grid.Row="1">
-                            <TextBlock Text="{Binding Venue.VenueName}" VerticalAlignment="Top" Margin="10,0,0,0" FontSize="13" Foreground="#FFFCF8F8" FontFamily="Bahnschrift SemiLight Condensed" />
+                            <TextBlock Text="{Binding Venue.VenueName}" VerticalAlignment="Top" Margin="10,0,0,0" FontSize="13" Foreground="#FFD6DC82" FontFamily="Bahnschrift SemiLight Condensed" />
 
                         </Grid>
-                        <Grid x:Name="grid6" Grid.Row="3">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="25*"/>
-                                <ColumnDefinition Width="25*"/>
-                                <ColumnDefinition Width="40*"/>
-                            </Grid.ColumnDefinitions>
+
+                    </Grid>
+                    <Grid x:Name="grid6" Grid.Row="2" VerticalAlignment="Top" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="25*"/>
+                            <ColumnDefinition Width="25*"/>
+                            <ColumnDefinition Width="40*"/>
+                        </Grid.ColumnDefinitions>
 
 
-                            <Grid>
-                                <StackPanel Margin="10,0,0,0">
-                                    <TextBlock Text="START" FontWeight="Bold" FontSize="8" Foreground="#FFFCF8F8"/>
-                                    <TextBlock Text="{Binding StartDate, StringFormat={}{0:dd/MM}}" Foreground="#FFFCF8F8"/>
-                                </StackPanel>
-                            </Grid>
-                            <Grid Grid.Column="1">
-                                <StackPanel Margin="10,0,0,0">
-                                    <TextBlock Text="END" FontWeight="Bold" FontSize="8" Foreground="#FFFCF8F8"/>
-                                    <TextBlock Text="{Binding EndDate, StringFormat={}{0:dd/MM}}" Foreground="#FFFCF8F8"/>
+                        <Grid>
+                            <StackPanel Margin="10,0,0,0">
+                                <TextBlock Text="START" FontWeight="Bold" FontSize="8" Foreground="#FFFCF8F8"/>
+                                <TextBlock Text="{Binding StartDate, StringFormat={}{0:dd/MM/YYYY}}" Foreground="#FFFCF8F8"/>
+                            </StackPanel>
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <StackPanel Margin="10,0,0,0">
+                                <TextBlock Text="END" FontWeight="Bold" FontSize="8" Foreground="#FFFCF8F8"/>
+                                <TextBlock Text="{Binding EndDate, StringFormat={}{0:dd/MM/YYYY}}" Foreground="#FFFCF8F8"/>
 
-                                </StackPanel>
-                            </Grid>
-                            <Grid x:Name="grid9" Grid.Column="2">
-                                <StackPanel x:Name="stackPanel3" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,4">
-                                    <!-- Barcode Bars -->
-                                    <Rectangle x:Name="rectangle1" Width="9" Height="50" Fill="White" Margin="1,0" />
-                                    <Rectangle x:Name="rectangle2" Width="4" Height="50" Fill="White" Margin="1,0" />
-                                    <Rectangle x:Name="rectangle3" Width="2" Height="50" Fill="White" Margin="1,0" />
-                                    <Rectangle x:Name="rectangle4" Width="6" Height="50" Fill="White" Margin="1,0" />
-                                    <Rectangle x:Name="rectangle5" Width="2" Height="50" Fill="White" Margin="1,0" />
-                                    <Rectangle x:Name="rectangle6" Width="4" Height="50" Fill="White" Margin="1,0" />
-                                    <Rectangle x:Name="rectangle7" Width="8" Height="50" Fill="#FFD96073" Margin="1,0" />
-                                    <Rectangle x:Name="rectangle8" Width="3" Height="50" Fill="White" Margin="1,0" />
-                                    <Rectangle x:Name="rectangle9" Width="1" Height="50" Fill="White" Margin="1,0" />
-                                    <Rectangle x:Name="rectangle10" Width="7" Height="50" Fill="White" Margin="1,0" />
-                                    <Rectangle x:Name="rectangle11" Width="1" Height="50" Fill="White" Margin="1,0" />
-                                    <Rectangle x:Name="rectangle12" Width="1" Height="50" Fill="White" Margin="1,0" />
-                                    <Rectangle x:Name="rectangle13" Width="3" Height="50" Fill="White" Margin="1,0" />
-                                    <Rectangle x:Name="rectangle14" Width="9" Height="50" Fill="White" Margin="1,0" />
-                                </StackPanel>
-                            </Grid>
+                            </StackPanel>
+                        </Grid>
+                        <Grid x:Name="grid9" Grid.Column="2">
+                            <StackPanel x:Name="stackPanel3" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,4">
+                                <!-- Barcode Bars -->
+                                <Rectangle x:Name="rectangle1" Width="9" Height="35" Fill="White" Margin="1,0" VerticalAlignment="Top"/>
+                                <Rectangle x:Name="rectangle2" Width="4" Height="35" Fill="White" Margin="1,0" VerticalAlignment="Top"/>
+                                <Rectangle x:Name="rectangle3" Width="2" Height="35" Fill="White" Margin="1,0" VerticalAlignment="Top"/>
+                                <Rectangle x:Name="rectangle4" Width="6" Height="35" Fill="White" Margin="1,0" VerticalAlignment="Top"/>
+                                <Rectangle x:Name="rectangle5" Width="2" Height="35" Fill="White" Margin="1,0" VerticalAlignment="Top"/>
+                                <Rectangle x:Name="rectangle6" Width="4" Height="35" Fill="White" Margin="1,0" VerticalAlignment="Top"/>
+                                <Rectangle x:Name="rectangle7" Width="8" Height="35" Fill="#FFD96073" Margin="1,0" VerticalAlignment="Top"/>
+                                <Rectangle x:Name="rectangle8" Width="3" Height="35" Fill="White" Margin="1,0" VerticalAlignment="Top"/>
+                                <Rectangle x:Name="rectangle9" Width="1" Height="35" Fill="White" Margin="1,0" VerticalAlignment="Top"/>
+                                <Rectangle x:Name="rectangle10" Width="7" Height="35" Fill="White" Margin="1,0" VerticalAlignment="Top"/>
+                                <Rectangle x:Name="rectangle11" Width="1" Height="35" Fill="White" Margin="1,0" VerticalAlignment="Top"/>
+                                <Rectangle x:Name="rectangle12" Width="1" Height="35" Fill="White" Margin="1,0" VerticalAlignment="Top"/>
+                                <Rectangle x:Name="rectangle13" Width="3" Height="35" Fill="White" Margin="1,0" VerticalAlignment="Top"/>
+                                <Rectangle x:Name="rectangle14" Width="9" Height="35" Fill="White" Margin="1,0" VerticalAlignment="Top"/>
+                            </StackPanel>
                         </Grid>
                     </Grid>
                 </Grid>
@@ -141,7 +143,7 @@
         </Grid>
         <!--Right Col-->
         <Grid x:Name="grid10" Grid.Column="1">
-            <Border x:Name="border1" CornerRadius="8" Background="#FF3E3A8C">
+            <Border x:Name="border1" CornerRadius="8" Background="#FF3E3A8C" HorizontalAlignment="Left" Width="67">
                 <Grid x:Name="grid11" HorizontalAlignment="Left" VerticalAlignment="Top" Height="158">
                     <Rectangle x:Name="rectangle15" Fill="#D6DC82" Margin="43,0,0,0" Height="84" VerticalAlignment="Center"/>
                     <Polygon x:Name="polygon" Points="50,5 0,100 100,100"
@@ -158,7 +160,7 @@
                             </TransformGroup>
                         </Line.RenderTransform>
                     </Line>
-                    <Ellipse x:Name="ellipse" Width="47" Fill="#D96073" HorizontalAlignment="Left" Margin="32,88,0,23" />
+                    <Ellipse x:Name="ellipse" Width="42" Fill="#D96073" HorizontalAlignment="Left" Margin="32,88,0,25" />
                     <Ellipse x:Name="ellipse1" Width="11" Fill="#FFFBF8" HorizontalAlignment="Left" Margin="34,100,0,47" RenderTransformOrigin="0.5,0.5" >
                         <Ellipse.RenderTransform>
                             <TransformGroup>
@@ -169,7 +171,7 @@
                             </TransformGroup>
                         </Ellipse.RenderTransform>
                     </Ellipse>
-                    <Ellipse x:Name="ellipse2" Width="3" Fill="#262628" HorizontalAlignment="Center" Margin="0,103,0,52" />
+                    <Ellipse x:Name="ellipse2" Width="3" Fill="#262628" HorizontalAlignment="Left" Margin="35,102,0,53" />
                     <Ellipse x:Name="ellipse3" Width="11" Fill="#FFFBF8" HorizontalAlignment="Left" Margin="50,101,0,46" RenderTransformOrigin="0.5,0.5" >
                         <Ellipse.RenderTransform>
                             <TransformGroup>
@@ -220,6 +222,6 @@
         </Grid>
         <Line x:Name="line2" X1="0" Y1="0" X2="0" Y2="125" 
           Stroke="White" StrokeThickness="2" StrokeDashArray="5,3"
-          HorizontalAlignment="Left" Margin="187,12,0,7" Width="1" Grid.ColumnSpan="2" />
+          HorizontalAlignment="Left" Margin="173,12,0,7" Width="1" Grid.ColumnSpan="2" />
     </Grid>
 </UserControl>
