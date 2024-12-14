@@ -18,7 +18,7 @@ CREATE SCHEMA Shows;
 go
 CREATE SCHEMA Employees;
 GO
-IF NOT EXISTS (SELECT schema_name FROM information_schema.schemata WHERE schema_name = 'Events';
+IF NOT EXISTS (SELECT schema_name FROM information_schema.schemata WHERE schema_name = 'Events');
 go
 CREATE SCHEMA Events;
 go;
