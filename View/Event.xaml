@@ -11,7 +11,9 @@
              mc:Ignorable="d" 
              d:DesignHeight="555" d:DesignWidth="850"
              >
+    
     <Grid >
+        
         <materialDesign:Card
 >
             <TabControl
@@ -115,12 +117,12 @@
         </materialDesign:Card>
         <Grid>
             <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100" />
-            <ColumnDefinition />
-            <ColumnDefinition Width="300" />
-        </Grid.ColumnDefinitions>
-
-        <Grid Grid.Column="2">
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition />
+                <ColumnDefinition Width="300" />
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="2">
+                
                 <Rectangle Fill="#D6DC82" RadiusX="20" RadiusY="20" Margin="50,10,165,510" />
                 <TextBlock Text="{Binding CurrentDate, StringFormat={}{0:dd MMM}}" 
            Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" 

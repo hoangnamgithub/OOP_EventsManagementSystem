@@ -59,7 +59,7 @@
         </Grid.ColumnDefinitions>
         <!--Left Col-->
         <Grid x:Name="grid" Grid.Column="0">
-            <Border x:Name="border" CornerRadius="8" Background="#FF39366F">
+            <Border x:Name="border" CornerRadius="8" Background="#FF554FC5">
                 <Grid x:Name="grid1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="15*"/>
@@ -141,7 +141,7 @@
         </Grid>
         <!--Right Col-->
         <Grid x:Name="grid10" Grid.Column="1">
-            <Border x:Name="border1" CornerRadius="8" Background="#FF39366F">
+            <Border x:Name="border1" CornerRadius="8" Background="#FF3E3A8C">
                 <Grid x:Name="grid11" HorizontalAlignment="Left" VerticalAlignment="Top" Height="158">
                     <Rectangle x:Name="rectangle15" Fill="#D6DC82" Margin="43,0,0,0" Height="84" VerticalAlignment="Center"/>
                     <Polygon x:Name="polygon" Points="50,5 0,100 100,100"
