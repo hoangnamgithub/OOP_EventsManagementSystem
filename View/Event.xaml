@@ -148,11 +148,11 @@
 
 
                 <!-- Sử dụng Button UserControl -->
-                <styles:Button ButtonText="Add" ButtonBackground="#D96073"
-                       VerticalAlignment="Top" HorizontalAlignment="Right"
-                       Margin="0,5,50,0"
-                       ButtonCommand="{Binding AddCommand}"
-                       IsEnabled="{Binding IsAddButtonEnabled}"/>
+                <Button Content="Add" Background="#D96073" VerticalAlignment="Top" HorizontalAlignment="Right"
+                Margin="0,5,50,0"
+                Command="{Binding AddCommand}"
+                IsEnabled="{Binding IsAddButtonEnabled}"/>
+
 
             </Grid>
         </Grid>
