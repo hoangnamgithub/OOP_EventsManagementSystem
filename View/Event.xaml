@@ -9,11 +9,12 @@
              xmlns:styles="clr-namespace:OOP_EventsManagementSystem.Styles"
              xmlns:vm="clr-namespace:OOP_EventsManagementSystem.ViewModel"
              mc:Ignorable="d" 
-             d:DesignHeight="555" d:DesignWidth="850"
-             >
-    
-    <Grid >
-        
+
+             
+             d:DesignHeight="555" d:DesignWidth="850">
+
+    <Grid>
+
         <materialDesign:Card
 >
             <TabControl
