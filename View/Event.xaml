@@ -22,7 +22,7 @@
   >
                 <TabItem
                        Header="Up Coming">
-                    <ScrollViewer Background="White" Margin="0,5,0,0">
+                    <ScrollViewer Background="White" Margin="0,5,0,0" >
                         <ItemsControl>
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
@@ -148,11 +148,9 @@
 
 
                 <!-- Sử dụng Button UserControl -->
-                <styles:Button ButtonText="Add" ButtonBackground="#D96073"
-                       VerticalAlignment="Top" HorizontalAlignment="Right"
-                       Margin="0,5,50,0"
-                       ButtonCommand="{Binding AddCommand}"
-                       IsEnabled="{Binding IsAddButtonEnabled}"/>
+                <Button Style="{StaticResource PinkButton}" Content="Add" Foreground="White" Width="100" Height="45" Command="{Binding AddCommand}" VerticalAlignment="Top" HorizontalAlignment="Right"
+Margin="0,5,45,0"
+                    IsEnabled="{Binding IsAddButtonEnabled}"/>
 
             </Grid>
         </Grid>

@@ -77,8 +77,8 @@
                     <TextBlock Text="Today" Margin="20,35,10,5" FontFamily="Bahnschrift SemiBold" FontSize="16" />
                     <Grid Grid.Row="1">
 
-                        <Rectangle Fill="#D6DC82" RadiusX="16" RadiusY="16" Margin="10,0,30,15" Height="280" VerticalAlignment="Top"/>
-                        <Border Grid.Column="1" CornerRadius="16" Background="White" Margin="25,15,10,0" Height="280" VerticalAlignment="Top">
+                        <Rectangle Fill="#D6DC82" RadiusX="16" RadiusY="16" Margin="10,0,45,15" Height="280" VerticalAlignment="Top"/>
+                        <Border Grid.Column="1" CornerRadius="16" Background="White" Margin="25,15,25,0" Height="280" VerticalAlignment="Top">
 
                             <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" Background="Transparent" Margin="0,45,0,0"/>
                         </Border>
@@ -197,8 +197,8 @@
                     <TextBlock Text="List Employee" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20" FontFamily="Bahnschrift SemiBold" Margin="20,5,10,0"/>
                     <Grid >
 
-                        <Rectangle Fill="#FFD96073" RadiusX="16" RadiusY="16" Margin="10,0,30,15" Height="350" VerticalAlignment="Top"/>
-                        <Border Grid.Column="1" CornerRadius="16" Background="White" Margin="25,15,10,0" Height="350" VerticalAlignment="Top">
+                        <Rectangle Fill="#FFD96073" RadiusX="16" RadiusY="16" Margin="10,0,45,15" Height="350" VerticalAlignment="Top"/>
+                        <Border Grid.Column="1" CornerRadius="16" Background="White" Margin="25,15,25,0" Height="350" VerticalAlignment="Top">
 
                             <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" Background="Transparent" Margin="0,45,0,0"/>
                         </Border>

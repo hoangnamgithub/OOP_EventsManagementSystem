@@ -8,12 +8,12 @@
 
         mc:Ignorable="d"
         Title="EmployeeDescription"         
-            Height="450" Width="400"
+            Height="500" Width="400"
             AllowsTransparency="True"
             WindowStartupLocation="CenterScreen"
             WindowStyle="None"
             Background="Transparent">
-    <Border CornerRadius="16" Background="#D6DC82" Height="435" Width="325" MouseLeftButtonDown="Border_MouseLeftButtonDown">
+    <Border CornerRadius="16" Background="#D6DC82" Height="490" Width="325" MouseLeftButtonDown="Border_MouseLeftButtonDown">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="40"/>
@@ -34,7 +34,7 @@
                             <RowDefinition/>
                         </Grid.RowDefinitions>
                         <TextBlock Text="Name" VerticalAlignment="Center" Margin="30,0,0,0" FontFamily="Bahnschrift SemiLight" FontSize="16" />
-                        <Border Grid.Row="1"  CornerRadius="16" Background="#FFDCDCE6" Margin="20,5,20,5" Height="35">
+                        <Border Grid.Row="1"  CornerRadius="16" Background="#FFDCDCE6" Margin="20,5,20,5" Height="45">
                             <TextBox Text="Olivia Rose" CaretBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" FontFamily="Bahnschrift SemiLight" FontSize="16" Margin="10,5,10,5" Background="{x:Null}" BorderBrush="{x:Null}" />
                         </Border>
                     </Grid>
@@ -44,7 +44,7 @@
                             <RowDefinition/>
                         </Grid.RowDefinitions>
                         <TextBlock Text="Contact" VerticalAlignment="Center" Margin="30,0,0,0" FontFamily="Bahnschrift SemiLight" FontSize="16" />
-                        <Border Grid.Row="1"  CornerRadius="16" Background="#FFDCDCE6" Margin="20,5,20,5" Height="35">
+                        <Border Grid.Row="1"  CornerRadius="16" Background="#FFDCDCE6" Margin="20,5,20,5" Height="45">
                             <TextBox Text="+822357860" CaretBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" FontFamily="Bahnschrift SemiLight" FontSize="16" Margin="10,5,10,5" Background="{x:Null}" BorderBrush="{x:Null}" />
                         </Border>
                     </Grid>
@@ -54,7 +54,7 @@
                             <RowDefinition/>
                         </Grid.RowDefinitions>
                         <TextBlock Text="Role" VerticalAlignment="Center" Margin="30,0,0,0" FontFamily="Bahnschrift SemiLight" FontSize="16" />
-                        <Border Grid.Row="1"  CornerRadius="16" Background="#FFDCDCE6" Margin="20,5,20,5" Height="35">
+                        <Border Grid.Row="1"  CornerRadius="16" Background="#FFDCDCE6" Margin="20,5,20,5" Height="45">
                             <ComboBox Margin="5"
 materialDesign:HintAssist.Hint="Marketing">
                                 <ComboBoxItem Content="Media" />
@@ -69,7 +69,7 @@ materialDesign:HintAssist.Hint="Marketing">
                             <RowDefinition/>
                         </Grid.RowDefinitions>
                         <TextBlock Text="Account" VerticalAlignment="Center" Margin="30,0,0,0" FontFamily="Bahnschrift SemiLight" FontSize="16" />
-                        <Border Grid.Row="1"  CornerRadius="16" Background="#FFDCDCE6" Margin="20,5,20,5" Height="35">
+                        <Border Grid.Row="1"  CornerRadius="16" Background="#FFDCDCE6" Margin="20,5,20,5" Height="45">
                             <TextBox Text="mkt_olivia@easys.com" CaretBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" FontFamily="Bahnschrift SemiLight" FontSize="16" Margin="10,5,10,5" Background="{x:Null}" BorderBrush="{x:Null}" />
                         </Border>
                     </Grid>
@@ -79,7 +79,7 @@ materialDesign:HintAssist.Hint="Marketing">
                             <RowDefinition/>
                         </Grid.RowDefinitions>
                         <TextBlock Text="Password" VerticalAlignment="Center" Margin="30,0,0,0" FontFamily="Bahnschrift SemiLight" FontSize="16" />
-                        <Border Grid.Row="1"  CornerRadius="16" Background="#FFDCDCE6" Margin="20,5,20,5" Height="35">
+                        <Border Grid.Row="1"  CornerRadius="16" Background="#FFDCDCE6" Margin="20,5,20,5" Height="45">
                             <TextBox Text="olivia12345" CaretBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" FontFamily="Bahnschrift SemiLight" FontSize="16" Margin="10,5,10,5" Background="{x:Null}" BorderBrush="{x:Null}" />
                         </Border>
                     </Grid>
