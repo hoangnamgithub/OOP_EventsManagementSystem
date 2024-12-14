@@ -26,6 +26,8 @@
     <None Remove="Resources\Fonts\Poppins-Regular.ttf" />
     <None Remove="Resources\Fonts\Poppins-SemiBold.ttf" />
     <None Remove="Resources\Images\adele.jpg" />
+    <None Remove="Resources\Images\audio.png" />
+    <None Remove="Resources\Images\auxiliary.png" />
     <None Remove="Resources\Images\crown.png" />
     <None Remove="Resources\Images\delete-outline.png" />
     <None Remove="Resources\Images\diewasmile.jpg" />
@@ -38,6 +40,7 @@
     <None Remove="Resources\Images\event_trang.png" />
     <None Remove="Resources\Images\eye_off.png" />
     <None Remove="Resources\Images\eye_on.png" />
+    <None Remove="Resources\Images\lightning.png" />
     <None Remove="Resources\Images\location_den.png" />
     <None Remove="Resources\Images\location_trang.png" />
     <None Remove="Resources\Images\magnify.png" />
@@ -49,6 +52,10 @@
     <None Remove="Resources\Images\powerofff.png" />
     <None Remove="Resources\Images\show_den.png" />
     <None Remove="Resources\Images\show_trang.png" />
+    <None Remove="Resources\Images\special.png" />
+    <None Remove="Resources\Images\stage.png" />
+    <None Remove="Resources\Images\technical.png" />
+    <None Remove="Resources\Images\visual.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -58,6 +65,12 @@
 
   <ItemGroup>
     <Resource Include="Resources\Images\adele.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\audio.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\auxiliary.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Images\crown.png">
@@ -96,6 +109,9 @@
     <Resource Include="Resources\Images\eye_on.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Images\lightning.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Images\location_den.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
@@ -127,6 +143,18 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Images\show_trang.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\special.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\stage.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\technical.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\visual.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

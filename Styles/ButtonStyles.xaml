@@ -206,5 +206,13 @@
             </Setter.Value>
         </Setter>
     </Style>
+    <Style TargetType="TextBlock" x:Key="txt_header">
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="FontFamily" Value="Bahnschrift SemiBold"/>
+    </Style>
+    <Style TargetType="TextBlock" x:Key="txt">
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="FontFamily" Value="Bahnschrift SemiLight"/>
+    </Style>
 
 </ResourceDictionary>

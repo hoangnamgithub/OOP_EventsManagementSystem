@@ -79,7 +79,7 @@
                     <!--Main content-->
                     <Grid x:Name="grid3" Grid.Row="1">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="20*"/>
+                            <RowDefinition Height="auto"/>
                             <RowDefinition Height="18*"/>
                             <RowDefinition Height="27*"/>
                             <RowDefinition Height="27*"/>
@@ -87,11 +87,11 @@
 
 
 
-                        <Grid Grid.Row="0" Background="White">
-                            <TextBlock Text="{Binding EventName}" VerticalAlignment="Bottom" Margin="10,0,0,0" FontSize="13" FontWeight="Bold" Foreground="#FF262628"/>
+                        <Grid Grid.Row="0">
+                            <TextBlock Text="{Binding EventName}" TextWrapping="Wrap" VerticalAlignment="Bottom" Margin="10,0,10,0" FontSize="15" Foreground="#FFFCF8F8" FontFamily="Bahnschrift SemiBold" />
                         </Grid>
                         <Grid Grid.Row="1">
-                            <TextBlock Text="{Binding Venue.VenueName}" VerticalAlignment="Top" Margin="10,0,0,0" FontSize="13" FontWeight="Bold" Foreground="#FFFCF8F8"/>
+                            <TextBlock Text="{Binding Venue.VenueName}" VerticalAlignment="Top" Margin="10,0,0,0" FontSize="13" Foreground="#FFFCF8F8" FontFamily="Bahnschrift SemiLight Condensed" />
 
                         </Grid>
                         <Grid x:Name="grid6" Grid.Row="3">
@@ -104,13 +104,13 @@
 
                             <Grid>
                                 <StackPanel Margin="10,0,0,0">
-                                    <TextBlock Text="START" FontWeight="Bold" FontSize="8" Foreground="black"/>
+                                    <TextBlock Text="START" FontWeight="Bold" FontSize="8" Foreground="#FFFCF8F8"/>
                                     <TextBlock Text="{Binding StartDate, StringFormat={}{0:dd/MM}}" Foreground="#FFFCF8F8"/>
                                 </StackPanel>
                             </Grid>
                             <Grid Grid.Column="1">
                                 <StackPanel Margin="10,0,0,0">
-                                    <TextBlock Text="END" FontWeight="Bold" FontSize="8" Foreground="Black"/>
+                                    <TextBlock Text="END" FontWeight="Bold" FontSize="8" Foreground="#FFFCF8F8"/>
                                     <TextBlock Text="{Binding EndDate, StringFormat={}{0:dd/MM}}" Foreground="#FFFCF8F8"/>
 
                                 </StackPanel>

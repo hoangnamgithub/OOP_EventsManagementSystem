@@ -8,7 +8,7 @@
              Height="555" Width="850"
              Background="#EFE9E4">
     <UserControl.Resources>
-      
+
         <Storyboard x:Key="Right">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetName="stackPanel" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
                 <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
@@ -58,8 +58,8 @@
                 <EasingDoubleKeyFrame KeyTime="00:00:00.7000000" Value="180"/>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
-      
-       
+
+
         <Storyboard x:Key="Left">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetName="stackPanel" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
                 <SplineDoubleKeyFrame KeyTime="00:00:00" Value="-193.6"/>
@@ -133,7 +133,7 @@
                     <TranslateTransform/>
                 </TransformGroup>
             </StackPanel.RenderTransform>
-            
+
             <Rectangle x:Name="special" Height="100" Width="170" Fill="White" RadiusX="16" RadiusY="16" Margin="10,0,10,0"/>
 
             <Rectangle x:Name="auxiliary" Height="100" Width="170" Fill="White" RadiusX="16" RadiusY="16" Margin="10,0,10,0"/>
@@ -142,6 +142,152 @@
             <Rectangle x:Name="visual" Height="100" Width="170" Fill="White" RadiusX="16" RadiusY="16" Margin="10,0,10,0"/>
             <Rectangle x:Name="technical" Height="100" Width="170" Fill="White" RadiusX="16" RadiusY="16" Margin="10,0,10,0"/>
             <Rectangle x:Name="structures" Height="100" Width="170" Fill="White" RadiusX="16" RadiusY="16" Margin="10,0,10,0"/>
+        </StackPanel>
+        <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Margin="871,0,0,0">
+            <Grid x:Name="audio_" Height="180" Width="270" Margin="10,0,10,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Image Source="pack://application:,,,/Resources/Images/audio.png" Height="60" Width="60" Margin="15"/>
+                <TextBlock Grid.Row="1" Style="{StaticResource txt_header}" Text="Audio Equipment" HorizontalAlignment="Center" FontSize="22"/>
+                <TextBlock Grid.Row="2" Style="{StaticResource txt_header}" Text="32" HorizontalAlignment="Center" Foreground="Green" Margin="10,10,10,0"/>
+                <TextBlock Grid.Row="3" Style="{StaticResource txt}" Text="available" HorizontalAlignment="Center" />
+            </Grid>
+            <Grid x:Name="visual_" Height="180" Width="270" Margin="10,0,10,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Image Source="pack://application:,,,/Resources/Images/audio.png" Height="60" Width="60" Margin="15"/>
+                <TextBlock Grid.Row="1" Style="{StaticResource txt_header}" Text="Audio Equipment" HorizontalAlignment="Center" FontSize="22"/>
+                <TextBlock Grid.Row="2" Style="{StaticResource txt_header}" Text="32" HorizontalAlignment="Center" Foreground="Green" Margin="10,10,10,0"/>
+                <TextBlock Grid.Row="3" Style="{StaticResource txt}" Text="available" HorizontalAlignment="Center" />
+            </Grid>
+            <Grid x:Name="ligtning_" Height="180" Width="270" Margin="10,0,10,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Image Source="pack://application:,,,/Resources/Images/audio.png" Height="60" Width="60" Margin="15"/>
+                <TextBlock Grid.Row="1" Style="{StaticResource txt_header}" Text="Audio Equipment" HorizontalAlignment="Center" FontSize="22"/>
+                <TextBlock Grid.Row="2" Style="{StaticResource txt_header}" Text="32" HorizontalAlignment="Center" Foreground="Green" Margin="10,10,10,0"/>
+                <TextBlock Grid.Row="3" Style="{StaticResource txt}" Text="available" HorizontalAlignment="Center" />
+            </Grid>
+            <Grid x:Name="staging_" Height="180" Width="270" Margin="10,0,10,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Image Source="pack://application:,,,/Resources/Images/audio.png" Height="60" Width="60" Margin="15"/>
+                <TextBlock Grid.Row="1" Style="{StaticResource txt_header}" Text="Audio Equipment" HorizontalAlignment="Center" FontSize="22"/>
+                <TextBlock Grid.Row="2" Style="{StaticResource txt_header}" Text="32" HorizontalAlignment="Center" Foreground="Green" Margin="10,10,10,0"/>
+                <TextBlock Grid.Row="3" Style="{StaticResource txt}" Text="available" HorizontalAlignment="Center" />
+            </Grid>
+            <Grid x:Name="communication_" Height="180" Width="270" Margin="10,0,10,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Image Source="pack://application:,,,/Resources/Images/audio.png" Height="60" Width="60" Margin="15"/>
+                <TextBlock Grid.Row="1" Style="{StaticResource txt_header}" Text="Audio Equipment" HorizontalAlignment="Center" FontSize="22"/>
+                <TextBlock Grid.Row="2" Style="{StaticResource txt_header}" Text="32" HorizontalAlignment="Center" Foreground="Green" Margin="10,10,10,0"/>
+                <TextBlock Grid.Row="3" Style="{StaticResource txt}" Text="available" HorizontalAlignment="Center" />
+            </Grid>
+            <Grid x:Name="power_" Height="180" Width="270" Margin="10,0,10,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Image Source="pack://application:,,,/Resources/Images/audio.png" Height="60" Width="60" Margin="15"/>
+                <TextBlock Grid.Row="1" Style="{StaticResource txt_header}" Text="Audio Equipment" HorizontalAlignment="Center" FontSize="22"/>
+                <TextBlock Grid.Row="2" Style="{StaticResource txt_header}" Text="32" HorizontalAlignment="Center" Foreground="Green" Margin="10,10,10,0"/>
+                <TextBlock Grid.Row="3" Style="{StaticResource txt}" Text="available" HorizontalAlignment="Center" />
+            </Grid>
+            <Grid x:Name="seating_" Height="180" Width="270" Margin="10,0,10,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Image Source="pack://application:,,,/Resources/Images/audio.png" Height="60" Width="60" Margin="15"/>
+                <TextBlock Grid.Row="1" Style="{StaticResource txt_header}" Text="Audio Equipment" HorizontalAlignment="Center" FontSize="22"/>
+                <TextBlock Grid.Row="2" Style="{StaticResource txt_header}" Text="32" HorizontalAlignment="Center" Foreground="Green" Margin="10,10,10,0"/>
+                <TextBlock Grid.Row="3" Style="{StaticResource txt}" Text="available" HorizontalAlignment="Center" />
+            </Grid>
+            <Grid x:Name="tents_" Height="180" Width="270" Margin="10,0,10,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Image Source="pack://application:,,,/Resources/Images/audio.png" Height="60" Width="60" Margin="15"/>
+                <TextBlock Grid.Row="1" Style="{StaticResource txt_header}" Text="Audio Equipment" HorizontalAlignment="Center" FontSize="22"/>
+                <TextBlock Grid.Row="2" Style="{StaticResource txt_header}" Text="32" HorizontalAlignment="Center" Foreground="Green" Margin="10,10,10,0"/>
+                <TextBlock Grid.Row="3" Style="{StaticResource txt}" Text="available" HorizontalAlignment="Center" />
+            </Grid>
+            <Grid x:Name="decorating_" Height="180" Width="270" Margin="10,0,10,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Image Source="pack://application:,,,/Resources/Images/audio.png" Height="60" Width="60" Margin="15"/>
+                <TextBlock Grid.Row="1" Style="{StaticResource txt_header}" Text="Audio Equipment" HorizontalAlignment="Center" FontSize="22"/>
+                <TextBlock Grid.Row="2" Style="{StaticResource txt_header}" Text="32" HorizontalAlignment="Center" Foreground="Green" Margin="10,10,10,0"/>
+                <TextBlock Grid.Row="3" Style="{StaticResource txt}" Text="available" HorizontalAlignment="Center" />
+            </Grid>
+            <Grid x:Name="catering_" Height="180" Width="270" Margin="10,0,10,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Image Source="pack://application:,,,/Resources/Images/audio.png" Height="60" Width="60" Margin="15"/>
+                <TextBlock Grid.Row="1" Style="{StaticResource txt_header}" Text="Audio Equipment" HorizontalAlignment="Center" FontSize="22"/>
+                <TextBlock Grid.Row="2" Style="{StaticResource txt_header}" Text="32" HorizontalAlignment="Center" Foreground="Green" Margin="10,10,10,0"/>
+                <TextBlock Grid.Row="3" Style="{StaticResource txt}" Text="available" HorizontalAlignment="Center" />
+            </Grid>
+            <Grid x:Name="safety_" Height="180" Width="270" Margin="10,0,10,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Image Source="pack://application:,,,/Resources/Images/audio.png" Height="60" Width="60" Margin="15"/>
+                <TextBlock Grid.Row="1" Style="{StaticResource txt_header}" Text="Audio Equipment" HorizontalAlignment="Center" FontSize="22"/>
+                <TextBlock Grid.Row="2" Style="{StaticResource txt_header}" Text="32" HorizontalAlignment="Center" Foreground="Green" Margin="10,10,10,0"/>
+                <TextBlock Grid.Row="3" Style="{StaticResource txt}" Text="available" HorizontalAlignment="Center" />
+            </Grid>
+            <Grid x:Name="miscellaneous_" Height="180" Width="270" Margin="10,0,10,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Image Source="pack://application:,,,/Resources/Images/audio.png" Height="60" Width="60" Margin="15"/>
+                <TextBlock Grid.Row="1" Style="{StaticResource txt_header}" Text="Audio Equipment" HorizontalAlignment="Center" FontSize="22"/>
+                <TextBlock Grid.Row="2" Style="{StaticResource txt_header}" Text="32" HorizontalAlignment="Center" Foreground="Green" Margin="10,10,10,0"/>
+                <TextBlock Grid.Row="3" Style="{StaticResource txt}" Text="available" HorizontalAlignment="Center" />
+            </Grid>
         </StackPanel>
         <Rectangle x:Name="Details" Fill="White" RadiusX="16" RadiusY="16" Margin="786,260,786,0" Height="252" VerticalAlignment="Top" Grid.RowSpan="2"/>
 
