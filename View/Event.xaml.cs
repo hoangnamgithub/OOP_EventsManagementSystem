@@ -29,12 +29,12 @@ namespace OOP_EventsManagementSystem.View
             InitializeComponent();
             this.DataContext = new EventVM();
         }
-
-        private void AddButton_Click(object sender, RoutedEventArgs e)
+       
+        private void SearchBox_GotFocus(object sender, RoutedEventArgs e) { if (SearchBox.Text == "Search......") { SearchBox.Text = ""; SearchBox.CaretBrush = System.Windows.Media.Brushes.Black; } }
+        private void SearchBox_LostFocus(object sender, RoutedEventArgs e) { if (string.IsNullOrWhiteSpace(SearchBox.Text)) { SearchBox.Text = "Search......"; SearchBox.CaretBrush = System.Windows.Media.Brushes.Transparent; } }
+        private void btn_search_Click(object sender, RoutedEventArgs e)
         {
-            // Mở cửa sổ ShowDescription khi nút Add được nhấn
-            var showDescriptionWindow = new ShowDescription();
-            showDescriptionWindow.ShowDialog();
+
         }
     }
 }

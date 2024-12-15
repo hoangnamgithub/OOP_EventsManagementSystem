@@ -5,8 +5,36 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:OOP_EventsManagementSystem.View"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="555" d:DesignWidth="850"
+             Background="#EFE9E4">
     <Grid>
-            
+        <!-- The Grid that the Borders should expand into -->
+        <Grid x:Name="TargetGrid" Height="250" Width="325" HorizontalAlignment="Center" VerticalAlignment="Center" Background="LightGray"/>
+        <ScrollViewer x:Name="MyScrollViewer" 
+                  HorizontalScrollBarVisibility="Hidden" 
+                  VerticalScrollBarVisibility="Disabled"
+                  HorizontalAlignment="Center" 
+                  VerticalAlignment="Center">
+            <ItemsControl x:Name="ItemsControl" ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                <ItemsControl.ItemsPanel>
+                    <!-- Sử dụng ItemsPanelTemplate để bố trí các mục theo hàng ngang -->
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border x:Name="ResizableBorder" CornerRadius="16" Height="170" Width="205" Margin="15" MouseLeftButtonDown="Border_MouseLeftButtonDown" MouseMove="Border_MouseMove" MouseLeftButtonUp="Border_MouseLeftButtonUp" MouseEnter="Border_MouseEnter" MouseLeave="Border_MouseLeave">
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource txt_header}" Text="{Binding HeaderText}" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="5"/>
+                                <Image Source="{Binding ImageSource}" VerticalAlignment="Bottom"/>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+        <!-- The Grid that the Borders should expand into -->
     </Grid>
+
 </UserControl>

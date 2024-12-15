@@ -22,6 +22,9 @@ namespace OOP_EventsManagementSystem.ViewModel
     {
         public ICommand AddCommand { get; set; }
         public ICommand OpenEventDetailCommand { get; set; }
+        public ICommand ConfirmCommand { get; }
+        public ICommand PreviousPageCommand { get; }
+        public ICommand NextPageCommand { get; }
 
 
         private readonly EventManagementDbContext _context;
@@ -34,7 +37,48 @@ namespace OOP_EventsManagementSystem.ViewModel
         public ObservableCollection<Model.Show> Shows { get; set; }
         public ObservableCollection<Model.Sponsor> Sponsors { get; set; }
         public ObservableCollection<Model.Employee> Employees { get; set; }
+        public ObservableCollection<Model.Show> PagedShows { get; set; }
+        public int CurrentPage { get; private set; } = 1; // Trang hiện tại
+        public int ItemsPerPage { get; set; } = 10; // Số lượng item mỗi trang
 
+        // Phương thức cập nhật dữ liệu phân trang
+        public void UpdatePagedShows()
+        {
+            if (Shows == null || Shows.Count == 0) return;
+
+            PagedShows = new ObservableCollection<Model.Show>(
+                Shows.Skip((CurrentPage - 1) * ItemsPerPage).Take(ItemsPerPage));
+            OnPropertyChanged(nameof(PagedShows));
+        }
+        public void PreviousPage()
+        {
+            if (CurrentPage > 1)
+            {
+                CurrentPage--;
+                UpdatePagedShows();
+                OnPropertyChanged(nameof(CurrentPage));
+                OnPropertyChanged(nameof(CanGoPrevious)); // Nếu Binding trực tiếp tới trạng thái
+                OnPropertyChanged(nameof(CanGoNext));     // Nếu Binding trực tiếp tới trạng thái
+            }
+        }
+
+        public void NextPage()
+        {
+            if (CurrentPage < Math.Ceiling((double)Shows.Count / ItemsPerPage))
+            {
+                CurrentPage++;
+                UpdatePagedShows();
+                OnPropertyChanged(nameof(CurrentPage));
+                OnPropertyChanged(nameof(CanGoPrevious));
+                OnPropertyChanged(nameof(CanGoNext)); // Thông báo cập nhật
+            }
+        }
+
+        // Điều kiện để di chuyển tới trang trước
+        public bool CanGoPrevious => CurrentPage >= 1;
+
+        // Điều kiện để di chuyển tới trang kế
+        public bool CanGoNext => CurrentPage < Math.Ceiling((double)Shows.Count / ItemsPerPage);
 
 
         // properties -------------------------------------
@@ -90,11 +134,36 @@ namespace OOP_EventsManagementSystem.ViewModel
             CurrentDate = DateTime.Now;
             _context = new EventManagementDbContext();
             LoadData();
+
+            // Khởi tạo các command
+            ConfirmCommand = new Utilities.RelayCommand(ExecuteConfirmCommand);
+            PreviousPageCommand = new Utilities.RelayCommand(ExecutePreviousPage, (obj) => CanGoPrevious);
+            NextPageCommand = new Utilities.RelayCommand(ExecuteNextPage, (obj) => CanGoNext);
+            UpdatePagedShows();
         }
+        private void ExecuteConfirmCommand(object parameter)
+        {
+            // Thực hiện logic xác nhận tại đây
+        }
+
+        // Lệnh chuyển về trang trước
+        private void ExecutePreviousPage(object parameter)
+        {
+            PreviousPage();
+            CommandManager.InvalidateRequerySuggested(); // Cập nhật trạng thái các nút
+        }
+
+        // Lệnh chuyển tới trang kế
+        private void ExecuteNextPage(object parameter)
+        {
+            NextPage();
+            CommandManager.InvalidateRequerySuggested(); // Cập nhật trạng thái các nút
+        }
+       
         // Thực thi lệnh để mở cửa sổ EventDescription
         private void ExecuteOpenEventDetailCommand(object obj)
         {
-            var eventDescriptionWindow = new EventDescription();
+            var eventDescriptionWindow = new EventDetails();
             eventDescriptionWindow.Show();
             
         }
@@ -122,6 +191,7 @@ namespace OOP_EventsManagementSystem.ViewModel
             OnPropertyChanged(nameof(Shows)); 
             OnPropertyChanged(nameof(Sponsors)); 
             OnPropertyChanged(nameof(Employees));
+            UpdatePagedShows();
         }
 
         private void ExecuteAddCommand(object obj)

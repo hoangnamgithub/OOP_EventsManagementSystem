@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using OOP_EventsManagementSystem.ViewModel;
+using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using OOP_EventsManagementSystem.Utilities;
 
 namespace OOP_EventsManagementSystem.Styles
 {
@@ -22,17 +15,49 @@ namespace OOP_EventsManagementSystem.Styles
         public EventDetails()
         {
             InitializeComponent();
+            DataContext = new EventVM();
         }
-        private void EventDescription_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) { if (e.ButtonState == MouseButtonState.Pressed) { this.DragMove(); } }
+
+
+
+        // Xử lý mở rộng Expander
+        private void Expander_Expanded(object sender, RoutedEventArgs e)
+        {
+            // Cuộn xuống cuối trang khi Expander được mở
+            MainScrollViewer.ScrollToEnd();
+        }
+
+        // Xử lý đóng cửa sổ
         private void btn_close_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
-        private void Expander_Expanded(object sender, RoutedEventArgs e)
+
+        // Xử lý tìm kiếm
+        private void btn_search_Click(object sender, RoutedEventArgs e)
         {
-            // Scroll xuống cuối trang khi Expander được mở
-            MainScrollViewer.ScrollToEnd();
+            // Logic tìm kiếm sẽ được thực hiện ở đây
         }
 
+        // Xử lý chỉnh sửa
+        private void btn_edit_Click(object sender, RoutedEventArgs e)
+        {
+            // Logic chỉnh sửa sẽ được thực hiện ở đây
+        }
+
+        // Xử lý xóa
+        private void btn_delete_Click(object sender, RoutedEventArgs e)
+        {
+            // Logic xóa sẽ được thực hiện ở đây
+        }
+
+        // Xử lý di chuyển cửa sổ bằng chuột
+        private void EventDescription_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ButtonState == MouseButtonState.Pressed)
+            {
+                this.DragMove();
+            }
+        }
     }
 }
