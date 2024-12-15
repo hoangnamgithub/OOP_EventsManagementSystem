@@ -10,22 +10,262 @@
              mc:Ignorable="d" 
              Height="555" Width="850"
              Background="Transparent">
+    <UserControl.Resources>
+        <Storyboard x:Key="Expand">
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="textBlock" Storyboard.TargetProperty="(UIElement.Visibility)">
+                <DiscreteObjectKeyFrame KeyTime="00:00:00" Value="{x:Static Visibility.Collapsed}"/>
+                <DiscreteObjectKeyFrame KeyTime="00:00:00.2000000" Value="{x:Static Visibility.Visible}"/>
+                <DiscreteObjectKeyFrame KeyTime="00:00:00.4000000" Value="{x:Static Visibility.Visible}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="border" Storyboard.TargetProperty="(FrameworkElement.Width)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.4000000" Value="100"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="rvs_expand">
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="textBlock" Storyboard.TargetProperty="(UIElement.Visibility)">
+                <DiscreteObjectKeyFrame KeyTime="00:00:00" Value="{x:Static Visibility.Visible}"/>
+                <DiscreteObjectKeyFrame KeyTime="00:00:00.2000000" Value="{x:Static Visibility.Collapsed}"/>
+                <DiscreteObjectKeyFrame KeyTime="00:00:00.4000000" Value="{x:Static Visibility.Collapsed}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="border" Storyboard.TargetProperty="(FrameworkElement.Width)">
+                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="100"/>
+                <SplineDoubleKeyFrame KeyTime="00:00:00.4000000" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="Expand_Copy1">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="border1" Storyboard.TargetProperty="(FrameworkElement.Width)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.4000000" Value="70"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="Expand_Copy2">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="border2" Storyboard.TargetProperty="(FrameworkElement.Width)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.4000000" Value="130"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="Expand_Copy3">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="border3" Storyboard.TargetProperty="(FrameworkElement.Width)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.4000000" Value="90"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="Expand_Copy4">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="border4" Storyboard.TargetProperty="(FrameworkElement.Width)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.4000000" Value="80"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="Expand_Copy5">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="border5" Storyboard.TargetProperty="(FrameworkElement.Width)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.4000000" Value="80"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="Expand_Copy6">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="border6" Storyboard.TargetProperty="(FrameworkElement.Width)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.4000000" Value="190"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="Expand_Copy7">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="border7" Storyboard.TargetProperty="(FrameworkElement.Width)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.4000000" Value="170"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="Expand_Copy8">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="border8" Storyboard.TargetProperty="(FrameworkElement.Width)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.4000000" Value="170"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="Expand_Copy9">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="border9" Storyboard.TargetProperty="(FrameworkElement.Width)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.4000000" Value="110"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="Expand_Copy10">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="border10" Storyboard.TargetProperty="(FrameworkElement.Width)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.4000000" Value="100"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="Expand_Copy11">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="border11" Storyboard.TargetProperty="(FrameworkElement.Width)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.4000000" Value="140"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="Expand_Copy12">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="border1" Storyboard.TargetProperty="(FrameworkElement.Width)">
+                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="70"/>
+                <SplineDoubleKeyFrame KeyTime="00:00:00.4000000" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="Expand_Copy13">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="border2" Storyboard.TargetProperty="(FrameworkElement.Width)">
+                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="130"/>
+                <SplineDoubleKeyFrame KeyTime="00:00:00.4000000" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="Expand_Copy14">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="border3" Storyboard.TargetProperty="(FrameworkElement.Width)">
+                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="90"/>
+                <SplineDoubleKeyFrame KeyTime="00:00:00.4000000" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="Expand_Copy15">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="border4" Storyboard.TargetProperty="(FrameworkElement.Width)">
+                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="80"/>
+                <SplineDoubleKeyFrame KeyTime="00:00:00.4000000" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="Expand_Copy16">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="border5" Storyboard.TargetProperty="(FrameworkElement.Width)">
+                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="80"/>
+                <SplineDoubleKeyFrame KeyTime="00:00:00.4000000" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="Expand_Copy17">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="border6" Storyboard.TargetProperty="(FrameworkElement.Width)">
+                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="190"/>
+                <SplineDoubleKeyFrame KeyTime="00:00:00.4000000" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="Expand_Copy18">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="border7" Storyboard.TargetProperty="(FrameworkElement.Width)">
+                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="170"/>
+                <SplineDoubleKeyFrame KeyTime="00:00:00.4000000" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="Expand_Copy19">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="border8" Storyboard.TargetProperty="(FrameworkElement.Width)">
+                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="170"/>
+                <SplineDoubleKeyFrame KeyTime="00:00:00.4000000" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="Expand_Copy20">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="border9" Storyboard.TargetProperty="(FrameworkElement.Width)">
+                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="110"/>
+                <SplineDoubleKeyFrame KeyTime="00:00:00.4000000" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="Expand_Copy21">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="border10" Storyboard.TargetProperty="(FrameworkElement.Width)">
+                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="100"/>
+                <SplineDoubleKeyFrame KeyTime="00:00:00.4000000" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="Expand_Copy22">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="border11" Storyboard.TargetProperty="(FrameworkElement.Width)">
+                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="140"/>
+                <SplineDoubleKeyFrame KeyTime="00:00:00.4000000" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </UserControl.Resources>
+    <UserControl.Triggers>
+        <EventTrigger RoutedEvent="UIElement.MouseEnter" SourceName="tab">
+            <BeginStoryboard Storyboard="{StaticResource Expand}" />
+        </EventTrigger>
+        <EventTrigger RoutedEvent="UIElement.MouseLeave"
+              SourceName="tab">
+            <BeginStoryboard Storyboard="{StaticResource rvs_expand}" />
+        </EventTrigger>
+        <EventTrigger RoutedEvent="UIElement.MouseEnter" SourceName="tab1">
+            <BeginStoryboard Storyboard="{StaticResource Expand_Copy1}" />
+        </EventTrigger>
+        <EventTrigger RoutedEvent="UIElement.MouseLeave"
+      SourceName="tab1">
+            <BeginStoryboard Storyboard="{StaticResource Expand_Copy12}" />
+        </EventTrigger>
+        <EventTrigger RoutedEvent="UIElement.MouseEnter" SourceName="tab2">
+            <BeginStoryboard Storyboard="{StaticResource Expand_Copy2}" />
+        </EventTrigger>
+        <EventTrigger RoutedEvent="UIElement.MouseLeave"
+      SourceName="tab2">
+            <BeginStoryboard Storyboard="{StaticResource Expand_Copy13}" />
+        </EventTrigger>
+        <EventTrigger RoutedEvent="UIElement.MouseEnter" SourceName="tab3">
+            <BeginStoryboard Storyboard="{StaticResource Expand_Copy3}" />
+        </EventTrigger>
+        <EventTrigger RoutedEvent="UIElement.MouseLeave"
+SourceName="tab3">
+            <BeginStoryboard Storyboard="{StaticResource Expand_Copy14}" />
+        </EventTrigger>
+        <EventTrigger RoutedEvent="UIElement.MouseEnter" SourceName="tab4">
+            <BeginStoryboard Storyboard="{StaticResource Expand_Copy4}" />
+        </EventTrigger>
+        <EventTrigger RoutedEvent="UIElement.MouseLeave"
+SourceName="tab4">
+            <BeginStoryboard Storyboard="{StaticResource Expand_Copy15}" />
+        </EventTrigger>
+        <EventTrigger RoutedEvent="UIElement.MouseEnter" SourceName="tab5">
+            <BeginStoryboard Storyboard="{StaticResource Expand_Copy5}" />
+        </EventTrigger>
+        <EventTrigger RoutedEvent="UIElement.MouseLeave"
+SourceName="tab5">
+            <BeginStoryboard Storyboard="{StaticResource Expand_Copy16}" />
+        </EventTrigger>
+        <EventTrigger RoutedEvent="UIElement.MouseEnter" SourceName="tab6">
+            <BeginStoryboard Storyboard="{StaticResource Expand_Copy6}" />
+        </EventTrigger>
+        <EventTrigger RoutedEvent="UIElement.MouseLeave"
+SourceName="tab6">
+            <BeginStoryboard Storyboard="{StaticResource Expand_Copy17}" />
+        </EventTrigger>
+        <EventTrigger RoutedEvent="UIElement.MouseEnter" SourceName="tab7">
+            <BeginStoryboard Storyboard="{StaticResource Expand_Copy7}" />
+        </EventTrigger>
+        <EventTrigger RoutedEvent="UIElement.MouseLeave"
+SourceName="tab7">
+            <BeginStoryboard Storyboard="{StaticResource Expand_Copy18}" />
+        </EventTrigger>
+        <EventTrigger RoutedEvent="UIElement.MouseEnter" SourceName="tab8">
+            <BeginStoryboard Storyboard="{StaticResource Expand_Copy8}" />
+        </EventTrigger>
+        <EventTrigger RoutedEvent="UIElement.MouseLeave"
+SourceName="tab8">
+            <BeginStoryboard Storyboard="{StaticResource Expand_Copy19}" />
+        </EventTrigger>
+        <EventTrigger RoutedEvent="UIElement.MouseEnter" SourceName="tab9">
+            <BeginStoryboard Storyboard="{StaticResource Expand_Copy9}" />
+        </EventTrigger>
+        <EventTrigger RoutedEvent="UIElement.MouseLeave"
+SourceName="tab9">
+            <BeginStoryboard Storyboard="{StaticResource Expand_Copy20}" />
+        </EventTrigger>
+        <EventTrigger RoutedEvent="UIElement.MouseEnter" SourceName="tab10">
+            <BeginStoryboard Storyboard="{StaticResource Expand_Copy10}" />
+        </EventTrigger>
+        <EventTrigger RoutedEvent="UIElement.MouseLeave"
+SourceName="tab10">
+            <BeginStoryboard Storyboard="{StaticResource Expand_Copy21}" />
+        </EventTrigger>
+        <EventTrigger RoutedEvent="UIElement.MouseEnter" SourceName="tab11">
+            <BeginStoryboard Storyboard="{StaticResource Expand_Copy11}" />
+        </EventTrigger>
+        <EventTrigger RoutedEvent="UIElement.MouseLeave"
+SourceName="tab11">
+            <BeginStoryboard Storyboard="{StaticResource Expand_Copy22}" />
+        </EventTrigger>
+    </UserControl.Triggers>
     <Grid>
         <materialDesign:Card
  >
-            <TabControl Width="850" HorizontalAlignment="Center"
+            <TabControl Width="850" HorizontalAlignment="Center" 
     materialDesign:ColorZoneAssist.Mode="Standard"
     materialDesign:ElevationAssist.Elevation="Dp4"
     Style="{StaticResource MaterialDesignNavigationRailTabControl}"
    >
-                <TabItem Height="24" Width="45" HorizontalAlignment="Left" Margin="5,12">
+                <TabItem Height="24" Width="45" HorizontalAlignment="Left" Margin="5,12" >
                     <TabItem.Header>
-                        <Image Source="pack://application:,,,/Resources/Images/lightning.png"/>
+                        <Image Source="pack://application:,,,/Resources/Images/lightning.png" x:Name="tab"/>
                     </TabItem.Header>
                     <Grid>
-                        <Border Width="150" Height="30" Background="White" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,10" BorderThickness="3" BorderBrush="Aqua">
-                            <TextBlock Style="{StaticResource txt}" Text="Lightning" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
+
                         <StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Style="{StaticResource txt_header}" Text="List Equipment" Margin="85,60,0,0"/>
@@ -33,41 +273,56 @@
                                 <TextBlock Style="{StaticResource txt}" Text="available" Margin="15,65,0,0" />
                             </StackPanel>
 
-                            <Border CornerRadius="16" Background="White" Height="350" Width="450" BorderBrush="LightSeaGreen" BorderThickness="10" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="85,10,0,0">
-                                <Grid>
-
-                                    <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" Background="Transparent" />
-                                </Grid>
+                            <Border CornerRadius="16" Background="White" Height="350" Width="450" BorderBrush="#FFB2E3E7" BorderThickness="10" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="85,10,0,0">
+                                <StackPanel>
+                                    <styles:SearchBar Margin="10"/>
+                                    <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" Background="Transparent" Height="274" />
+                                </StackPanel>
 
                             </Border>
                         </StackPanel>
+                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Right" Margin="65">
+                            <Button Style="{StaticResource GreenButton}" Content="Add" Width="120" Height="60"/>
+                            <Button Style="{StaticResource PurpleButton}" Content="Edit" Width="120" Height="60"/>
+                            <Button Style="{StaticResource PinkButton}" Content="Delete" Width="120" Height="60"/>
+                        </StackPanel>
+                        
                     </Grid>
-                    
+
                 </TabItem>
 
                 <TabItem Height="24" Width="45" HorizontalAlignment="Left" Margin="5,10">
                     <TabItem.Header >
-                        <Image Source="pack://application:,,,/Resources/Images/audio.png"/>
+                        <Image Source="pack://application:,,,/Resources/Images/audio.png" x:Name="tab1"/>
                     </TabItem.Header>
-                    <StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Style="{StaticResource txt_header}" Text="List Equipment" Margin="85,60,0,0"/>
-                            <TextBlock Style="{StaticResource txt_header}" Text="32" Margin="180,60,0,0" Foreground="Green"/>
-                            <TextBlock Style="{StaticResource txt}" Text="available" Margin="15,65,0,0" />
-                        </StackPanel>
+                    <Grid>
 
-                        <Border CornerRadius="16" Background="White" Height="350" Width="450" BorderBrush="LightSeaGreen" BorderThickness="10" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="85,10,0,0">
-                            <StackPanel>
-                                <styles:SearchBar Margin="0,10"/>
-                                <DataGrid d:ItemsSource="{d:SampleData ItemCount=15}" Background="Transparent" />
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Style="{StaticResource txt_header}" Text="List Equipment" Margin="85,60,0,0"/>
+                                <TextBlock Style="{StaticResource txt_header}" Text="32" Margin="180,60,0,0" Foreground="Green"/>
+                                <TextBlock Style="{StaticResource txt}" Text="available" Margin="15,65,0,0" />
                             </StackPanel>
 
-                        </Border>
-                    </StackPanel>
+                            <Border CornerRadius="16" Background="White" Height="350" Width="450" BorderBrush="#FF7785E2" BorderThickness="10" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="85,10,0,0">
+                                <StackPanel>
+                                    <styles:SearchBar Margin="10"/>
+                                    <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" Background="Transparent" />
+                                </StackPanel>
+
+                            </Border>
+                        </StackPanel>
+                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Right" Margin="65">
+                            <Button Style="{StaticResource GreenButton}" Content="Add" Width="120" Height="60"/>
+                            <Button Style="{StaticResource PurpleButton}" Content="Edit" Width="120" Height="60"/>
+                            <Button Style="{StaticResource PinkButton}" Content="Delete" Width="120" Height="60"/>
+                        </StackPanel>
+
+                    </Grid>
                 </TabItem>
                 <TabItem Height="24" Width="45" HorizontalAlignment="Left" Margin="5,10">
                     <TabItem.Header >
-                        <Image Source="pack://application:,,,/Resources/Images/communication.png"/>
+                        <Image Source="pack://application:,,,/Resources/Images/communication.png" x:Name="tab2"/>
                     </TabItem.Header>
                     <StackPanel>
                         <StackPanel Orientation="Horizontal">
@@ -88,7 +343,7 @@
 
                 <TabItem Height="24" Width="45" HorizontalAlignment="Left" Margin="5,10">
                     <TabItem.Header >
-                        <Image Source="pack://application:,,,/Resources/Images/stage1.png"/>
+                        <Image Source="pack://application:,,,/Resources/Images/stage1.png" x:Name="tab3"/>
                     </TabItem.Header>
                     <StackPanel>
                         <StackPanel Orientation="Horizontal">
@@ -108,7 +363,7 @@
                 </TabItem>
                 <TabItem Height="24" Width="45" HorizontalAlignment="Left" Margin="5,10">
                     <TabItem.Header >
-                        <Image Source="pack://application:,,,/Resources/Images/visual.png"/>
+                        <Image Source="pack://application:,,,/Resources/Images/visual.png" x:Name="tab4"/>
                     </TabItem.Header>
                     <StackPanel>
                         <StackPanel Orientation="Horizontal">
@@ -128,7 +383,7 @@
                 </TabItem>
                 <TabItem Height="24" Width="45" HorizontalAlignment="Left" Margin="5,10">
                     <TabItem.Header >
-                        <Image Source="pack://application:,,,/Resources/Images/power1.png"/>
+                        <Image Source="pack://application:,,,/Resources/Images/power1.png" x:Name="tab5"/>
                     </TabItem.Header>
                     <StackPanel>
                         <StackPanel Orientation="Horizontal">
@@ -148,7 +403,7 @@
                 </TabItem>
                 <TabItem Height="24" Width="45" HorizontalAlignment="Left" Margin="5,10">
                     <TabItem.Header >
-                        <Image Source="pack://application:,,,/Resources/Images/seat1.png"/>
+                        <Image Source="pack://application:,,,/Resources/Images/seat1.png" x:Name="tab6"/>
                     </TabItem.Header>
                     <StackPanel>
                         <StackPanel Orientation="Horizontal">
@@ -168,7 +423,7 @@
                 </TabItem>
                 <TabItem Height="24" Width="45" HorizontalAlignment="Left" Margin="5,10">
                     <TabItem.Header >
-                        <Image Source="pack://application:,,,/Resources/Images/safety.png" Width="22"/>
+                        <Image Source="pack://application:,,,/Resources/Images/safety.png" Width="22" x:Name="tab7"/>
                     </TabItem.Header>
                     <StackPanel>
                         <StackPanel Orientation="Horizontal">
@@ -188,7 +443,7 @@
                 </TabItem>
                 <TabItem Height="24" Width="45" HorizontalAlignment="Left" Margin="5,10">
                     <TabItem.Header >
-                        <Image Source="pack://application:,,,/Resources/Images/tent.png"/>
+                        <Image Source="pack://application:,,,/Resources/Images/tent.png" x:Name="tab8"/>
                     </TabItem.Header>
                     <StackPanel>
                         <StackPanel Orientation="Horizontal">
@@ -208,7 +463,7 @@
                 </TabItem>
                 <TabItem Height="24" Width="45" HorizontalAlignment="Left" Margin="5,10">
                     <TabItem.Header >
-                        <Image Source="pack://application:,,,/Resources/Images/decoration1.png"/>
+                        <Image Source="pack://application:,,,/Resources/Images/decoration1.png" x:Name="tab9"/>
                     </TabItem.Header>
                     <StackPanel>
                         <StackPanel Orientation="Horizontal">
@@ -228,7 +483,7 @@
                 </TabItem>
                 <TabItem Height="24" Width="45" HorizontalAlignment="Left" Margin="5,10">
                     <TabItem.Header >
-                        <Image Source="pack://application:,,,/Resources/Images/Catering.png"/>
+                        <Image Source="pack://application:,,,/Resources/Images/Catering.png" x:Name="tab10"/>
                     </TabItem.Header>
                     <StackPanel>
                         <StackPanel Orientation="Horizontal">
@@ -248,7 +503,7 @@
                 </TabItem>
                 <TabItem Height="24" Width="45" HorizontalAlignment="Left" Margin="5,5">
                     <TabItem.Header >
-                        <Image Source="pack://application:,,,/Resources/Images/micell.png"/>
+                        <Image Source="pack://application:,,,/Resources/Images/micell.png" x:Name="tab11"/>
                     </TabItem.Header>
                     <StackPanel>
                         <StackPanel Orientation="Horizontal">
@@ -268,5 +523,44 @@
                 </TabItem>
             </TabControl>
         </materialDesign:Card>
+        <StackPanel Margin="55,10">
+            <Border x:Name="border" Width="0" Height="30" Background="#FF7785E2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,16"   CornerRadius="0,14,14,0" >
+                <TextBlock x:Name="textBlock" Style="{StaticResource txt}" Text="Lightning" VerticalAlignment="Center" Foreground="#E5FFFFFF" Margin="15,0,-81,0" Visibility="Collapsed"/>
+            </Border>
+            <Border x:Name="border1" Width="0" Height="30" Background="#FF7785E2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,16"  CornerRadius="0,14,14,0" >
+                <TextBlock x:Name="textBlock1" Style="{StaticResource txt}" Text="Audio" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="#E5FFFFFF" Margin="15,0"/>
+            </Border>
+            <Border x:Name="border2" Width="0" Height="30" Background="#FF7785E2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,16"  CornerRadius="0,14,14,0" >
+                <TextBlock x:Name="textBlock2" Style="{StaticResource txt}" Text="Comunication" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="#E5FFFFFF" Margin="15,0"/>
+            </Border>
+            <Border x:Name="border3" Width="0" Height="30" Background="#FF7785E2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,16"  CornerRadius="0,14,14,0" >
+                <TextBlock x:Name="textBlock3" Style="{StaticResource txt}" Text="Staging" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="#E5FFFFFF" Margin="15,0"/>
+            </Border>
+            <Border x:Name="border4" Width="0" Height="30" Background="#FF7785E2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,16"  CornerRadius="0,14,14,0" >
+                <TextBlock x:Name="textBlock4" Style="{StaticResource txt}" Text="Visual" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="#E5FFFFFF" Margin="15,0"/>
+            </Border>
+            <Border x:Name="border5" Width="0" Height="30" Background="#FF7785E2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,16"  CornerRadius="0,14,14,0" >
+                <TextBlock x:Name="textBlock5" Style="{StaticResource txt}" Text="Power" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="#E5FFFFFF" Margin="15,0"/>
+            </Border>
+            <Border x:Name="border6" Width="0" Height="30" Background="#FF7785E2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,16"  CornerRadius="0,14,14,0" >
+                <TextBlock x:Name="textBlock6" Style="{StaticResource txt}" Text="Seating and Furniture" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="#E5FFFFFF" Margin="15,0"/>
+            </Border>
+            <Border x:Name="border7" Width="0" Height="30" Background="#FF7785E2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,17"  CornerRadius="0,14,14,0" >
+                <TextBlock x:Name="textBlock7" Style="{StaticResource txt}" Text="Safety and Security" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="#E5FFFFFF" Margin="15,0"/>
+            </Border>
+            <Border x:Name="border8" Width="0" Height="30" Background="#FF7785E2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,16"  CornerRadius="0,14,14,0" >
+                <TextBlock x:Name="textBlock8" Style="{StaticResource txt}" Text="Tents and Canopies" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="#E5FFFFFF" Margin="15,0"/>
+            </Border>
+            <Border x:Name="border9" Width="0" Height="30" Background="#FF7785E2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,16"  CornerRadius="0,14,14,0" >
+                <TextBlock x:Name="textBlock9" Style="{StaticResource txt}" Text="Decoration" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="#E5FFFFFF" Margin="15,0"/>
+            </Border>
+            <Border x:Name="border10" Width="0" Height="30" Background="#FF7785E2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,16"  CornerRadius="0,14,14,0" >
+                <TextBlock x:Name="textBlock10" Style="{StaticResource txt}" Text="Catering" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="#E5FFFFFF" Margin="15,0"/>
+            </Border>
+            <Border x:Name="border11" Width="0" Height="30" Background="#FF7785E2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,0"  CornerRadius="0,14,14,0" >
+                <TextBlock x:Name="textBlock11" Style="{StaticResource txt}" Text="Miscellaneuos" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="#E5FFFFFF" Margin="15,0"/>
+            </Border>
+        </StackPanel>
+
     </Grid>
 </UserControl>
