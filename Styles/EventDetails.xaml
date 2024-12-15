@@ -83,8 +83,7 @@
                                           DisplayMemberPath="VenueName"
                                           SelectedValuePath="VenueId"
                                           SelectedValue="{Binding SelectedVenueId, Mode=TwoWay}"
-                                          materialDesign:HintAssist.Hint="choosing...">
-                                </ComboBox>
+                                          materialDesign:HintAssist.Hint="choosing..." />
                                 <TextBlock Text="Event Type"
                                            FontFamily="Bahnschrift SemiBold"
                                            FontSize="16"
@@ -95,8 +94,7 @@
                                           DisplayMemberPath="TypeName"
                                           SelectedValuePath="EventTypeId"
                                           SelectedValue="{Binding SelectedEventTypeId, Mode=TwoWay}"
-                                          materialDesign:HintAssist.Hint="choosing...">
-                                </ComboBox>
+                                          materialDesign:HintAssist.Hint="choosing..." />
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <!-- Description -->
@@ -117,25 +115,25 @@
                                 <StackPanel Orientation="Vertical"
                                             Margin="20,5,0,0">
                                     <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="Start Date"
+                                        <TextBlock
                                                    FontFamily="Bahnschrift SemiBold"
                                                    FontSize="16"
                                                    Margin="5,5,15,0"
-                                                   VerticalAlignment="Center" />
+                                                   VerticalAlignment="Bottom" ><Run Text="Start"/><LineBreak/><Run/></TextBlock>
                                         <DatePicker Margin="10,0,12,5"
-                                                    Width="100"
+                                                    
                                                     materialDesign:HintAssist.Hint="Pick Date"
                                                     materialDesign:TextFieldAssist.HasClearButton="True"
-                                                    Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
+                                                    Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Width="137" />
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="End Date"
+                                        <TextBlock
                                                    FontFamily="Bahnschrift SemiBold"
                                                    FontSize="16"
                                                    Margin="5,5,5,0"
-                                                   VerticalAlignment="Center" />
+                                                   VerticalAlignment="Bottom" ><Run Text="End"/><LineBreak/><Run/></TextBlock>
                                         <DatePicker Margin="30,0,12,5"
-                                                    Width="100"
+                                                    Width="135"
                                                     materialDesign:HintAssist.Hint="Pick Date"
                                                     materialDesign:TextFieldAssist.HasClearButton="True"
                                                     Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
@@ -154,7 +152,7 @@
                             <StackPanel>
                                 <Expander Expanded="Expander_Expanded"
                                           HorizontalAlignment="Stretch"
-                                          Header="List Show"
+                                          Header="Shows"
                                           Width="525"
                                           Margin="0,5,0,5"
                                           FontFamily="Bahnschrift SemiBold"
@@ -168,14 +166,34 @@
                                                 Background="White"
                                                 Height="250">
                                             <DataGrid ItemsSource="{Binding Shows}"
-
-                                                      Background="Transparent" />
+                                                      AutoGenerateColumns="False"
+                                                      Background="Transparent"
+                                                      Margin="0,0,0,0"
+                                                      VerticalAlignment="Stretch">
+                                                <DataGrid.Columns>
+                                                    <DataGridTemplateColumn Header="">
+                                                        <DataGridTemplateColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <CheckBox />
+                                                            </DataTemplate>
+                                                        </DataGridTemplateColumn.CellTemplate>
+                                                    </DataGridTemplateColumn>
+                                                    <DataGridTextColumn Header="Show Name"
+                                                                        Binding="{Binding ShowName}" />
+                                                    <DataGridTextColumn Header="Cost"
+                                                                        Binding="{Binding Cost}" />
+                                                    <DataGridTextColumn Header="Performer"
+                                                                        Binding="{Binding Performer.FullName}" />
+                                                    <DataGridTextColumn Header="Genre"
+                                                                        Binding="{Binding Genre.Genre1}" />
+                                                </DataGrid.Columns>
+                                            </DataGrid>
                                         </Border>
                                     </StackPanel>
                                 </Expander>
                                 <Expander Expanded="Expander_Expanded"
                                           HorizontalAlignment="Stretch"
-                                          Header="List Partner"
+                                          Header="Sponsors"
                                           Width="525"
                                           Margin="0,5,0,5"
                                           FontFamily="Bahnschrift SemiBold"
@@ -188,14 +206,18 @@
                                         <Border Margin="0"
                                                 Background="White"
                                                 Height="250">
-                                            <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}"
-                                                      Background="Transparent" />
+                                            <DataGrid ItemsSource="{Binding Sponsors}"
+                                                      AutoGenerateColumns="True"
+                                                      Background="Transparent"
+                                                      Margin="0,0,0,0"
+                                                      VerticalAlignment="Stretch"
+                                                      HorizontalAlignment="Stretch" />
                                         </Border>
                                     </StackPanel>
                                 </Expander>
                                 <Expander Expanded="Expander_Expanded"
                                           HorizontalAlignment="Stretch"
-                                          Header="List Employee"
+                                          Header="Employees"
                                           Width="525"
                                           Margin="0,5,0,5"
                                           FontFamily="Bahnschrift SemiBold"
@@ -208,14 +230,18 @@
                                         <Border Margin="0"
                                                 Background="White"
                                                 Height="250">
-                                            <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}"
-                                                      Background="Transparent" />
+                                            <DataGrid ItemsSource="{Binding EmployeeRoles}"
+                                                      AutoGenerateColumns="True"
+                                                      Background="Transparent"
+                                                      Margin="0,0,0,0"
+                                                      VerticalAlignment="Stretch"
+                                                      HorizontalAlignment="Stretch" />
                                         </Border>
                                     </StackPanel>
                                 </Expander>
                                 <Expander Expanded="Expander_Expanded"
                                           HorizontalAlignment="Stretch"
-                                          Header="List Equipment"
+                                          Header="Equipments"
                                           Width="525"
                                           Margin="0,5,0,5"
                                           FontFamily="Bahnschrift SemiBold"
@@ -228,8 +254,12 @@
                                         <Border Margin="0"
                                                 Background="White"
                                                 Height="250">
-                                            <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}"
-                                                      Background="Transparent" />
+                                            <DataGrid ItemsSource="{Binding EquipmentNames}"
+                                                      AutoGenerateColumns="True"
+                                                      Background="Transparent"
+                                                      Margin="0,0,0,0"
+                                                      VerticalAlignment="Stretch"
+                                                      HorizontalAlignment="Stretch" />
                                         </Border>
                                     </StackPanel>
                                 </Expander>
