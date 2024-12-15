@@ -28,7 +28,11 @@
     <None Remove="Resources\Images\adele.jpg" />
     <None Remove="Resources\Images\audio.png" />
     <None Remove="Resources\Images\auxiliary.png" />
+    <None Remove="Resources\Images\catering.png" />
+    <None Remove="Resources\Images\communication.png" />
     <None Remove="Resources\Images\crown.png" />
+    <None Remove="Resources\Images\decoration.png" />
+    <None Remove="Resources\Images\decoration1.png" />
     <None Remove="Resources\Images\delete-outline.png" />
     <None Remove="Resources\Images\diewasmile.jpg" />
     <None Remove="Resources\Images\employee_d.png" />
@@ -44,17 +48,25 @@
     <None Remove="Resources\Images\location_den.png" />
     <None Remove="Resources\Images\location_trang.png" />
     <None Remove="Resources\Images\magnify.png" />
+    <None Remove="Resources\Images\micell.png" />
     <None Remove="Resources\Images\partner_d.png" />
     <None Remove="Resources\Images\partner_t.png" />
     <None Remove="Resources\Images\party-popper.png" />
     <None Remove="Resources\Images\pencil-outline.png" />
+    <None Remove="Resources\Images\power.png" />
+    <None Remove="Resources\Images\power1.png" />
     <None Remove="Resources\Images\poweroff.png" />
     <None Remove="Resources\Images\powerofff.png" />
+    <None Remove="Resources\Images\safety.png" />
+    <None Remove="Resources\Images\seat.png" />
+    <None Remove="Resources\Images\seat1.png" />
     <None Remove="Resources\Images\show_den.png" />
     <None Remove="Resources\Images\show_trang.png" />
     <None Remove="Resources\Images\special.png" />
     <None Remove="Resources\Images\stage.png" />
+    <None Remove="Resources\Images\stage1.png" />
     <None Remove="Resources\Images\technical.png" />
+    <None Remove="Resources\Images\tent.png" />
     <None Remove="Resources\Images\visual.png" />
   </ItemGroup>
 
@@ -73,7 +85,19 @@
     <Resource Include="Resources\Images\auxiliary.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Images\catering.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\communication.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Images\crown.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\decoration.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\decoration1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Images\delete-outline.png">
@@ -121,6 +145,9 @@
     <Resource Include="Resources\Images\magnify.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Images\micell.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Images\partner_d.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
@@ -133,10 +160,25 @@
     <Resource Include="Resources\Images\pencil-outline.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Images\power.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\power1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Images\poweroff.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Images\powerofff.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\safety.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\seat.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\seat1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Images\show_den.png">
@@ -151,7 +193,13 @@
     <Resource Include="Resources\Images\stage.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Images\stage1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Images\technical.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\tent.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Images\visual.png">

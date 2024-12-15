@@ -4,314 +4,263 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:OOP_EventsManagementSystem.View"
+            xmlns:styles="clr-namespace:OOP_EventsManagementSystem.Styles"
+
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              Height="555" Width="850"
-             Background="#EFE9E4">
-    <UserControl.Resources>
+             Background="Transparent">
+    <Grid>
+        <materialDesign:Card
+ >
+            <TabControl Width="850" HorizontalAlignment="Center"
+    materialDesign:ColorZoneAssist.Mode="Standard"
+    materialDesign:ElevationAssist.Elevation="Dp4"
+    Style="{StaticResource MaterialDesignNavigationRailTabControl}"
+   >
+                <TabItem Height="24" Width="45" HorizontalAlignment="Left" Margin="5,12">
+                    <TabItem.Header>
+                        <Image Source="pack://application:,,,/Resources/Images/lightning.png"/>
+                    </TabItem.Header>
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource txt_header}" Text="List Equipment" Margin="85,60,0,0"/>
+                            <TextBlock Style="{StaticResource txt_header}" Text="32" Margin="180,60,0,0" Foreground="Green"/>
+                            <TextBlock Style="{StaticResource txt}" Text="available" Margin="15,65,0,0" />
+                        </StackPanel>
+                        
+                        <Border CornerRadius="16" Background="White" Height="350" Width="450" BorderBrush="LightSeaGreen" BorderThickness="10" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="85,10,0,0">
+                            <Grid>
+                                
+                                <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" Background="Transparent" />
+                            </Grid>
+                           
+                        </Border>
+                    </StackPanel>
+                </TabItem>
 
-        <Storyboard x:Key="Right">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="stackPanel" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.7000000" Value="-193.6"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="stackPanel" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="audio" Storyboard.TargetProperty="(FrameworkElement.Width)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="270"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.7000000" Value="170"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="audio" Storyboard.TargetProperty="(FrameworkElement.Height)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="180"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.7000000" Value="100"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="light" Storyboard.TargetProperty="(FrameworkElement.Width)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="170"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.7000000" Value="170"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="light" Storyboard.TargetProperty="(FrameworkElement.Height)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="100"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.7000000" Value="100"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="auxiliary" Storyboard.TargetProperty="(FrameworkElement.Width)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="170"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.7000000" Value="170"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="auxiliary" Storyboard.TargetProperty="(FrameworkElement.Height)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="100"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.7000000" Value="100"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="special" Storyboard.TargetProperty="(FrameworkElement.Width)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="170"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.7000000" Value="170"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="special" Storyboard.TargetProperty="(FrameworkElement.Height)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="100"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.7000000" Value="100"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="visual" Storyboard.TargetProperty="(FrameworkElement.Width)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="170"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.7000000" Value="270"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="visual" Storyboard.TargetProperty="(FrameworkElement.Height)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="100"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.7000000" Value="180"/>
-            </DoubleAnimationUsingKeyFrames>
-        </Storyboard>
+                <TabItem Height="24" Width="45" HorizontalAlignment="Left" Margin="5,10">
+                    <TabItem.Header >
+                        <Image Source="pack://application:,,,/Resources/Images/audio.png"/>
+                    </TabItem.Header>
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource txt_header}" Text="List Equipment" Margin="85,60,0,0"/>
+                            <TextBlock Style="{StaticResource txt_header}" Text="32" Margin="180,60,0,0" Foreground="Green"/>
+                            <TextBlock Style="{StaticResource txt}" Text="available" Margin="15,65,0,0" />
+                        </StackPanel>
 
+                        <Border CornerRadius="16" Background="White" Height="350" Width="450" BorderBrush="LightSeaGreen" BorderThickness="10" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="85,10,0,0">
+                            <StackPanel>
+                                <styles:SearchBar Margin="0,10"/>
+                                <DataGrid d:ItemsSource="{d:SampleData ItemCount=15}" Background="Transparent" />
+                            </StackPanel>
 
-        <Storyboard x:Key="Left">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="stackPanel" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="-193.6"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:00.7000000" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="stackPanel" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00.7000000" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="audio" Storyboard.TargetProperty="(FrameworkElement.Width)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="170"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:00.7000000" Value="270"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="audio" Storyboard.TargetProperty="(FrameworkElement.Height)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="100"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:00.7000000" Value="180"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="light" Storyboard.TargetProperty="(FrameworkElement.Width)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="170"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:00.7000000" Value="170"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="light" Storyboard.TargetProperty="(FrameworkElement.Height)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="100"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:00.7000000" Value="100"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="auxiliary" Storyboard.TargetProperty="(FrameworkElement.Width)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="170"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:00.7000000" Value="170"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="auxiliary" Storyboard.TargetProperty="(FrameworkElement.Height)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="100"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:00.7000000" Value="100"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="special" Storyboard.TargetProperty="(FrameworkElement.Width)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="170"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:00.7000000" Value="170"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="special" Storyboard.TargetProperty="(FrameworkElement.Height)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="100"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:00.7000000" Value="100"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="visual" Storyboard.TargetProperty="(FrameworkElement.Width)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="270"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:00.7000000" Value="170"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="visual" Storyboard.TargetProperty="(FrameworkElement.Height)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="180"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:00.7000000" Value="100"/>
-            </DoubleAnimationUsingKeyFrames>
-        </Storyboard>
-    </UserControl.Resources>
+                        </Border>
+                    </StackPanel>
+                </TabItem>
+                <TabItem Height="24" Width="45" HorizontalAlignment="Left" Margin="5,10">
+                    <TabItem.Header >
+                        <Image Source="pack://application:,,,/Resources/Images/communication.png"/>
+                    </TabItem.Header>
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource txt_header}" Text="List Equipment" Margin="85,60,0,0"/>
+                            <TextBlock Style="{StaticResource txt_header}" Text="32" Margin="180,60,0,0" Foreground="Green"/>
+                            <TextBlock Style="{StaticResource txt}" Text="available" Margin="15,65,0,0" />
+                        </StackPanel>
 
-    <UserControl.Triggers>
-        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="ButtonLeft">
-            <BeginStoryboard Storyboard="{StaticResource Left}" />
-        </EventTrigger>
-        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="ButtonRight">
-            <BeginStoryboard Storyboard="{StaticResource Right}" />
-        </EventTrigger>
-    </UserControl.Triggers>
-    <Grid Margin="-587,0,-596,0">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="298*"/>
-            <RowDefinition Height="257*"/>
-        </Grid.RowDefinitions>
-        <StackPanel x:Name="stackPanel" HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5">
-            <StackPanel.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </StackPanel.RenderTransform>
+                        <Border CornerRadius="16" Background="White" Height="350" Width="450" BorderBrush="LightSeaGreen" BorderThickness="10" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="85,10,0,0">
+                            <Grid>
 
-            <Rectangle x:Name="special" Height="100" Width="170" Fill="White" RadiusX="16" RadiusY="16" Margin="10,0,10,0"/>
+                                <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" Background="Transparent" />
+                            </Grid>
 
-            <Rectangle x:Name="auxiliary" Height="100" Width="170" Fill="White" RadiusX="16" RadiusY="16" Margin="10,0,10,0"/>
-            <Rectangle x:Name="light" Height="100" Width="170" Fill="White" RadiusX="16" RadiusY="16" Margin="10,0,10,0"/>
-            <Rectangle x:Name="audio" Height="180" Width="270" Fill="White" RadiusX="16" RadiusY="16" Margin="10,0,10,0"/>
-            <Rectangle x:Name="visual" Height="100" Width="170" Fill="White" RadiusX="16" RadiusY="16" Margin="10,0,10,0"/>
-            <Rectangle x:Name="technical" Height="100" Width="170" Fill="White" RadiusX="16" RadiusY="16" Margin="10,0,10,0"/>
-            <Rectangle x:Name="structures" Height="100" Width="170" Fill="White" RadiusX="16" RadiusY="16" Margin="10,0,10,0"/>
-        </StackPanel>
-        <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Margin="871,0,0,0">
-            <Grid x:Name="audio_" Height="180" Width="270" Margin="10,0,10,0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                </Grid.RowDefinitions>
-                <Image Source="pack://application:,,,/Resources/Images/audio.png" Height="60" Width="60" Margin="15"/>
-                <TextBlock Grid.Row="1" Style="{StaticResource txt_header}" Text="Audio Equipment" HorizontalAlignment="Center" FontSize="22"/>
-                <TextBlock Grid.Row="2" Style="{StaticResource txt_header}" Text="32" HorizontalAlignment="Center" Foreground="Green" Margin="10,10,10,0"/>
-                <TextBlock Grid.Row="3" Style="{StaticResource txt}" Text="available" HorizontalAlignment="Center" />
-            </Grid>
-            <Grid x:Name="visual_" Height="180" Width="270" Margin="10,0,10,0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                </Grid.RowDefinitions>
-                <Image Source="pack://application:,,,/Resources/Images/audio.png" Height="60" Width="60" Margin="15"/>
-                <TextBlock Grid.Row="1" Style="{StaticResource txt_header}" Text="Audio Equipment" HorizontalAlignment="Center" FontSize="22"/>
-                <TextBlock Grid.Row="2" Style="{StaticResource txt_header}" Text="32" HorizontalAlignment="Center" Foreground="Green" Margin="10,10,10,0"/>
-                <TextBlock Grid.Row="3" Style="{StaticResource txt}" Text="available" HorizontalAlignment="Center" />
-            </Grid>
-            <Grid x:Name="ligtning_" Height="180" Width="270" Margin="10,0,10,0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                </Grid.RowDefinitions>
-                <Image Source="pack://application:,,,/Resources/Images/audio.png" Height="60" Width="60" Margin="15"/>
-                <TextBlock Grid.Row="1" Style="{StaticResource txt_header}" Text="Audio Equipment" HorizontalAlignment="Center" FontSize="22"/>
-                <TextBlock Grid.Row="2" Style="{StaticResource txt_header}" Text="32" HorizontalAlignment="Center" Foreground="Green" Margin="10,10,10,0"/>
-                <TextBlock Grid.Row="3" Style="{StaticResource txt}" Text="available" HorizontalAlignment="Center" />
-            </Grid>
-            <Grid x:Name="staging_" Height="180" Width="270" Margin="10,0,10,0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                </Grid.RowDefinitions>
-                <Image Source="pack://application:,,,/Resources/Images/audio.png" Height="60" Width="60" Margin="15"/>
-                <TextBlock Grid.Row="1" Style="{StaticResource txt_header}" Text="Audio Equipment" HorizontalAlignment="Center" FontSize="22"/>
-                <TextBlock Grid.Row="2" Style="{StaticResource txt_header}" Text="32" HorizontalAlignment="Center" Foreground="Green" Margin="10,10,10,0"/>
-                <TextBlock Grid.Row="3" Style="{StaticResource txt}" Text="available" HorizontalAlignment="Center" />
-            </Grid>
-            <Grid x:Name="communication_" Height="180" Width="270" Margin="10,0,10,0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                </Grid.RowDefinitions>
-                <Image Source="pack://application:,,,/Resources/Images/audio.png" Height="60" Width="60" Margin="15"/>
-                <TextBlock Grid.Row="1" Style="{StaticResource txt_header}" Text="Audio Equipment" HorizontalAlignment="Center" FontSize="22"/>
-                <TextBlock Grid.Row="2" Style="{StaticResource txt_header}" Text="32" HorizontalAlignment="Center" Foreground="Green" Margin="10,10,10,0"/>
-                <TextBlock Grid.Row="3" Style="{StaticResource txt}" Text="available" HorizontalAlignment="Center" />
-            </Grid>
-            <Grid x:Name="power_" Height="180" Width="270" Margin="10,0,10,0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                </Grid.RowDefinitions>
-                <Image Source="pack://application:,,,/Resources/Images/audio.png" Height="60" Width="60" Margin="15"/>
-                <TextBlock Grid.Row="1" Style="{StaticResource txt_header}" Text="Audio Equipment" HorizontalAlignment="Center" FontSize="22"/>
-                <TextBlock Grid.Row="2" Style="{StaticResource txt_header}" Text="32" HorizontalAlignment="Center" Foreground="Green" Margin="10,10,10,0"/>
-                <TextBlock Grid.Row="3" Style="{StaticResource txt}" Text="available" HorizontalAlignment="Center" />
-            </Grid>
-            <Grid x:Name="seating_" Height="180" Width="270" Margin="10,0,10,0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                </Grid.RowDefinitions>
-                <Image Source="pack://application:,,,/Resources/Images/audio.png" Height="60" Width="60" Margin="15"/>
-                <TextBlock Grid.Row="1" Style="{StaticResource txt_header}" Text="Audio Equipment" HorizontalAlignment="Center" FontSize="22"/>
-                <TextBlock Grid.Row="2" Style="{StaticResource txt_header}" Text="32" HorizontalAlignment="Center" Foreground="Green" Margin="10,10,10,0"/>
-                <TextBlock Grid.Row="3" Style="{StaticResource txt}" Text="available" HorizontalAlignment="Center" />
-            </Grid>
-            <Grid x:Name="tents_" Height="180" Width="270" Margin="10,0,10,0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                </Grid.RowDefinitions>
-                <Image Source="pack://application:,,,/Resources/Images/audio.png" Height="60" Width="60" Margin="15"/>
-                <TextBlock Grid.Row="1" Style="{StaticResource txt_header}" Text="Audio Equipment" HorizontalAlignment="Center" FontSize="22"/>
-                <TextBlock Grid.Row="2" Style="{StaticResource txt_header}" Text="32" HorizontalAlignment="Center" Foreground="Green" Margin="10,10,10,0"/>
-                <TextBlock Grid.Row="3" Style="{StaticResource txt}" Text="available" HorizontalAlignment="Center" />
-            </Grid>
-            <Grid x:Name="decorating_" Height="180" Width="270" Margin="10,0,10,0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                </Grid.RowDefinitions>
-                <Image Source="pack://application:,,,/Resources/Images/audio.png" Height="60" Width="60" Margin="15"/>
-                <TextBlock Grid.Row="1" Style="{StaticResource txt_header}" Text="Audio Equipment" HorizontalAlignment="Center" FontSize="22"/>
-                <TextBlock Grid.Row="2" Style="{StaticResource txt_header}" Text="32" HorizontalAlignment="Center" Foreground="Green" Margin="10,10,10,0"/>
-                <TextBlock Grid.Row="3" Style="{StaticResource txt}" Text="available" HorizontalAlignment="Center" />
-            </Grid>
-            <Grid x:Name="catering_" Height="180" Width="270" Margin="10,0,10,0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                </Grid.RowDefinitions>
-                <Image Source="pack://application:,,,/Resources/Images/audio.png" Height="60" Width="60" Margin="15"/>
-                <TextBlock Grid.Row="1" Style="{StaticResource txt_header}" Text="Audio Equipment" HorizontalAlignment="Center" FontSize="22"/>
-                <TextBlock Grid.Row="2" Style="{StaticResource txt_header}" Text="32" HorizontalAlignment="Center" Foreground="Green" Margin="10,10,10,0"/>
-                <TextBlock Grid.Row="3" Style="{StaticResource txt}" Text="available" HorizontalAlignment="Center" />
-            </Grid>
-            <Grid x:Name="safety_" Height="180" Width="270" Margin="10,0,10,0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                </Grid.RowDefinitions>
-                <Image Source="pack://application:,,,/Resources/Images/audio.png" Height="60" Width="60" Margin="15"/>
-                <TextBlock Grid.Row="1" Style="{StaticResource txt_header}" Text="Audio Equipment" HorizontalAlignment="Center" FontSize="22"/>
-                <TextBlock Grid.Row="2" Style="{StaticResource txt_header}" Text="32" HorizontalAlignment="Center" Foreground="Green" Margin="10,10,10,0"/>
-                <TextBlock Grid.Row="3" Style="{StaticResource txt}" Text="available" HorizontalAlignment="Center" />
-            </Grid>
-            <Grid x:Name="miscellaneous_" Height="180" Width="270" Margin="10,0,10,0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                </Grid.RowDefinitions>
-                <Image Source="pack://application:,,,/Resources/Images/audio.png" Height="60" Width="60" Margin="15"/>
-                <TextBlock Grid.Row="1" Style="{StaticResource txt_header}" Text="Audio Equipment" HorizontalAlignment="Center" FontSize="22"/>
-                <TextBlock Grid.Row="2" Style="{StaticResource txt_header}" Text="32" HorizontalAlignment="Center" Foreground="Green" Margin="10,10,10,0"/>
-                <TextBlock Grid.Row="3" Style="{StaticResource txt}" Text="available" HorizontalAlignment="Center" />
-            </Grid>
-        </StackPanel>
-        <Rectangle x:Name="Details" Fill="White" RadiusX="16" RadiusY="16" Margin="786,260,786,0" Height="252" VerticalAlignment="Top" Grid.RowSpan="2"/>
+                        </Border>
+                    </StackPanel>
+                </TabItem>
 
-        <Button x:Name="ButtonRight" Background="{x:Null}" BorderBrush="{x:Null}"  Height="100" Width="100" Foreground="#DD000000" RenderTransformOrigin="0.5,0.5" Margin="1358,92,575,106" FontSize="48" >
-            <TextBlock Text=">" HorizontalAlignment="Center" VerticalAlignment="Center" />
-            <Button.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </Button.RenderTransform>
-        </Button>
-        <Button x:Name="ButtonLeft" Background="{x:Null}" BorderBrush="{x:Null}"  Height="100" Width="100" Foreground="#DD000000" RenderTransformOrigin="0.5,0.5" Margin="577,92,1356,106" FontSize="48" >
-            <TextBlock Text='O' HorizontalAlignment="Center" VerticalAlignment="Center" />
-            <Button.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </Button.RenderTransform>
-        </Button>
+                <TabItem Height="24" Width="45" HorizontalAlignment="Left" Margin="5,10">
+                    <TabItem.Header >
+                        <Image Source="pack://application:,,,/Resources/Images/stage1.png"/>
+                    </TabItem.Header>
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource txt_header}" Text="List Equipment" Margin="85,60,0,0"/>
+                            <TextBlock Style="{StaticResource txt_header}" Text="32" Margin="180,60,0,0" Foreground="Green"/>
+                            <TextBlock Style="{StaticResource txt}" Text="available" Margin="15,65,0,0" />
+                        </StackPanel>
+
+                        <Border CornerRadius="16" Background="White" Height="350" Width="450" BorderBrush="LightSeaGreen" BorderThickness="10" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="85,10,0,0">
+                            <Grid>
+
+                                <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" Background="Transparent" />
+                            </Grid>
+
+                        </Border>
+                    </StackPanel>
+                </TabItem>
+                <TabItem Height="24" Width="45" HorizontalAlignment="Left" Margin="5,10">
+                    <TabItem.Header >
+                        <Image Source="pack://application:,,,/Resources/Images/visual.png"/>
+                    </TabItem.Header>
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource txt_header}" Text="List Equipment" Margin="85,60,0,0"/>
+                            <TextBlock Style="{StaticResource txt_header}" Text="32" Margin="180,60,0,0" Foreground="Green"/>
+                            <TextBlock Style="{StaticResource txt}" Text="available" Margin="15,65,0,0" />
+                        </StackPanel>
+
+                        <Border CornerRadius="16" Background="White" Height="350" Width="450" BorderBrush="LightSeaGreen" BorderThickness="10" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="85,10,0,0">
+                            <Grid>
+
+                                <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" Background="Transparent" />
+                            </Grid>
+
+                        </Border>
+                    </StackPanel>
+                </TabItem>
+                <TabItem Height="24" Width="45" HorizontalAlignment="Left" Margin="5,10">
+                    <TabItem.Header >
+                        <Image Source="pack://application:,,,/Resources/Images/power1.png"/>
+                    </TabItem.Header>
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource txt_header}" Text="List Equipment" Margin="85,60,0,0"/>
+                            <TextBlock Style="{StaticResource txt_header}" Text="32" Margin="180,60,0,0" Foreground="Green"/>
+                            <TextBlock Style="{StaticResource txt}" Text="available" Margin="15,65,0,0" />
+                        </StackPanel>
+
+                        <Border CornerRadius="16" Background="White" Height="350" Width="450" BorderBrush="LightSeaGreen" BorderThickness="10" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="85,10,0,0">
+                            <Grid>
+
+                                <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" Background="Transparent" />
+                            </Grid>
+
+                        </Border>
+                    </StackPanel>
+                </TabItem>
+                <TabItem Height="24" Width="45" HorizontalAlignment="Left" Margin="5,10">
+                    <TabItem.Header >
+                        <Image Source="pack://application:,,,/Resources/Images/seat1.png"/>
+                    </TabItem.Header>
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource txt_header}" Text="List Equipment" Margin="85,60,0,0"/>
+                            <TextBlock Style="{StaticResource txt_header}" Text="32" Margin="180,60,0,0" Foreground="Green"/>
+                            <TextBlock Style="{StaticResource txt}" Text="available" Margin="15,65,0,0" />
+                        </StackPanel>
+
+                        <Border CornerRadius="16" Background="White" Height="350" Width="450" BorderBrush="LightSeaGreen" BorderThickness="10" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="85,10,0,0">
+                            <Grid>
+
+                                <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" Background="Transparent" />
+                            </Grid>
+
+                        </Border>
+                    </StackPanel>
+                </TabItem>
+                <TabItem Height="24" Width="45" HorizontalAlignment="Left" Margin="5,10">
+                    <TabItem.Header >
+                        <Image Source="pack://application:,,,/Resources/Images/safety.png" Width="22"/>
+                    </TabItem.Header>
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource txt_header}" Text="List Equipment" Margin="85,60,0,0"/>
+                            <TextBlock Style="{StaticResource txt_header}" Text="32" Margin="180,60,0,0" Foreground="Green"/>
+                            <TextBlock Style="{StaticResource txt}" Text="available" Margin="15,65,0,0" />
+                        </StackPanel>
+
+                        <Border CornerRadius="16" Background="White" Height="350" Width="450" BorderBrush="LightSeaGreen" BorderThickness="10" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="85,10,0,0">
+                            <Grid>
+
+                                <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" Background="Transparent" />
+                            </Grid>
+
+                        </Border>
+                    </StackPanel>
+                </TabItem>
+                <TabItem Height="24" Width="45" HorizontalAlignment="Left" Margin="5,10">
+                    <TabItem.Header >
+                        <Image Source="pack://application:,,,/Resources/Images/tent.png"/>
+                    </TabItem.Header>
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource txt_header}" Text="List Equipment" Margin="85,60,0,0"/>
+                            <TextBlock Style="{StaticResource txt_header}" Text="32" Margin="180,60,0,0" Foreground="Green"/>
+                            <TextBlock Style="{StaticResource txt}" Text="available" Margin="15,65,0,0" />
+                        </StackPanel>
+
+                        <Border CornerRadius="16" Background="White" Height="350" Width="450" BorderBrush="LightSeaGreen" BorderThickness="10" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="85,10,0,0">
+                            <Grid>
+
+                                <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" Background="Transparent" />
+                            </Grid>
+
+                        </Border>
+                    </StackPanel>
+                </TabItem>
+                <TabItem Height="24" Width="45" HorizontalAlignment="Left" Margin="5,10">
+                    <TabItem.Header >
+                        <Image Source="pack://application:,,,/Resources/Images/decoration1.png"/>
+                    </TabItem.Header>
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource txt_header}" Text="List Equipment" Margin="85,60,0,0"/>
+                            <TextBlock Style="{StaticResource txt_header}" Text="32" Margin="180,60,0,0" Foreground="Green"/>
+                            <TextBlock Style="{StaticResource txt}" Text="available" Margin="15,65,0,0" />
+                        </StackPanel>
+
+                        <Border CornerRadius="16" Background="White" Height="350" Width="450" BorderBrush="LightSeaGreen" BorderThickness="10" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="85,10,0,0">
+                            <Grid>
+
+                                <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" Background="Transparent" />
+                            </Grid>
+
+                        </Border>
+                    </StackPanel>
+                </TabItem>
+                <TabItem Height="24" Width="45" HorizontalAlignment="Left" Margin="5,10">
+                    <TabItem.Header >
+                        <Image Source="pack://application:,,,/Resources/Images/Catering.png"/>
+                    </TabItem.Header>
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource txt_header}" Text="List Equipment" Margin="85,60,0,0"/>
+                            <TextBlock Style="{StaticResource txt_header}" Text="32" Margin="180,60,0,0" Foreground="Green"/>
+                            <TextBlock Style="{StaticResource txt}" Text="available" Margin="15,65,0,0" />
+                        </StackPanel>
+
+                        <Border CornerRadius="16" Background="White" Height="350" Width="450" BorderBrush="LightSeaGreen" BorderThickness="10" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="85,10,0,0">
+                            <Grid>
+
+                                <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" Background="Transparent" />
+                            </Grid>
+
+                        </Border>
+                    </StackPanel>
+                </TabItem>
+                <TabItem Height="24" Width="45" HorizontalAlignment="Left" Margin="5,5">
+                    <TabItem.Header >
+                        <Image Source="pack://application:,,,/Resources/Images/micell.png"/>
+                    </TabItem.Header>
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource txt_header}" Text="List Equipment" Margin="85,60,0,0"/>
+                            <TextBlock Style="{StaticResource txt_header}" Text="32" Margin="180,60,0,0" Foreground="Green"/>
+                            <TextBlock Style="{StaticResource txt}" Text="available" Margin="15,65,0,0" />
+                        </StackPanel>
+
+                        <Border CornerRadius="16" Background="White" Height="350" Width="450" BorderBrush="LightSeaGreen" BorderThickness="10" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="85,10,0,0">
+                            <Grid>
+
+                                <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" Background="Transparent" />
+                            </Grid>
+
+                        </Border>
+                    </StackPanel>
+                </TabItem>
+            </TabControl>
+        </materialDesign:Card>
     </Grid>
 </UserControl>
