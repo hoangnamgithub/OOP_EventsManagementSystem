@@ -6,216 +6,367 @@
         xmlns:local="clr-namespace:OOP_EventsManagementSystem.Styles"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="EventDetails" 
-        Height="600" 
+        Title="EventDetails"
+        Height="600"
         Width="850"
         AllowsTransparency="True"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         Background="Transparent">
-    <Border CornerRadius="16" Background="#EFE9E4" BorderThickness="10"  Margin="10" BorderBrush="#FFD96073" MouseLeftButtonDown="EventDescription_MouseLeftButtonDown" >
+    <Border CornerRadius="16"
+            Background="#EFE9E4"
+            BorderThickness="10"
+            Margin="10"
+            BorderBrush="#FFD96073"
+            MouseLeftButtonDown="EventDescription_MouseLeftButtonDown">
         <Grid>
-            <ScrollViewer x:Name="MainScrollViewer" Margin="0,10,0,0">
+            <ScrollViewer x:Name="MainScrollViewer"
+                          Margin="0,10,0,0">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
                     </Grid.RowDefinitions>
-
                     <Grid Margin="0,0,0,5">
-                        <!--Chia cot -->
+                        <!-- Chia cot -->
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="auto" />
                         </Grid.ColumnDefinitions>
-
                         <StackPanel>
-                            <TextBlock Text=" Event Description" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource txt_header}" Margin="20,15,0,20"/>
-                            <local:EventDetailCard_v2 Grid.Row="1" HorizontalAlignment="Center" Height="137" Width="247"  Margin="20,0,10,0"/>
+                            <TextBlock Text=" Event Description"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Center"
+                                       Style="{StaticResource txt_header}"
+                                       Margin="20,15,0,20" />
+                            <local:EventDetailCard_v2 Grid.Row="1"
+                                                      HorizontalAlignment="Center"
+                                                      Height="137"
+                                                      Width="247"
+                                                      Margin="20,0,10,0" />
                         </StackPanel>
-                        <StackPanel Grid.Column="1" Margin="20,10,0,0">
-                            <StackPanel Orientation="Horizontal" >
-                                <TextBlock Text="Event Name" FontFamily="Bahnschrift SemiBold" FontSize="16" VerticalAlignment="Center" Margin="5,0,15,0"/>
-                                <TextBox x:Name="eventname_txtbox" Text="Name here"  FontFamily="Bahnschrift SemiLight" FontSize="14" Width="155" Foreground="Gray"
-              />
-                                <TextBlock Text="Attendee" FontFamily="Bahnschrift SemiBold" FontSize="16" VerticalAlignment="Center" Margin="20,0,15,0"/>
-                                <TextBox x:Name="eventattendee_txtbox" FontFamily="Bahnschrift SemiLight" FontSize="14" Width="100" Foreground="Gray" Margin="20,0,0,0"
-/>
+                        <StackPanel Grid.Column="1"
+                                    Margin="20,10,0,0">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Event Name"
+                                           FontFamily="Bahnschrift SemiBold"
+                                           FontSize="16"
+                                           VerticalAlignment="Center"
+                                           Margin="5,0,15,0" />
+                                <TextBox x:Name="eventname_txtbox"
+                                         Text="{Binding EventName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                         FontFamily="Bahnschrift SemiLight"
+                                         FontSize="14"
+                                         Width="155"
+                                         Foreground="Gray" />
+                                <TextBlock Text="Attendee"
+                                           FontFamily="Bahnschrift SemiBold"
+                                           FontSize="16"
+                                           VerticalAlignment="Center"
+                                           Margin="20,0,15,0" />
+                                <TextBox x:Name="eventattendee_txtbox"
+                                         FontFamily="Bahnschrift SemiLight"
+                                         FontSize="14"
+                                         Width="100"
+                                         Foreground="Gray"
+                                         Margin="20,0,0,0" />
                             </StackPanel>
-                            <StackPanel Orientation="Horizontal" Margin="0,15,0,0" >
-                                <TextBlock Text="Event Venue"  FontFamily="Bahnschrift SemiBold" FontSize="16" Margin="5,5,5,0"/>
-                                <ComboBox Margin="10,0,5,5" Width="155"
-materialDesign:HintAssist.Hint="My Dinh Stadium">
+                            <StackPanel Orientation="Horizontal"
+                                        Margin="0,15,0,0">
+                                <TextBlock Text="Event Venue"
+                                           FontFamily="Bahnschrift SemiBold"
+                                           FontSize="16"
+                                           Margin="5,5,5,0" />
+                                <ComboBox Margin="10,0,5,5"
+                                          Width="155"
+                                          materialDesign:HintAssist.Hint="My Dinh Stadium">
                                     <ComboBoxItem Content="SunRise Paradise" />
                                     <ComboBoxItem Content="My Dinh Stadium" />
                                     <ComboBoxItem Content="VCCA Art Gallery" />
                                     <ComboBoxItem Content="Wofto Rooftop" />
                                 </ComboBox>
-                                <TextBlock Text="Event Type" FontFamily="Bahnschrift SemiBold" FontSize="16" Margin="15,5,15,0"/>
-                                <ComboBox Margin="8,0,12,5" Width="100"
-materialDesign:HintAssist.Hint="Music">
+                                <TextBlock Text="Event Type"
+                                           FontFamily="Bahnschrift SemiBold"
+                                           FontSize="16"
+                                           Margin="15,5,15,0" />
+                                <ComboBox Margin="8,0,12,5"
+                                          Width="100"
+                                          materialDesign:HintAssist.Hint="Music">
                                     <ComboBoxItem Content="Workshop" />
                                     <ComboBoxItem Content="Sport" />
                                     <ComboBoxItem Content="Music" />
                                     <ComboBoxItem Content="Confrence" />
                                 </ComboBox>
-
                             </StackPanel>
-                            <StackPanel Orientation="Horizontal" >
-                                <!--Description-->
-                                <Border  Background="White" CornerRadius="16" Margin="5,15,10,0">
-                                    <TextBox x:Name="des_txtbo" Width="235" TextWrapping="Wrap" Foreground="Black" FontFamily="Bahnschrift SemiLight" HorizontalAlignment="Left" FontSize="14" Margin="5" />
+                            <StackPanel Orientation="Horizontal">
+                                <!-- Description -->
+                                <Border Background="White"
+                                        CornerRadius="16"
+                                        Margin="5,15,10,0">
+                                    <TextBox x:Name="des_txtbo"
+                                             Width="235"
+                                             TextWrapping="Wrap"
+                                             Foreground="Black"
+                                             FontFamily="Bahnschrift SemiLight"
+                                             HorizontalAlignment="Left"
+                                             FontSize="14"
+                                             Margin="5" />
                                 </Border>
-                                <!--Date-->
-                                <StackPanel Orientation="Vertical" Margin="20,5,0,0">
+                                <!-- Date -->
+                                <StackPanel Orientation="Vertical"
+                                            Margin="20,5,0,0">
                                     <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="Start Date" FontFamily="Bahnschrift SemiBold" FontSize="16" Margin="5,5,15,0" VerticalAlignment="Center"/>
-                                        <DatePicker
-Margin="10,0,12,5"
-Width="100"
-materialDesign:HintAssist.Hint="Pick Date"
-materialDesign:TextFieldAssist.HasClearButton="True"
-Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
-/>
+                                        <TextBlock Text="Start Date"
+                                                   FontFamily="Bahnschrift SemiBold"
+                                                   FontSize="16"
+                                                   Margin="5,5,15,0"
+                                                   VerticalAlignment="Center" />
+                                        <DatePicker Margin="10,0,12,5"
+                                                    Width="100"
+                                                    materialDesign:HintAssist.Hint="Pick Date"
+                                                    materialDesign:TextFieldAssist.HasClearButton="True"
+                                                    Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="End Date"  FontFamily="Bahnschrift SemiBold" FontSize="16" Margin="5,5,5,0" VerticalAlignment="Center"/>
-                                        <DatePicker
-Margin="30,0,12,5"
-Width="100"
-materialDesign:HintAssist.Hint="Pick Date"
-materialDesign:TextFieldAssist.HasClearButton="True"
-Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
-/>
+                                        <TextBlock Text="End Date"
+                                                   FontFamily="Bahnschrift SemiBold"
+                                                   FontSize="16"
+                                                   Margin="5,5,5,0"
+                                                   VerticalAlignment="Center" />
+                                        <DatePicker Margin="30,0,12,5"
+                                                    Width="100"
+                                                    materialDesign:HintAssist.Hint="Pick Date"
+                                                    materialDesign:TextFieldAssist.HasClearButton="True"
+                                                    Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
                                     </StackPanel>
                                 </StackPanel>
                             </StackPanel>
                         </StackPanel>
                     </Grid>
-                    <Grid Grid.Row="1" >
+                    <Grid Grid.Row="1">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="auto" />
                         </Grid.ColumnDefinitions>
-                        <!--List-->
+                        <!-- List -->
                         <StackPanel Margin="20,25,25,0">
                             <StackPanel>
                                 <Expander Expanded="Expander_Expanded"
-                    HorizontalAlignment="Stretch"
-                    Header="List Show"  Width="525" Margin="0,5,0,5" FontFamily="Bahnschrift SemiBold" FontSize="18" Foreground="White" Background="#FFD96073" >
-                                    <StackPanel
-                      Margin="5,0,5,5"
-                      Orientation="Vertical"
-                      TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
-                                        <Border  Margin="0" Background="White" Height="250">
-                                            <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" Background="Transparent" />
+                                          HorizontalAlignment="Stretch"
+                                          Header="List Show"
+                                          Width="525"
+                                          Margin="0,5,0,5"
+                                          FontFamily="Bahnschrift SemiBold"
+                                          FontSize="18"
+                                          Foreground="White"
+                                          Background="#FFD96073">
+                                    <StackPanel Margin="5,0,5,5"
+                                                Orientation="Vertical"
+                                                TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
+                                        <Border Margin="0"
+                                                Background="White"
+                                                Height="250">
+                                            <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}"
+                                                      Background="Transparent" />
                                         </Border>
-
-
                                     </StackPanel>
                                 </Expander>
                                 <Expander Expanded="Expander_Expanded"
-HorizontalAlignment="Stretch"
-Header="List Partner"  Width="525" Margin="0,5,0,5" FontFamily="Bahnschrift SemiBold" FontSize="18" Foreground="White" Background="#FFC6C3F2" >
-                                    <StackPanel
-  Margin="5,0,5,5"
-  Orientation="Vertical"
-  TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
-                                        <Border  Margin="0" Background="White" Height="250">
-                                            <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" Background="Transparent" />
+                                          HorizontalAlignment="Stretch"
+                                          Header="List Partner"
+                                          Width="525"
+                                          Margin="0,5,0,5"
+                                          FontFamily="Bahnschrift SemiBold"
+                                          FontSize="18"
+                                          Foreground="White"
+                                          Background="#FFC6C3F2">
+                                    <StackPanel Margin="5,0,5,5"
+                                                Orientation="Vertical"
+                                                TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
+                                        <Border Margin="0"
+                                                Background="White"
+                                                Height="250">
+                                            <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}"
+                                                      Background="Transparent" />
                                         </Border>
-
-
                                     </StackPanel>
                                 </Expander>
                                 <Expander Expanded="Expander_Expanded"
-HorizontalAlignment="Stretch"
-Header="List Employee"  Width="525" Margin="0,5,0,5" FontFamily="Bahnschrift SemiBold" FontSize="18" Foreground="White" Background="#FF7785E2" >
-                                    <StackPanel
-  Margin="5,0,5,5"
-  Orientation="Vertical"
-  TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
-                                        <Border  Margin="0" Background="White" Height="250">
-                                            <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" Background="Transparent" />
+                                          HorizontalAlignment="Stretch"
+                                          Header="List Employee"
+                                          Width="525"
+                                          Margin="0,5,0,5"
+                                          FontFamily="Bahnschrift SemiBold"
+                                          FontSize="18"
+                                          Foreground="White"
+                                          Background="#FF7785E2">
+                                    <StackPanel Margin="5,0,5,5"
+                                                Orientation="Vertical"
+                                                TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
+                                        <Border Margin="0"
+                                                Background="White"
+                                                Height="250">
+                                            <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}"
+                                                      Background="Transparent" />
                                         </Border>
-
-
                                     </StackPanel>
                                 </Expander>
                                 <Expander Expanded="Expander_Expanded"
-HorizontalAlignment="Stretch"
-Header="List Equipment"  Width="525" Margin="0,5,0,5" FontFamily="Bahnschrift SemiBold" FontSize="18" Foreground="White" Background="#FFD6DC82" >
-                                    <StackPanel
-  Margin="5,0,5,5"
-  Orientation="Vertical"
-  TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
-                                        <Border  Margin="0" Background="White" Height="250">
-                                            <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" Background="Transparent" />
+                                          HorizontalAlignment="Stretch"
+                                          Header="List Equipment"
+                                          Width="525"
+                                          Margin="0,5,0,5"
+                                          FontFamily="Bahnschrift SemiBold"
+                                          FontSize="18"
+                                          Foreground="White"
+                                          Background="#FFD6DC82">
+                                    <StackPanel Margin="5,0,5,5"
+                                                Orientation="Vertical"
+                                                TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
+                                        <Border Margin="0"
+                                                Background="White"
+                                                Height="250">
+                                            <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}"
+                                                      Background="Transparent" />
                                         </Border>
-
-
                                     </StackPanel>
                                 </Expander>
                             </StackPanel>
                         </StackPanel>
-                        
                     </Grid>
-                    
                 </Grid>
             </ScrollViewer>
-            <Button x:Name="btn_close" HorizontalAlignment="Right" VerticalAlignment="Top"  Background="Transparent" BorderBrush="Transparent" Click="btn_close_Click" Margin="0,5,5,0"  >
-                <TextBlock Text="X" FontFamily="Bahnschrift SemiLight" FontSize="16" Foreground="#DD000000"  />
+            <Button x:Name="btn_close"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    Background="Transparent"
+                    BorderBrush="Transparent"
+                    Click="btn_close_Click"
+                    Margin="0,5,5,0">
+                <TextBlock Text="X"
+                           FontFamily="Bahnschrift SemiLight"
+                           FontSize="16"
+                           Foreground="#DD000000" />
             </Button>
-            <!--Bang cost va nut-->
-            <StackPanel VerticalAlignment="Bottom" Margin="0,0,10,25">
-                <Grid Margin="10,0,15,0" Width="230" HorizontalAlignment="Right">
+            <!-- Bang cost va nut -->
+            <StackPanel VerticalAlignment="Bottom"
+                        Margin="0,0,10,25">
+                <Grid Margin="10,0,15,0"
+                      Width="230"
+                      HorizontalAlignment="Right">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition/>
+                        <RowDefinition Height="30" />
+                        <RowDefinition />
                     </Grid.RowDefinitions>
-                    <TextBlock Text="Cost" Margin="10,5" FontFamily="Bahnschrift SemiBold" FontSize="18" />
-                    <Border Grid.Row="1" CornerRadius="16" Background="White" BorderBrush="#D6DC82" BorderThickness="8">
+                    <TextBlock Text="Cost"
+                               Margin="10,5"
+                               FontFamily="Bahnschrift SemiBold"
+                               FontSize="18" />
+                    <Border Grid.Row="1"
+                            CornerRadius="16"
+                            Background="White"
+                            BorderBrush="#D6DC82"
+                            BorderThickness="8">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="150"/>
-                                <ColumnDefinition/>
-
+                                <ColumnDefinition Width="150" />
+                                <ColumnDefinition />
                             </Grid.ColumnDefinitions>
-                            <StackPanel Orientation="Vertical" Margin="10">
-                                <TextBlock Text="Show Cost" FontSize="16" FontFamily="Bahnschrift SemiLight" VerticalAlignment="Center" Margin="0,0,0,10"/>
-                                <TextBlock Text="Location Cost" FontSize="16" FontFamily="Bahnschrift SemiLight" VerticalAlignment="Center" Margin="0,0,0,10"/>
-                                <TextBlock Text="Employee Cost" FontSize="16" FontFamily="Bahnschrift SemiLight" VerticalAlignment="Center" Margin="0,0,0,10"/>
-                                <TextBlock Text="Equipment Cost" FontSize="16" FontFamily="Bahnschrift SemiLight" VerticalAlignment="Center" Margin="0,0,0,10"/>
-                                <TextBlock Text="Service Cost (15%)" FontSize="16" FontFamily="Bahnschrift SemiLight" VerticalAlignment="Center" Margin="0,0,0,15"/>
-                                <TextBlock Text="Total" FontSize="16" FontFamily="Bahnschrift SemiBold" VerticalAlignment="Center" />
-
+                            <StackPanel Orientation="Vertical"
+                                        Margin="10">
+                                <TextBlock Text="Show Cost"
+                                           FontSize="16"
+                                           FontFamily="Bahnschrift SemiLight"
+                                           VerticalAlignment="Center"
+                                           Margin="0,0,0,10" />
+                                <TextBlock Text="Location Cost"
+                                           FontSize="16"
+                                           FontFamily="Bahnschrift SemiLight"
+                                           VerticalAlignment="Center"
+                                           Margin="0,0,0,10" />
+                                <TextBlock Text="Employee Cost"
+                                           FontSize="16"
+                                           FontFamily="Bahnschrift SemiLight"
+                                           VerticalAlignment="Center"
+                                           Margin="0,0,0,10" />
+                                <TextBlock Text="Equipment Cost"
+                                           FontSize="16"
+                                           FontFamily="Bahnschrift SemiLight"
+                                           VerticalAlignment="Center"
+                                           Margin="0,0,0,10" />
+                                <TextBlock Text="Service Cost (15%)"
+                                           FontSize="16"
+                                           FontFamily="Bahnschrift SemiLight"
+                                           VerticalAlignment="Center"
+                                           Margin="0,0,0,15" />
+                                <TextBlock Text="Total"
+                                           FontSize="16"
+                                           FontFamily="Bahnschrift SemiBold"
+                                           VerticalAlignment="Center" />
                             </StackPanel>
-                            <StackPanel Grid.Column="1" Orientation="Vertical" Margin="10">
-                                <TextBlock Text="100$" FontSize="16" FontFamily="Bahnschrift SemiLight" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,0,10"/>
-                                <TextBlock Text="200$" FontSize="16" FontFamily="Bahnschrift SemiLight" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,0,10"/>
-                                <TextBlock Text="150$" FontSize="16" FontFamily="Bahnschrift SemiLight" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,0,10"/>
-                                <TextBlock Text="300$" FontSize="16" FontFamily="Bahnschrift SemiLight" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,0,10"/>
-                                <TextBlock Text="200$" FontSize="16" FontFamily="Bahnschrift SemiLight" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,0,15"/>
-                                <TextBlock Text="750$" FontSize="16" FontFamily="Bahnschrift SemiBold" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-
+                            <StackPanel Grid.Column="1"
+                                        Orientation="Vertical"
+                                        Margin="10">
+                                <TextBlock Text="100$"
+                                           FontSize="16"
+                                           FontFamily="Bahnschrift SemiLight"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Right"
+                                           Margin="0,0,0,10" />
+                                <TextBlock Text="200$"
+                                           FontSize="16"
+                                           FontFamily="Bahnschrift SemiLight"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Right"
+                                           Margin="0,0,0,10" />
+                                <TextBlock Text="150$"
+                                           FontSize="16"
+                                           FontFamily="Bahnschrift SemiLight"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Right"
+                                           Margin="0,0,0,10" />
+                                <TextBlock Text="300$"
+                                           FontSize="16"
+                                           FontFamily="Bahnschrift SemiLight"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Right"
+                                           Margin="0,0,0,10" />
+                                <TextBlock Text="200$"
+                                           FontSize="16"
+                                           FontFamily="Bahnschrift SemiLight"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Right"
+                                           Margin="0,0,0,15" />
+                                <TextBlock Text="750$"
+                                           FontSize="16"
+                                           FontFamily="Bahnschrift SemiBold"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Right" />
                             </StackPanel>
                         </Grid>
                     </Border>
                 </Grid>
-                <Grid  HorizontalAlignment="Right" Margin="0,0,10,0">
+                <Grid HorizontalAlignment="Right"
+                      Margin="0,0,10,0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <Button Content="Comfirm" Margin="15,10,0,10" Command="{Binding ConfirmCommand}" Style="{StaticResource GreenButton}" Width="100" Height="50"/>
-                    <Button Grid.Column="1" Content="Cancel" Margin="0,10,15,10" Command="{Binding CancelCommand}" Style="{StaticResource PinkButton}" Width="100" Height="50"/>
-
+                    <Button Content="Comfirm"
+                            Margin="15,10,0,10"
+                            Command="{Binding ConfirmCommand}"
+                            Style="{StaticResource GreenButton}"
+                            Width="100"
+                            Height="50" />
+                    <Button Grid.Column="1"
+                            Content="Cancel"
+                            Margin="0,10,15,10"
+                            Command="{Binding CancelCommand}"
+                            Style="{StaticResource PinkButton}"
+                            Width="100"
+                            Height="50" />
                 </Grid>
             </StackPanel>
-
-            
         </Grid>
-        
-        
     </Border>
 </Window>
