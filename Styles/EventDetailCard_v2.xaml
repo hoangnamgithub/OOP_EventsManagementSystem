@@ -124,7 +124,7 @@
                         </Grid.RowDefinitions>
                         <Grid Grid.Row="0">
                             <TextBlock Name="txtblck_eventName" 
-                                       Text="{Binding EventName, Mode=TwoWay}"
+                                       Text="{Binding EventName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                        TextWrapping="Wrap"
                                        VerticalAlignment="Bottom"
                                        Margin="10,0,10,0"
