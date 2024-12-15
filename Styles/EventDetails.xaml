@@ -54,7 +54,7 @@
                                            VerticalAlignment="Center"
                                            Margin="5,0,15,0" />
                                 <TextBox x:Name="eventname_txtbox"
-                                         Text="Name here"
+                                         Text="{Binding EventName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                          FontFamily="Bahnschrift SemiLight"
                                          FontSize="14"
                                          Width="155"
