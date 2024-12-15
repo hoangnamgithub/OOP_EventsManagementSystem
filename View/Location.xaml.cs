@@ -15,6 +15,8 @@ namespace OOP_EventsManagementSystem.View
     {
         private bool _isDragging = false;
         private double _lastX;
+        private Border _currentExpandedBorder = null;
+
 
         public Location()
         {
@@ -44,6 +46,28 @@ namespace OOP_EventsManagementSystem.View
 
         private Border _draggedBorder = null;
         private Point _lastMousePosition;
+        private void OpenButton_Click(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
+            var border = FindParent<Border>(button);
+
+            if (border == null) return;
+
+            // Nếu Border đã được phóng to, không làm gì thêm
+            if (_currentExpandedBorder == border) return;
+
+            // Thu nhỏ Border hiện tại (nếu có)
+            if (_currentExpandedBorder != null)
+            {
+                ResetBorderSize(_currentExpandedBorder);
+            }
+
+            // Phóng to Border mới
+            AnimateBorderResize(border);
+
+            // Cập nhật Border đang được phóng to bởi nút Open
+            _currentExpandedBorder = border;
+        }
 
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -67,11 +91,14 @@ namespace OOP_EventsManagementSystem.View
         private void Border_MouseLeave(object sender, MouseEventArgs e)
         {
             var border = sender as Border;
-            if (border != null)
-            {
-                ResetBorderSize(border);
-            }
+
+            // Nếu Border đang được phóng to bởi nút Open, không reset kích thước
+            if (border == _currentExpandedBorder) return;
+
+            // Reset kích thước nếu chuột rời khỏi
+            ResetBorderSize(border);
         }
+
 
         private void Border_MouseMove(object sender, MouseEventArgs e)
         {
@@ -121,25 +148,22 @@ namespace OOP_EventsManagementSystem.View
         {
             if (border.Width != TargetGrid.ActualWidth || border.Height != TargetGrid.ActualHeight)
             {
-                // Tạo DoubleAnimation để thay đổi chiều rộng của Border
                 DoubleAnimation widthAnimation = new DoubleAnimation
                 {
                     From = border.Width,
-                    To = TargetGrid.ActualWidth, // Resize to the width of the Grid
+                    To = TargetGrid.ActualWidth, // Phóng to bằng kích thước của Grid mục tiêu
                     Duration = TimeSpan.FromSeconds(0.3),
                     EasingFunction = new QuadraticEase { EasingMode = EasingMode.EaseInOut }
                 };
 
-                // Tạo DoubleAnimation cho chiều cao
                 DoubleAnimation heightAnimation = new DoubleAnimation
                 {
                     From = border.Height,
-                    To = TargetGrid.ActualHeight, // Resize to the height of the Grid
+                    To = TargetGrid.ActualHeight, // Phóng to bằng kích thước của Grid mục tiêu
                     Duration = TimeSpan.FromSeconds(0.3),
                     EasingFunction = new QuadraticEase { EasingMode = EasingMode.EaseInOut }
                 };
 
-                // Áp dụng animation cho Border
                 border.BeginAnimation(Border.WidthProperty, widthAnimation);
                 border.BeginAnimation(Border.HeightProperty, heightAnimation);
             }
@@ -152,7 +176,7 @@ namespace OOP_EventsManagementSystem.View
                 DoubleAnimation widthAnimation = new DoubleAnimation
                 {
                     From = border.Width,
-                    To = 205, // Kích thước ban đầu
+                    To = 205, // Kích thước mặc định
                     Duration = TimeSpan.FromSeconds(0.3),
                     EasingFunction = new QuadraticEase { EasingMode = EasingMode.EaseInOut }
                 };
@@ -160,7 +184,7 @@ namespace OOP_EventsManagementSystem.View
                 DoubleAnimation heightAnimation = new DoubleAnimation
                 {
                     From = border.Height,
-                    To = 200, // Kích thước ban đầu
+                    To = 200, // Kích thước mặc định
                     Duration = TimeSpan.FromSeconds(0.3),
                     EasingFunction = new QuadraticEase { EasingMode = EasingMode.EaseInOut }
                 };
@@ -169,7 +193,6 @@ namespace OOP_EventsManagementSystem.View
                 border.BeginAnimation(Border.HeightProperty, heightAnimation);
             }
         }
-
 
         private void StackPanel_MouseMove(object sender, MouseEventArgs e)
         {
@@ -237,6 +260,15 @@ namespace OOP_EventsManagementSystem.View
             return null;
         }
 
+        private T FindParent<T>(DependencyObject child) where T : DependencyObject
+        {
+            DependencyObject parent = VisualTreeHelper.GetParent(child);
+            while (parent != null && !(parent is T))
+            {
+                parent = VisualTreeHelper.GetParent(parent);
+            }
+            return parent as T;
+        }
 
 
         private Rect GetBorderRect(BorderItem borderItem)
