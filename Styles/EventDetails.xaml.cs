@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using OOP_EventsManagementSystem.ViewModel;
 
 namespace OOP_EventsManagementSystem.Styles
 {
@@ -22,6 +23,7 @@ namespace OOP_EventsManagementSystem.Styles
         public EventDetails()
         {
             InitializeComponent();
+            DataContext = new EventVM();
         }
         private void EventDescription_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) { if (e.ButtonState == MouseButtonState.Pressed) { this.DragMove(); } }
         private void btn_close_Click(object sender, RoutedEventArgs e)
