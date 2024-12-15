@@ -83,7 +83,7 @@ namespace OOP_EventsManagementSystem.ViewModel
         {
             IsAddButtonEnabled = false; // Disable the button
 
-            var eventDescriptionWindow = new EventDescription();
+            var eventDescriptionWindow = new EventDetails();
             eventDescriptionWindow.Closed += (s, e) =>
             {
                 IsAddButtonEnabled = true; // Enable the button when the window is closed

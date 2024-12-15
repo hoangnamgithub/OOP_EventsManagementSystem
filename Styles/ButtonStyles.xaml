@@ -74,10 +74,13 @@
                 <ControlTemplate TargetType="{x:Type Thumb}">
                     <Border x:Name="rectangle"
                                 SnapsToDevicePixels="True"
-                                Background="#D96073"
                                 CornerRadius="10"
                                 Height="{TemplateBinding Height}"
-                                Width="{TemplateBinding Width}"/>
+                                Width="{TemplateBinding Width}">
+                        <Border.Background>
+                            <SolidColorBrush Color="#FFD96073" Opacity="0.7"/>
+                        </Border.Background>
+                    </Border>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
