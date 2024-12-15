@@ -168,6 +168,7 @@
                                                 Background="White"
                                                 Height="250">
                                             <DataGrid ItemsSource="{Binding Shows}"
+
                                                       Background="Transparent" />
                                         </Border>
                                     </StackPanel>
