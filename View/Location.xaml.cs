@@ -147,7 +147,7 @@ namespace OOP_EventsManagementSystem.View
 
         private void ResetBorderSize(Border border)
         {
-            if (border.Width != 205 || border.Height != 170)
+            if (border.Width != 205 || border.Height != 200)
             {
                 DoubleAnimation widthAnimation = new DoubleAnimation
                 {
@@ -160,7 +160,7 @@ namespace OOP_EventsManagementSystem.View
                 DoubleAnimation heightAnimation = new DoubleAnimation
                 {
                     From = border.Height,
-                    To = 170, // Kích thước ban đầu
+                    To = 200, // Kích thước ban đầu
                     Duration = TimeSpan.FromSeconds(0.3),
                     EasingFunction = new QuadraticEase { EasingMode = EasingMode.EaseInOut }
                 };
@@ -252,6 +252,6 @@ namespace OOP_EventsManagementSystem.View
         public string HeaderText { get; set; }
         public string ImageSource { get; set; }
         public double Width { get; set; } = 205;
-        public double Height { get; set; } = 170;
+        public double Height { get; set; } = 200;
     }
 }

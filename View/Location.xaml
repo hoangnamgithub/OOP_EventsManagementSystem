@@ -9,12 +9,13 @@
              Background="#EFE9E4">
     <Grid>
         <!-- The Grid that the Borders should expand into -->
-        <Grid x:Name="TargetGrid" Height="250" Width="325" HorizontalAlignment="Center" VerticalAlignment="Center" Background="LightGray"/>
+        <Grid x:Name="TargetGrid" Height="290" Width="325" HorizontalAlignment="Center" VerticalAlignment="Center" />
         <ScrollViewer x:Name="MyScrollViewer" 
                   HorizontalScrollBarVisibility="Hidden" 
                   VerticalScrollBarVisibility="Disabled"
                   HorizontalAlignment="Center" 
-                  VerticalAlignment="Center">
+                  VerticalAlignment="Top"
+                      Margin="0,20">
             <ItemsControl x:Name="ItemsControl" ScrollViewer.HorizontalScrollBarVisibility="Auto">
                 <ItemsControl.ItemsPanel>
                     <!-- Sử dụng ItemsPanelTemplate để bố trí các mục theo hàng ngang -->
@@ -24,10 +25,11 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Border x:Name="ResizableBorder" CornerRadius="16" Height="170" Width="205" Margin="15" MouseLeftButtonDown="Border_MouseLeftButtonDown" MouseMove="Border_MouseMove" MouseLeftButtonUp="Border_MouseLeftButtonUp" MouseEnter="Border_MouseEnter" MouseLeave="Border_MouseLeave">
+                        <Border x:Name="ResizableBorder" CornerRadius="16" Height="200" Width="205" Margin="15" MouseLeftButtonDown="Border_MouseLeftButtonDown" MouseMove="Border_MouseMove" MouseLeftButtonUp="Border_MouseLeftButtonUp" MouseEnter="Border_MouseEnter" MouseLeave="Border_MouseLeave">
                             <StackPanel>
                                 <TextBlock Style="{StaticResource txt_header}" Text="{Binding HeaderText}" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="5"/>
                                 <Image Source="{Binding ImageSource}" VerticalAlignment="Bottom"/>
+                                <Button Content="Open" Height="50" Background="Transparent" BorderBrush="Transparent" Foreground="LightGray" VerticalContentAlignment="Top"/>
                             </StackPanel>
                         </Border>
                     </DataTemplate>
@@ -35,6 +37,7 @@
             </ItemsControl>
         </ScrollViewer>
         <!-- The Grid that the Borders should expand into -->
+        
     </Grid>
 
 </UserControl>
