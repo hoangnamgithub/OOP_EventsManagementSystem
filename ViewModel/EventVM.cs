@@ -56,6 +56,22 @@ namespace OOP_EventsManagementSystem.ViewModel
             }
         }
 
+        private string _eventName;
+
+        public string EventName
+        {
+            get => _eventName;
+            set 
+            {
+                if (_eventName != value)
+                {
+                    _eventName = value;
+                    OnPropertyChanged(nameof(EventName));
+                }
+            }
+        }
+
+
         public EventVM()
         {
             AddCommand = new RelayCommand(ExecuteAddCommand, CanExecuteAddCommand);

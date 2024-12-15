@@ -4,9 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:OOP_EventsManagementSystem.Styles"
+             xmlns:vm="clr-namespace:OOP_EventsManagementSystem.ViewModel"
              mc:Ignorable="d"
              Height="130"
              Width="260">
+
     <UserControl.Resources>
         <Storyboard x:Key="HoldOver">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetName="grid12"
@@ -121,7 +123,8 @@
                             <RowDefinition Height="27*" />
                         </Grid.RowDefinitions>
                         <Grid Grid.Row="0">
-                            <TextBlock Text="{Binding EventName}"
+                            <TextBlock Name="txtblck_eventName" 
+                                       Text="{Binding EventName, Mode=TwoWay}"
                                        TextWrapping="Wrap"
                                        VerticalAlignment="Bottom"
                                        Margin="10,0,10,0"
