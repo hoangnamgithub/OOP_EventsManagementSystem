@@ -80,6 +80,9 @@
                                 <ComboBox Margin="10,0,5,5"
                                           Width="155"
                                           ItemsSource="{Binding Venues}"
+                                          DisplayMemberPath="VenueName"
+                                          SelectedValuePath="VenueId"
+                                          SelectedValue="{Binding SelectedVenueId, Mode=TwoWay}"
                                           materialDesign:HintAssist.Hint="choosing...">
                                 </ComboBox>
                                 <TextBlock Text="Event Type"
@@ -89,6 +92,9 @@
                                 <ComboBox Margin="8,0,12,5"
                                           Width="100"
                                           ItemsSource="{Binding EventTypes}"
+                                          DisplayMemberPath="TypeName"
+                                          SelectedValuePath="EventTypeId"
+                                          SelectedValue="{Binding SelectedEventTypeId, Mode=TwoWay}"
                                           materialDesign:HintAssist.Hint="choosing...">
                                 </ComboBox>
                             </StackPanel>
@@ -161,7 +167,7 @@
                                         <Border Margin="0"
                                                 Background="White"
                                                 Height="250">
-                                            <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}"
+                                            <DataGrid ItemsSource="{Binding Shows}"
                                                       Background="Transparent" />
                                         </Border>
                                     </StackPanel>
