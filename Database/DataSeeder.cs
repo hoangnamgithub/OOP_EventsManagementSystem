@@ -10,45 +10,46 @@ namespace OOP_EventsManagementSystem.Database
         {
             using (var context = new EventManagementDbContext())
             {
-                SeedVenueData(context);
+                SeedVenueData(context); //1
 
-                SeedGenreData(context);
+                SeedGenreData(context); //2 
 
-                SeedPerformerData(context);
+                SeedPerformerData(context); //3
 
-                SeedEventTypeData(context);
+                SeedEventTypeData(context); //4
 
-                SeedSponsorsData(context);
+                SeedSponsorsData(context); //5
 
-                SeedEmployeeRoles(context);
+                SeedEmployeeRoles(context); //6
 
-                SeedEmployeeData(context);
+                SeedEmployeeData(context); //7
+                AssignRandomManagers(context);//7
 
-                AssignRandomManagers(context);
+                SeedPermissions(context);//9
 
-                SeedPermissions(context);
+                SeedAccounts(context);//10
 
-                SeedAccounts(context);
+                SeedSponsorTierData(context);//11
 
-                SeedSponsorTierData(context);
+                SeedEventData(context);//12
 
-                SeedEventData(context);
+                SeedNeedData(context);//13
 
-                SeedNeedData(context);
+                SeedIsSponsorData(context);//14
 
-                SeedIsSponsorData(context);
+                SeedShowData(context);//15
 
-                SeedShowData(context);
+                SeedShowScheduleData(context);//16
 
-                SeedShowScheduleData(context);
+                SeedEquipmentTypeData(context);//17
 
-                SeedEquipmentTypeData(context);
+                SeedEquipmentNameData(context);//18
 
-                SeedEquipmentNameData(context);
+                SeedRequiredData(context);//19
 
-                SeedRequiredData(context);
+                SeedEquipmentData(context);//20
 
-                SeedEquipmentData(context);
+                SeedEngagedData(context);
             }
         }
 
@@ -913,6 +914,65 @@ namespace OOP_EventsManagementSystem.Database
             context.SaveChanges();
             Console.WriteLine("Seeded Equipment data successfully.");
         }
+
+
+        private static void SeedEngagedData(EventManagementDbContext context)
+        {
+            if (context.Engageds.Any())
+            {
+                Console.WriteLine("Engaged data already seeded.");
+                return;
+            }
+
+            var accounts = context.Accounts.Include(a => a.Employee).ToList();
+            var events = context.Events.ToList();
+            var needs = context.Needs.ToList();
+
+            if (!accounts.Any() || !events.Any() || !needs.Any())
+            {
+                Console.WriteLine("No accounts, events, or needs found. Please seed these tables first.");
+                return;
+            }
+
+            var faker = new Bogus.Faker();
+            var engageds = new List<Engaged>();
+
+            foreach (var need in needs)
+            {
+                var requiredQuantity = need.Quantity;
+                var assignedCount = context.Engageds.Count(e => e.EventId == need.EventId && e.Account.Employee.RoleId == need.RoleId);
+
+                if (assignedCount >= requiredQuantity)
+                {
+                    continue;
+                }
+
+                var availableAccounts = accounts.Where(a => a.Employee.RoleId == need.RoleId).ToList();
+
+                for (int i = assignedCount; i < requiredQuantity; i++)
+                {
+                    if (availableAccounts.Any())
+                    {
+                        var account = availableAccounts[faker.Random.Int(0, availableAccounts.Count - 1)];
+                        var engaged = new Engaged
+                        {
+                            AccountId = account.AccountId,
+                            EventId = need.EventId
+                        };
+
+                        engageds.Add(engaged);
+                        availableAccounts.Remove(account); // Remove to prevent duplicate assignments
+                    }
+                }
+            }
+
+            context.Engageds.AddRange(engageds);
+            context.SaveChanges();
+            Console.WriteLine("Seeded Engaged data successfully.");
+        }
+
+
+
 
     }
 }
