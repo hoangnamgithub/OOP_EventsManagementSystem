@@ -1,21 +1,20 @@
-﻿using OOP_EventsManagementSystem.Utilities;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
+using OOP_EventsManagementSystem.Model;
+using OOP_EventsManagementSystem.Styles;
+using OOP_EventsManagementSystem.Utilities;
 using OOP_EventsManagementSystem.View;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using Microsoft.EntityFrameworkCore;
-using OOP_EventsManagementSystem.Model;
-using Microsoft.Identity.Client;
-using OOP_EventsManagementSystem.Styles;
-
 
 namespace OOP_EventsManagementSystem.ViewModel
 {
@@ -27,8 +26,18 @@ namespace OOP_EventsManagementSystem.ViewModel
 
         private readonly EventManagementDbContext _context;
 
-        public ObservableCollection<Model.Event> Events { get; set; }
+        public ObservableCollection<Model.Event> UpcomingEvents { get; set; }
+        public ObservableCollection<Model.Event> HappeningEvents { get; set; }
+        public ObservableCollection<Model.Event> CompletedEvents { get; set; }
+        public ObservableCollection<Model.EventType> EventTypes { get; set; }
+        public ObservableCollection<Model.Venue> Venues { get; set; }
+        public ObservableCollection<Model.Show> Shows { get; set; }
+        public ObservableCollection<Model.Sponsor> Sponsors { get; set; }
+        public ObservableCollection<Model.Employee> Employees { get; set; }
 
+
+
+        // properties -------------------------------------
         private DateTime _currentDate;
         public DateTime CurrentDate
         {
@@ -58,6 +67,21 @@ namespace OOP_EventsManagementSystem.ViewModel
             }
         }
 
+        private string _eventName;
+        public string EventName
+        {
+            get => _eventName;
+            set
+            {
+                if (_eventName != value)
+                {
+                    _eventName = value;
+                    OnPropertyChanged(nameof(EventName));
+                }
+            }
+        }
+
+        // constructor -------------------------------------
         public EventVM()
         {
             AddCommand = new RelayCommand(ExecuteAddCommand, CanExecuteAddCommand);
@@ -74,11 +98,32 @@ namespace OOP_EventsManagementSystem.ViewModel
             eventDescriptionWindow.Show();
             
         }
+
+        // method -------------------------------------
         private void LoadData()
         {
-            Events = new ObservableCollection<Model.Event>(_context.Events.Include(e => e.Venue).ToList());
-            OnPropertyChanged(nameof(Events));
+            var allEvents = _context.Events.Include(e => e.Venue).ToList();
+
+            UpcomingEvents = new ObservableCollection<Model.Event>(allEvents.Where(e => e.StartDate.ToDateTime(TimeOnly.MinValue) > DateTime.Now));
+            HappeningEvents = new ObservableCollection<Model.Event>(allEvents.Where(e => e.StartDate.ToDateTime(TimeOnly.MinValue) <= DateTime.Now && e.EndDate.ToDateTime(TimeOnly.MinValue) >= DateTime.Now));
+            CompletedEvents = new ObservableCollection<Model.Event>(allEvents.Where(e => e.EndDate.ToDateTime(TimeOnly.MinValue) < DateTime.Now));
+            EventTypes = new ObservableCollection<Model.EventType>(_context.EventTypes.ToList());
+            Venues = new ObservableCollection<Model.Venue>(_context.Venues.ToList());
+            Shows = new ObservableCollection<Model.Show>(_context.Shows.Include(s => s.Performer).Include(s => s.Genre).ToList());
+            Sponsors = new ObservableCollection<Sponsor>(_context.Sponsors.ToList());
+            Employees = new ObservableCollection<Model.Employee>(_context.Employees.Include(e => e.Role).ToList());
+
+
+            OnPropertyChanged(nameof(UpcomingEvents));
+            OnPropertyChanged(nameof(HappeningEvents));
+            OnPropertyChanged(nameof(CompletedEvents));
+            OnPropertyChanged(nameof(EventTypes));
+            OnPropertyChanged(nameof(Venues));
+            OnPropertyChanged(nameof(Shows)); 
+            OnPropertyChanged(nameof(Sponsors)); 
+            OnPropertyChanged(nameof(Employees));
         }
+
         private void ExecuteAddCommand(object obj)
         {
             IsAddButtonEnabled = false; // Disable the button

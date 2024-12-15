@@ -12,7 +12,7 @@
         WindowStyle="None"
         Background="Transparent">
     <Border CornerRadius="16" Background="#D96073" Height="265" Width="500" MouseLeftButtonDown="MouseLeftButtonDown">
-        <Grid>
+        <Grid Margin="0,0,0,-47">
             <Grid.RowDefinitions>
                 <RowDefinition Height="40"/>
                 <RowDefinition/>
@@ -40,22 +40,26 @@
                         </Border>
                     </Grid>
                     <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="9*"/>
+                            <ColumnDefinition Width="4*"/>
+                        </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <TextBlock Text="Name" VerticalAlignment="Center" Margin="30,0,0,0" FontFamily="Bahnschrift SemiLight" FontSize="16" />
-                        <Border Grid.Row="1"  CornerRadius="16" Background="#FFDCDCE6" Margin="25,5,15,5" Height="35">
+                        <TextBlock Text="Name" VerticalAlignment="Center" Margin="30,0,0,0" FontFamily="Bahnschrift SemiLight" FontSize="16" Grid.ColumnSpan="2" />
+                        <Border Grid.Row="1"  CornerRadius="16" Background="#FFDCDCE6" Margin="25,5,15,5" Height="35" Grid.ColumnSpan="2">
                             <TextBox Text="Happy New Year" CaretBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" FontFamily="Bahnschrift SemiLight" FontSize="16" Margin="10,5,10,5" Background="{x:Null}" BorderBrush="{x:Null}" />
                         </Border>
                     </Grid>
-                    <Grid>
+                    <Grid Height="120">
                         <Grid.RowDefinitions>
                             <RowDefinition/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <TextBlock Text="Name" VerticalAlignment="Center" Margin="30,0,0,0" FontFamily="Bahnschrift SemiLight" FontSize="16" />
-                        <Border Grid.Row="1"  CornerRadius="16" Background="#FFDCDCE6" Margin="25,5,15,5" Height="35">
+                        <TextBlock Text="Name" VerticalAlignment="Top" Margin="30,36,0,0" FontFamily="Bahnschrift SemiLight" FontSize="16" />
+                        <Border Grid.Row="1"  CornerRadius="16" Background="#FFDCDCE6" Margin="25,0,15,12">
                             <TextBox Text="Happy New Year" CaretBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" FontFamily="Bahnschrift SemiLight" FontSize="16" Margin="10,5,10,5" Background="{x:Null}" BorderBrush="{x:Null}" />
                         </Border>
                     </Grid>
