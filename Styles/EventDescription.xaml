@@ -9,12 +9,11 @@
         mc:Ignorable="d"
         Title="EventDescription"
         Height="1140"
-        Width="850"
+        Width="1000"
         AllowsTransparency="True"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         Background="Transparent">
-
     <Border CornerRadius="16"
             Background="#EFE9E4"
             BorderThickness="10"
@@ -95,20 +94,18 @@
                                         Orientation="Horizontal">
                                 <ComboBox Margin="8,0,12,5"
                                           Width="80"
-                                          materialDesign:HintAssist.Hint="Music">
-                                    <ComboBoxItem Content="Workshop" />
-                                    <ComboBoxItem Content="Sport" />
-                                    <ComboBoxItem Content="Music" />
-                                    <ComboBoxItem Content="Confrence" />
-                                </ComboBox>
+                                          ItemsSource="{Binding EventTypes}"
+                                          DisplayMemberPath="TypeName"
+                                          SelectedValuePath="EventTypeId"
+                                          SelectedValue="{Binding SelectedEventTypeId, Mode=TwoWay}"
+                                          materialDesign:HintAssist.Hint="Event Type" />
                                 <ComboBox Margin="20,0,5,5"
                                           Width="140"
-                                          materialDesign:HintAssist.Hint="My Dinh Stadium">
-                                    <ComboBoxItem Content="SunRise Paradise" />
-                                    <ComboBoxItem Content="My Dinh Stadium" />
-                                    <ComboBoxItem Content="VCCA Art Gallery" />
-                                    <ComboBoxItem Content="Wofto Rooftop" />
-                                </ComboBox>
+                                          ItemsSource="{Binding Venues}"
+                                          DisplayMemberPath="VenueName"
+                                          SelectedValuePath="VenueId"
+                                          SelectedValue="{Binding SelectedVenueId, Mode=TwoWay}"
+                                          materialDesign:HintAssist.Hint="Venue" />
                             </StackPanel>
                             <StackPanel Grid.Row="6"
                                         Orientation="Horizontal">
@@ -124,15 +121,17 @@
                             <StackPanel Grid.Row="7"
                                         Orientation="Horizontal">
                                 <DatePicker Margin="8,0,12,5"
-                                            Width="100"
+                                            Width="120"
                                             materialDesign:HintAssist.Hint="Pick Date"
                                             materialDesign:TextFieldAssist.HasClearButton="True"
-                                            Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
-                                <DatePicker Margin="0,0,5,5"
-                                            Width="100"
+                                            Foreground="Black"
+                                            Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
+                                            Height="30" />
+                                <DatePicker Width="125"
                                             materialDesign:HintAssist.Hint="Pick Date"
                                             materialDesign:TextFieldAssist.HasClearButton="True"
-                                            Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
+                                            Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
+                                            Height="30" />
                             </StackPanel>
                         </Grid>
                         <!-- List Equipment -->
@@ -336,7 +335,8 @@
                                     Height="50" />
                         </Grid>
                     </StackPanel>
-                    <StackPanel Grid.Column="1">
+                    <StackPanel Grid.Column="1"
+                                Margin="10,0,0,0">
                         <!-- List Show -->
                         <TextBlock Text="List Show"
                                    HorizontalAlignment="Left"
@@ -357,9 +357,25 @@
                                     Margin="25,15,25,0"
                                     Height="300"
                                     VerticalAlignment="Top">
-                                <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}"
+                                <DataGrid ItemsSource="{Binding Shows}"
+                                          AutoGenerateColumns="False"
                                           Background="Transparent"
-                                          Margin="0,45,0,0" />
+                                          Margin="0,45,0,0">
+
+                                    <DataGrid.Columns>
+                                        <DataGridTemplateColumn Header="">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <CheckBox />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <DataGridTextColumn Header="Show Name" Binding="{Binding ShowName}"/>
+                                        <DataGridTextColumn Header="Cost" Binding="{Binding Cost}" />
+                                        <DataGridTextColumn Header="Performer" Binding="{Binding Performer.FullName}" />
+                                        <DataGridTextColumn Header="Genre" Binding="{Binding Genre.Genre1}" />
+                                    </DataGrid.Columns>
+                                </DataGrid>
                             </Border>
                             <local:SearchBar Margin="35,25,90,0"
                                              VerticalAlignment="Top" />
@@ -380,9 +396,12 @@
                                     Height="300"
                                     VerticalAlignment="Top"
                                     BorderBrush="#FFC6C3F2">
-                                <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}"
+                                <DataGrid ItemsSource="{Binding Sponsors}"
+                                          AutoGenerateColumns="True"
                                           Background="Transparent"
-                                          Margin="0,55,0,0" />
+                                          Margin="0,55,0,0">
+
+                                </DataGrid>
                             </Border>
                             <local:SearchBar Margin="30,20,100,0"
                                              Width="380"
@@ -408,9 +427,16 @@
                                     Margin="25,15,25,0"
                                     Height="300"
                                     VerticalAlignment="Top">
-                                <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}"
+                                <DataGrid ItemsSource="{Binding Employees}"
+                                          AutoGenerateColumns="False"
                                           Background="Transparent"
-                                          Margin="0,45,0,0" />
+                                          Margin="0,45,0,0">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Employee ID" Binding="{Binding EmployeeId}" />
+                                        <DataGridTextColumn Header="Full Name" Binding="{Binding FullName}" />
+                                        <DataGridTextColumn Header="Role" Binding="{Binding Role.RoleName}" />
+                                    </DataGrid.Columns>
+                                </DataGrid>
                             </Border>
                             <local:SearchBar Margin="35,25,90,0"
                                              VerticalAlignment="Top" />

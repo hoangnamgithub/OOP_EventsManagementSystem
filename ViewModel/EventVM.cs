@@ -21,12 +21,21 @@ namespace OOP_EventsManagementSystem.ViewModel
     public class EventVM : INotifyPropertyChanged
     {
         public ICommand AddCommand { get; set; }
+
         private readonly EventManagementDbContext _context;
 
         public ObservableCollection<Model.Event> UpcomingEvents { get; set; }
         public ObservableCollection<Model.Event> HappeningEvents { get; set; }
         public ObservableCollection<Model.Event> CompletedEvents { get; set; }
+        public ObservableCollection<Model.EventType> EventTypes { get; set; }
+        public ObservableCollection<Model.Venue> Venues { get; set; }
+        public ObservableCollection<Model.Show> Shows { get; set; }
+        public ObservableCollection<Model.Sponsor> Sponsors { get; set; }
+        public ObservableCollection<Model.Employee> Employees { get; set; }
 
+
+
+        // properties -------------------------------------
         private DateTime _currentDate;
         public DateTime CurrentDate
         {
@@ -57,11 +66,10 @@ namespace OOP_EventsManagementSystem.ViewModel
         }
 
         private string _eventName;
-
         public string EventName
         {
             get => _eventName;
-            set 
+            set
             {
                 if (_eventName != value)
                 {
@@ -71,7 +79,7 @@ namespace OOP_EventsManagementSystem.ViewModel
             }
         }
 
-
+        // constructor -------------------------------------
         public EventVM()
         {
             AddCommand = new RelayCommand(ExecuteAddCommand, CanExecuteAddCommand);
@@ -81,6 +89,7 @@ namespace OOP_EventsManagementSystem.ViewModel
             LoadData();
         }
 
+        // method -------------------------------------
         private void LoadData()
         {
             var allEvents = _context.Events.Include(e => e.Venue).ToList();
@@ -88,10 +97,21 @@ namespace OOP_EventsManagementSystem.ViewModel
             UpcomingEvents = new ObservableCollection<Model.Event>(allEvents.Where(e => e.StartDate.ToDateTime(TimeOnly.MinValue) > DateTime.Now));
             HappeningEvents = new ObservableCollection<Model.Event>(allEvents.Where(e => e.StartDate.ToDateTime(TimeOnly.MinValue) <= DateTime.Now && e.EndDate.ToDateTime(TimeOnly.MinValue) >= DateTime.Now));
             CompletedEvents = new ObservableCollection<Model.Event>(allEvents.Where(e => e.EndDate.ToDateTime(TimeOnly.MinValue) < DateTime.Now));
+            EventTypes = new ObservableCollection<Model.EventType>(_context.EventTypes.ToList());
+            Venues = new ObservableCollection<Model.Venue>(_context.Venues.ToList());
+            Shows = new ObservableCollection<Model.Show>(_context.Shows.Include(s => s.Performer).Include(s => s.Genre).ToList());
+            Sponsors = new ObservableCollection<Sponsor>(_context.Sponsors.ToList());
+            Employees = new ObservableCollection<Model.Employee>(_context.Employees.Include(e => e.Role).ToList());
+
 
             OnPropertyChanged(nameof(UpcomingEvents));
             OnPropertyChanged(nameof(HappeningEvents));
             OnPropertyChanged(nameof(CompletedEvents));
+            OnPropertyChanged(nameof(EventTypes));
+            OnPropertyChanged(nameof(Venues));
+            OnPropertyChanged(nameof(Shows)); 
+            OnPropertyChanged(nameof(Sponsors)); 
+            OnPropertyChanged(nameof(Employees));
         }
 
         private void ExecuteAddCommand(object obj)
