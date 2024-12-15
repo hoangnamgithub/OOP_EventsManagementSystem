@@ -37,9 +37,14 @@ namespace OOP_EventsManagementSystem.ViewModel
         public ObservableCollection<Model.Show> Shows { get; set; }
         public ObservableCollection<Model.Sponsor> Sponsors { get; set; }
         public ObservableCollection<Model.Employee> Employees { get; set; }
+
+        public ObservableCollection<Model.EmployeeRole> EmployeeRoles { get; set; }
+        public ObservableCollection<Model.EquipmentName> EquipmentNames { get; set; }
+
         public ObservableCollection<Model.Show> PagedShows { get; set; }
         public int CurrentPage { get; private set; } = 1; // Trang hiện tại
         public int ItemsPerPage { get; set; } = 10; // Số lượng item mỗi trang
+
 
         // Phương thức cập nhật dữ liệu phân trang
         public void UpdatePagedShows()
@@ -165,7 +170,7 @@ namespace OOP_EventsManagementSystem.ViewModel
         {
             var eventDescriptionWindow = new EventDetails();
             eventDescriptionWindow.Show();
-            
+
         }
 
         // method -------------------------------------
@@ -181,17 +186,23 @@ namespace OOP_EventsManagementSystem.ViewModel
             Shows = new ObservableCollection<Model.Show>(_context.Shows.Include(s => s.Performer).Include(s => s.Genre).ToList());
             Sponsors = new ObservableCollection<Sponsor>(_context.Sponsors.ToList());
             Employees = new ObservableCollection<Model.Employee>(_context.Employees.Include(e => e.Role).ToList());
-
+            EmployeeRoles = new ObservableCollection<Model.EmployeeRole>(_context.EmployeeRoles.ToList());
+            EquipmentNames = new ObservableCollection<Model.EquipmentName>(_context.EquipmentNames.ToList());
 
             OnPropertyChanged(nameof(UpcomingEvents));
             OnPropertyChanged(nameof(HappeningEvents));
             OnPropertyChanged(nameof(CompletedEvents));
             OnPropertyChanged(nameof(EventTypes));
             OnPropertyChanged(nameof(Venues));
-            OnPropertyChanged(nameof(Shows)); 
-            OnPropertyChanged(nameof(Sponsors)); 
+            OnPropertyChanged(nameof(Shows));
+            OnPropertyChanged(nameof(Sponsors));
             OnPropertyChanged(nameof(Employees));
+
+            OnPropertyChanged(nameof(EmployeeRoles));
+            OnPropertyChanged(nameof(EquipmentNames));
+
             UpdatePagedShows();
+
         }
 
         private void ExecuteAddCommand(object obj)

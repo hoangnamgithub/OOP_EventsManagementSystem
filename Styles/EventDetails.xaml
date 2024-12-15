@@ -83,24 +83,22 @@
                                            Margin="5,5,5,0" />
                                 <ComboBox Margin="10,0,5,5"
                                           Width="155"
-                                          materialDesign:HintAssist.Hint="My Dinh Stadium">
-                                    <ComboBoxItem Content="SunRise Paradise" />
-                                    <ComboBoxItem Content="My Dinh Stadium" />
-                                    <ComboBoxItem Content="VCCA Art Gallery" />
-                                    <ComboBoxItem Content="Wofto Rooftop" />
-                                </ComboBox>
+                                          ItemsSource="{Binding Venues}"
+                                          DisplayMemberPath="VenueName"
+                                          SelectedValuePath="VenueId"
+                                          SelectedValue="{Binding SelectedVenueId, Mode=TwoWay}"
+                                          materialDesign:HintAssist.Hint="choosing..." />
                                 <TextBlock Text="Event Type"
                                            FontFamily="Bahnschrift SemiBold"
                                            FontSize="16"
                                            Margin="15,5,15,0" />
                                 <ComboBox Margin="8,0,12,5"
                                           Width="100"
-                                          materialDesign:HintAssist.Hint="Music">
-                                    <ComboBoxItem Content="Workshop" />
-                                    <ComboBoxItem Content="Sport" />
-                                    <ComboBoxItem Content="Music" />
-                                    <ComboBoxItem Content="Confrence" />
-                                </ComboBox>
+                                          ItemsSource="{Binding EventTypes}"
+                                          DisplayMemberPath="TypeName"
+                                          SelectedValuePath="EventTypeId"
+                                          SelectedValue="{Binding SelectedEventTypeId, Mode=TwoWay}"
+                                          materialDesign:HintAssist.Hint="choosing..." />
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <!-- Description -->
@@ -113,6 +111,7 @@
                                              Foreground="Black"
                                              FontFamily="Bahnschrift SemiLight"
                                              HorizontalAlignment="Left"
+                                             VerticalAlignment="Stretch"
                                              FontSize="14"
                                              Margin="5" />
                                 </Border>
@@ -120,25 +119,25 @@
                                 <StackPanel Orientation="Vertical"
                                             Margin="20,5,0,0">
                                     <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="Start Date"
+                                        <TextBlock
                                                    FontFamily="Bahnschrift SemiBold"
                                                    FontSize="16"
                                                    Margin="5,5,15,0"
-                                                   VerticalAlignment="Center" />
+                                                   VerticalAlignment="Bottom" ><Run Text="Start"/><LineBreak/><Run/></TextBlock>
                                         <DatePicker Margin="10,0,12,5"
-                                                    Width="100"
+                                                    
                                                     materialDesign:HintAssist.Hint="Pick Date"
                                                     materialDesign:TextFieldAssist.HasClearButton="True"
-                                                    Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
+                                                    Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Width="137" />
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="End Date"
+                                        <TextBlock
                                                    FontFamily="Bahnschrift SemiBold"
                                                    FontSize="16"
                                                    Margin="5,5,5,0"
-                                                   VerticalAlignment="Center" />
+                                                   VerticalAlignment="Bottom" ><Run Text="End"/><LineBreak/><Run/></TextBlock>
                                         <DatePicker Margin="30,0,12,5"
-                                                    Width="100"
+                                                    Width="135"
                                                     materialDesign:HintAssist.Hint="Pick Date"
                                                     materialDesign:TextFieldAssist.HasClearButton="True"
                                                     Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
@@ -157,7 +156,7 @@
                             <StackPanel>
                                 <Expander Expanded="Expander_Expanded"
                                           HorizontalAlignment="Stretch"
-                                          Header="List Show"
+                                          Header="Shows"
                                           Width="525"
                                           Margin="0,5,0,5"
                                           FontFamily="Bahnschrift SemiBold"
@@ -170,29 +169,29 @@
                                         <Border Margin="0"
                                                 Background="White"
                                                 Height="250">
-                                            <StackPanel>
-                                                <local:SearchBar Margin="10,5" HorizontalAlignment="Left"  VerticalAlignment="Top" />
-                                                <DataGrid ItemsSource="{Binding PagedShows}"
-          AutoGenerateColumns="False"
-          Background="Transparent"
-                                                          HorizontalScrollBarVisibility="Auto" Height="208">
-
-                                                    <DataGrid.Columns>
-                                                        <DataGridTemplateColumn Header="">
-                                                            <DataGridTemplateColumn.CellTemplate>
-                                                                <DataTemplate>
-                                                                    <CheckBox />
-                                                                </DataTemplate>
-                                                            </DataGridTemplateColumn.CellTemplate>
-                                                        </DataGridTemplateColumn>
-                                                        <DataGridTextColumn Header="Show Name" Binding="{Binding ShowName}"/>
-                                                        <DataGridTextColumn Header="Cost" Binding="{Binding Cost}" />
-                                                        <DataGridTextColumn Header="Performer" Binding="{Binding Performer.FullName}" />
-                                                        <DataGridTextColumn Header="Genre" Binding="{Binding Genre.Genre1}" />
-                                                    </DataGrid.Columns>
-                                                </DataGrid>
-                                            </StackPanel>
-                                          
+                                            <DataGrid ItemsSource="{Binding Shows}"
+                                                      AutoGenerateColumns="False"
+                                                      Background="Transparent"
+                                                      Margin="0,0,0,0"
+                                                      VerticalAlignment="Stretch">
+                                                <DataGrid.Columns>
+                                                    <DataGridTemplateColumn Header="">
+                                                        <DataGridTemplateColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <CheckBox />
+                                                            </DataTemplate>
+                                                        </DataGridTemplateColumn.CellTemplate>
+                                                    </DataGridTemplateColumn>
+                                                    <DataGridTextColumn Header="Show Name"
+                                                                        Binding="{Binding ShowName}" />
+                                                    <DataGridTextColumn Header="Cost"
+                                                                        Binding="{Binding Cost}" />
+                                                    <DataGridTextColumn Header="Performer"
+                                                                        Binding="{Binding Performer.FullName}" />
+                                                    <DataGridTextColumn Header="Genre"
+                                                                        Binding="{Binding Genre.Genre1}" />
+                                                </DataGrid.Columns>
+                                            </DataGrid>
                                         </Border>
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="5">
                                             <Button Style="{StaticResource GreenButton}" Height="40" Width="40" Content="&lt;" Command="{Binding PreviousPageCommand}" IsEnabled="{Binding CanGoPrevious}" />
@@ -203,7 +202,7 @@
                                 </Expander>
                                 <Expander Expanded="Expander_Expanded"
                                           HorizontalAlignment="Stretch"
-                                          Header="List Partner"
+                                          Header="Sponsors"
                                           Width="525"
                                           Margin="0,5,0,5"
                                           FontFamily="Bahnschrift SemiBold"
@@ -215,15 +214,12 @@
                                         <Border Margin="0"
                                                 Background="White"
                                                 Height="250">
-                                            <StackPanel>
-                                                <local:SearchBar Margin="10,5" HorizontalAlignment="Left"  VerticalAlignment="Top" />
-                                                <DataGrid ItemsSource="{Binding Sponsors}"
-          AutoGenerateColumns="True"
-          Background="Transparent"
-          >
-
-                                                </DataGrid>
-                                            </StackPanel>
+                                            <DataGrid ItemsSource="{Binding Sponsors}"
+                                                      AutoGenerateColumns="True"
+                                                      Background="Transparent"
+                                                      Margin="0,0,0,0"
+                                                      VerticalAlignment="Stretch"
+                                                      HorizontalAlignment="Stretch" />
                                         </Border>
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="5">
                                             <Button Style="{StaticResource GreenButton}" Height="40" Width="40" Content="&lt;" Command="{Binding PreviousPageCommand}" IsEnabled="{Binding CanGoPrevious}" />
@@ -234,7 +230,7 @@
                                 </Expander>
                                 <Expander Expanded="Expander_Expanded"
                                           HorizontalAlignment="Stretch"
-                                          Header="List Employee"
+                                          Header="Employees"
                                           Width="525"
                                           Margin="0,5,0,5"
                                           FontFamily="Bahnschrift SemiBold"
@@ -247,19 +243,12 @@
                                         <Border Margin="0"
                                                 Background="White"
                                                 Height="250">
-                                            <StackPanel>
-                                                <local:SearchBar Margin="10,5" HorizontalAlignment="Left"  VerticalAlignment="Top" />
-                                                <DataGrid ItemsSource="{Binding Employees}"
-          AutoGenerateColumns="False"
-          Background="Transparent"
-          >
-                                                    <DataGrid.Columns>
-                                                        <DataGridTextColumn Header="Employee ID" Binding="{Binding EmployeeId}" />
-                                                        <DataGridTextColumn Header="Full Name" Binding="{Binding FullName}" />
-                                                        <DataGridTextColumn Header="Role" Binding="{Binding Role.RoleName}" />
-                                                    </DataGrid.Columns>
-                                                </DataGrid>
-                                            </StackPanel>
+                                            <DataGrid ItemsSource="{Binding EmployeeRoles}"
+                                                      AutoGenerateColumns="True"
+                                                      Background="Transparent"
+                                                      Margin="0,0,0,0"
+                                                      VerticalAlignment="Stretch"
+                                                      HorizontalAlignment="Stretch" />
                                         </Border>
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="5">
                                             <Button Style="{StaticResource GreenButton}" Height="40" Width="40" Content="&lt;" Command="{Binding PreviousPageCommand}" IsEnabled="{Binding CanGoPrevious}" />
@@ -270,7 +259,7 @@
                                 </Expander>
                                 <Expander Expanded="Expander_Expanded"
                                           HorizontalAlignment="Stretch"
-                                          Header="List Equipment"
+                                          Header="Equipments"
                                           Width="525"
                                           Margin="0,5,0,5"
                                           FontFamily="Bahnschrift SemiBold"
@@ -283,10 +272,12 @@
                                         <Border Margin="0"
                                                 Background="White"
                                                 Height="250">
-                                            <StackPanel>
-                                                <local:SearchBar Margin="10,5" HorizontalAlignment="Left"  VerticalAlignment="Top" />
-                                                
-                                            </StackPanel>
+                                            <DataGrid ItemsSource="{Binding EquipmentNames}"
+                                                      AutoGenerateColumns="True"
+                                                      Background="Transparent"
+                                                      Margin="0,0,0,0"
+                                                      VerticalAlignment="Stretch"
+                                                      HorizontalAlignment="Stretch" />
                                         </Border>
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="5">
                                             <Button Style="{StaticResource GreenButton}" Height="40" Width="40" Content="&lt;" Command="{Binding PreviousPageCommand}" IsEnabled="{Binding CanGoPrevious}" />
