@@ -133,17 +133,17 @@ namespace OOP_EventsManagementSystem.View
 
 
 
-
+        // Kết thúc kéo
         private void Border_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            // Kết thúc kéo
+            
             if (_draggedBorder != null)
             {
                 _draggedBorder.ReleaseMouseCapture();
                 _draggedBorder = null;
             }
         }
-
+// Hoat anh phong to thu nho
         private void AnimateBorderResize(Border border)
         {
             if (border.Width != TargetGrid.ActualWidth || border.Height != TargetGrid.ActualHeight)
@@ -270,10 +270,10 @@ namespace OOP_EventsManagementSystem.View
             return parent as T;
         }
 
-
+        // Đây là một phương thức để lấy tọa độ của Border từ mỗi item trong ItemsControl
         private Rect GetBorderRect(BorderItem borderItem)
         {
-            // Đây là một phương thức để lấy tọa độ của Border từ mỗi item trong ItemsControl
+            
             return new Rect(0, 0, borderItem.Width, borderItem.Height);
         }
     }

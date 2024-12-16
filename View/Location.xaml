@@ -1,25 +1,32 @@
 ﻿<UserControl x:Class="OOP_EventsManagementSystem.View.Location"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:OOP_EventsManagementSystem.View"
-             mc:Ignorable="d" 
-             d:DesignHeight="555" d:DesignWidth="850"
+             mc:Ignorable="d"
+             d:DesignHeight="555"
+             d:DesignWidth="850"
              Background="#EFE9E4">
     <Grid>
         <!-- The Grid that the Borders should expand into -->
-        <Grid x:Name="TargetGrid" Height="290" Width="325" HorizontalAlignment="Center" VerticalAlignment="Center" />
-        <ScrollViewer x:Name="MyScrollViewer" 
-                  HorizontalScrollBarVisibility="Hidden" 
-                  VerticalScrollBarVisibility="Disabled"
-                  HorizontalAlignment="Center" 
-                  VerticalAlignment="Top"
+        <Grid x:Name="TargetGrid"
+              Height="290"
+              Width="325"
+              HorizontalAlignment="Center"
+              VerticalAlignment="Center" />
+        <!-- Thanh cuon ngang -->
+        <ScrollViewer x:Name="MyScrollViewer"
+                      HorizontalScrollBarVisibility="Hidden"
+                      VerticalScrollBarVisibility="Disabled"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Top"
                       Margin="0,20">
             <Grid>
-                <StackPanel Orientation="Horizontal" >
+                <StackPanel Orientation="Horizontal">
                     <!-- Các mục trong ItemsControl -->
-                    <ItemsControl x:Name="ItemsControl" ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                    <ItemsControl x:Name="ItemsControl"
+                                  ScrollViewer.HorizontalScrollBarVisibility="Auto">
                         <ItemsControl.ItemsPanel>
                             <!-- Sử dụng ItemsPanelTemplate để bố trí các mục theo hàng ngang -->
                             <ItemsPanelTemplate>
@@ -28,49 +35,63 @@
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Border x:Name="ResizableBorder" CornerRadius="16" Height="200" Width="205" Margin="15" MouseLeftButtonDown="Border_MouseLeftButtonDown" MouseMove="Border_MouseMove" MouseLeftButtonUp="Border_MouseLeftButtonUp" MouseEnter="Border_MouseEnter" MouseLeave="Border_MouseLeave">
+                                <Border x:Name="ResizableBorder"
+                                        CornerRadius="16"
+                                        Height="200"
+                                        Width="205"
+                                        Margin="15"
+                                        MouseLeftButtonDown="Border_MouseLeftButtonDown"
+                                        MouseMove="Border_MouseMove"
+                                        MouseLeftButtonUp="Border_MouseLeftButtonUp"
+                                        MouseEnter="Border_MouseEnter"
+                                        MouseLeave="Border_MouseLeave">
+                                    <!--Thanh phan ben trong border-->
                                     <StackPanel>
-                                        <TextBlock Style="{StaticResource txt_header}" Text="{Binding HeaderText}" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="5"/>
-                                        <Image Source="{Binding ImageSource}" VerticalAlignment="Bottom"/>
-                                        <Button Content="Open" Height="50" Background="Transparent" BorderBrush="Transparent" Foreground="LightGray" VerticalContentAlignment="Top" Click="OpenButton_Click"/>
+                                        <TextBlock Style="{StaticResource txt_header}"
+                                                   Text="{Binding HeaderText}"
+                                                   VerticalAlignment="Top"
+                                                   HorizontalAlignment="Center"
+                                                   Margin="5" />
+                                        <Image Source="{Binding ImageSource}"
+                                               VerticalAlignment="Bottom" />
+                                        <Button Content="Open"
+                                                Height="50"
+                                                Background="Transparent"
+                                                BorderBrush="Transparent"
+                                                Foreground="LightGray"
+                                                VerticalContentAlignment="Top"
+                                                Click="OpenButton_Click" />
                                     </StackPanel>
                                 </Border>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
-
-                    <!-- Rectangle với viền đứt đoạn ở cuối -->
-                    <Grid Margin="15,0,330,0">
-                        <!-- Viền đứt đoạn -->
-                        <Rectangle
- RadiusX="16" RadiusY="16"
- Stroke="LightPink"
- StrokeThickness="5"
- StrokeDashArray="4,2" 
-         Margin="5" 
-         Height="200" Width="205"/>
-
-                        <!-- Nội dung bên trong -->
-                        <Button Content="+" 
-     Background="Transparent" 
-     BorderBrush="Transparent" 
-     Height="100" 
-     Width="100" 
-     Foreground="Black" 
-     FontSize="60" 
-     HorizontalAlignment="Center" 
-     VerticalAlignment="Center" Margin="0,0,0,17"/>
-                    </Grid>
                 </StackPanel>
             </Grid>
-
         </ScrollViewer>
-        <Border CornerRadius="16" Background="LightSeaGreen" Height="200" Width="600" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="40,0,0,30">
-            <DataGrid Background="Transparent" Margin="5"/>
+        <Border CornerRadius="16"
+                Background="LightSeaGreen"
+                Height="200"
+                Width="600"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"
+                Margin="40,0,0,30">
+            <DataGrid Background="Transparent"
+                      Margin="5" />
         </Border>
-        <Button Content="Edit" Style="{StaticResource PurpleButton}" Height="50" Width="100" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,55,100"/>
-        <Button Content="Delete" Style="{StaticResource PinkButton}" Height="50" Width="100" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,55,50"/>
-
+        <Button Content="Edit"
+                Style="{StaticResource PurpleButton}"
+                Height="50"
+                Width="100"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Margin="0,0,55,100" />
+        <Button Content="Delete"
+                Style="{StaticResource PinkButton}"
+                Height="50"
+                Width="100"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Margin="0,0,55,50" />
     </Grid>
-
 </UserControl>
