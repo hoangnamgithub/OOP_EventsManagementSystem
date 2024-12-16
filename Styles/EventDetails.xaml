@@ -192,13 +192,8 @@
                                                     </DataGrid.Columns>
                                                 </DataGrid>
                                             </StackPanel>
-                                          
+
                                         </Border>
-                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="5">
-                                            <Button Style="{StaticResource GreenButton}" Height="40" Width="40" Content="&lt;" Command="{Binding PreviousPageCommand}" IsEnabled="{Binding CanGoPrevious}" />
-                                            <TextBlock Text="{Binding CurrentPage}" VerticalAlignment="Center" Margin="10,0" />
-                                            <Button Style="{StaticResource GreenButton}" Height="40" Width="40" Content=">" Command="{Binding NextPageCommand}" IsEnabled="{Binding CanGoNext}"/>
-                                        </StackPanel>
                                     </Grid>
                                 </Expander>
                                 <Expander Expanded="Expander_Expanded"

@@ -18,64 +18,32 @@
                 <!-- Up Coming Tab -->
                 <TabItem Header="Up Coming">
                     <Grid>
-                        <ScrollViewer Margin="0,45,0,0">
-                            <ItemsControl ItemsSource="{Binding UpcomingEvents}">
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <WrapPanel Orientation="Horizontal" />
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <Button Background="Transparent"
-                                                BorderBrush="Transparent"
-                                                Height="140"
-                                                Command="{Binding DataContext.OpenEventDetailCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-                                                CommandParameter="{Binding}">
-                                            <styles:EventDetailCard_v2 />
-                                        </Button>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </ScrollViewer>
-                        <Grid HorizontalAlignment="Left"
-                              VerticalAlignment="Top"
-                              Margin="5,10,0,10">
-                            <Border Height="35"
-                                    Width="280"
-                                    CornerRadius="16"
-                                    Background="#FFDCDCE6"
-                                    HorizontalAlignment="Left">
-                                <TextBox x:Name="SearchBox"
-                                         Text="Search......"
-                                         Foreground="Gray"
-                                         Margin="5,0,30,0"
-                                         VerticalAlignment="Center"
-                                         FontSize="14"
-                                         FontFamily="Bahnschrift SemiLight"
-                                         CaretBrush="{x:Null}"
-                                         Background="{x:Null}"
-                                         BorderBrush="{x:Null}"
-                                         SelectionBrush="{x:Null}"
-                                         SelectionTextBrush="{x:Null}"
-                                         GotFocus="SearchBox_GotFocus"
-                                         LostFocus="SearchBox_LostFocus" />
-                            </Border>
-                            <Image Source="pack://application:,,,/Resources/Images/magnify.png"
-                                   HorizontalAlignment="Left"
-                                   Margin="250,0,0,0"
-                                   Width="20"
-                                   Height="20" />
-                            <Button x:Name="btn_search"
-                                    Width="20"
-                                    Height="20"
-                                    HorizontalAlignment="Left"
-                                    Margin="250,0,0,0"
-                                    Click="btn_search_Click"
-                                    Background="{x:Null}"
-                                    BorderBrush="{x:Null}" />
-                        </Grid>
+                        <ItemsControl ItemsSource="{Binding CurrentPageItems}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel Orientation="Horizontal" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Button Background="Transparent"
+                        BorderBrush="Transparent"
+                        Height="140"
+                        Command="{Binding DataContext.OpenEventDetailCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                        CommandParameter="{Binding}">
+                                        <styles:EventDetailCard_v2 />
+                                    </Button>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="5,5,45,5">
+                            <Button Style="{StaticResource PurpleButton}" Height="40" Width="40" Content="&lt;" Command="{Binding PreviousPageCommand}" IsEnabled="{Binding CanGoPrevious}" />
+                            <TextBlock Text="{Binding CurrentPage}" VerticalAlignment="Center" Margin="10,0" />
+                            <Button Style="{StaticResource PurpleButton}" Height="40" Width="40" Content="&gt;" Command="{Binding NextPageCommand}" IsEnabled="{Binding CanGoNext}" />
+                        </StackPanel>
                     </Grid>
+
                 </TabItem>
                 <!-- Happening Tab -->
                 <TabItem Header="Happening">
