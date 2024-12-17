@@ -18,7 +18,7 @@
                 <!-- Up Coming Tab -->
                 <TabItem Header="Up Coming">
                     <Grid>
-                        <Grid>
+                        <ScrollViewer Margin="10,55,0,10">
                             <ItemsControl ItemsSource="{ Binding UpcomingPagination.PagedCollection}">
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
@@ -27,35 +27,47 @@
                                 </ItemsControl.ItemsPanel>
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
-                                        <Button Name="btn_EventDetailCard" 
-                    Background="Transparent"
-                        BorderBrush="Transparent"
-                        Height="140"
-                        Command="{Binding DataContext.OpenEventDetailCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-                        CommandParameter="{Binding}">
+                                        <Button Name="btn_EventDetailCard"
+                                                Background="Transparent"
+                                                BorderBrush="Transparent"
+                                                Height="140"
+                                                Command="{Binding DataContext.OpenEventDetailCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                                CommandParameter="{Binding}">
                                             <styles:EventDetailCard_v2 />
                                         </Button>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
-                                <Button Content="Previous"
-                Command="{Binding PreviousPageCommand}"
-                CommandParameter="Upcoming"
-                IsEnabled="{Binding UpcomingPagination.CanGoPrevious}" />
-                                <TextBlock Text="{Binding UpcomingPagination.CurrentPage}" Margin="5"/>
-                                <TextBlock Text="of" Margin="5"/>
-                                <TextBlock Text="{Binding UpcomingPagination.TotalPages}" Margin="5"/>
-                                <Button Content="Next"
-                Command="{Binding NextPageCommand}"
-                CommandParameter="Upcoming"
-                IsEnabled="{Binding UpcomingPagination.CanGoNext}" />
-                            </StackPanel>
-                        </Grid>
-
+                        </ScrollViewer>
+                        <StackPanel Orientation="Horizontal"
+                                    HorizontalAlignment="Right"
+                                    Margin="10,5,25,0">
+                            <Button Content="&lt;"
+                                    Command="{Binding PreviousPageCommand}"
+                                    CommandParameter="Upcoming"
+                                    IsEnabled="{Binding UpcomingPagination.CanGoPrevious}"
+                                    Style="{StaticResource PurpleButton}"
+                                    Height="50"
+                                    Width="50"
+                                    VerticalAlignment="Top" />
+                            <TextBlock Text="{Binding UpcomingPagination.CurrentPage}"
+                                       Margin="5,15" />
+                            <TextBlock Text="of"
+                                       Margin="5,15" />
+                            <TextBlock Text="{Binding UpcomingPagination.TotalPages}"
+                                       Margin="5,15" />
+                            <Button Content=">"
+                                    Command="{Binding NextPageCommand}"
+                                    CommandParameter="Upcoming"
+                                    IsEnabled="{Binding UpcomingPagination.CanGoNext}"
+                                    Style="{StaticResource PurpleButton}"
+                                    Height="50"
+                                    Width="50"
+                                    VerticalAlignment="Top" />
+                        </StackPanel>
                         <Grid HorizontalAlignment="Left"
                               VerticalAlignment="Top"
-                              Margin="5,10,0,10">
+                              Margin="25,10,0,10">
                             <Border Height="35"
                                     Width="280"
                                     CornerRadius="16"
@@ -95,153 +107,179 @@
                 <!-- Happening Tab -->
                 <TabItem Header="Happening">
                     <Grid>
-                        <StackPanel>
-                            <Grid Margin="10,5">
-                                <Border Height="35"
-                                        Width="280"
-                                        CornerRadius="16"
-                                        Background="#FFDCDCE6"
-                                        HorizontalAlignment="Left">
-                                    <TextBox x:Name="SearchBox2"
-                                             Text="Search......"
-                                             Foreground="Gray"
-                                             Margin="5,0,30,0"
-                                             VerticalAlignment="Center"
-                                             FontSize="14"
-                                             FontFamily="Bahnschrift SemiLight"
-                                             CaretBrush="{x:Null}"
-                                             Background="{x:Null}"
-                                             BorderBrush="{x:Null}"
-                                             SelectionBrush="{x:Null}"
-                                             SelectionTextBrush="{x:Null}"
-                                             GotFocus="SearchBox_GotFocus"
-                                             LostFocus="SearchBox_LostFocus" />
-                                </Border>
-                                <Image Source="pack://application:,,,/Resources/Images/magnify.png"
-                                       HorizontalAlignment="Left"
-                                       Margin="250,0,0,0"
-                                       Width="20"
-                                       Height="20" />
-                                <Button x:Name="btn_search2"
-                                        Width="20"
-                                        Height="20"
-                                        HorizontalAlignment="Left"
-                                        Margin="250,0,0,0"
-                                        Click="btn_search_Click"
-                                        Background="{x:Null}"
-                                        BorderBrush="{x:Null}" />
-                            </Grid>
-                            <Grid>
-                                <ItemsControl ItemsSource="{ Binding HappeningPagination.PagedCollection}">
-                                    <ItemsControl.ItemsPanel>
-                                        <ItemsPanelTemplate>
-                                            <WrapPanel Orientation="Horizontal" />
-                                        </ItemsPanelTemplate>
-                                    </ItemsControl.ItemsPanel>
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <Button Name="btn_EventDetailCard" 
-    Background="Transparent"
-        BorderBrush="Transparent"
-        Height="140"
-        Command="{Binding DataContext.OpenEventDetailCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-        CommandParameter="{Binding}">
-                                                <styles:EventDetailCard_v2 />
-                                            </Button>
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ItemsControl>
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
-                                    <Button Content="Previous"
-Command="{Binding PreviousPageCommand}"
-CommandParameter="Happening"
-IsEnabled="{Binding HappeningPagination.CanGoPrevious}" />
-                                    <TextBlock Text="{Binding HappeningPagination.CurrentPage}" Margin="5"/>
-                                    <TextBlock Text="of" Margin="5"/>
-                                    <TextBlock Text="{Binding HappeningPagination.TotalPages}" Margin="5"/>
-                                    <Button Content="Next"
-Command="{Binding NextPageCommand}"
-CommandParameter="Happening"
-IsEnabled="{Binding HappeningPagination.CanGoNext}" />
-                                </StackPanel>
-                            </Grid>
+                        <ScrollViewer Margin="10,55,0,10">
+                            <ItemsControl ItemsSource="{ Binding HappeningPagination.PagedCollection}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel Orientation="Horizontal" />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Button Name="btn_EventDetailCard"
+                                                Background="Transparent"
+                                                BorderBrush="Transparent"
+                                                Height="140"
+                                                Command="{Binding DataContext.OpenEventDetailCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                                CommandParameter="{Binding}">
+                                            <styles:EventDetailCard_v2 />
+                                        </Button>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                        <StackPanel Orientation="Horizontal"
+                                    HorizontalAlignment="Right"
+                                    Margin="10,5,25,0">
+                            <Button Content="&lt;"
+                                    Command="{Binding PreviousPageCommand}"
+                                    CommandParameter="Happening"
+                                    IsEnabled="{Binding HappeningPagination.CanGoPrevious}"
+                                    Style="{StaticResource PurpleButton}"
+                                    Height="50"
+                                    Width="50"
+                                    VerticalAlignment="Top" />
+                            <TextBlock Text="{Binding HappeningPagination.CurrentPage}"
+                                       Margin="5,15" />
+                            <TextBlock Text="of"
+                                       Margin="5,15" />
+                            <TextBlock Text="{Binding HappeningPagination.TotalPages}"
+                                       Margin="5,15" />
+                            <Button Content=">"
+                                    Command="{Binding NextPageCommand}"
+                                    CommandParameter="Happening"
+                                    IsEnabled="{Binding HappeningPagination.CanGoNext}"
+                                    Style="{StaticResource PurpleButton}"
+                                    Height="50"
+                                    Width="50"
+                                    VerticalAlignment="Top" />
                         </StackPanel>
+                        <Grid HorizontalAlignment="Left"
+                              VerticalAlignment="Top"
+                              Margin="25,10,0,10">
+                            <Border Height="35"
+                                    Width="280"
+                                    CornerRadius="16"
+                                    Background="#FFDCDCE6"
+                                    HorizontalAlignment="Left">
+                                <TextBox x:Name="SearchBox1"
+                                         Text="Search......"
+                                         Foreground="Gray"
+                                         Margin="5,0,30,0"
+                                         VerticalAlignment="Center"
+                                         FontSize="14"
+                                         FontFamily="Bahnschrift SemiLight"
+                                         CaretBrush="{x:Null}"
+                                         Background="{x:Null}"
+                                         BorderBrush="{x:Null}"
+                                         SelectionBrush="{x:Null}"
+                                         SelectionTextBrush="{x:Null}"
+                                         GotFocus="SearchBox_GotFocus"
+                                         LostFocus="SearchBox_LostFocus" />
+                            </Border>
+                            <Image Source="pack://application:,,,/Resources/Images/magnify.png"
+                                   HorizontalAlignment="Left"
+                                   Margin="250,0,0,0"
+                                   Width="20"
+                                   Height="20" />
+                            <Button x:Name="btn_search1"
+                                    Width="20"
+                                    Height="20"
+                                    HorizontalAlignment="Left"
+                                    Margin="250,0,0,0"
+                                    Click="btn_search_Click"
+                                    Background="{x:Null}"
+                                    BorderBrush="{x:Null}" />
+                        </Grid>
                     </Grid>
                 </TabItem>
                 <!-- Completed Tab -->
                 <TabItem Header="Completed">
                     <Grid>
-                        <StackPanel>
-                            <Grid Margin="10,5">
-                                <Border Height="35"
-                                        Width="280"
-                                        CornerRadius="16"
-                                        Background="#FFDCDCE6"
-                                        HorizontalAlignment="Left">
-                                    <TextBox x:Name="SearchBox3"
-                                             Text="Search......"
-                                             Foreground="Gray"
-                                             Margin="5,0,30,0"
-                                             VerticalAlignment="Center"
-                                             FontSize="14"
-                                             FontFamily="Bahnschrift SemiLight"
-                                             CaretBrush="{x:Null}"
-                                             Background="{x:Null}"
-                                             BorderBrush="{x:Null}"
-                                             SelectionBrush="{x:Null}"
-                                             SelectionTextBrush="{x:Null}"
-                                             GotFocus="SearchBox_GotFocus"
-                                             LostFocus="SearchBox_LostFocus" />
-                                </Border>
-                                <Image Source="pack://application:,,,/Resources/Images/magnify.png"
-                                       HorizontalAlignment="Left"
-                                       Margin="250,0,0,0"
-                                       Width="20"
-                                       Height="20" />
-                                <Button x:Name="btn_search3"
-                                        Width="20"
-                                        Height="20"
-                                        HorizontalAlignment="Left"
-                                        Margin="250,0,0,0"
-                                        Click="btn_search_Click"
-                                        Background="{x:Null}"
-                                        BorderBrush="{x:Null}" />
-                            </Grid>
-                            <Grid>
-                                <ItemsControl ItemsSource="{ Binding CompletedPagination.PagedCollection}">
-                                    <ItemsControl.ItemsPanel>
-                                        <ItemsPanelTemplate>
-                                            <WrapPanel Orientation="Horizontal" />
-                                        </ItemsPanelTemplate>
-                                    </ItemsControl.ItemsPanel>
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <Button Name="btn_EventDetailCard" 
-    Background="Transparent"
-        BorderBrush="Transparent"
-        Height="140"
-        Command="{Binding DataContext.OpenEventDetailCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-        CommandParameter="{Binding}">
-                                                <styles:EventDetailCard_v2 />
-                                            </Button>
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ItemsControl>
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
-                                    <Button Content="Previous"
-Command="{Binding PreviousPageCommand}"
-CommandParameter="Completed"
-IsEnabled="{Binding CompletedPagination.CanGoPrevious}" />
-                                    <TextBlock Text="{Binding CompletedPagination.CurrentPage}" Margin="5"/>
-                                    <TextBlock Text="of" Margin="5"/>
-                                    <TextBlock Text="{Binding CompletedPagination.TotalPages}" Margin="5"/>
-                                    <Button Content="Next"
-Command="{Binding NextPageCommand}"
-CommandParameter="Completed"
-IsEnabled="{Binding CompletedPagination.CanGoNext}" />
-                                </StackPanel>
-                            </Grid>
+                        <ScrollViewer Margin="10,55,0,10">
+                            <ItemsControl ItemsSource="{ Binding CompletedPagination.PagedCollection}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel Orientation="Horizontal" />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Button Name="btn_EventDetailCard"
+                                                Background="Transparent"
+                                                BorderBrush="Transparent"
+                                                Height="140"
+                                                Command="{Binding DataContext.OpenEventDetailCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                                CommandParameter="{Binding}">
+                                            <styles:EventDetailCard_v2 />
+                                        </Button>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                        <StackPanel Orientation="Horizontal"
+                                    HorizontalAlignment="Right"
+                                    Margin="10,5,25,0">
+                            <Button Content="&lt;"
+                                    Command="{Binding PreviousPageCommand}"
+                                    CommandParameter="Completed"
+                                    IsEnabled="{Binding CompletedPagination.CanGoPrevious}"
+                                    Style="{StaticResource PurpleButton}"
+                                    Height="50"
+                                    Width="50"
+                                    VerticalAlignment="Top" />
+                            <TextBlock Text="{Binding CompletedPagination.CurrentPage}"
+                                       Margin="5,15" />
+                            <TextBlock Text="of"
+                                       Margin="5,15" />
+                            <TextBlock Text="{Binding CompletedPagination.TotalPages}"
+                                       Margin="5,15" />
+                            <Button Content=">"
+                                    Command="{Binding NextPageCommand}"
+                                    CommandParameter="Completed"
+                                    IsEnabled="{Binding CompletedPagination.CanGoNext}"
+                                    Style="{StaticResource PurpleButton}"
+                                    Height="50"
+                                    Width="50"
+                                    VerticalAlignment="Top" />
                         </StackPanel>
+                        <Grid HorizontalAlignment="Left"
+                              VerticalAlignment="Top"
+                              Margin="25,10,0,10">
+                            <Border Height="35"
+                                    Width="280"
+                                    CornerRadius="16"
+                                    Background="#FFDCDCE6"
+                                    HorizontalAlignment="Left">
+                                <TextBox x:Name="SearchBox2"
+                                         Text="Search......"
+                                         Foreground="Gray"
+                                         Margin="5,0,30,0"
+                                         VerticalAlignment="Center"
+                                         FontSize="14"
+                                         FontFamily="Bahnschrift SemiLight"
+                                         CaretBrush="{x:Null}"
+                                         Background="{x:Null}"
+                                         BorderBrush="{x:Null}"
+                                         SelectionBrush="{x:Null}"
+                                         SelectionTextBrush="{x:Null}"
+                                         GotFocus="SearchBox_GotFocus"
+                                         LostFocus="SearchBox_LostFocus" />
+                            </Border>
+                            <Image Source="pack://application:,,,/Resources/Images/magnify.png"
+                                   HorizontalAlignment="Left"
+                                   Margin="250,0,0,0"
+                                   Width="20"
+                                   Height="20" />
+                            <Button x:Name="btn_search2"
+                                    Width="20"
+                                    Height="20"
+                                    HorizontalAlignment="Left"
+                                    Margin="250,0,0,0"
+                                    Click="btn_search_Click"
+                                    Background="{x:Null}"
+                                    BorderBrush="{x:Null}" />
+                        </Grid>
                     </Grid>
                 </TabItem>
             </TabControl>
@@ -256,12 +294,12 @@ IsEnabled="{Binding CompletedPagination.CanGoNext}" />
                 <Rectangle Fill="#D6DC82"
                            RadiusX="20"
                            RadiusY="20"
-                           Margin="50,10,165,510" />
+                           Margin="50,10,140,510" />
                 <TextBlock Text="{Binding CurrentDate, StringFormat={}{0:dd MMM}}"
                            Foreground="White"
                            VerticalAlignment="Center"
                            HorizontalAlignment="Center"
-                           Margin="50,10,165,510"
+                           Margin="50,10,140,510"
                            FontSize="18"
                            FontFamily="Bahnschrift SemiBold" />
                 <!-- Add Button -->
@@ -273,7 +311,7 @@ IsEnabled="{Binding CompletedPagination.CanGoNext}" />
                         Command="{Binding AddCommand}"
                         VerticalAlignment="Top"
                         HorizontalAlignment="Right"
-                        Margin="0,5,45,0"
+                        Margin="0,5,25,0"
                         IsEnabled="{Binding IsAddButtonEnabled}" />
             </Grid>
         </Grid>

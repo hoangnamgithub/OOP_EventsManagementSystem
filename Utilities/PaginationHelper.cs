@@ -18,6 +18,7 @@ namespace OOP_EventsManagementSystem.Utilities
         public ObservableCollection<T> FullCollection { get; set; }
         public ObservableCollection<T> PagedCollection { get; set; }
 
+        
         public int CurrentPage
         {
             get => _currentPage;
@@ -34,7 +35,7 @@ namespace OOP_EventsManagementSystem.Utilities
 
         public int TotalPages => (FullCollection.Count + _itemsPerPage - 1) / _itemsPerPage;
 
-        public PaginationHelper(IEnumerable<T> collection, int itemsPerPage = 9)
+        public PaginationHelper(IEnumerable<T> collection, int itemsPerPage = 45)
         {
             _itemsPerPage = itemsPerPage;
             FullCollection = new ObservableCollection<T>(collection);

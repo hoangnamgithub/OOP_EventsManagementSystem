@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OOP_EventsManagementSystem.Styles"
-                xmlns:vm="clr-namespace:OOP_EventsManagementSystem.ViewModel"
+        xmlns:vm="clr-namespace:OOP_EventsManagementSystem.ViewModel"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="EventDetails"
@@ -14,7 +14,6 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         Background="Transparent">
-
     <Border CornerRadius="16"
             Background="#EFE9E4"
             BorderThickness="10"
@@ -117,23 +116,29 @@
                                 <StackPanel Orientation="Vertical"
                                             Margin="20,5,0,0">
                                     <StackPanel Orientation="Horizontal">
-                                        <TextBlock
-                                                   FontFamily="Bahnschrift SemiBold"
+                                        <TextBlock FontFamily="Bahnschrift SemiBold"
                                                    FontSize="16"
                                                    Margin="5,5,15,0"
-                                                   VerticalAlignment="Bottom" ><Run Text="Start"/><LineBreak/><Run/></TextBlock>
+                                                   VerticalAlignment="Bottom">
+                                            <Run Text="Start" />
+                                            <LineBreak />
+                                            <Run />
+                                        </TextBlock>
                                         <DatePicker Margin="10,0,12,5"
-                                                    
                                                     materialDesign:HintAssist.Hint="Pick Date"
                                                     materialDesign:TextFieldAssist.HasClearButton="True"
-                                                    Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Width="137" />
+                                                    Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
+                                                    Width="137" />
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
-                                        <TextBlock
-                                                   FontFamily="Bahnschrift SemiBold"
+                                        <TextBlock FontFamily="Bahnschrift SemiBold"
                                                    FontSize="16"
                                                    Margin="5,5,5,0"
-                                                   VerticalAlignment="Bottom" ><Run Text="End"/><LineBreak/><Run/></TextBlock>
+                                                   VerticalAlignment="Bottom">
+                                            <Run Text="End" />
+                                            <LineBreak />
+                                            <Run />
+                                        </TextBlock>
                                         <DatePicker Margin="30,0,12,5"
                                                     Width="135"
                                                     materialDesign:HintAssist.Hint="Pick Date"
@@ -155,50 +160,76 @@
                                 <Expander Expanded="Expander_Expanded"
                                           HorizontalAlignment="Stretch"
                                           Header="Shows"
-                                          Width="525"
+                                          Width="535"
+                                          
                                           Margin="0,5,0,5"
                                           FontFamily="Bahnschrift SemiBold"
                                           FontSize="18"
                                           Foreground="White"
                                           Background="#FFD96073">
+                                    <Grid Margin="5,0,5,5"
+                                          TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
+                                        <StackPanel Background="White"
+                                                    Orientation="Vertical">
+                                            <StackPanel Orientation="Horizontal">
+                                                <local:SearchBar Margin="10,0,0,0"/>
+                                                <Button Content="&lt;"
+                                                        Command="{Binding PreviousPageCommand}"
+                                                        CommandParameter="Shows"
+                                                        IsEnabled="{Binding ShowsPagination.CanGoPrevious}"
+                                                        Style="{StaticResource PurpleButton}"
+                                                        Height="30"
+                                                        Width="30"
+                                                        VerticalAlignment="Center" Margin="0" />
+                                                <TextBlock Text="{Binding ShowsPagination.CurrentPage}"
+                                                           Margin="3,15,2,0" />
+                                                <TextBlock Text="of"
+                                                           Margin="2,15,3,0" />
+                                                <TextBlock Text="{Binding ShowsPagination.TotalPages}"
+                                                           Margin="5,15" />
+                                                <Button Content=">"
+                                                        Command="{Binding NextPageCommand}"
+                                                        CommandParameter="Shows"
+                                                        IsEnabled="{Binding UpcomingPagination.CanGoNext}"
+                                                        Style="{StaticResource PurpleButton}"
+                                                        Height="30"
+                                                        Width="30"
+                                                        VerticalAlignment="Center" />
+                                            </StackPanel>
+                                            <Border Margin="0"
+                                                    Height="350">
+                                                <DataGrid ItemsSource="{Binding ShowsPagination.PagedCollection}"
+                                                          AutoGenerateColumns="False"
+                                                          Background="Transparent"
+                                                          Margin="0,0,0,0"
+                                                          VerticalAlignment="Stretch"
+                                                          VirtualizingStackPanel.IsVirtualizing="True"
+                                                          VirtualizingStackPanel.VirtualizationMode="Recycling"
+                                                          EnableRowVirtualization="True"
+                                                          EnableColumnVirtualization="True"
+                                                          ScrollViewer.CanContentScroll="True">
+                                                    <DataGrid.Columns>
+                                                        <DataGridTemplateColumn Header="">
+                                                            <DataGridTemplateColumn.CellTemplate>
+                                                                <DataTemplate>
+                                                                    <CheckBox />
+                                                                </DataTemplate>
+                                                            </DataGridTemplateColumn.CellTemplate>
+                                                        </DataGridTemplateColumn>
+                                                        <DataGridTextColumn Header="Show Name"
+                                                                            Binding="{Binding ShowName}" />
+                                                        <DataGridTextColumn Header="Cost"
+                                                                            Binding="{Binding Cost}" />
+                                                        <DataGridTextColumn Header="Performer"
+                                                                            Binding="{Binding Performer.FullName}" />
+                                                        <DataGridTextColumn Header="Genre"
+                                                                            Binding="{Binding Genre.Genre1}" />
+                                                    </DataGrid.Columns>
+                                                </DataGrid>
+                                            </Border>
+                                        </StackPanel>
 
-                                    <Grid Margin="5,0,5,5"                                                 
-      TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
-                                        <Border Margin="0"
-            Background="White"
-            Height="250">
-                                            <DataGrid ItemsSource="{Binding Shows}"
-                  AutoGenerateColumns="False"
-                  Background="Transparent"
-                  Margin="0,0,0,0"
-                  VerticalAlignment="Stretch"
-                  VirtualizingStackPanel.IsVirtualizing="True"
-                  VirtualizingStackPanel.VirtualizationMode="Recycling"
-                  EnableRowVirtualization="True"
-                  EnableColumnVirtualization="True"
-                  ScrollViewer.CanContentScroll="True">
-
-                                                <DataGrid.Columns>
-                                                    <DataGridTemplateColumn Header="">
-                                                        <DataGridTemplateColumn.CellTemplate>
-                                                            <DataTemplate>
-                                                                <CheckBox />
-                                                            </DataTemplate>
-                                                        </DataGridTemplateColumn.CellTemplate>
-                                                    </DataGridTemplateColumn>
-                                                    <DataGridTextColumn Header="Show Name"
-                                    Binding="{Binding ShowName}" />
-                                                    <DataGridTextColumn Header="Cost"
-                                    Binding="{Binding Cost}" />
-                                                    <DataGridTextColumn Header="Performer"
-                                    Binding="{Binding Performer.FullName}" />
-                                                    <DataGridTextColumn Header="Genre"
-                                    Binding="{Binding Genre.Genre1}" />
-                                                </DataGrid.Columns>
-                                            </DataGrid>
-                                        </Border>
                                     </Grid>
-
                                 </Expander>
                                 <Expander Expanded="Expander_Expanded"
                                           HorizontalAlignment="Stretch"
@@ -209,22 +240,43 @@
                                           FontSize="18"
                                           Foreground="White"
                                           Background="#FFC6C3F2">
-                                    <Grid Margin="5,0,5,5"                                               
-                                                TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
+                                    <Grid Margin="5,0,5,5"
+                                          TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
                                         <Border Margin="0"
                                                 Background="White"
                                                 Height="250">
-                                            <DataGrid ItemsSource="{Binding Sponsors}"
+                                            <DataGrid ItemsSource="{Binding SponsorsPagination.PagedCollection}"
                                                       AutoGenerateColumns="True"
                                                       Background="Transparent"
                                                       Margin="0,0,0,0"
                                                       VerticalAlignment="Stretch"
                                                       HorizontalAlignment="Stretch" />
                                         </Border>
-                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="5">
-                                            <Button Style="{StaticResource GreenButton}" Height="40" Width="40" Content="&lt;" Command="{Binding PreviousPageCommand}" IsEnabled="{Binding CanGoPrevious}" />
-                                            <TextBlock Text="{Binding CurrentPage}" VerticalAlignment="Center" Margin="10,0" />
-                                            <Button Style="{StaticResource GreenButton}" Height="40" Width="40" Content=">" Command="{Binding NextPageCommand}" IsEnabled="{Binding CanGoNext}"/>
+                                        <StackPanel Orientation="Horizontal"
+                                                    HorizontalAlignment="Right"
+                                                    VerticalAlignment="Bottom">
+                                            <Button Content="&lt;"
+                                                    Command="{Binding PreviousPageCommand}"
+                                                    CommandParameter="Sponsors"
+                                                    IsEnabled="{Binding SponsorsPagination.CanGoPrevious}"
+                                                    Style="{StaticResource PurpleButton}"
+                                                    Height="35"
+                                                    Width="35"
+                                                    VerticalAlignment="Center" />
+                                            <TextBlock Text="{Binding SponsorsPagination.CurrentPage}"
+                                                       Margin="5,15" />
+                                            <TextBlock Text="of"
+                                                       Margin="5,15" />
+                                            <TextBlock Text="{Binding SponsorsPagination.TotalPages}"
+                                                       Margin="5,15" />
+                                            <Button Content=">"
+                                                    Command="{Binding NextPageCommand}"
+                                                    CommandParameter="Sponsors"
+                                                    IsEnabled="{Binding SponsorsPagination.CanGoNext}"
+                                                    Style="{StaticResource PurpleButton}"
+                                                    Height="35"
+                                                    Width="35"
+                                                    VerticalAlignment="Center" />
                                         </StackPanel>
                                     </Grid>
                                 </Expander>
@@ -238,22 +290,42 @@
                                           Foreground="White"
                                           Background="#FF7785E2">
                                     <Grid Margin="5,0,5,5"
-                                               
-                                                TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
+                                          TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
                                         <Border Margin="0"
                                                 Background="White"
                                                 Height="250">
-                                            <DataGrid ItemsSource="{Binding EmployeeRoles}"
+                                            <DataGrid ItemsSource="{Binding EmployeeRolesPagination.PagedCollection}"
                                                       AutoGenerateColumns="True"
                                                       Background="Transparent"
                                                       Margin="0,0,0,0"
                                                       VerticalAlignment="Stretch"
                                                       HorizontalAlignment="Stretch" />
                                         </Border>
-                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="5">
-                                            <Button Style="{StaticResource GreenButton}" Height="40" Width="40" Content="&lt;" Command="{Binding PreviousPageCommand}" IsEnabled="{Binding CanGoPrevious}" />
-                                            <TextBlock Text="{Binding CurrentPage}" VerticalAlignment="Center" Margin="10,0" />
-                                            <Button Style="{StaticResource GreenButton}" Height="40" Width="40" Content=">" Command="{Binding NextPageCommand}" IsEnabled="{Binding CanGoNext}"/>
+                                        <StackPanel Orientation="Horizontal"
+                                                    HorizontalAlignment="Right"
+                                                    VerticalAlignment="Bottom">
+                                            <Button Content="&lt;"
+                                                    Command="{Binding PreviousPageCommand}"
+                                                    CommandParameter="EmployeeRoles"
+                                                    IsEnabled="{Binding EmployeeRolesPagination.CanGoPrevious}"
+                                                    Style="{StaticResource PurpleButton}"
+                                                    Height="35"
+                                                    Width="35"
+                                                    VerticalAlignment="Center" />
+                                            <TextBlock Text="{Binding EmployeeRolesPagination.CurrentPage}"
+                                                       Margin="5,15" />
+                                            <TextBlock Text="of"
+                                                       Margin="5,15" />
+                                            <TextBlock Text="{Binding EmployeeRolesPagination.TotalPages}"
+                                                       Margin="5,15" />
+                                            <Button Content=">"
+                                                    Command="{Binding NextPageCommand}"
+                                                    CommandParameter="EmployeeRoles"
+                                                    IsEnabled="{Binding EmployeeRolesPagination.CanGoNext}"
+                                                    Style="{StaticResource PurpleButton}"
+                                                    Height="35"
+                                                    Width="35"
+                                                    VerticalAlignment="Center" />
                                         </StackPanel>
                                     </Grid>
                                 </Expander>
@@ -267,22 +339,42 @@
                                           Foreground="White"
                                           Background="#FFD6DC82">
                                     <Grid Margin="5,0,5,5"
-                                                
-                                                TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
+                                          TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
                                         <Border Margin="0"
                                                 Background="White"
                                                 Height="250">
-                                            <DataGrid ItemsSource="{Binding EquipmentNames}"
+                                            <DataGrid ItemsSource="{Binding EquipmentNamesPagination.PagedCollection}"
                                                       AutoGenerateColumns="True"
                                                       Background="Transparent"
                                                       Margin="0,0,0,0"
                                                       VerticalAlignment="Stretch"
                                                       HorizontalAlignment="Stretch" />
                                         </Border>
-                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="5">
-                                            <Button Style="{StaticResource GreenButton}" Height="40" Width="40" Content="&lt;" Command="{Binding PreviousPageCommand}" IsEnabled="{Binding CanGoPrevious}" />
-                                            <TextBlock Text="{Binding CurrentPage}" VerticalAlignment="Center" Margin="10,0" />
-                                            <Button Style="{StaticResource GreenButton}" Height="40" Width="40" Content=">" Command="{Binding NextPageCommand}" IsEnabled="{Binding CanGoNext}"/>
+                                        <StackPanel Orientation="Horizontal"
+                                                    HorizontalAlignment="Right"
+                                                    VerticalAlignment="Bottom">
+                                            <Button Content="&lt;"
+                                                    Command="{Binding PreviousPageCommand}"
+                                                    CommandParameter="EquipmentNames"
+                                                    IsEnabled="{Binding EquipmentNamesPagination.CanGoPrevious}"
+                                                    Style="{StaticResource PurpleButton}"
+                                                    Height="35"
+                                                    Width="35"
+                                                    VerticalAlignment="Center" />
+                                            <TextBlock Text="{Binding EquipmentNamesPagination.CurrentPage}"
+                                                       Margin="5,15" />
+                                            <TextBlock Text="of"
+                                                       Margin="5,15" />
+                                            <TextBlock Text="{Binding EquipmentNamesPagination.TotalPages}"
+                                                       Margin="5,15" />
+                                            <Button Content=">"
+                                                    Command="{Binding NextPageCommand}"
+                                                    CommandParameter="EquipmentNames"
+                                                    IsEnabled="{Binding EquipmentNamesPagination.CanGoNext}"
+                                                    Style="{StaticResource PurpleButton}"
+                                                    Height="35"
+                                                    Width="35"
+                                                    VerticalAlignment="Center" />
                                         </StackPanel>
                                     </Grid>
                                 </Expander>
@@ -307,7 +399,7 @@
             <StackPanel VerticalAlignment="Bottom"
                         Margin="0,0,10,25">
                 <Grid Margin="10,0,15,0"
-                      Width="230"
+                      Width="216"
                       HorizontalAlignment="Right">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="30" />
@@ -324,7 +416,7 @@
                             BorderThickness="8">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="150" />
+                                <ColumnDefinition Width="140" />
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
                             <StackPanel Orientation="Vertical"
@@ -349,11 +441,11 @@
                                            FontFamily="Bahnschrift SemiLight"
                                            VerticalAlignment="Center"
                                            Margin="0,0,0,10" />
-                                <TextBlock Text="Service Cost (15%)"
+                                <TextBlock
                                            FontSize="16"
                                            FontFamily="Bahnschrift SemiLight"
                                            VerticalAlignment="Center"
-                                           Margin="0,0,0,15" />
+                                           Margin="0,0,0,15" ><Run Text="Service Cost "/><LineBreak/><Run Text="(15%)"/></TextBlock>
                                 <TextBlock Text="Total"
                                            FontSize="16"
                                            FontFamily="Bahnschrift SemiBold"
@@ -392,12 +484,13 @@
                                            VerticalAlignment="Center"
                                            HorizontalAlignment="Right"
                                            Margin="0,0,0,15" />
-                                <TextBlock Text="750$"
+                            </StackPanel>
+                            <TextBlock Text="750$"
                                            FontSize="16"
                                            FontFamily="Bahnschrift SemiBold"
-                                           VerticalAlignment="Center"
-                                           HorizontalAlignment="Right" />
-                            </StackPanel>
+                                           Grid.Column="1" Margin="10,180,10,10"
+                                       HorizontalAlignment="Right"
+                                           />
                         </Grid>
                     </Border>
                 </Grid>
