@@ -23,11 +23,25 @@ namespace OOP_EventsManagementSystem.ViewModel
         public ICommand AddCommand { get; set; }
         public ICommand OpenEventDetailCommand { get; set; }
         public ICommand ConfirmCommand { get; }
-        public ICommand PreviousPageCommand { get; }
+
         public ICommand NextPageCommand { get; }
+        public ICommand PreviousPageCommand { get; }
+
 
 
         private readonly EventManagementDbContext _context;
+        private ObservableCollection<Model.Event> _pagedUpcomingEvents;
+        public ObservableCollection<Model.Event> PagedUpcomingEvents
+        {
+            get => _pagedUpcomingEvents;
+            set
+            {
+                _pagedUpcomingEvents = value;
+                OnPropertyChanged(nameof(PagedUpcomingEvents));
+            }
+        }
+
+        
 
         public ObservableCollection<Model.Event> UpcomingEvents { get; set; }
         public ObservableCollection<Model.Event> HappeningEvents { get; set; }
@@ -42,48 +56,31 @@ namespace OOP_EventsManagementSystem.ViewModel
         public ObservableCollection<Model.EquipmentName> EquipmentNames { get; set; }
 
         public ObservableCollection<Model.Show> PagedShows { get; set; }
-        public int CurrentPage { get; private set; } = 1; // Trang hiện tại
-        public int ItemsPerPage { get; set; } = 10; // Số lượng item mỗi trang
-
-
-        // Phương thức cập nhật dữ liệu phân trang
-        public void UpdatePagedShows()
+        private int _currentPage = 1;
+        private int _itemsPerPage = 9;
+        public int CurrentPage
         {
-            if (Shows == null || Shows.Count == 0) return;
-
-            PagedShows = new ObservableCollection<Model.Show>(
-                Shows.Skip((CurrentPage - 1) * ItemsPerPage).Take(ItemsPerPage));
-            OnPropertyChanged(nameof(PagedShows));
-        }
-        public void PreviousPage()
-        {
-            if (CurrentPage > 1)
+            get => _currentPage;
+            set
             {
-                CurrentPage--;
-                UpdatePagedShows();
+                _currentPage = value;
                 OnPropertyChanged(nameof(CurrentPage));
-                OnPropertyChanged(nameof(CanGoPrevious)); // Nếu Binding trực tiếp tới trạng thái
-                OnPropertyChanged(nameof(CanGoNext));     // Nếu Binding trực tiếp tới trạng thái
+                UpdatePagedUpcomingEvents();
+            }
+        }
+        public int TotalPages => (UpcomingEvents.Count + _itemsPerPage - 1) / _itemsPerPage;
+
+        private void UpdatePagedUpcomingEvents()
+        {
+            if (UpcomingEvents != null)
+            {
+                var startIndex = (_currentPage - 1) * _itemsPerPage;
+                var pagedData = UpcomingEvents.Skip(startIndex).Take(_itemsPerPage).ToList();
+
+                PagedUpcomingEvents = new ObservableCollection<Model.Event>(pagedData);
             }
         }
 
-        public void NextPage()
-        {
-            if (CurrentPage < Math.Ceiling((double)Shows.Count / ItemsPerPage))
-            {
-                CurrentPage++;
-                UpdatePagedShows();
-                OnPropertyChanged(nameof(CurrentPage));
-                OnPropertyChanged(nameof(CanGoPrevious));
-                OnPropertyChanged(nameof(CanGoNext)); // Thông báo cập nhật
-            }
-        }
-
-        // Điều kiện để di chuyển tới trang trước
-        public bool CanGoPrevious => CurrentPage >= 1;
-
-        // Điều kiện để di chuyển tới trang kế
-        public bool CanGoNext => CurrentPage < Math.Ceiling((double)Shows.Count / ItemsPerPage);
 
 
         // properties -------------------------------------
@@ -138,33 +135,42 @@ namespace OOP_EventsManagementSystem.ViewModel
             IsAddButtonEnabled = true;
             CurrentDate = DateTime.Now;
             _context = new EventManagementDbContext();
-            LoadData();
+            
 
             // Khởi tạo các command
             ConfirmCommand = new Utilities.RelayCommand(ExecuteConfirmCommand);
-            PreviousPageCommand = new Utilities.RelayCommand(ExecutePreviousPage, (obj) => CanGoPrevious);
-            NextPageCommand = new Utilities.RelayCommand(ExecuteNextPage, (obj) => CanGoNext);
-            UpdatePagedShows();
+            LoadData();
+
+            NextPageCommand = new RelayCommand(NextPage, CanGoNext);
+            PreviousPageCommand = new RelayCommand(PreviousPage, CanGoPrevious);
+            UpdatePagedUpcomingEvents();
         }
         private void ExecuteConfirmCommand(object parameter)
         {
             // Thực hiện logic xác nhận tại đây
         }
 
-        // Lệnh chuyển về trang trước
-        private void ExecutePreviousPage(object parameter)
+        private void NextPage(object parameter)
         {
-            PreviousPage();
-            CommandManager.InvalidateRequerySuggested(); // Cập nhật trạng thái các nút
+            if (CurrentPage < TotalPages)
+            {
+                CurrentPage++;
+                UpdatePagedUpcomingEvents();
+            }
         }
 
-        // Lệnh chuyển tới trang kế
-        private void ExecuteNextPage(object parameter)
+        private void PreviousPage(object parameter)
         {
-            NextPage();
-            CommandManager.InvalidateRequerySuggested(); // Cập nhật trạng thái các nút
+            if (CurrentPage > 1)
+            {
+                CurrentPage--;
+                UpdatePagedUpcomingEvents();
+            }
         }
-       
+
+        private bool CanGoNext(object parameter) => CurrentPage < TotalPages;
+        private bool CanGoPrevious(object parameter) => CurrentPage > 0 ;
+             
         // Thực thi lệnh để mở cửa sổ EventDescription
         private void ExecuteOpenEventDetailCommand(object obj)
         {
@@ -178,9 +184,18 @@ namespace OOP_EventsManagementSystem.ViewModel
         {
             var allEvents = _context.Events.Include(e => e.Venue).ToList();
 
-            UpcomingEvents = new ObservableCollection<Model.Event>(allEvents.Where(e => e.StartDate.ToDateTime(TimeOnly.MinValue) > DateTime.Now));
-            HappeningEvents = new ObservableCollection<Model.Event>(allEvents.Where(e => e.StartDate.ToDateTime(TimeOnly.MinValue) <= DateTime.Now && e.EndDate.ToDateTime(TimeOnly.MinValue) >= DateTime.Now));
-            CompletedEvents = new ObservableCollection<Model.Event>(allEvents.Where(e => e.EndDate.ToDateTime(TimeOnly.MinValue) < DateTime.Now));
+            UpcomingEvents = new ObservableCollection<Model.Event>(
+                allEvents.Where(e => e.StartDate.ToDateTime(TimeOnly.MinValue) > DateTime.Now)
+            );
+
+            // Các dữ liệu khác
+            HappeningEvents = new ObservableCollection<Model.Event>(
+                allEvents.Where(e => e.StartDate.ToDateTime(TimeOnly.MinValue) <= DateTime.Now
+                                  && e.EndDate.ToDateTime(TimeOnly.MinValue) >= DateTime.Now)
+            );
+            CompletedEvents = new ObservableCollection<Model.Event>(
+                allEvents.Where(e => e.EndDate.ToDateTime(TimeOnly.MinValue) < DateTime.Now)
+            );
             EventTypes = new ObservableCollection<Model.EventType>(_context.EventTypes.ToList());
             Venues = new ObservableCollection<Model.Venue>(_context.Venues.ToList());
             Shows = new ObservableCollection<Model.Show>(_context.Shows.Include(s => s.Performer).Include(s => s.Genre).ToList());
@@ -188,6 +203,9 @@ namespace OOP_EventsManagementSystem.ViewModel
             Employees = new ObservableCollection<Model.Employee>(_context.Employees.Include(e => e.Role).ToList());
             EmployeeRoles = new ObservableCollection<Model.EmployeeRole>(_context.EmployeeRoles.ToList());
             EquipmentNames = new ObservableCollection<Model.EquipmentName>(_context.EquipmentNames.ToList());
+
+            // Gọi hàm cập nhật phân trang
+            UpdatePagedUpcomingEvents();
 
             OnPropertyChanged(nameof(UpcomingEvents));
             OnPropertyChanged(nameof(HappeningEvents));
@@ -199,9 +217,7 @@ namespace OOP_EventsManagementSystem.ViewModel
             OnPropertyChanged(nameof(Employees));
 
             OnPropertyChanged(nameof(EmployeeRoles));
-            OnPropertyChanged(nameof(EquipmentNames));
-
-            UpdatePagedShows();
+            OnPropertyChanged(nameof(EquipmentNames));             
 
         }
 

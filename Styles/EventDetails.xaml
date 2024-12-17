@@ -161,17 +161,23 @@
                                           FontSize="18"
                                           Foreground="White"
                                           Background="#FFD96073">
-                                    
-                                    <Grid Margin="5,0,5,5"                                                
-                                                TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
+
+                                    <Grid Margin="5,0,5,5"                                                 
+      TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
                                         <Border Margin="0"
-                                                Background="White"
-                                                Height="250">
+            Background="White"
+            Height="250">
                                             <DataGrid ItemsSource="{Binding Shows}"
-                                                      AutoGenerateColumns="False"
-                                                      Background="Transparent"
-                                                      Margin="0,0,0,0"
-                                                      VerticalAlignment="Stretch">
+                  AutoGenerateColumns="False"
+                  Background="Transparent"
+                  Margin="0,0,0,0"
+                  VerticalAlignment="Stretch"
+                  VirtualizingStackPanel.IsVirtualizing="True"
+                  VirtualizingStackPanel.VirtualizationMode="Recycling"
+                  EnableRowVirtualization="True"
+                  EnableColumnVirtualization="True"
+                  ScrollViewer.CanContentScroll="True">
+
                                                 <DataGrid.Columns>
                                                     <DataGridTemplateColumn Header="">
                                                         <DataGridTemplateColumn.CellTemplate>
@@ -181,22 +187,18 @@
                                                         </DataGridTemplateColumn.CellTemplate>
                                                     </DataGridTemplateColumn>
                                                     <DataGridTextColumn Header="Show Name"
-                                                                        Binding="{Binding ShowName}" />
+                                    Binding="{Binding ShowName}" />
                                                     <DataGridTextColumn Header="Cost"
-                                                                        Binding="{Binding Cost}" />
+                                    Binding="{Binding Cost}" />
                                                     <DataGridTextColumn Header="Performer"
-                                                                        Binding="{Binding Performer.FullName}" />
+                                    Binding="{Binding Performer.FullName}" />
                                                     <DataGridTextColumn Header="Genre"
-                                                                        Binding="{Binding Genre.Genre1}" />
+                                    Binding="{Binding Genre.Genre1}" />
                                                 </DataGrid.Columns>
                                             </DataGrid>
                                         </Border>
-                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="5">
-                                            <Button Style="{StaticResource GreenButton}" Height="40" Width="40" Content="&lt;" Command="{Binding PreviousPageCommand}" IsEnabled="{Binding CanGoPrevious}" />
-                                            <TextBlock Text="{Binding CurrentPage}" VerticalAlignment="Center" Margin="10,0" />
-                                            <Button Style="{StaticResource GreenButton}" Height="40" Width="40" Content=">" Command="{Binding NextPageCommand}" IsEnabled="{Binding CanGoNext}"/>
-                                        </StackPanel>
                                     </Grid>
+
                                 </Expander>
                                 <Expander Expanded="Expander_Expanded"
                                           HorizontalAlignment="Stretch"

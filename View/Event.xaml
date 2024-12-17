@@ -18,8 +18,8 @@
                 <!-- Up Coming Tab -->
                 <TabItem Header="Up Coming">
                     <Grid>
-                        <ScrollViewer Margin="0,45,0,0">
-                            <ItemsControl ItemsSource="{Binding UpcomingEvents}">
+                        <Grid>
+                            <ItemsControl ItemsSource="{Binding PagedUpcomingEvents}">
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <WrapPanel Orientation="Horizontal" />
@@ -28,17 +28,25 @@
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
                                         <Button Name="btn_EventDetailCard" 
-                                            Background="Transparent"
-                                                BorderBrush="Transparent"
-                                                Height="140"
-                                                Command="{Binding DataContext.OpenEventDetailCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-                                                CommandParameter="{Binding}">
+                    Background="Transparent"
+                        BorderBrush="Transparent"
+                        Height="140"
+                        Command="{Binding DataContext.OpenEventDetailCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                        CommandParameter="{Binding}">
                                             <styles:EventDetailCard_v2 />
                                         </Button>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
-                        </ScrollViewer>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+                                <Button Content="Previous" Command="{Binding PreviousPageCommand}" Margin="5"/>
+                                <TextBlock Text="{Binding CurrentPage}" FontSize="16" VerticalAlignment="Center" Margin="5"/>
+                                <TextBlock Text="/" FontSize="16" VerticalAlignment="Center" Margin="5"/>
+                                <TextBlock Text="{Binding TotalPages}" FontSize="16" VerticalAlignment="Center" Margin="5"/>
+                                <Button Content="Next" Command="{Binding NextPageCommand}" Margin="5"/>
+                            </StackPanel>
+                        </Grid>
+
                         <Grid HorizontalAlignment="Left"
                               VerticalAlignment="Top"
                               Margin="5,10,0,10">
