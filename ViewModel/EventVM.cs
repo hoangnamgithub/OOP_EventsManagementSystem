@@ -24,23 +24,13 @@ namespace OOP_EventsManagementSystem.ViewModel
         public ICommand OpenEventDetailCommand { get; set; }
         public ICommand ConfirmCommand { get; }
 
+        public PaginationHelper<Model.Event> UpcomingPagination { get; set; }
+        public PaginationHelper<Model.Event> HappeningPagination { get; set; }
+        public PaginationHelper<Model.Event> CompletedPagination { get; set; }
+
         public ICommand NextPageCommand { get; }
         public ICommand PreviousPageCommand { get; }
-
-
-
         private readonly EventManagementDbContext _context;
-        private ObservableCollection<Model.Event> _pagedUpcomingEvents;
-        public ObservableCollection<Model.Event> PagedUpcomingEvents
-        {
-            get => _pagedUpcomingEvents;
-            set
-            {
-                _pagedUpcomingEvents = value;
-                OnPropertyChanged(nameof(PagedUpcomingEvents));
-            }
-        }
-
         
 
         public ObservableCollection<Model.Event> UpcomingEvents { get; set; }
@@ -56,33 +46,7 @@ namespace OOP_EventsManagementSystem.ViewModel
         public ObservableCollection<Model.EquipmentName> EquipmentNames { get; set; }
 
         public ObservableCollection<Model.Show> PagedShows { get; set; }
-        private int _currentPage = 1;
-        private int _itemsPerPage = 9;
-        public int CurrentPage
-        {
-            get => _currentPage;
-            set
-            {
-                _currentPage = value;
-                OnPropertyChanged(nameof(CurrentPage));
-                UpdatePagedUpcomingEvents();
-            }
-        }
-        public int TotalPages => (UpcomingEvents.Count + _itemsPerPage - 1) / _itemsPerPage;
-
-        private void UpdatePagedUpcomingEvents()
-        {
-            if (UpcomingEvents != null)
-            {
-                var startIndex = (_currentPage - 1) * _itemsPerPage;
-                var pagedData = UpcomingEvents.Skip(startIndex).Take(_itemsPerPage).ToList();
-
-                PagedUpcomingEvents = new ObservableCollection<Model.Event>(pagedData);
-            }
-        }
-
-
-
+       
         // properties -------------------------------------
         private DateTime _currentDate;
         public DateTime CurrentDate
@@ -141,35 +105,15 @@ namespace OOP_EventsManagementSystem.ViewModel
             ConfirmCommand = new Utilities.RelayCommand(ExecuteConfirmCommand);
             LoadData();
 
-            NextPageCommand = new RelayCommand(NextPage, CanGoNext);
-            PreviousPageCommand = new RelayCommand(PreviousPage, CanGoPrevious);
-            UpdatePagedUpcomingEvents();
+            NextPageCommand = new RelayCommand(ExecuteNextPage);
+            PreviousPageCommand = new RelayCommand(ExecutePreviousPage);
+
         }
         private void ExecuteConfirmCommand(object parameter)
         {
             // Thực hiện logic xác nhận tại đây
         }
-
-        private void NextPage(object parameter)
-        {
-            if (CurrentPage < TotalPages)
-            {
-                CurrentPage++;
-                UpdatePagedUpcomingEvents();
-            }
-        }
-
-        private void PreviousPage(object parameter)
-        {
-            if (CurrentPage > 1)
-            {
-                CurrentPage--;
-                UpdatePagedUpcomingEvents();
-            }
-        }
-
-        private bool CanGoNext(object parameter) => CurrentPage < TotalPages;
-        private bool CanGoPrevious(object parameter) => CurrentPage > 0 ;
+      
              
         // Thực thi lệnh để mở cửa sổ EventDescription
         private void ExecuteOpenEventDetailCommand(object obj)
@@ -183,6 +127,23 @@ namespace OOP_EventsManagementSystem.ViewModel
         private void LoadData()
         {
             var allEvents = _context.Events.Include(e => e.Venue).ToList();
+
+            UpcomingPagination = new PaginationHelper<Model.Event>(
+                allEvents.Where(e => e.StartDate.ToDateTime(TimeOnly.MinValue) > DateTime.Now)
+            );
+
+            HappeningPagination = new PaginationHelper<Model.Event>(
+                allEvents.Where(e => e.StartDate.ToDateTime(TimeOnly.MinValue) <= DateTime.Now &&
+                                     e.EndDate.ToDateTime(TimeOnly.MinValue) >= DateTime.Now)
+            );
+
+            CompletedPagination = new PaginationHelper<Model.Event>(
+                allEvents.Where(e => e.EndDate.ToDateTime(TimeOnly.MinValue) < DateTime.Now)
+            );
+
+            OnPropertyChanged(nameof(UpcomingPagination));
+            OnPropertyChanged(nameof(HappeningPagination));
+            OnPropertyChanged(nameof(CompletedPagination));
 
             UpcomingEvents = new ObservableCollection<Model.Event>(
                 allEvents.Where(e => e.StartDate.ToDateTime(TimeOnly.MinValue) > DateTime.Now)
@@ -204,8 +165,7 @@ namespace OOP_EventsManagementSystem.ViewModel
             EmployeeRoles = new ObservableCollection<Model.EmployeeRole>(_context.EmployeeRoles.ToList());
             EquipmentNames = new ObservableCollection<Model.EquipmentName>(_context.EquipmentNames.ToList());
 
-            // Gọi hàm cập nhật phân trang
-            UpdatePagedUpcomingEvents();
+            
 
             OnPropertyChanged(nameof(UpcomingEvents));
             OnPropertyChanged(nameof(HappeningEvents));
@@ -215,10 +175,22 @@ namespace OOP_EventsManagementSystem.ViewModel
             OnPropertyChanged(nameof(Shows));
             OnPropertyChanged(nameof(Sponsors));
             OnPropertyChanged(nameof(Employees));
-
             OnPropertyChanged(nameof(EmployeeRoles));
             OnPropertyChanged(nameof(EquipmentNames));             
 
+        }
+        private void ExecuteNextPage(object parameter)
+        {
+            if (parameter?.ToString() == "Upcoming") UpcomingPagination.NextPage();
+            if (parameter?.ToString() == "Happening") HappeningPagination.NextPage();
+            if (parameter?.ToString() == "Completed") CompletedPagination.NextPage();
+        }
+
+        private void ExecutePreviousPage(object parameter)
+        {
+            if (parameter?.ToString() == "Upcoming") UpcomingPagination.PreviousPage();
+            if (parameter?.ToString() == "Happening") HappeningPagination.PreviousPage();
+            if (parameter?.ToString() == "Completed") CompletedPagination.PreviousPage();
         }
 
         private void ExecuteAddCommand(object obj)

@@ -19,7 +19,7 @@
                 <TabItem Header="Up Coming">
                     <Grid>
                         <Grid>
-                            <ItemsControl ItemsSource="{Binding PagedUpcomingEvents}">
+                            <ItemsControl ItemsSource="{ Binding UpcomingPagination.PagedCollection}">
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <WrapPanel Orientation="Horizontal" />
@@ -39,11 +39,17 @@
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
-                                <Button Content="Previous" Command="{Binding PreviousPageCommand}" Margin="5"/>
-                                <TextBlock Text="{Binding CurrentPage}" FontSize="16" VerticalAlignment="Center" Margin="5"/>
-                                <TextBlock Text="/" FontSize="16" VerticalAlignment="Center" Margin="5"/>
-                                <TextBlock Text="{Binding TotalPages}" FontSize="16" VerticalAlignment="Center" Margin="5"/>
-                                <Button Content="Next" Command="{Binding NextPageCommand}" Margin="5"/>
+                                <Button Content="Previous"
+                Command="{Binding PreviousPageCommand}"
+                CommandParameter="Upcoming"
+                IsEnabled="{Binding UpcomingPagination.CanGoPrevious}" />
+                                <TextBlock Text="{Binding UpcomingPagination.CurrentPage}" Margin="5"/>
+                                <TextBlock Text="of" Margin="5"/>
+                                <TextBlock Text="{Binding UpcomingPagination.TotalPages}" Margin="5"/>
+                                <Button Content="Next"
+                Command="{Binding NextPageCommand}"
+                CommandParameter="Upcoming"
+                IsEnabled="{Binding UpcomingPagination.CanGoNext}" />
                             </StackPanel>
                         </Grid>
 
@@ -125,8 +131,8 @@
                                         Background="{x:Null}"
                                         BorderBrush="{x:Null}" />
                             </Grid>
-                            <ScrollViewer Margin="0,0,0,0">
-                                <ItemsControl ItemsSource="{Binding HappeningEvents}">
+                            <Grid>
+                                <ItemsControl ItemsSource="{ Binding HappeningPagination.PagedCollection}">
                                     <ItemsControl.ItemsPanel>
                                         <ItemsPanelTemplate>
                                             <WrapPanel Orientation="Horizontal" />
@@ -134,17 +140,31 @@
                                     </ItemsControl.ItemsPanel>
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
-                                            <Button Background="Transparent"
-                                                    BorderBrush="Transparent"
-                                                    Height="140"
-                                                    Command="{Binding DataContext.OpenEventDetailCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-                                                    CommandParameter="{Binding}">
-                                                <styles:EventDetailCard_v2/>
+                                            <Button Name="btn_EventDetailCard" 
+    Background="Transparent"
+        BorderBrush="Transparent"
+        Height="140"
+        Command="{Binding DataContext.OpenEventDetailCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+        CommandParameter="{Binding}">
+                                                <styles:EventDetailCard_v2 />
                                             </Button>
                                         </DataTemplate>
                                     </ItemsControl.ItemTemplate>
                                 </ItemsControl>
-                            </ScrollViewer>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+                                    <Button Content="Previous"
+Command="{Binding PreviousPageCommand}"
+CommandParameter="Upcoming"
+IsEnabled="{Binding UpcomingPagination.CanGoPrevious}" />
+                                    <TextBlock Text="{Binding HappeningPagination.CurrentPage}" Margin="5"/>
+                                    <TextBlock Text="of" Margin="5"/>
+                                    <TextBlock Text="{Binding HappeningPagination.TotalPages}" Margin="5"/>
+                                    <Button Content="Next"
+Command="{Binding NextPageCommand}"
+CommandParameter="Upcoming"
+IsEnabled="{Binding UpcomingPagination.CanGoNext}" />
+                                </StackPanel>
+                            </Grid>
                         </StackPanel>
                     </Grid>
                 </TabItem>
@@ -187,8 +207,8 @@
                                         Background="{x:Null}"
                                         BorderBrush="{x:Null}" />
                             </Grid>
-                            <ScrollViewer Margin="0,0,0,0">
-                                <ItemsControl ItemsSource="{Binding CompletedEvents}">
+                            <Grid>
+                                <ItemsControl ItemsSource="{ Binding CompletedPagination.PagedCollection}">
                                     <ItemsControl.ItemsPanel>
                                         <ItemsPanelTemplate>
                                             <WrapPanel Orientation="Horizontal" />
@@ -196,17 +216,31 @@
                                     </ItemsControl.ItemsPanel>
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
-                                            <Button Background="Transparent"
-                                                    BorderBrush="Transparent"
-                                                    Height="140"
-                                                    Command="{Binding DataContext.OpenEventDetailCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-                                                    CommandParameter="{Binding}">
-                                                <styles:EventDetailCard_v2/>
+                                            <Button Name="btn_EventDetailCard" 
+    Background="Transparent"
+        BorderBrush="Transparent"
+        Height="140"
+        Command="{Binding DataContext.OpenEventDetailCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+        CommandParameter="{Binding}">
+                                                <styles:EventDetailCard_v2 />
                                             </Button>
                                         </DataTemplate>
                                     </ItemsControl.ItemTemplate>
                                 </ItemsControl>
-                            </ScrollViewer>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+                                    <Button Content="Previous"
+Command="{Binding PreviousPageCommand}"
+CommandParameter="Completed"
+IsEnabled="{Binding CompletedPagination.CanGoPrevious}" />
+                                    <TextBlock Text="{Binding CompletedPagination.CurrentPage}" Margin="5"/>
+                                    <TextBlock Text="of" Margin="5"/>
+                                    <TextBlock Text="{Binding CompletedPagination.TotalPages}" Margin="5"/>
+                                    <Button Content="Next"
+Command="{Binding NextPageCommand}"
+CommandParameter="Completed"
+IsEnabled="{Binding CompletedPagination.CanGoNext}" />
+                                </StackPanel>
+                            </Grid>
                         </StackPanel>
                     </Grid>
                 </TabItem>
