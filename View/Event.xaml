@@ -154,15 +154,15 @@
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
                                     <Button Content="Previous"
 Command="{Binding PreviousPageCommand}"
-CommandParameter="Upcoming"
-IsEnabled="{Binding UpcomingPagination.CanGoPrevious}" />
+CommandParameter="Happening"
+IsEnabled="{Binding HappeningPagination.CanGoPrevious}" />
                                     <TextBlock Text="{Binding HappeningPagination.CurrentPage}" Margin="5"/>
                                     <TextBlock Text="of" Margin="5"/>
                                     <TextBlock Text="{Binding HappeningPagination.TotalPages}" Margin="5"/>
                                     <Button Content="Next"
 Command="{Binding NextPageCommand}"
-CommandParameter="Upcoming"
-IsEnabled="{Binding UpcomingPagination.CanGoNext}" />
+CommandParameter="Happening"
+IsEnabled="{Binding HappeningPagination.CanGoNext}" />
                                 </StackPanel>
                             </Grid>
                         </StackPanel>
