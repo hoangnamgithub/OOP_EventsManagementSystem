@@ -19,7 +19,7 @@
                 <TabItem Header="Up Coming">
                     <Grid>
                         <ScrollViewer Margin="10,55,0,10">
-                            <ItemsControl ItemsSource="{ Binding UpcomingPagination.PagedCollection}">
+                            <ItemsControl ItemsSource="{Binding UpcomingPagination.PagedCollection}">
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <WrapPanel Orientation="Horizontal" />
@@ -33,7 +33,10 @@
                                                 Height="140"
                                                 Command="{Binding DataContext.OpenEventDetailCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
                                                 CommandParameter="{Binding}">
-                                            <styles:EventDetailCard_v2 />
+                                            <styles:EventDetailCard_v2 EventName="{Binding EventName}"
+                                                                       VenueName="{Binding Venue.VenueName}"
+                                                                       StartDate="{Binding StartDate}"
+                                                                       EndDate="{Binding EndDate}" />
                                         </Button>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
@@ -122,7 +125,10 @@
                                                 Height="140"
                                                 Command="{Binding DataContext.OpenEventDetailCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
                                                 CommandParameter="{Binding}">
-                                            <styles:EventDetailCard_v2 />
+                                            <styles:EventDetailCard_v2 EventName="{Binding EventName}"
+                                                                       VenueName="{Binding Venue.VenueName}"
+                                                                       StartDate="{Binding StartDate}"
+                                                                       EndDate="{Binding EndDate}" />
                                         </Button>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
@@ -211,7 +217,10 @@
                                                 Height="140"
                                                 Command="{Binding DataContext.OpenEventDetailCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
                                                 CommandParameter="{Binding}">
-                                            <styles:EventDetailCard_v2 />
+                                            <styles:EventDetailCard_v2 EventName="{Binding EventName}"
+                                                                       VenueName="{Binding Venue.VenueName}"
+                                                                       StartDate="{Binding StartDate}"
+                                                                       EndDate="{Binding EndDate}" />
                                         </Button>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
@@ -291,29 +300,32 @@
                 <ColumnDefinition Width="300" />
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="2">
-                <Border CornerRadius="16" Background="#D6DC82" Width="100"
-Height="35" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,10">
+                <Border CornerRadius="16"
+                        Background="#D6DC82"
+                        Width="100"
+                        Height="35"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Margin="50,10">
                     <TextBlock x:Name="CurrentDateTextBlock"
-Foreground="White"
-VerticalAlignment="Center"
-HorizontalAlignment="Center"          
-FontSize="18"
-FontFamily="Bahnschrift SemiBold" />
+                               Foreground="White"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               FontSize="18"
+                               FontFamily="Bahnschrift SemiBold" />
                 </Border>
-                
-
                 <!-- Add Button -->
-                <Button x:Name="AddButton" Style="{StaticResource PinkButton}"
-        Content="Add"
-        Foreground="White"
-        Width="100"
-        Height="45"
-        VerticalAlignment="Top"
-        HorizontalAlignment="Right"
-        Margin="0,5,25,0"
-        IsEnabled="True" 
-        Click="AddButton_Click" />
-
+                <Button x:Name="AddButton"
+                        Style="{StaticResource PinkButton}"
+                        Content="Add"
+                        Foreground="White"
+                        Width="100"
+                        Height="45"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Right"
+                        Margin="0,5,25,0"
+                        IsEnabled="True"
+                        Click="AddButton_Click" />
             </Grid>
         </Grid>
     </Grid>

@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:OOP_EventsManagementSystem.Styles"
              xmlns:vm="clr-namespace:OOP_EventsManagementSystem.ViewModel"
+             xmlns:styles="clr-namespace:OOP_EventsManagementSystem.Styles"
              mc:Ignorable="d"
              Height="130"
              Width="240">
@@ -124,7 +125,7 @@
                         </Grid.RowDefinitions>
                         <Grid Grid.Row="0">
                             <TextBlock Name="txtblck_eventName" 
-                                       Text="{Binding EventName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                       Text="{Binding EventName, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                        TextWrapping="Wrap"
                                        VerticalAlignment="Bottom"
                                        Margin="10,0,10,0"
@@ -133,8 +134,8 @@
                                        FontFamily="Bahnschrift SemiBold" />
                         </Grid>
                         <Grid Grid.Row="1">
-                            <TextBlock Text="{Binding Venue.VenueName}"
-                                       Name="txtblck_venue"
+                            <TextBlock Text="{Binding VenueName, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                       Name="txtbl"
                                        VerticalAlignment="Top"
                                        Margin="10,0,0,0"
                                        FontSize="13"
@@ -154,7 +155,7 @@
                                                FontWeight="Bold"
                                                FontSize="8"
                                                Foreground="#FFFCF8F8" />
-                                    <TextBlock Text="{Binding StartDate, StringFormat={}{0:dd/MM}}"
+                                    <TextBlock Text="{Binding StartDate, RelativeSource={RelativeSource AncestorType=UserControl}, StringFormat={}{0:dd/MM}}"
                                                Foreground="#FFFCF8F8" />
                                 </StackPanel>
                             </Grid>
@@ -164,7 +165,7 @@
                                                FontWeight="Bold"
                                                FontSize="8"
                                                Foreground="#FFFCF8F8" />
-                                    <TextBlock Text="{Binding EndDate, StringFormat={}{0:dd/MM}}"
+                                    <TextBlock Text="{Binding EndDate, RelativeSource={RelativeSource AncestorType=UserControl}, StringFormat={}{0:dd/MM}}"
                                                Foreground="#FFFCF8F8" />
                                 </StackPanel>
                             </Grid>
