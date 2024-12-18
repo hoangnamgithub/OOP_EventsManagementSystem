@@ -24,12 +24,40 @@ namespace OOP_EventsManagementSystem.View
     /// </summary>
     public partial class Event : UserControl
     {
+
         public Event()
         {
             InitializeComponent();
             this.DataContext = new EventVM();
+            AddButton.IsEnabled = true;
+            CurrentDateTextBlock.Text = DateTime.Now.ToString("dd MMM");
         }
-       
+        private void AddButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Vô hiệu hóa nút Add khi cửa sổ được mở
+            AddButton.IsEnabled = false;
+
+            // Tạo và hiển thị cửa sổ EventDetails
+            var eventDescriptionWindow = new EventDetails();
+
+            // Đăng ký sự kiện Closed để kích hoạt lại nút Add khi cửa sổ đóng
+            eventDescriptionWindow.Closed += EventDescriptionWindow_Closed;
+
+            // Hiển thị cửa sổ
+            eventDescriptionWindow.Show();
+        }
+
+        private void EventDescriptionWindow_Closed(object? sender, EventArgs e)
+        {
+            // Kích hoạt lại nút Add sau khi cửa sổ được đóng
+            AddButton.IsEnabled = true;
+
+            // Hủy đăng ký sự kiện Closed để tránh lỗi nếu cửa sổ được tạo lại
+            if (sender is Window window)
+            {
+                window.Closed -= EventDescriptionWindow_Closed;
+            }
+        }       
         private void SearchBox_GotFocus(object sender, RoutedEventArgs e) { if (SearchBox.Text == "Search......") { SearchBox.Text = ""; SearchBox.CaretBrush = System.Windows.Media.Brushes.Black; } }
         private void SearchBox_LostFocus(object sender, RoutedEventArgs e) { if (string.IsNullOrWhiteSpace(SearchBox.Text)) { SearchBox.Text = "Search......"; SearchBox.CaretBrush = System.Windows.Media.Brushes.Transparent; } }
         private void btn_search_Click(object sender, RoutedEventArgs e)

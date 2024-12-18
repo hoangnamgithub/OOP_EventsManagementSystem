@@ -295,24 +295,26 @@
                            RadiusX="20"
                            RadiusY="20"
                            Margin="50,10,140,510" />
-                <TextBlock Text="{Binding CurrentDate, StringFormat={}{0:dd MMM}}"
-                           Foreground="White"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Center"
-                           Margin="50,10,140,510"
-                           FontSize="18"
-                           FontFamily="Bahnschrift SemiBold" />
+                <TextBlock x:Name="CurrentDateTextBlock"
+           Foreground="White"
+           VerticalAlignment="Center"
+           HorizontalAlignment="Center"
+           Margin="50,10,140,510"
+           FontSize="18"
+           FontFamily="Bahnschrift SemiBold" />
+
                 <!-- Add Button -->
-                <Button Style="{StaticResource PinkButton}"
-                        Content="Add"
-                        Foreground="White"
-                        Width="100"
-                        Height="45"
-                        Command="{Binding AddCommand}"
-                        VerticalAlignment="Top"
-                        HorizontalAlignment="Right"
-                        Margin="0,5,25,0"
-                        IsEnabled="{Binding IsAddButtonEnabled}" />
+                <Button x:Name="AddButton" Style="{StaticResource PinkButton}"
+        Content="Add"
+        Foreground="White"
+        Width="100"
+        Height="45"
+        VerticalAlignment="Top"
+        HorizontalAlignment="Right"
+        Margin="0,5,25,0"
+        IsEnabled="True" 
+        Click="AddButton_Click" />
+
             </Grid>
         </Grid>
     </Grid>

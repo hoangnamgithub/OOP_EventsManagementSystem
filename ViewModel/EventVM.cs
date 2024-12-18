@@ -20,7 +20,7 @@ namespace OOP_EventsManagementSystem.ViewModel
 {
     public class EventVM : INotifyPropertyChanged
     {
-        public ICommand AddCommand { get; set; }
+        
         public ICommand OpenEventDetailCommand { get; set; }
         public ICommand ConfirmCommand { get; }
 
@@ -29,15 +29,11 @@ namespace OOP_EventsManagementSystem.ViewModel
         public PaginationHelper<Model.Event> CompletedPagination { get; set; }
         public PaginationHelper<Model.Show> ShowsPagination { get; set; }
         public PaginationHelper<Model.Sponsor> SponsorsPagination { get; set; }
-        public PaginationHelper<Model.EmployeeRole> EmployeeRolesPagination { get; set; }
-        public PaginationHelper<Model.EquipmentName> EquipmentNamesPagination { get; set; }
-
-
+        
         public ICommand NextPageCommand { get; }
         public ICommand PreviousPageCommand { get; }
         private readonly EventManagementDbContext _context;
         
-
         public ObservableCollection<Model.Event> UpcomingEvents { get; set; }
         public ObservableCollection<Model.Event> HappeningEvents { get; set; }
         public ObservableCollection<Model.Event> CompletedEvents { get; set; }
@@ -53,34 +49,8 @@ namespace OOP_EventsManagementSystem.ViewModel
         public ObservableCollection<Model.Show> PagedShows { get; set; }
        
         // properties -------------------------------------
-        private DateTime _currentDate;
-        public DateTime CurrentDate
-        {
-            get => _currentDate;
-            set
-            {
-                if (_currentDate != value)
-                {
-                    _currentDate = value;
-                    OnPropertyChanged(nameof(CurrentDate));
-                }
-            }
-        }
+        
 
-        private bool _isAddButtonEnabled;
-        public bool IsAddButtonEnabled
-        {
-            get => _isAddButtonEnabled;
-            set
-            {
-                if (_isAddButtonEnabled != value)
-                {
-                    _isAddButtonEnabled = value;
-                    OnPropertyChanged(nameof(IsAddButtonEnabled));
-                    CommandManager.InvalidateRequerySuggested(); // Update CanExecute
-                }
-            }
-        }
 
         private string _eventName;
         public string EventName
@@ -98,11 +68,8 @@ namespace OOP_EventsManagementSystem.ViewModel
 
         // constructor -------------------------------------
         public EventVM()
-        {
-            AddCommand = new RelayCommand(ExecuteAddCommand, CanExecuteAddCommand);
-            OpenEventDetailCommand = new RelayCommand(ExecuteOpenEventDetailCommand);
-            IsAddButtonEnabled = true;
-            CurrentDate = DateTime.Now;
+        {           
+            OpenEventDetailCommand = new RelayCommand(ExecuteOpenEventDetailCommand);           
             _context = new EventManagementDbContext();
             
 
@@ -149,16 +116,12 @@ namespace OOP_EventsManagementSystem.ViewModel
             ShowsPagination = new PaginationHelper<Model.Show>(_context.Shows.Include(s => s.Performer).Include(s => s.Genre).ToList());
             SponsorsPagination = new PaginationHelper<Model.Sponsor>(_context.Sponsors.ToList());
 
-            EmployeeRolesPagination = new PaginationHelper<Model.EmployeeRole>(_context.EmployeeRoles.ToList());
-            EquipmentNamesPagination = new PaginationHelper<Model.EquipmentName>(_context.EquipmentNames.ToList());
-
             OnPropertyChanged(nameof(UpcomingPagination));
             OnPropertyChanged(nameof(HappeningPagination));
             OnPropertyChanged(nameof(CompletedPagination));
             OnPropertyChanged(nameof(ShowsPagination));
             OnPropertyChanged(nameof(SponsorsPagination));
-            OnPropertyChanged(nameof(EmployeeRolesPagination));
-            OnPropertyChanged(nameof(EquipmentNamesPagination));
+            
 
             UpcomingEvents = new ObservableCollection<Model.Event>(
                 allEvents.Where(e => e.StartDate.ToDateTime(TimeOnly.MinValue) > DateTime.Now)
@@ -201,8 +164,7 @@ namespace OOP_EventsManagementSystem.ViewModel
             if (parameter?.ToString() == "Completed") CompletedPagination.NextPage();
             if (parameter?.ToString() == "Shows") ShowsPagination.NextPage();
             if (parameter?.ToString() == "Sponsors") SponsorsPagination.NextPage();
-            if (parameter?.ToString() == "EmployeeRoles") EmployeeRolesPagination.NextPage();
-            if (parameter?.ToString() == "EquipmentNames") EquipmentNamesPagination.NextPage();
+           
         }
 
         private void ExecutePreviousPage(object parameter)
@@ -212,27 +174,9 @@ namespace OOP_EventsManagementSystem.ViewModel
             if (parameter?.ToString() == "Completed") CompletedPagination.PreviousPage();
             if (parameter?.ToString() == "Shows") ShowsPagination.PreviousPage();
             if (parameter?.ToString() == "Sponsors") SponsorsPagination.PreviousPage();
-            if (parameter?.ToString() == "EmployeeRoles") EmployeeRolesPagination.PreviousPage();
-            if (parameter?.ToString() == "EquipmentNames") EquipmentNamesPagination.PreviousPage();
+            
         }
-
-        private void ExecuteAddCommand(object obj)
-        {
-            IsAddButtonEnabled = false; // Disable the button
-
-            var eventDescriptionWindow = new EventDetails();
-            eventDescriptionWindow.Closed += (s, e) =>
-            {
-                IsAddButtonEnabled = true; // Enable the button when the window is closed
-            };
-            eventDescriptionWindow.Show();
-        }
-
-        private bool CanExecuteAddCommand(object obj)
-        {
-            return IsAddButtonEnabled;
-        }
-
+       
         // Implementation of INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName)

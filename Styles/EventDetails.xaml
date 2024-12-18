@@ -157,6 +157,7 @@
                         <!-- List -->
                         <StackPanel Margin="20,25,25,0">
                             <StackPanel>
+                                <!--Shows-->
                                 <Expander Expanded="Expander_Expanded"
                                           HorizontalAlignment="Stretch"
                                           Header="Shows"
@@ -231,10 +232,11 @@
 
                                     </Grid>
                                 </Expander>
+                                <!--Sponsors-->
                                 <Expander Expanded="Expander_Expanded"
                                           HorizontalAlignment="Stretch"
                                           Header="Sponsors"
-                                          Width="525"
+                                          Width="535"
                                           Margin="0,5,0,5"
                                           FontFamily="Bahnschrift SemiBold"
                                           FontSize="18"
@@ -242,48 +244,52 @@
                                           Background="#FFC6C3F2">
                                     <Grid Margin="5,0,5,5"
                                           TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
-                                        <Border Margin="0"
+                                        <StackPanel Background="White"
+            Orientation="Vertical">
+                                            <StackPanel Orientation="Horizontal">
+                                                <local:SearchBar Margin="10,0,0,0"/>
+                                                <Button Content="&lt;"
+Command="{Binding PreviousPageCommand}"
+CommandParameter="Sponsors"
+IsEnabled="{Binding SponsorsPagination.CanGoPrevious}"
+Style="{StaticResource PurpleButton}"
+Height="30"
+Width="30"
+VerticalAlignment="Center" Margin="0" />
+                                                <TextBlock Text="{Binding SponsorsPagination.CurrentPage}"
+   Margin="3,15,2,0" />
+                                                <TextBlock Text="of"
+   Margin="2,15,3,0" />
+                                                <TextBlock Text="{Binding SponsorsPagination.TotalPages}"
+   Margin="5,15" />
+                                                <Button Content=">"
+Command="{Binding NextPageCommand}"
+CommandParameter="Sponsors"
+IsEnabled="{Binding UpcomingPagination.CanGoNext}"
+Style="{StaticResource PurpleButton}"
+Height="30"
+Width="30"
+VerticalAlignment="Center" />
+                                            </StackPanel>
+                                            <Border Margin="0"
                                                 Background="White"
                                                 Height="250">
-                                            <DataGrid ItemsSource="{Binding SponsorsPagination.PagedCollection}"
+                                                <DataGrid ItemsSource="{Binding SponsorsPagination.PagedCollection}"
                                                       AutoGenerateColumns="True"
                                                       Background="Transparent"
                                                       Margin="0,0,0,0"
                                                       VerticalAlignment="Stretch"
                                                       HorizontalAlignment="Stretch" />
-                                        </Border>
-                                        <StackPanel Orientation="Horizontal"
-                                                    HorizontalAlignment="Right"
-                                                    VerticalAlignment="Bottom">
-                                            <Button Content="&lt;"
-                                                    Command="{Binding PreviousPageCommand}"
-                                                    CommandParameter="Sponsors"
-                                                    IsEnabled="{Binding SponsorsPagination.CanGoPrevious}"
-                                                    Style="{StaticResource PurpleButton}"
-                                                    Height="35"
-                                                    Width="35"
-                                                    VerticalAlignment="Center" />
-                                            <TextBlock Text="{Binding SponsorsPagination.CurrentPage}"
-                                                       Margin="5,15" />
-                                            <TextBlock Text="of"
-                                                       Margin="5,15" />
-                                            <TextBlock Text="{Binding SponsorsPagination.TotalPages}"
-                                                       Margin="5,15" />
-                                            <Button Content=">"
-                                                    Command="{Binding NextPageCommand}"
-                                                    CommandParameter="Sponsors"
-                                                    IsEnabled="{Binding SponsorsPagination.CanGoNext}"
-                                                    Style="{StaticResource PurpleButton}"
-                                                    Height="35"
-                                                    Width="35"
-                                                    VerticalAlignment="Center" />
+                                            </Border>
+                                            
                                         </StackPanel>
                                     </Grid>
                                 </Expander>
+                                <!--Employees-->
                                 <Expander Expanded="Expander_Expanded"
                                           HorizontalAlignment="Stretch"
                                           Header="Employees"
-                                          Width="525"
+                                          Width="535"
                                           Margin="0,5,0,5"
                                           FontFamily="Bahnschrift SemiBold"
                                           FontSize="18"
@@ -291,48 +297,27 @@
                                           Background="#FF7785E2">
                                     <Grid Margin="5,0,5,5"
                                           TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
-                                        <Border Margin="0"
+                                        <StackPanel Background="White"
+Orientation="Vertical">
+                                            <local:SearchBar HorizontalAlignment="Left" Margin="15,5,0,5"/>
+                                            <Border Margin="0"
                                                 Background="White"
                                                 Height="250">
-                                            <DataGrid ItemsSource="{Binding EmployeeRolesPagination.PagedCollection}"
+                                                <DataGrid ItemsSource="{Binding EmployeeRoles}"
                                                       AutoGenerateColumns="True"
                                                       Background="Transparent"
                                                       Margin="0,0,0,0"
                                                       VerticalAlignment="Stretch"
                                                       HorizontalAlignment="Stretch" />
-                                        </Border>
-                                        <StackPanel Orientation="Horizontal"
-                                                    HorizontalAlignment="Right"
-                                                    VerticalAlignment="Bottom">
-                                            <Button Content="&lt;"
-                                                    Command="{Binding PreviousPageCommand}"
-                                                    CommandParameter="EmployeeRoles"
-                                                    IsEnabled="{Binding EmployeeRolesPagination.CanGoPrevious}"
-                                                    Style="{StaticResource PurpleButton}"
-                                                    Height="35"
-                                                    Width="35"
-                                                    VerticalAlignment="Center" />
-                                            <TextBlock Text="{Binding EmployeeRolesPagination.CurrentPage}"
-                                                       Margin="5,15" />
-                                            <TextBlock Text="of"
-                                                       Margin="5,15" />
-                                            <TextBlock Text="{Binding EmployeeRolesPagination.TotalPages}"
-                                                       Margin="5,15" />
-                                            <Button Content=">"
-                                                    Command="{Binding NextPageCommand}"
-                                                    CommandParameter="EmployeeRoles"
-                                                    IsEnabled="{Binding EmployeeRolesPagination.CanGoNext}"
-                                                    Style="{StaticResource PurpleButton}"
-                                                    Height="35"
-                                                    Width="35"
-                                                    VerticalAlignment="Center" />
+                                            </Border>
                                         </StackPanel>
                                     </Grid>
                                 </Expander>
+                                <!--Equipments-->
                                 <Expander Expanded="Expander_Expanded"
                                           HorizontalAlignment="Stretch"
                                           Header="Equipments"
-                                          Width="525"
+                                          Width="535"
                                           Margin="0,5,0,5"
                                           FontFamily="Bahnschrift SemiBold"
                                           FontSize="18"
@@ -340,41 +325,19 @@
                                           Background="#FFD6DC82">
                                     <Grid Margin="5,0,5,5"
                                           TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
-                                        <Border Margin="0"
+                                        <StackPanel Background="White"
+Orientation="Vertical">
+                                            <local:SearchBar HorizontalAlignment="Left" Margin="15,5,0,5"/>
+                                            <Border Margin="0"
                                                 Background="White"
                                                 Height="250">
-                                            <DataGrid ItemsSource="{Binding EquipmentNamesPagination.PagedCollection}"
+                                                <DataGrid ItemsSource="{Binding EquipmentNames}"
                                                       AutoGenerateColumns="True"
                                                       Background="Transparent"
                                                       Margin="0,0,0,0"
                                                       VerticalAlignment="Stretch"
                                                       HorizontalAlignment="Stretch" />
-                                        </Border>
-                                        <StackPanel Orientation="Horizontal"
-                                                    HorizontalAlignment="Right"
-                                                    VerticalAlignment="Bottom">
-                                            <Button Content="&lt;"
-                                                    Command="{Binding PreviousPageCommand}"
-                                                    CommandParameter="EquipmentNames"
-                                                    IsEnabled="{Binding EquipmentNamesPagination.CanGoPrevious}"
-                                                    Style="{StaticResource PurpleButton}"
-                                                    Height="35"
-                                                    Width="35"
-                                                    VerticalAlignment="Center" />
-                                            <TextBlock Text="{Binding EquipmentNamesPagination.CurrentPage}"
-                                                       Margin="5,15" />
-                                            <TextBlock Text="of"
-                                                       Margin="5,15" />
-                                            <TextBlock Text="{Binding EquipmentNamesPagination.TotalPages}"
-                                                       Margin="5,15" />
-                                            <Button Content=">"
-                                                    Command="{Binding NextPageCommand}"
-                                                    CommandParameter="EquipmentNames"
-                                                    IsEnabled="{Binding EquipmentNamesPagination.CanGoNext}"
-                                                    Style="{StaticResource PurpleButton}"
-                                                    Height="35"
-                                                    Width="35"
-                                                    VerticalAlignment="Center" />
+                                            </Border>
                                         </StackPanel>
                                     </Grid>
                                 </Expander>
