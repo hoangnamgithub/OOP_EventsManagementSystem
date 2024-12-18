@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Identity.Client;
 using OOP_EventsManagementSystem.Model;
 using OOP_EventsManagementSystem.Styles;
@@ -85,15 +86,36 @@ namespace OOP_EventsManagementSystem.ViewModel
         {
             // Thực hiện logic xác nhận tại đây
         }
-      
-             
+
+
         // Thực thi lệnh để mở cửa sổ EventDescription
         private void ExecuteOpenEventDetailCommand(object obj)
         {
-            var eventDescriptionWindow = new EventDetails();
-            eventDescriptionWindow.Show();
+            // Kiểm tra xem đối tượng obj có phải là một Event cụ thể hay không
+            if (obj is Model.Event selectedEvent)
+            {
+                // Lấy sự kiện từ cơ sở dữ liệu, bao gồm cả Venue và EventType
+                var eventFromDb = _context.Events
+                                          .Include(e => e.Venue)
+                                          .Include(e => e.EventType)
+                                          .FirstOrDefault(e => e.EventId == selectedEvent.EventId);
 
+                // Lấy danh sách Venue và EventType
+                var venues = _context.Venues.ToList();
+                var eventTypes = _context.EventTypes.ToList();
+
+                if (eventFromDb != null)
+                {
+                    // Tạo cửa sổ EventDetails và gán DataContext bằng EventDetailsVM chứa eventFromDb, venues và eventTypes
+                    var eventDescriptionWindow = new EventDetails
+                    {
+                        DataContext = new EventDetailsVM(eventFromDb, venues, eventTypes)
+                    };
+                    eventDescriptionWindow.Show();
+                }
+            }
         }
+
 
         // method -------------------------------------
         private void LoadData()

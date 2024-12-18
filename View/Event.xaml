@@ -291,17 +291,16 @@
                 <ColumnDefinition Width="300" />
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="2">
-                <Rectangle Fill="#D6DC82"
-                           RadiusX="20"
-                           RadiusY="20"
-                           Margin="50,10,140,510" />
-                <TextBlock x:Name="CurrentDateTextBlock"
-           Foreground="White"
-           VerticalAlignment="Center"
-           HorizontalAlignment="Center"
-           Margin="50,10,140,510"
-           FontSize="18"
-           FontFamily="Bahnschrift SemiBold" />
+                <Border CornerRadius="16" Background="#D6DC82" Width="100"
+Height="35" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,10">
+                    <TextBlock x:Name="CurrentDateTextBlock"
+Foreground="White"
+VerticalAlignment="Center"
+HorizontalAlignment="Center"          
+FontSize="18"
+FontFamily="Bahnschrift SemiBold" />
+                </Border>
+                
 
                 <!-- Add Button -->
                 <Button x:Name="AddButton" Style="{StaticResource PinkButton}"

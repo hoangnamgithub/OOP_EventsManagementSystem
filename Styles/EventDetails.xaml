@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OOP_EventsManagementSystem.Styles"
         xmlns:vm="clr-namespace:OOP_EventsManagementSystem.ViewModel"
+        xmlns:utlt="clr-namespace:OOP_EventsManagementSystem.Utilities"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="EventDetails"
@@ -14,6 +15,7 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         Background="Transparent">
+
     <Border CornerRadius="16"
             Background="#EFE9E4"
             BorderThickness="10"
@@ -55,54 +57,56 @@
                                            VerticalAlignment="Center"
                                            Margin="5,0,15,0" />
                                 <TextBox x:Name="eventname_txtbox"
-                                         Text="{Binding EventName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                         FontFamily="Bahnschrift SemiLight"
-                                         FontSize="14"
-                                         Width="155"
-                                         Foreground="Gray" />
+         Text="{Binding SelectedEvent.EventName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+         FontFamily="Bahnschrift SemiLight"
+         FontSize="14"
+         Width="155"
+         Foreground="Gray" />
                                 <TextBlock Text="Attendee"
                                            FontFamily="Bahnschrift SemiBold"
                                            FontSize="16"
                                            VerticalAlignment="Center"
                                            Margin="20,0,15,0" />
                                 <TextBox x:Name="eventattendee_txtbox"
-                                         FontFamily="Bahnschrift SemiLight"
-                                         FontSize="14"
-                                         Width="100"
-                                         Foreground="Gray"
-                                         Margin="20,0,0,0" />
+         Text="{Binding SelectedEvent.ExptedAttendee, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+         FontFamily="Bahnschrift SemiLight"
+         FontSize="14"
+         Width="100"
+         Foreground="Gray" />
                             </StackPanel>
-                            <StackPanel Orientation="Horizontal"
-                                        Margin="0,15,0,0">
+                            <StackPanel Orientation="Horizontal" Margin="0,15,0,0">
                                 <TextBlock Text="Event Venue"
-                                           FontFamily="Bahnschrift SemiBold"
-                                           FontSize="16"
-                                           Margin="5,5,5,0" />
+               FontFamily="Bahnschrift SemiBold"
+               FontSize="16"
+               Margin="5,5,5,0" />
                                 <ComboBox Margin="10,0,5,5"
-                                          Width="155"
-                                          ItemsSource="{Binding Venues}"
-                                          DisplayMemberPath="VenueName"
-                                          SelectedValuePath="VenueId"
-                                          SelectedValue="{Binding SelectedVenueId, Mode=TwoWay}"
-                                          materialDesign:HintAssist.Hint="choosing..." />
+              Width="155"
+              ItemsSource="{Binding Venues}"
+              DisplayMemberPath="VenueName"
+              SelectedValuePath="VenueId"
+              SelectedValue="{Binding SelectedVenueId, Mode=TwoWay}"
+              materialDesign:HintAssist.Hint="choosing..." />
+
                                 <TextBlock Text="Event Type"
-                                           FontFamily="Bahnschrift SemiBold"
-                                           FontSize="16"
-                                           Margin="15,5,15,0" />
+               FontFamily="Bahnschrift SemiBold"
+               FontSize="16"
+               Margin="15,5,15,0" />
                                 <ComboBox Margin="8,0,12,5"
-                                          Width="100"
-                                          ItemsSource="{Binding EventTypes}"
-                                          DisplayMemberPath="TypeName"
-                                          SelectedValuePath="EventTypeId"
-                                          SelectedValue="{Binding SelectedEventTypeId, Mode=TwoWay}"
-                                          materialDesign:HintAssist.Hint="choosing..." />
+              Width="100"
+              ItemsSource="{Binding EventTypes}"
+              DisplayMemberPath="TypeName"
+              SelectedValuePath="EventTypeId"
+              SelectedValue="{Binding SelectedEventTypeId, Mode=TwoWay}"
+              materialDesign:HintAssist.Hint="choosing..." />
                             </StackPanel>
+
                             <StackPanel Orientation="Horizontal">
                                 <!-- Description -->
                                 <Border Background="White"
                                         CornerRadius="16"
                                         Margin="5,15,10,0">
                                     <TextBox x:Name="des_txtbo"
+                                             Text="{Binding SelectedEvent.EventDescription, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                              Width="235"
                                              TextWrapping="Wrap"
                                              Foreground="Black"
@@ -114,38 +118,43 @@
                                 </Border>
                                 <!-- Date -->
                                 <StackPanel Orientation="Vertical"
-                                            Margin="20,5,0,0">
+            Margin="20,5,0,0">
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock FontFamily="Bahnschrift SemiBold"
-                                                   FontSize="16"
-                                                   Margin="5,5,15,0"
-                                                   VerticalAlignment="Bottom">
-                                            <Run Text="Start" />
-                                            <LineBreak />
-                                            <Run />
+                   FontSize="16"
+                   Margin="5,5,15,0"
+                   VerticalAlignment="Bottom">
+            <Run Text="Start" />
+            <LineBreak />
+            <Run />
                                         </TextBlock>
                                         <DatePicker Margin="10,0,12,5"
-                                                    materialDesign:HintAssist.Hint="Pick Date"
-                                                    materialDesign:TextFieldAssist.HasClearButton="True"
-                                                    Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
-                                                    Width="137" />
+                    materialDesign:HintAssist.Hint="Pick Date"
+                    materialDesign:TextFieldAssist.HasClearButton="True"
+                    Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
+                    Width="137"
+                    SelectedDate="{Binding StartDate, Mode=TwoWay}" />
+                                        <!-- Bind to StartDate -->
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock FontFamily="Bahnschrift SemiBold"
-                                                   FontSize="16"
-                                                   Margin="5,5,5,0"
-                                                   VerticalAlignment="Bottom">
-                                            <Run Text="End" />
-                                            <LineBreak />
-                                            <Run />
+                   FontSize="16"
+                   Margin="5,5,5,0"
+                   VerticalAlignment="Bottom">
+            <Run Text="End" />
+            <LineBreak />
+            <Run />
                                         </TextBlock>
                                         <DatePicker Margin="30,0,12,5"
-                                                    Width="135"
-                                                    materialDesign:HintAssist.Hint="Pick Date"
-                                                    materialDesign:TextFieldAssist.HasClearButton="True"
-                                                    Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
+                    Width="135"
+                    materialDesign:HintAssist.Hint="Pick Date"
+                    materialDesign:TextFieldAssist.HasClearButton="True"
+                    Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
+                    SelectedDate="{Binding EndDate, Mode=TwoWay}" />
+                                        <!-- Bind to EndDate -->
                                     </StackPanel>
                                 </StackPanel>
+
                             </StackPanel>
                         </StackPanel>
                     </Grid>
