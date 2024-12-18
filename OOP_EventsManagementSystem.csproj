@@ -45,6 +45,7 @@
     <None Remove="Resources\Images\event_trang.png" />
     <None Remove="Resources\Images\eye_off.png" />
     <None Remove="Resources\Images\eye_on.png" />
+    <None Remove="Resources\Images\filter.png" />
     <None Remove="Resources\Images\lightning.png" />
     <None Remove="Resources\Images\location_den.png" />
     <None Remove="Resources\Images\location_trang.png" />
@@ -132,6 +133,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Images\eye_on.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\filter.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Images\lightning.png">

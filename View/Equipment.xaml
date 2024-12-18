@@ -359,64 +359,7 @@
                         <Image Source="pack://application:,,,/Resources/Images/lightning.png"
                                x:Name="tab" />
                     </TabItem.Header>
-                    <Grid>
-                        <StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Style="{StaticResource txt_header}"
-                                           Text="Equipment"
-                                           Margin="85,60,0,0" />
-                                <TextBlock Style="{StaticResource txt}"
-                                           Text="Total"
-                                           Margin="15,65,0,0" />
-                                <TextBlock Style="{StaticResource txt_header}"
-                                           Text="32"
-                                           Foreground="Green"
-                                           Height="24"
-                                           VerticalAlignment="Bottom"
-                                           Margin="10,0,0,0" />
-                            </StackPanel>
-                            <Border CornerRadius="16"
-                                    Background="White"
-                                    Height="432"
-                                    Width="690"
-                                    BorderBrush="#FFB2E3E7"
-                                    BorderThickness="10"
-                                    HorizontalAlignment="Left"
-                                    Margin="85,10,0,0">
-                                <StackPanel>
-                                    <styles:SearchBar Margin="10" />
-                                    <DataGrid ItemsSource="{Binding Equipments}"
-                                              AutoGenerateColumns="True"
-                                              Background="Transparent"
-                                              HorizontalAlignment="Stretch"
-                                              VerticalAlignment="Stretch">
-                                        <DataGrid.Columns>
-                                            <DataGridTextColumn Header="Equipment ID" Binding="{Binding EquipmentId}" />
-                                            <DataGridTextColumn Header="Equipment Name" Binding="{Binding EquipmentName}" />
-                                            <DataGridTextColumn Header="Equipment Type" Binding="{Binding EquipmentType}" />
-                                        </DataGrid.Columns>
-                                    </DataGrid>
-                                </StackPanel>
-                            </Border>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal"
-                                    VerticalAlignment="Top"
-                                    HorizontalAlignment="Right"
-                                    Margin="0,25,10,0">
-                            <Button Style="{StaticResource GreenButton}"
-                                    Content="Add"
-                                    Width="120"
-                                    Height="60" />
-                            <Button Style="{StaticResource PurpleButton}"
-                                    Content="Edit"
-                                    Width="120"
-                                    Height="60" />
-                            <Button Style="{StaticResource PinkButton}"
-                                    Content="Delete"
-                                    Width="120"
-                                    Height="60" />
-                        </StackPanel>
-                    </Grid>
+                    <styles:ListEquipment Margin="0,15"/>
                 </TabItem>
                 <TabItem Height="24"
                          Width="45"
@@ -426,53 +369,7 @@
                         <Image Source="pack://application:,,,/Resources/Images/audio.png"
                                x:Name="tab1" />
                     </TabItem.Header>
-                    <Grid>
-                        <StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Style="{StaticResource txt_header}"
-                                           Text="List Equipment"
-                                           Margin="85,60,0,0" />
-                                <TextBlock Style="{StaticResource txt_header}"
-                                           Text="32"
-                                           Margin="180,60,0,0"
-                                           Foreground="Green" />
-                                <TextBlock Style="{StaticResource txt}"
-                                           Text="available"
-                                           Margin="15,65,0,0" />
-                            </StackPanel>
-                            <Border CornerRadius="16"
-                                    Background="White"
-                                    Height="350"
-                                    Width="450"
-                                    BorderBrush="#FF7785E2"
-                                    BorderThickness="10"
-                                    VerticalAlignment="Center"
-                                    HorizontalAlignment="Left"
-                                    Margin="85,10,0,0">
-                                <StackPanel>
-                                    <styles:SearchBar Margin="10" />
-                                    <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}"
-                                              Background="Transparent" />
-                                </StackPanel>
-                            </Border>
-                        </StackPanel>
-                        <StackPanel VerticalAlignment="Center"
-                                    HorizontalAlignment="Right"
-                                    Margin="65">
-                            <Button Style="{StaticResource GreenButton}"
-                                    Content="Add"
-                                    Width="120"
-                                    Height="60" />
-                            <Button Style="{StaticResource PurpleButton}"
-                                    Content="Edit"
-                                    Width="120"
-                                    Height="60" />
-                            <Button Style="{StaticResource PinkButton}"
-                                    Content="Delete"
-                                    Width="120"
-                                    Height="60" />
-                        </StackPanel>
-                    </Grid>
+                    <styles:ListEquipment Margin="0,15"/>
                 </TabItem>
                 <TabItem Height="24"
                          Width="45"
@@ -482,34 +379,7 @@
                         <Image Source="pack://application:,,,/Resources/Images/communication.png"
                                x:Name="tab2" />
                     </TabItem.Header>
-                    <StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Style="{StaticResource txt_header}"
-                                       Text="List Equipment"
-                                       Margin="85,60,0,0" />
-                            <TextBlock Style="{StaticResource txt_header}"
-                                       Text="32"
-                                       Margin="180,60,0,0"
-                                       Foreground="Green" />
-                            <TextBlock Style="{StaticResource txt}"
-                                       Text="available"
-                                       Margin="15,65,0,0" />
-                        </StackPanel>
-                        <Border CornerRadius="16"
-                                Background="White"
-                                Height="350"
-                                Width="450"
-                                BorderBrush="LightSeaGreen"
-                                BorderThickness="10"
-                                VerticalAlignment="Center"
-                                HorizontalAlignment="Left"
-                                Margin="85,10,0,0">
-                            <Grid>
-                                <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}"
-                                          Background="Transparent" />
-                            </Grid>
-                        </Border>
-                    </StackPanel>
+                    <styles:ListEquipment Margin="0,15"/>
                 </TabItem>
                 <TabItem Height="24"
                          Width="45"
@@ -519,34 +389,7 @@
                         <Image Source="pack://application:,,,/Resources/Images/stage1.png"
                                x:Name="tab3" />
                     </TabItem.Header>
-                    <StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Style="{StaticResource txt_header}"
-                                       Text="List Equipment"
-                                       Margin="85,60,0,0" />
-                            <TextBlock Style="{StaticResource txt_header}"
-                                       Text="32"
-                                       Margin="180,60,0,0"
-                                       Foreground="Green" />
-                            <TextBlock Style="{StaticResource txt}"
-                                       Text="available"
-                                       Margin="15,65,0,0" />
-                        </StackPanel>
-                        <Border CornerRadius="16"
-                                Background="White"
-                                Height="350"
-                                Width="450"
-                                BorderBrush="DarkCyan"
-                                BorderThickness="10"
-                                VerticalAlignment="Center"
-                                HorizontalAlignment="Left"
-                                Margin="85,10,0,0">
-                            <Grid>
-                                <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}"
-                                          Background="Transparent" />
-                            </Grid>
-                        </Border>
-                    </StackPanel>
+                    <styles:ListEquipment Margin="0,15"/>
                 </TabItem>
                 <TabItem Height="24"
                          Width="45"
@@ -556,34 +399,7 @@
                         <Image Source="pack://application:,,,/Resources/Images/visual.png"
                                x:Name="tab4" />
                     </TabItem.Header>
-                    <StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Style="{StaticResource txt_header}"
-                                       Text="List Equipment"
-                                       Margin="85,60,0,0" />
-                            <TextBlock Style="{StaticResource txt_header}"
-                                       Text="32"
-                                       Margin="180,60,0,0"
-                                       Foreground="Green" />
-                            <TextBlock Style="{StaticResource txt}"
-                                       Text="available"
-                                       Margin="15,65,0,0" />
-                        </StackPanel>
-                        <Border CornerRadius="16"
-                                Background="White"
-                                Height="350"
-                                Width="450"
-                                BorderBrush="MediumVioletRed"
-                                BorderThickness="10"
-                                VerticalAlignment="Center"
-                                HorizontalAlignment="Left"
-                                Margin="85,10,0,0">
-                            <Grid>
-                                <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}"
-                                          Background="Transparent" />
-                            </Grid>
-                        </Border>
-                    </StackPanel>
+                    <styles:ListEquipment Margin="0,15"/>
                 </TabItem>
                 <TabItem Height="24"
                          Width="45"
@@ -593,34 +409,7 @@
                         <Image Source="pack://application:,,,/Resources/Images/power1.png"
                                x:Name="tab5" />
                     </TabItem.Header>
-                    <StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Style="{StaticResource txt_header}"
-                                       Text="List Equipment"
-                                       Margin="85,60,0,0" />
-                            <TextBlock Style="{StaticResource txt_header}"
-                                       Text="32"
-                                       Margin="180,60,0,0"
-                                       Foreground="Green" />
-                            <TextBlock Style="{StaticResource txt}"
-                                       Text="available"
-                                       Margin="15,65,0,0" />
-                        </StackPanel>
-                        <Border CornerRadius="16"
-                                Background="White"
-                                Height="350"
-                                Width="450"
-                                BorderBrush="LightSeaGreen"
-                                BorderThickness="10"
-                                VerticalAlignment="Center"
-                                HorizontalAlignment="Left"
-                                Margin="85,10,0,0">
-                            <Grid>
-                                <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}"
-                                          Background="Transparent" />
-                            </Grid>
-                        </Border>
-                    </StackPanel>
+                    <styles:ListEquipment Margin="0,15"/>
                 </TabItem>
                 <TabItem Height="24"
                          Width="45"
@@ -630,34 +419,7 @@
                         <Image Source="pack://application:,,,/Resources/Images/seat1.png"
                                x:Name="tab6" />
                     </TabItem.Header>
-                    <StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Style="{StaticResource txt_header}"
-                                       Text="List Equipment"
-                                       Margin="85,60,0,0" />
-                            <TextBlock Style="{StaticResource txt_header}"
-                                       Text="32"
-                                       Margin="180,60,0,0"
-                                       Foreground="Green" />
-                            <TextBlock Style="{StaticResource txt}"
-                                       Text="available"
-                                       Margin="15,65,0,0" />
-                        </StackPanel>
-                        <Border CornerRadius="16"
-                                Background="White"
-                                Height="350"
-                                Width="450"
-                                BorderBrush="LightSeaGreen"
-                                BorderThickness="10"
-                                VerticalAlignment="Center"
-                                HorizontalAlignment="Left"
-                                Margin="85,10,0,0">
-                            <Grid>
-                                <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}"
-                                          Background="Transparent" />
-                            </Grid>
-                        </Border>
-                    </StackPanel>
+                    <styles:ListEquipment Margin="0,15"/>
                 </TabItem>
                 <TabItem Height="24"
                          Width="45"
@@ -668,34 +430,7 @@
                                Width="22"
                                x:Name="tab7" />
                     </TabItem.Header>
-                    <StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Style="{StaticResource txt_header}"
-                                       Text="List Equipment"
-                                       Margin="85,60,0,0" />
-                            <TextBlock Style="{StaticResource txt_header}"
-                                       Text="32"
-                                       Margin="180,60,0,0"
-                                       Foreground="Green" />
-                            <TextBlock Style="{StaticResource txt}"
-                                       Text="available"
-                                       Margin="15,65,0,0" />
-                        </StackPanel>
-                        <Border CornerRadius="16"
-                                Background="White"
-                                Height="350"
-                                Width="450"
-                                BorderBrush="LightSeaGreen"
-                                BorderThickness="10"
-                                VerticalAlignment="Center"
-                                HorizontalAlignment="Left"
-                                Margin="85,10,0,0">
-                            <Grid>
-                                <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}"
-                                          Background="Transparent" />
-                            </Grid>
-                        </Border>
-                    </StackPanel>
+                    <styles:ListEquipment Margin="0,15"/>
                 </TabItem>
                 <TabItem Height="24"
                          Width="45"
@@ -705,34 +440,7 @@
                         <Image Source="pack://application:,,,/Resources/Images/tent.png"
                                x:Name="tab8" />
                     </TabItem.Header>
-                    <StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Style="{StaticResource txt_header}"
-                                       Text="List Equipment"
-                                       Margin="85,60,0,0" />
-                            <TextBlock Style="{StaticResource txt_header}"
-                                       Text="32"
-                                       Margin="180,60,0,0"
-                                       Foreground="Green" />
-                            <TextBlock Style="{StaticResource txt}"
-                                       Text="available"
-                                       Margin="15,65,0,0" />
-                        </StackPanel>
-                        <Border CornerRadius="16"
-                                Background="White"
-                                Height="350"
-                                Width="450"
-                                BorderBrush="LightSeaGreen"
-                                BorderThickness="10"
-                                VerticalAlignment="Center"
-                                HorizontalAlignment="Left"
-                                Margin="85,10,0,0">
-                            <Grid>
-                                <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}"
-                                          Background="Transparent" />
-                            </Grid>
-                        </Border>
-                    </StackPanel>
+                    <styles:ListEquipment Margin="0,15"/>
                 </TabItem>
                 <TabItem Height="24"
                          Width="45"
@@ -742,34 +450,7 @@
                         <Image Source="pack://application:,,,/Resources/Images/decoration1.png"
                                x:Name="tab9" />
                     </TabItem.Header>
-                    <StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Style="{StaticResource txt_header}"
-                                       Text="List Equipment"
-                                       Margin="85,60,0,0" />
-                            <TextBlock Style="{StaticResource txt_header}"
-                                       Text="32"
-                                       Margin="180,60,0,0"
-                                       Foreground="Green" />
-                            <TextBlock Style="{StaticResource txt}"
-                                       Text="available"
-                                       Margin="15,65,0,0" />
-                        </StackPanel>
-                        <Border CornerRadius="16"
-                                Background="White"
-                                Height="350"
-                                Width="450"
-                                BorderBrush="LightSeaGreen"
-                                BorderThickness="10"
-                                VerticalAlignment="Center"
-                                HorizontalAlignment="Left"
-                                Margin="85,10,0,0">
-                            <Grid>
-                                <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}"
-                                          Background="Transparent" />
-                            </Grid>
-                        </Border>
-                    </StackPanel>
+                    <styles:ListEquipment Margin="0,15"/>
                 </TabItem>
                 <TabItem Height="24"
                          Width="45"
@@ -779,34 +460,7 @@
                         <Image Source="pack://application:,,,/Resources/Images/Catering.png"
                                x:Name="tab10" />
                     </TabItem.Header>
-                    <StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Style="{StaticResource txt_header}"
-                                       Text="List Equipment"
-                                       Margin="85,60,0,0" />
-                            <TextBlock Style="{StaticResource txt_header}"
-                                       Text="32"
-                                       Margin="180,60,0,0"
-                                       Foreground="Green" />
-                            <TextBlock Style="{StaticResource txt}"
-                                       Text="available"
-                                       Margin="15,65,0,0" />
-                        </StackPanel>
-                        <Border CornerRadius="16"
-                                Background="White"
-                                Height="350"
-                                Width="450"
-                                BorderBrush="LightSeaGreen"
-                                BorderThickness="10"
-                                VerticalAlignment="Center"
-                                HorizontalAlignment="Left"
-                                Margin="85,10,0,0">
-                            <Grid>
-                                <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}"
-                                          Background="Transparent" />
-                            </Grid>
-                        </Border>
-                    </StackPanel>
+                    <styles:ListEquipment Margin="0,15"/>
                 </TabItem>
                 <TabItem Height="24"
                          Width="45"
@@ -816,34 +470,7 @@
                         <Image Source="pack://application:,,,/Resources/Images/micell.png"
                                x:Name="tab11" />
                     </TabItem.Header>
-                    <StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Style="{StaticResource txt_header}"
-                                       Text="List Equipment"
-                                       Margin="85,60,0,0" />
-                            <TextBlock Style="{StaticResource txt_header}"
-                                       Text="32"
-                                       Margin="180,60,0,0"
-                                       Foreground="Green" />
-                            <TextBlock Style="{StaticResource txt}"
-                                       Text="available"
-                                       Margin="15,65,0,0" />
-                        </StackPanel>
-                        <Border CornerRadius="16"
-                                Background="White"
-                                Height="350"
-                                Width="450"
-                                BorderBrush="LightSeaGreen"
-                                BorderThickness="10"
-                                VerticalAlignment="Center"
-                                HorizontalAlignment="Left"
-                                Margin="85,10,0,0">
-                            <Grid>
-                                <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}"
-                                          Background="Transparent" />
-                            </Grid>
-                        </Border>
-                    </StackPanel>
+                    <styles:ListEquipment Margin="0,15"/>
                 </TabItem>
             </TabControl>
         </materialDesign:Card>

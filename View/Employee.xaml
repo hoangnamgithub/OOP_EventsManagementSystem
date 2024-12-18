@@ -13,7 +13,7 @@
         <Grid Background="#EFE9E4"
               Height="900">
             <Grid.RowDefinitions>
-                <RowDefinition Height="470" />
+                <RowDefinition Height="auto" />
                 <RowDefinition />
             </Grid.RowDefinitions>
             <Grid>
@@ -22,118 +22,18 @@
                     <ColumnDefinition Width="70*" />
                 </Grid.ColumnDefinitions>
                 <StackPanel>
+                    <TextBlock Text="Today Event"
+           Margin="10,35,10,5"
+           FontFamily="Bahnschrift SemiBold"
+           FontSize="18" />
                     <Border CornerRadius="16"
                             Background="White"
-                            Height="35"
-                            Width="80"
-                            Margin="15,10,5,5"
-                            HorizontalAlignment="Left">
-                        <ComboBox Margin="5"
-                                  materialDesign:HintAssist.Hint="Monthly">
-                            <ComboBoxItem Content="Weekly" />
-                            <ComboBoxItem Content="Monthly" />
-                            <ComboBoxItem Content="Yearly" />
-                        </ComboBox>
-                    </Border>
-                    <Border CornerRadius="16"
-                            Background="White"
-                            Height="55"
+                            Height="280"
                             Width="225"
                             Margin="15,10,5,5"
                             HorizontalAlignment="Left">
                         <Grid>
-                            <TextBlock Text="Total Employees"
-                                       Margin="10,5,10,5"
-                                       FontFamily="Bahnschrift SemiLight"
-                                       FontSize="16" />
-                            <TextBlock Text="205"
-                                       Margin="10,5,10,5"
-                                       FontFamily="Bahnschrift SemiLight"
-                                       FontSize="16"
-                                       VerticalAlignment="Bottom" />
-                            <TextBlock Text="+5% last month"
-                                       Margin="10,5,10,5"
-                                       FontFamily="Bahnschrift SemiLight"
-                                       FontSize="16"
-                                       VerticalAlignment="Bottom"
-                                       HorizontalAlignment="Right"
-                                       Foreground="#FFA8B31D" />
-                        </Grid>
-                    </Border>
-                    <Border CornerRadius="16"
-                            Background="White"
-                            Height="55"
-                            Width="225"
-                            Margin="15,10,5,5"
-                            HorizontalAlignment="Left">
-                        <Grid>
-                            <TextBlock Text="New Employees"
-                                       Margin="10,5,10,5"
-                                       FontFamily="Bahnschrift SemiLight"
-                                       FontSize="16" />
-                            <TextBlock Text="20"
-                                       Margin="10,5,10,5"
-                                       FontFamily="Bahnschrift SemiLight"
-                                       FontSize="16"
-                                       VerticalAlignment="Bottom" />
-                            <TextBlock Text="+2% last month"
-                                       Margin="10,5,10,5"
-                                       FontFamily="Bahnschrift SemiLight"
-                                       FontSize="16"
-                                       VerticalAlignment="Bottom"
-                                       HorizontalAlignment="Right"
-                                       Foreground="#FFA8B31D" />
-                        </Grid>
-                    </Border>
-                    <Border CornerRadius="16"
-                            Background="White"
-                            Height="265"
-                            Width="225"
-                            Margin="15,10,5,5"
-                            HorizontalAlignment="Left">
-                        <Grid>
-                            <TextBlock Text="Best Employee"
-                                       Margin="10,5,10,5"
-                                       FontFamily="Bahnschrift SemiLight"
-                                       FontSize="16" />
-                            <Image Source="pack://application:,,,/Resources/Images/event2.jpg"
-                                   Width="170"
-                                   Height="170"
-                                   Stretch="UniformToFill"
-                                   Margin="25,20,25,40">
-                                <Image.Clip>
-                                    <EllipseGeometry Center="85,85"
-                                                     RadiusX="85"
-                                                     RadiusY="85" />
-                                </Image.Clip>
-                            </Image>
-                            <Image Source="pack://application:,,,/Resources/Images/crown.png"
-                                   Height="40"
-                                   Width="40"
-                                   Margin="15,27,170,198"
-                                   RenderTransformOrigin="0.5,0.5">
-                                <Image.RenderTransform>
-                                    <TransformGroup>
-                                        <ScaleTransform />
-                                        <SkewTransform />
-                                        <RotateTransform Angle="-43.221" />
-                                        <TranslateTransform />
-                                    </TransformGroup>
-                                </Image.RenderTransform>
-                            </Image>
-                            <TextBlock Text="Employee Name"
-                                       Margin="0,0,0,35"
-                                       FontFamily="Bahnschrift SemiLight"
-                                       FontSize="16"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Bottom" />
-                            <TextBlock Text="more than 250 hour"
-                                       Margin="0,0,0,10"
-                                       FontFamily="Bahnschrift Light Condensed"
-                                       FontSize="16"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Bottom"
-                                       Foreground="#FFA8B31D" />
+                            <DataGrid/>
                         </Grid>
                     </Border>
                 </StackPanel>
@@ -144,10 +44,10 @@
                         <RowDefinition Height="28*" />
                     </Grid.RowDefinitions>
                     <!-- List Employee wwork today -->
-                    <TextBlock Text="Today"
+                    <TextBlock Text="Working Employee Today"
                                Margin="20,35,10,5"
                                FontFamily="Bahnschrift SemiBold"
-                               FontSize="16" />
+                               FontSize="18" />
                     <Grid Grid.Row="1">
                         <Rectangle Fill="#D6DC82"
                                    RadiusX="16"
@@ -168,209 +68,27 @@
                         <styles:SearchBar Margin="0,25,140,0"
                                           VerticalAlignment="Top" />
                     </Grid>
-                    <!-- Button -->
-                    <Grid Grid.Row="2">
-                        <styles:Button x:Name="btn_add"
-                                       ButtonBackground="#D6DC82"
-                                       ButtonText="Add"
-                                       HorizontalAlignment="Left"
-                                       VerticalAlignment="Top"
-                                       Margin="5,10,0,0"
-                                       ButtonCommand="{Binding AddCommand}" />
-                        <styles:Button x:Name="btn_edit"
-                                       ButtonBackground="#C6C3F2"
-                                       ButtonText="Edit"
-                                       HorizontalAlignment="Left"
-                                       VerticalAlignment="Top"
-                                       Margin="115,10,0,0"
-                                       ButtonCommand="{Binding EditCommand}" />
-                        <styles:Button x:Name="btn_delete"
-                                       ButtonBackground="#D96073"
-                                       ButtonText="Delete"
-                                       HorizontalAlignment="Left"
-                                       VerticalAlignment="Top"
-                                       Margin="225,10,0,0"
-                                       ButtonCommand="{Binding EditCommand}" />
-                    </Grid>
-                    <!-- Mascot -->
-                    <Grid Grid.Row="2">
-                        <Rectangle Fill="#D6DC82"
-                                   Margin="500,35,15,0"
-                                   Height="200"
-                                   VerticalAlignment="Top" />
-                        <Polygon Points="75,10, 0,150 ,150,150"
-                                 Width="150"
-                                 Height="150"
-                                 Fill="#C6C3F2"
-                                 Margin="390,35,55,-61" />
-                        <Line X1="0"
-                              Y1="0"
-                              X2="23"
-                              Y2="0"
-                              Stroke="Black"
-                              StrokeThickness="3"
-                              RenderTransformOrigin="0,0"
-                              HorizontalAlignment="Left"
-                              Height="11"
-                              VerticalAlignment="Top"
-                              Margin="537,33,0,0"
-                              Width="17">
-                            <Line.RenderTransform>
-                                <TransformGroup>
-                                    <ScaleTransform />
-                                    <SkewTransform />
-                                    <RotateTransform Angle="90" />
-                                    <TranslateTransform />
-                                </TransformGroup>
-                            </Line.RenderTransform>
-                        </Line>
-                        <Ellipse Width="106"
-                                 Fill="#D96073"
-                                 HorizontalAlignment="Left"
-                                 Margin="474,62,0,-40" />
-                        <Ellipse Width="20"
-                                 Fill="#FFFBF8"
-                                 HorizontalAlignment="Left"
-                                 Margin="505,85,0,12"
-                                 RenderTransformOrigin="0.5,0.5">
-                            <Ellipse.RenderTransform>
-                                <TransformGroup>
-                                    <ScaleTransform ScaleX="-1" />
-                                    <SkewTransform />
-                                    <RotateTransform />
-                                    <TranslateTransform />
-                                </TransformGroup>
-                            </Ellipse.RenderTransform>
-                        </Ellipse>
-                        <Ellipse Width="33"
-                                 Fill="#FFFBF8"
-                                 HorizontalAlignment="Left"
-                                 Margin="436,67,0,16"
-                                 RenderTransformOrigin="0.5,0.5">
-                            <Ellipse.RenderTransform>
-                                <TransformGroup>
-                                    <ScaleTransform ScaleX="-1" />
-                                    <SkewTransform />
-                                    <RotateTransform />
-                                    <TranslateTransform />
-                                </TransformGroup>
-                            </Ellipse.RenderTransform>
-                        </Ellipse>
-                        <Line X1="0"
-                              Y1="0"
-                              X2="23"
-                              Y2="0"
-                              Stroke="Black"
-                              StrokeThickness="1"
-                              RenderTransformOrigin="0,0"
-                              HorizontalAlignment="Left"
-                              Height="10"
-                              VerticalAlignment="Top"
-                              Margin="446,108,0,0"
-                              Width="23">
-                            <Line.RenderTransform>
-                                <TransformGroup>
-                                    <ScaleTransform />
-                                    <SkewTransform />
-                                    <RotateTransform />
-                                    <TranslateTransform />
-                                </TransformGroup>
-                            </Line.RenderTransform>
-                        </Line>
-                        <Ellipse Width="20"
-                                 Fill="#FFFBF8"
-                                 HorizontalAlignment="Left"
-                                 Margin="538,67,0,30"
-                                 RenderTransformOrigin="0.5,0.5">
-                            <Ellipse.RenderTransform>
-                                <TransformGroup>
-                                    <ScaleTransform ScaleX="-1" />
-                                    <SkewTransform />
-                                    <RotateTransform />
-                                    <TranslateTransform />
-                                </TransformGroup>
-                            </Ellipse.RenderTransform>
-                        </Ellipse>
-                        <Ellipse Width="5"
-                                 Fill="#262628"
-                                 HorizontalAlignment="Left"
-                                 Margin="540,73,0,39" />
-                        <Ellipse Width="20"
-                                 Fill="#FFFBF8"
-                                 HorizontalAlignment="Left"
-                                 Margin="506,23,0,73"
-                                 RenderTransformOrigin="0.5,0.5">
-                            <Ellipse.RenderTransform>
-                                <TransformGroup>
-                                    <ScaleTransform ScaleX="-1" />
-                                    <SkewTransform />
-                                    <RotateTransform />
-                                    <TranslateTransform />
-                                </TransformGroup>
-                            </Ellipse.RenderTransform>
-                        </Ellipse>
-                        <Ellipse Width="4"
-                                 Fill="#262628"
-                                 HorizontalAlignment="Left"
-                                 Margin="508,26,0,85" />
-                        <Ellipse Width="20"
-                                 Fill="#FFFBF8"
-                                 HorizontalAlignment="Left"
-                                 Margin="544,23,0,73"
-                                 RenderTransformOrigin="0.5,0.5">
-                            <Ellipse.RenderTransform>
-                                <TransformGroup>
-                                    <ScaleTransform ScaleX="-1" />
-                                    <SkewTransform />
-                                    <RotateTransform />
-                                    <TranslateTransform />
-                                </TransformGroup>
-                            </Ellipse.RenderTransform>
-                        </Ellipse>
-                        <Ellipse Width="4"
-                                 Fill="#262628"
-                                 HorizontalAlignment="Left"
-                                 Margin="546,26,0,85" />
-                        <Line X1="0"
-                              Y1="0"
-                              X2="23"
-                              Y2="0"
-                              Stroke="Black"
-                              StrokeThickness="3"
-                              RenderTransformOrigin="0,0"
-                              HorizontalAlignment="Left"
-                              Height="10"
-                              VerticalAlignment="Top"
-                              Margin="552,20,0,0"
-                              Width="20">
-                            <Line.RenderTransform>
-                                <TransformGroup>
-                                    <ScaleTransform />
-                                    <SkewTransform />
-                                    <RotateTransform Angle="33.572" />
-                                    <TranslateTransform />
-                                </TransformGroup>
-                            </Line.RenderTransform>
-                        </Line>
-                        <Ellipse Width="5"
-                                 Fill="#262628"
-                                 HorizontalAlignment="Left"
-                                 Margin="506,93,0,19" />
-                        <Ellipse Width="5"
-                                 Fill="#262628"
-                                 HorizontalAlignment="Left"
-                                 Margin="446,95,0,17" />
-                    </Grid>
+
                 </Grid>
             </Grid>
             <Grid Grid.Row="1">
                 <StackPanel>
-                    <TextBlock Text="List Employee"
-                               HorizontalAlignment="Left"
-                               VerticalAlignment="Center"
-                               FontSize="20"
-                               FontFamily="Bahnschrift SemiBold"
-                               Margin="20,5,10,0" />
+                    <Grid>
+                        <TextBlock Text="List Employee"
+           HorizontalAlignment="Left"
+           VerticalAlignment="Bottom"
+           FontSize="20"
+           FontFamily="Bahnschrift SemiBold"
+           Margin="20,10,10,10" />
+                        <styles:Button x:Name="btn_add"
+               ButtonBackground="#D6DC82"
+               ButtonText="Add"
+               HorizontalAlignment="Right"
+               VerticalAlignment="Center"
+               Margin="5,10,40,10"
+               ButtonCommand="{Binding AddCommand}" />
+                    </Grid>
+                    
                     <Grid>
                         <Rectangle Fill="#FFD96073"
                                    RadiusX="16"

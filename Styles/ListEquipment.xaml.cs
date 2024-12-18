@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace OOP_EventsManagementSystem.Styles
 {
     /// <summary>
-    /// Interaction logic for EventDetail.xaml
+    /// Interaction logic for ListEquipment.xaml
     /// </summary>
-    public partial class EventDetail : UserControl
+    public partial class ListEquipment : UserControl
     {
-        public EventDetail()
+        public ListEquipment()
         {
             InitializeComponent();
         }

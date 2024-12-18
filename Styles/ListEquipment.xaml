@@ -1,0 +1,60 @@
+﻿<UserControl x:Class="OOP_EventsManagementSystem.Styles.ListEquipment"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:OOP_EventsManagementSystem.Styles"
+             mc:Ignorable="d" 
+             d:DesignHeight="500" d:DesignWidth="750">
+    <Grid>
+        <StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Style="{StaticResource txt_header}"
+                        Text="Equipment"
+                        Margin="85,35,0,0" />
+                <TextBlock Style="{StaticResource txt}"
+                        Text="Total"
+                        Margin="15,40,0,0" />
+                <TextBlock Style="{StaticResource txt_header}"
+                        Text="32"
+                        Foreground="#FF92B421"
+                        Height="24"
+                        VerticalAlignment="Bottom"
+                        Margin="10,0,0,0" />
+            </StackPanel>
+            <Border CornerRadius="16"
+                 Background="White"
+                 Height="432"
+                 Width="690"
+                 BorderBrush="#FFB2E3E7"
+                 BorderThickness="10"
+                 HorizontalAlignment="Left"
+                 Margin="55,10,0,0">
+                <StackPanel>
+                    <local:SearchBar Margin="10"
+                                   HorizontalAlignment="Left"/>
+                    <DataGrid ItemsSource="{Binding Equipments}"
+                           AutoGenerateColumns="True"
+                           Background="Transparent"
+                           HorizontalAlignment="Stretch"
+                           VerticalAlignment="Stretch">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Equipment ID" Binding="{Binding EquipmentId}" />
+                            <DataGridTextColumn Header="Equipment Name" Binding="{Binding EquipmentName}" />
+                            <DataGridTextColumn Header="Equipment Type" Binding="{Binding EquipmentType}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal"
+                 VerticalAlignment="Top"
+                 HorizontalAlignment="Right"
+                 Margin="0,0,50,0">
+            <Button Style="{StaticResource GreenButton}"
+                 Content="Add"
+                 Width="120"
+                 Height="60" />
+        </StackPanel>
+    </Grid>
+</UserControl>

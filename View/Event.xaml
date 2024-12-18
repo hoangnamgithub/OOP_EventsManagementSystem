@@ -76,7 +76,7 @@
                                 <TextBox x:Name="SearchBox"
                                          Text="Search......"
                                          Foreground="Gray"
-                                         Margin="5,0,30,0"
+                                         Margin="30,0,30,0"
                                          VerticalAlignment="Center"
                                          FontSize="14"
                                          FontFamily="Bahnschrift SemiLight"
@@ -101,6 +101,18 @@
                                     Click="btn_search_Click"
                                     Background="{x:Null}"
                                     BorderBrush="{x:Null}" />
+                            <Image Source="pack://application:,,,/Resources/Images/filter.png"
+Margin="5,0,0,0"
+Width="20"
+Height="20" 
+        HorizontalAlignment="Left"/>
+                            <Button x:Name="btn_filter"
+ Width="20"
+ Height="20"
+ Margin="5,0,0,0"        
+ Background="{x:Null}"
+ BorderBrush="{x:Null}" 
+         HorizontalAlignment="Left"/>
                         </Grid>
                     </Grid>
                 </TabItem>
@@ -165,7 +177,7 @@
                                 <TextBox x:Name="SearchBox1"
                                          Text="Search......"
                                          Foreground="Gray"
-                                         Margin="5,0,30,0"
+                                         Margin="30,0,30,0"
                                          VerticalAlignment="Center"
                                          FontSize="14"
                                          FontFamily="Bahnschrift SemiLight"
@@ -190,6 +202,18 @@
                                     Click="btn_search_Click"
                                     Background="{x:Null}"
                                     BorderBrush="{x:Null}" />
+                            <Image Source="pack://application:,,,/Resources/Images/filter.png"
+Margin="5,0,0,0"
+Width="20"
+Height="20" 
+        HorizontalAlignment="Left"/>
+                            <Button x:Name="btn_filter1"
+ Width="20"
+ Height="20"
+ Margin="5,0,0,0"        
+ Background="{x:Null}"
+ BorderBrush="{x:Null}" 
+         HorizontalAlignment="Left"/>
                         </Grid>
                     </Grid>
                 </TabItem>
@@ -254,7 +278,7 @@
                                 <TextBox x:Name="SearchBox2"
                                          Text="Search......"
                                          Foreground="Gray"
-                                         Margin="5,0,30,0"
+                                         Margin="30,0,30,0"
                                          VerticalAlignment="Center"
                                          FontSize="14"
                                          FontFamily="Bahnschrift SemiLight"
@@ -279,6 +303,18 @@
                                     Click="btn_search_Click"
                                     Background="{x:Null}"
                                     BorderBrush="{x:Null}" />
+                            <Image Source="pack://application:,,,/Resources/Images/filter.png"
+Margin="5,0,0,0"
+Width="20"
+Height="20" 
+        HorizontalAlignment="Left"/>
+                            <Button x:Name="btn_filter2"
+ Width="20"
+ Height="20"
+ Margin="5,0,0,0"        
+ Background="{x:Null}"
+ BorderBrush="{x:Null}" 
+         HorizontalAlignment="Left"/>
                         </Grid>
                     </Grid>
                 </TabItem>
