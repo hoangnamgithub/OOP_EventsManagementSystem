@@ -14,9 +14,7 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         Background="Transparent">
-    <Window.DataContext>
-        <vm:EventVM/>
-    </Window.DataContext>
+
     <Border CornerRadius="16"
             Background="#EFE9E4"
             BorderThickness="10"

@@ -385,9 +385,17 @@
                                     Margin="85,10,0,0">
                                 <StackPanel>
                                     <styles:SearchBar Margin="10" />
-                                    <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}"
+                                    <DataGrid ItemsSource="{Binding Equipments}"
+                                              AutoGenerateColumns="True"
                                               Background="Transparent"
-                                              Height="274" />
+                                              HorizontalAlignment="Stretch"
+                                              VerticalAlignment="Stretch">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Header="Equipment ID" Binding="{Binding EquipmentId}" />
+                                            <DataGridTextColumn Header="Equipment Name" Binding="{Binding EquipmentName}" />
+                                            <DataGridTextColumn Header="Equipment Type" Binding="{Binding EquipmentType}" />
+                                        </DataGrid.Columns>
+                                    </DataGrid>
                                 </StackPanel>
                             </Border>
                         </StackPanel>

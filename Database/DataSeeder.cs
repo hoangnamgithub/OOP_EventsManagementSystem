@@ -71,9 +71,9 @@ namespace OOP_EventsManagementSystem.Database
                 var venue = new Venue
                 {
                     VenueName = faker.Company.CompanyName(),
-                    Cost = faker.Finance.Amount(1000, 10000),
+                    Cost = faker.Finance.Amount(2000, 15000),
                     Address = faker.Address.FullAddress(),
-                    Capacity = faker.Random.Int(50, 500),
+                    Capacity = faker.Random.Int(70, 1000),
                 };
 
                 venues.Add(venue);
@@ -147,7 +147,7 @@ namespace OOP_EventsManagementSystem.Database
 
             // Tạo 1000 Performer
             var performers = new List<Performer>();
-            for (int i = 0; i < 1000; i++)
+            for (int i = 0; i < 200; i++)
             {
                 var performer = new Performer
                 {
@@ -161,7 +161,7 @@ namespace OOP_EventsManagementSystem.Database
             // Thêm dữ liệu Performer vào database
             context.Performers.AddRange(performers);
             context.SaveChanges();
-            Console.WriteLine("Seeded 1000 Performer data successfully.");
+            Console.WriteLine("Seeded 200 Performer data successfully.");
         }
 
         private static void SeedEventTypeData(EventManagementDbContext context)
@@ -238,7 +238,7 @@ namespace OOP_EventsManagementSystem.Database
             var faker = new Bogus.Faker();
 
             var sponsors = new List<Sponsor>();
-            for (int i = 0; i < 300; i++)
+            for (int i = 0; i < 200; i++)
             {
                 var sponsor = new Sponsor
                 {
@@ -309,7 +309,7 @@ namespace OOP_EventsManagementSystem.Database
                     // Step 1: Create employees for each role
                     foreach (var role in roles)
                     {
-                        for (int i = 0; i < 100; i++) // Create 100 employees per role as an example
+                        for (int i = 0; i < 50; i++) // Create 100 employees per role as an example
                         {
                             var employee = new Employee
                             {
@@ -486,7 +486,7 @@ namespace OOP_EventsManagementSystem.Database
             var events = new List<Event>();
             var today = DateTime.Today;
 
-            for (int i = 0; i < 200; i++)
+            for (int i = 0; i < 50; i++)
             {
                 var eventType = eventTypes[faker.Random.Int(0, eventTypes.Count - 1)];
                 var venue = venues[faker.Random.Int(0, venues.Count - 1)];
@@ -503,7 +503,7 @@ namespace OOP_EventsManagementSystem.Database
                 }
                 else // Approximately one third in the future
                 {
-                    startDate = faker.Date.Future(2, today); // Future within the next 2 years
+                    startDate = faker.Date.Future(1, today); // Future within the next 2 years
                 }
 
                 var endDate = startDate.AddDays(faker.Random.Int(1, 5)); // Ensuring end date is after start date
@@ -675,7 +675,7 @@ namespace OOP_EventsManagementSystem.Database
                     var show = new Show
                     {
                         ShowName = faker.Lorem.Sentence(3), // Generate a show name with 3 words
-                        Cost = faker.Finance.Amount(100, 1000), // Random cost between 100 and 1000
+                        Cost = faker.Finance.Amount(1000, 5000), // Random cost between 100 and 1000
                         PerformerId = performer.PerformerId,
                         GenreId = genre.GenreId
                     };
@@ -717,7 +717,7 @@ namespace OOP_EventsManagementSystem.Database
                 {
                     var show = shows[faker.Random.Int(0, shows.Count - 1)];
                     var startDate = faker.Date.Between(@event.StartDate.ToDateTime(TimeOnly.MinValue), @event.EndDate.ToDateTime(TimeOnly.MinValue));
-                    var estDuration = faker.Random.Int(30, 180); // Estimated duration between 30 minutes and 3 hours
+                    var estDuration = faker.Random.Int(30, 120); // Estimated duration between 30 minutes and 3 hours
 
                     var showSchedule = new ShowSchedule
                     {
