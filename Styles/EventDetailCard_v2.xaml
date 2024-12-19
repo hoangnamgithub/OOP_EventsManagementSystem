@@ -135,7 +135,7 @@
                         </Grid>
                         <Grid Grid.Row="1">
                             <TextBlock 
-                                       Name="txtbl"
+                                       Name="txtblck_venueName"
                                        VerticalAlignment="Top"
                                        Margin="10,0,0,0"
                                        FontSize="13"
