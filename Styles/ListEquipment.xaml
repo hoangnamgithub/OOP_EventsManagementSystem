@@ -7,68 +7,50 @@
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="750"
-             Background="White">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-        </Grid.RowDefinitions>
+             Background="Transparent">
+    <ScrollViewer>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
 
-        <!-- Top section with ComboBox, DemandChart, and PieChart -->
-        <Grid Height="300" Width="700" Margin="20">
-            <Border Background="#D9D9D9" />
-            <StackPanel Orientation="Horizontal">
-                <Grid>
-                    <ComboBox Name="TimePeriodComboBox"
-                              HorizontalAlignment="Left"
-                              VerticalAlignment="Top"
-                              Width="100"
-                              Margin="10"
-                              SelectionChanged="TimePeriodComboBox_SelectionChanged">
-                        <ComboBoxItem Content="Weekly" />
-                        <ComboBoxItem Content="Monthly" />
-                        <ComboBoxItem Content="Yearly" />
-                    </ComboBox>
+            <!-- Top section with ComboBox, DemandChart, and PieChart -->
+            <Grid Height="300" Width="670" Margin="20">
+                <Border Background="#D9D9D9" />
+                <StackPanel Orientation="Horizontal">
+                    <Grid>
+                        <ComboBox Name="TimePeriodComboBox"
+                          HorizontalAlignment="Left"
+                          VerticalAlignment="Top"
+                          Width="100"
+                          Margin="10"
+                          SelectionChanged="TimePeriodComboBox_SelectionChanged">
+                            <ComboBoxItem Content="Weekly" />
+                            <ComboBoxItem Content="Monthly" />
+                            <ComboBoxItem Content="Yearly" />
+                        </ComboBox>
 
-                    <!-- Demand Chart -->
-                    <lvc:CartesianChart x:Name="DemandChart" LegendLocation="Right" Width="400" Height="250" VerticalAlignment="Bottom"/>
-                </Grid>
-                <Grid>
-                    <Button x:Name="btn_add"  Style="{StaticResource PinkButton}" Content="Add" Width="100" Height="45" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,5,0,0" Click="btn_add_Click"/>
-                    <!-- Pie Chart -->
-                    <lvc:PieChart Name="equipmentPieChart" Series="{Binding SeriesCollection}" Height="200" Width="200" Margin="40,50" VerticalAlignment="Top"/>
-                    <TextBlock Style="{StaticResource txt_header}" FontSize="25" Text="Status" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="15,0,15,10"/>
-                </Grid>
-            </StackPanel>
+                        <!-- Demand Chart -->
+                        <lvc:CartesianChart x:Name="DemandChart" LegendLocation="Right" Width="400" Height="250" VerticalAlignment="Bottom"/>
+                    </Grid>
+                    <Grid>
+
+                        <!-- Pie Chart -->
+                        <lvc:PieChart Name="equipmentPieChart" Series="{Binding SeriesCollection}" Height="200" Width="200" Margin="40,50" VerticalAlignment="Top"/>
+                        <TextBlock Style="{StaticResource txt_header}" FontSize="25" Text="Status" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="15,0,15,10"/>
+                    </Grid>
+                </StackPanel>
+            </Grid>
+
+            <!-- Bottom section with horizontally arranged Equipment Items -->
+            <Grid Grid.Row="1">
+                <TextBlock Text="List Equipment" Style="{StaticResource txt_header}" Margin="40,10"/>
+                <local:SearchBar VerticalAlignment="Top" Margin="25,5"/>
+                <DataGrid Background="White" Height="250" Width="670" HorizontalAlignment="Left" Margin="40,50"/>
+                <Button x:Name="btn_add"  Style="{StaticResource PinkButton}" Content="Add" Width="100" Height="45" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,0,65,0" Click="btn_add_Click"/>
+            </Grid>
         </Grid>
-
-        <!-- Bottom section with horizontally arranged Equipment Items -->
-        <Grid Grid.Row="1">
-            <ScrollViewer HorizontalScrollBarVisibility="Auto" Height="180" Margin="35,0">
-                <ItemsControl ItemsSource="{Binding EquipmentTypes}">
-                    <ItemsControl.ItemsPanel>
-                        <!-- Use WrapPanel to arrange items horizontally -->
-                        <ItemsPanelTemplate>
-                            <WrapPanel Orientation="Horizontal" />
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Border Background="#D9D9D9" Height="150" Width="150" Margin="15,0">
-                                <StackPanel>
-                                    <Button x:Name="btn_edit" Background="Transparent" BorderBrush="Transparent" Width="110" Height="100" Click="btn_edit_Click">
-                                        <Image Source="pack://application:,,,/Resources/Images/audio.png" Width="60" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="20"/>
-                                    </Button>
-                                    
-                                    <TextBlock Style="{StaticResource txt_header}" Text="{Binding TypeName}" HorizontalAlignment="Center"/>
-                                    <TextBlock Style="{StaticResource txt}" Text="{Binding Quantity, StringFormat='{}{0} $'}" HorizontalAlignment="Center"/>
-                                </StackPanel>
-                            </Border>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </ScrollViewer>
-        </Grid>
-    </Grid>
+    </ScrollViewer>
+    
 </UserControl>
