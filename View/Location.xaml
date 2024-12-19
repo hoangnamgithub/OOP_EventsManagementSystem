@@ -9,7 +9,6 @@
              Background="#EFE9E4">
     <Grid>
         <TextBlock Style="{StaticResource txt_header}" Text="List Venue" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,10,15,10" FontSize="25"/>
-        <Button x:Name="btn_add" Style="{StaticResource PinkButton}" Content="Add" Height="48" Width="100" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="15,0,15,10" Click="btn_add_Click"/>
         <!-- The Grid that the Borders should expand into -->
         <Grid x:Name="TargetGrid" Height="520" Width="325" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Transparent"/>
         <ScrollViewer x:Name="MyScrollViewer" 
@@ -40,13 +39,13 @@
                                             <RowDefinition Height="90"/>
                                             <RowDefinition/>
                                         </Grid.RowDefinitions>
-                                            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10">
-                                                <TextBlock Text="Name" Style="{StaticResource txt_header}" Margin="0,0,15,0" />
+                                        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10">
+                                            <TextBlock Text="Name" Style="{StaticResource txt_header}" Margin="0,0,15,0" />
                                             <Border BorderBrush="Black" BorderThickness="0,0,0,1">
                                                 <TextBlock Background="Transparent" Width="230" Text="{Binding HeaderText}" Style="{StaticResource txt}"/>
                                             </Border>
-                                            
-                                            </StackPanel>
+
+                                        </StackPanel>
                                         <StackPanel  Grid.Row="1" VerticalAlignment="Top" Orientation="Horizontal" Margin="10">
                                             <TextBlock Text="Location" Style="{StaticResource txt_header}" Margin="0,0,15,0" VerticalAlignment="Bottom"/>
                                             <Border BorderBrush="Black" BorderThickness="0,0,0,1">
@@ -71,6 +70,7 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </ScrollViewer>
+        <Button x:Name="btn_add" Style="{StaticResource PinkButton}" Content="Add" Height="48" Width="100" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="15,0,15,10" Click="btn_add_Click"/>
         <!-- The Grid that the Borders should expand into -->
     </Grid>
 
