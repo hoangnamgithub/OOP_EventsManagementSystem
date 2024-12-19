@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using OOP_EventsManagementSystem.Model;
 using OOP_EventsManagementSystem.Utilities;
 using OOP_EventsManagementSystem.ViewModel;
 
@@ -28,7 +29,7 @@ namespace OOP_EventsManagementSystem.Styles
             InitializeComponent();
             ConfirmCommand = new Utilities.RelayCommand(ExecuteConfirmCommand);
             CancelCommand = new Utilities.RelayCommand(ExecuteCancelCommand);
-            DataContext = new EventVM();
+            DataContext = new EventVM(new EventManagementDbContext());
             eventname_txtbox.Text = "Event Name";
             eventname_txtbox.Foreground = System.Windows.Media.Brushes.Gray;
             eventname_txtbox.CaretBrush = System.Windows.Media.Brushes.Black;

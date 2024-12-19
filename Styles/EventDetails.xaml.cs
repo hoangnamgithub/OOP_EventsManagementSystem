@@ -8,6 +8,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using OOP_EventsManagementSystem.ViewModel;
+using OOP_EventsManagementSystem.Model;
 
 
 namespace OOP_EventsManagementSystem.Styles
@@ -20,7 +21,7 @@ namespace OOP_EventsManagementSystem.Styles
         public EventDetails()
         {
             InitializeComponent();
-            DataContext = new EventVM();
+            DataContext = new EventVM(new EventManagementDbContext());
         }
 
 

@@ -19,7 +19,7 @@
                 <TabItem Header="Up Coming">
                     <Grid>
                         <ScrollViewer Margin="10,55,0,10">
-                            <ItemsControl>
+                            <ItemsControl ItemsSource="{Binding Events}">
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <WrapPanel Orientation="Horizontal" />

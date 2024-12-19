@@ -1,7 +1,7 @@
 
-﻿using OOP_EventsManagementSystem.Styles;
+using OOP_EventsManagementSystem.Model;
+using OOP_EventsManagementSystem.Styles;
 ﻿using OOP_EventsManagementSystem.ViewModel;
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +28,7 @@ namespace OOP_EventsManagementSystem.View
         public Event()
         {
             InitializeComponent();
-            this.DataContext = new EventVM();
+            this.DataContext = new EventVM(new EventManagementDbContext());
             AddButton.IsEnabled = true;
             CurrentDateTextBlock.Text = DateTime.Now.ToString("dd MMM");
         }
