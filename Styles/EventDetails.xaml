@@ -56,7 +56,7 @@
                                            VerticalAlignment="Center"
                                            Margin="5,0,15,0" />
                                 <TextBox x:Name="eventname_txtbox"
-                                         Text="{Binding SelectedEvent.EventName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                         Text="{Binding EventName}"
                                          FontFamily="Bahnschrift SemiLight"
                                          FontSize="14"
                                          Width="155"
@@ -67,7 +67,7 @@
                                            VerticalAlignment="Center"
                                            Margin="20,0,15,0" />
                                 <TextBox x:Name="eventattendee_txtbox"
-                                         Text="{Binding SelectedEvent.ExptedAttendee, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                         Text="{Binding ExpectedAttendee}"
                                          FontFamily="Bahnschrift SemiLight"
                                          FontSize="14"
                                          Width="100"
@@ -81,10 +81,8 @@
                                            Margin="5,5,5,0" />
                                 <ComboBox Margin="10,0,5,5"
                                           Width="155"
-                                          ItemsSource="{Binding Venues}"
-                                          DisplayMemberPath="VenueName"
-                                          SelectedValuePath="VenueId"
-                                          SelectedValue="{Binding SelectedVenueId, Mode=TwoWay}"
+                                          SelectedItem="{Binding VenueName}"
+                                          
                                           materialDesign:HintAssist.Hint="choosing..." />
                                 <TextBlock Text="Event Type"
                                            FontFamily="Bahnschrift SemiBold"
@@ -92,10 +90,8 @@
                                            Margin="15,5,15,0" />
                                 <ComboBox Margin="8,0,12,5"
                                           Width="100"
-                                          ItemsSource="{Binding EventTypes}"
-                                          DisplayMemberPath="TypeName"
-                                          SelectedValuePath="EventTypeId"
-                                          SelectedValue="{Binding SelectedEventTypeId, Mode=TwoWay}"
+                                          SelectedItem="{Binding VenueName}"
+                                          
                                           materialDesign:HintAssist.Hint="choosing..." />
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
@@ -103,8 +99,8 @@
                                 <Border Background="White"
                                         CornerRadius="16"
                                         Margin="5,15,10,0">
-                                    <TextBox x:Name="des_txtbo"
-                                             Text="{Binding SelectedEvent.EventDescription, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    <TextBox x:Name="txtbox_description"
+                                             Text="{Binding EventDescription}"
                                              Width="235"
                                              TextWrapping="Wrap"
                                              Foreground="Black"
@@ -131,7 +127,8 @@
                                                     materialDesign:TextFieldAssist.HasClearButton="True"
                                                     Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
                                                     Width="137"
-                                                    SelectedDate="{Binding StartDate, Mode=TwoWay}" />
+                                                    SelectedDate="{Binding StartDate}"
+                                                    />
                                         <!-- Bind to StartDate -->
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
@@ -148,7 +145,8 @@
                                                     materialDesign:HintAssist.Hint="Pick Date"
                                                     materialDesign:TextFieldAssist.HasClearButton="True"
                                                     Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
-                                                    SelectedDate="{Binding EndDate, Mode=TwoWay}" />
+                                                    SelectedDate="{Binding EndDate}"
+                                                    />
                                         <!-- Bind to EndDate -->
                                     </StackPanel>
                                 </StackPanel>

@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
+using OOP_EventsManagementSystem.ViewModel;
 
 namespace OOP_EventsManagementSystem.ViewModel
 {
@@ -21,7 +22,7 @@ namespace OOP_EventsManagementSystem.ViewModel
             {
                 _events = value;
                 OnPropertyChanged(nameof(Events));
-                UpdateCategorizedCollections(); // Update filtered collections when Events is updated
+                UpdateCategorizedCollections();
             }
         }
 
@@ -103,7 +104,6 @@ namespace OOP_EventsManagementSystem.ViewModel
         public EventViewModel(Event eventModel)
         {
             _event = eventModel;
-
             OpenEventDetailCommand = new RelayCommand(param => OpenEventDetail(), param => true);
         }
 
@@ -119,5 +119,27 @@ namespace OOP_EventsManagementSystem.ViewModel
 
         public DateTime EndDateAsDateTime => _event.EndDate.ToDateTime(TimeOnly.MinValue);
 
+        public ICommand OpenEventDetailCommand { get; }
+
+        private void OpenEventDetail()
+        {
+            // Create a new instance of the EventDetailVM to pass the event data
+            var eventDetailVM = new EventDetailsVM
+            {
+                EventName = _event.EventName,
+                ExpectedAttendee = _event.ExptedAttendee.ToString(), // Convert to string
+                VenueName = _event.Venue.VenueName,
+                EventDescription = _event.EventDescription, // Map to EventDescription
+                StartDate = _event.StartDate.ToDateTime(TimeOnly.MinValue), // Convert DateOnly to DateTime
+                EndDate = _event.EndDate.ToDateTime(TimeOnly.MinValue) // Convert DateOnly to DateTime
+            };
+
+            // Create and show the EventDetails window
+            var eventDetailsWindow = new EventDetails
+            {
+                DataContext = eventDetailVM // Pass the EventDetailVM as the DataContext
+            };
+            eventDetailsWindow.ShowDialog(); // Open the window as a dialog
+        }
     }
 }

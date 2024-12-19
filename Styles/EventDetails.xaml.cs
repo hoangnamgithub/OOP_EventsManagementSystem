@@ -21,7 +21,7 @@ namespace OOP_EventsManagementSystem.Styles
         public EventDetails()
         {
             InitializeComponent();
-            DataContext = new EventVM(new EventManagementDbContext());
+            //DataContext = new EventVM(new EventManagementDbContext());
         }
 
 
