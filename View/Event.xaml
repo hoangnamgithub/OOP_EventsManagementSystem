@@ -19,7 +19,7 @@
                 <TabItem Header="Up Coming">
                     <Grid>
                         <ScrollViewer Margin="10,55,0,10">
-                            <ItemsControl ItemsSource="{Binding Events}">
+                            <ItemsControl ItemsSource="{Binding UpcomingEvents}">
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <WrapPanel Orientation="Horizontal" />
@@ -30,9 +30,10 @@
                                         <Button Name="btn_EventDetailCard"
                                                 Background="Transparent"
                                                 BorderBrush="Transparent"
-                                                Height="140">
+                                                Height="140"
+                                                Command="{Binding OpenEventDetailCommand}">
                                             <styles:EventDetailCard_v2 EventName="{Binding EventName}"
-                                                                       VenueName="{Binding Venue.VenueName}"
+                                                                       VenueName="{Binding VenueName}"
                                                                        StartDate="{Binding StartDate}"
                                                                        EndDate="{Binding EndDate}" />
                                         </Button>
@@ -40,7 +41,7 @@
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
                         </ScrollViewer>
-                        <!--<StackPanel Orientation="Horizontal"
+                        <!-- <StackPanel Orientation="Horizontal"
                                     HorizontalAlignment="Right"
                                     Margin="10,5,25,0">
                             <Button Content="&lt;"
@@ -65,7 +66,7 @@
                                     Height="50"
                                     Width="50"
                                     VerticalAlignment="Top" />
-                        </StackPanel>-->
+                        </StackPanel> -->
                         <Grid HorizontalAlignment="Left"
                               VerticalAlignment="Top"
                               Margin="25,10,0,10">
@@ -109,7 +110,7 @@
                 <TabItem Header="Happening">
                     <Grid>
                         <ScrollViewer Margin="10,55,0,10">
-                            <ItemsControl ItemsSource="{ Binding HappeningPagination.PagedCollection}">
+                            <ItemsControl ItemsSource="{ Binding HappeningEvents}">
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <WrapPanel Orientation="Horizontal" />
@@ -121,8 +122,7 @@
                                                 Background="Transparent"
                                                 BorderBrush="Transparent"
                                                 Height="140"
-                                                Command="{Binding DataContext.OpenEventDetailCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-                                                CommandParameter="{Binding}">
+                                                Command="{Binding OpenEventDetailCommand}">
                                             <styles:EventDetailCard_v2 EventName="{Binding EventName}"
                                                                        VenueName="{Binding Venue.VenueName}"
                                                                        StartDate="{Binding StartDate}"
@@ -201,7 +201,7 @@
                 <TabItem Header="Completed">
                     <Grid>
                         <ScrollViewer Margin="10,55,0,10">
-                            <ItemsControl ItemsSource="{ Binding CompletedPagination.PagedCollection}">
+                            <ItemsControl ItemsSource="{ Binding CompletedEvents}">
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <WrapPanel Orientation="Horizontal" />
@@ -213,8 +213,7 @@
                                                 Background="Transparent"
                                                 BorderBrush="Transparent"
                                                 Height="140"
-                                                Command="{Binding DataContext.OpenEventDetailCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-                                                CommandParameter="{Binding}">
+                                                Command="{Binding OpenEventDetailCommand}">
                                             <styles:EventDetailCard_v2 EventName="{Binding EventName}"
                                                                        VenueName="{Binding Venue.VenueName}"
                                                                        StartDate="{Binding StartDate}"
