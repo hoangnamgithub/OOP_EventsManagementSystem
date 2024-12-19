@@ -1,0 +1,33 @@
+﻿<Window x:Class="OOP_EventsManagementSystem.Styles.PerformerDescription"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OOP_EventsManagementSystem.Styles"
+                 xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+
+        mc:Ignorable="d"
+        Title="ShowOrPerformer" Height="380" Width="500"
+AllowsTransparency="True"
+WindowStartupLocation="CenterScreen"
+WindowStyle="None"
+Background="Transparent">
+    <Border CornerRadius="16" BorderBrush="#D96073" BorderThickness="8" Background="White" Height="160" Width="350" MouseLeftButtonDown="MouseLeftButtonDown" VerticalAlignment="Top">
+        <Grid >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="Which one you want to add ?" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,15,0,0" Foreground="Black" FontFamily="Bahnschrift SemiLight" FontSize="22" />
+            <Grid Grid.Row="1">
+                <StackPanel Orientation="Horizontal" Margin="15">
+                    <Button x:Name="btn_chooseShow" Style="{StaticResource PinkButton}" Height="70" Width="150" Content="Show" Click="btn_chooseShow_click"/>
+                    <Button x:Name="btn_choosePerformer" Style="{StaticResource PurpleButton}" Height="70" Width="150" Content="Performer" Click="btn_choosePerformer_click"/>
+
+                </StackPanel>
+            </Grid>
+        </Grid>
+
+    </Border>
+</Window>

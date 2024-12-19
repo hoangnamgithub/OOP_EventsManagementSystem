@@ -30,5 +30,21 @@ namespace OOP_EventsManagementSystem.Styles
         }
         private void MouseLeftButtonDown(object sender, MouseButtonEventArgs e) { if (e.ButtonState == MouseButtonState.Pressed) { this.DragMove(); } }
 
+        private void btn_addPerformer_Click(object sender, RoutedEventArgs e)
+        {
+            addPerformer.Visibility = Visibility.Visible; // Thay đổi thuộc tính Visibility
+            gridbtn_add.Visibility = Visibility.Collapsed;
+            gridbtn_close.Visibility = Visibility.Visible;
+            performerchoose.Visibility = Visibility.Collapsed;
+        }
+
+        private void btn_closePerformer_Click(object sender, RoutedEventArgs e)
+        {
+            addPerformer.Visibility = Visibility.Collapsed; // Thay đổi thuộc tính Visibility
+            gridbtn_add.Visibility = Visibility.Visible;
+            gridbtn_close.Visibility = Visibility.Collapsed;
+            performerchoose.Visibility = Visibility.Visible;
+
+        }
     }
 }

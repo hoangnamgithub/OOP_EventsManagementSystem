@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OOP_EventsManagementSystem.Styles;
+using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
@@ -24,18 +25,17 @@ namespace OOP_EventsManagementSystem.View
             // Binding dữ liệu vào ItemsControl
             var borderItems = new List<BorderItem>
             {
-                new BorderItem { HeaderText = "VCCA Art Gallery", ImageSource = "pack://application:,,,/Resources/Images/event2.jpg" },
-                new BorderItem { HeaderText = "Art Exhibition", ImageSource = "pack://application:,,,/Resources/Images/event2.jpg" },
-                new BorderItem { HeaderText = "Modern Art", ImageSource = "pack://application:,,,/Resources/Images/event2.jpg" },
-                new BorderItem { HeaderText = "VCCA Art Gallery", ImageSource = "pack://application:,,,/Resources/Images/event2.jpg" },
-                new BorderItem { HeaderText = "Art Exhibition", ImageSource = "pack://application:,,,/Resources/Images/event2.jpg" },
-                new BorderItem { HeaderText = "Modern Art", ImageSource = "pack://application:,,,/Resources/Images/event2.jpg" },
-                new BorderItem { HeaderText = "VCCA Art Gallery", ImageSource = "pack://application:,,,/Resources/Images/event2.jpg" },
-                new BorderItem { HeaderText = "Art Exhibition", ImageSource = "pack://application:,,,/Resources/Images/event2.jpg" },
-                new BorderItem { HeaderText = "Modern Art", ImageSource = "pack://application:,,,/Resources/Images/event2.jpg" },
-                new BorderItem { HeaderText = "VCCA Art Gallery", ImageSource = "pack://application:,,,/Resources/Images/event2.jpg" },
-                new BorderItem { HeaderText = "Art Exhibition", ImageSource = "pack://application:,,,/Resources/Images/event2.jpg" },
-                new BorderItem { HeaderText = "Modern Art", ImageSource = "pack://application:,,,/Resources/Images/event2.jpg" }
+                new BorderItem { HeaderText = "VCCA Art Gallery", ImageSource = "pack://application:,,,/Resources/Images/event2.jpg", Location ="Nhawng hbsbshc handnhjfvjhjhsbvbvbnxjvxv,", Capacity=1000, Cost=200 },
+                new BorderItem { HeaderText = "Art Exhibition", ImageSource = "pack://application:,,,/Resources/Images/event2.jpg", Location ="Nhawng Nhawng hbsbshc handnhjfvjhjhsbvbvbnxjvxv", Capacity=1000, Cost=200 },
+                new BorderItem {HeaderText = "Modern Art", ImageSource = "pack://application:,,,/Resources/Images/event2.jpg", Location = "Nhawng Nhawng hbsbshc handnhjfvjhjhsbvbvbnxjvxv,", Capacity = 1000, Cost = 200},
+                new BorderItem {HeaderText = "VCCA Art Gallery", ImageSource = "pack://application:,,,/Resources/Images/event2.jpg", Location = "Nhawng Nhawng hbsbshc handnhjfvjhjhsbvbvbnxjvxv,", Capacity = 1000, Cost = 200},
+                new BorderItem {HeaderText = "Art Exhibition", ImageSource = "pack://application:,,,/Resources/Images/event2.jpg", Location = "Nhawng Nhawng hbsbshc handnhjfvjhjhsbvbvbnxjvxv,", Capacity = 1000, Cost = 200},
+                new BorderItem {HeaderText = "Modern Art", ImageSource = "pack://application:,,,/Resources/Images/event2.jpg", Location = "Nhawng Nhawng hbsbshc handnhjfvjhjhsbvbvbnxjvxv, ", Capacity = 1000, Cost = 200},
+                new BorderItem {HeaderText = "VCCA Art Gallery", ImageSource = "pack://application:,,,/Resources/Images/event2.jpg", Location = "Nhawng Nhawng hbsbshc handnhjfvjhjhsbvbvbnxjvxv,", Capacity = 1000, Cost = 200},
+                new BorderItem {HeaderText = "Modern Art", ImageSource = "pack://application:,,,/Resources/Images/event2.jpg", Location = "Nhawng Nhawng hbsbshc handnhjfvjhjhsbvbvbnxjvxv,", Capacity = 1000, Cost = 200},
+                new BorderItem {HeaderText = "VCCA Art Gallery", ImageSource = "pack://application:,,,/Resources/Images/event2.jpg", Location = "Nhawng Nhawng hbsbshc handnhjfvjhjhsbvbvbnxjvxv,", Capacity = 1000, Cost = 200},
+                new BorderItem {HeaderText = "Art Exhibition", ImageSource = "pack://application:,,,/Resources/Images/event2.jpg", Location = "Nhawng Nhawng hbsbshc handnhjfvjhjhsbvbvbnxjvxv,", Capacity = 1000, Cost = 200},
+                new BorderItem {HeaderText = "Modern Art", ImageSource = "pack://application:,,,/Resources/Images/event2.jpg", Location = "Nhawng Nhawng hbsbshc handnhjfvjhjhsbvbvbnxjvxv,", Capacity = 1000, Cost = 200}
 
             };
 
@@ -244,6 +244,24 @@ namespace OOP_EventsManagementSystem.View
             // Đây là một phương thức để lấy tọa độ của Border từ mỗi item trong ItemsControl
             return new Rect(0, 0, borderItem.Width, borderItem.Height);
         }
+
+        private void btn_add_Click(object sender, RoutedEventArgs e)
+        {
+            var locationDescription = new LocationDescription();
+            locationDescription.Show();
+        }
+
+        private void btn_edit_Click(object sender, RoutedEventArgs e)
+        {
+            var ownerWindow = Window.GetWindow(this); // Lấy cửa sổ cha
+            var locationDescription = new LocationDescription
+            {
+                Owner = ownerWindow
+            };
+            locationDescription.ShowDialog();
+        }
+
+
     }
 
     // Class BorderItem để bind dữ liệu
@@ -253,5 +271,8 @@ namespace OOP_EventsManagementSystem.View
         public string ImageSource { get; set; }
         public double Width { get; set; } = 205;
         public double Height { get; set; } = 170;
+        public string Location { get; set; }
+        public int Capacity { get; set; }
+        public int Cost { get; set; }
     }
 }

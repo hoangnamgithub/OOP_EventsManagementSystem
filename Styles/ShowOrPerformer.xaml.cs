@@ -10,27 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using OOP_EventsManagementSystem.ViewModel;
 
-namespace OOP_EventsManagementSystem.View
+namespace OOP_EventsManagementSystem.Styles
 {
     /// <summary>
-    /// Interaction logic for Show.xaml
+    /// Interaction logic for ShowOrPerformer.xaml
     /// </summary>
-    public partial class Show : UserControl
+    public partial class ShowOrPerformer : Window
     {
-        public Show()
+        public ShowOrPerformer()
         {
             InitializeComponent();
-            this.DataContext = new ShowVM();
-            btn_add.IsEnabled = true;
-        }
-
-        private void btn_add_Click(object sender, RoutedEventArgs e)
-        {
-            
         }
 
     }

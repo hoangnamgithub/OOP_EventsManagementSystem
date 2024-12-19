@@ -8,13 +8,17 @@
              d:DesignHeight="555" d:DesignWidth="850"
              Background="#EFE9E4">
     <Grid>
+        <TextBlock Style="{StaticResource txt_header}" Text="List Venue" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,10,15,10" FontSize="25"/>
+        <Button x:Name="btn_add" Style="{StaticResource PinkButton}" Content="Add" Height="48" Width="100" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="15,0,15,10" Click="btn_add_Click"/>
         <!-- The Grid that the Borders should expand into -->
-        <Grid x:Name="TargetGrid" Height="250" Width="325" HorizontalAlignment="Center" VerticalAlignment="Center" Background="LightGray"/>
+        <Grid x:Name="TargetGrid" Height="520" Width="325" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Transparent"/>
         <ScrollViewer x:Name="MyScrollViewer" 
                   HorizontalScrollBarVisibility="Auto" 
                   VerticalScrollBarVisibility="Disabled"
                   HorizontalAlignment="Center" 
-                  VerticalAlignment="Center">
+                  VerticalAlignment="Top"
+                      Height="545"
+                      Margin="0,15,0,0">
             <ItemsControl x:Name="ItemsControl" ScrollViewer.HorizontalScrollBarVisibility="Auto">
                 <ItemsControl.ItemsPanel>
                     <!-- Sử dụng ItemsPanelTemplate để bố trí các mục theo hàng ngang -->
@@ -24,10 +28,43 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Border x:Name="ResizableBorder" CornerRadius="16" Height="170" Width="205" Margin="15" MouseLeftButtonDown="Border_MouseLeftButtonDown" MouseMove="Border_MouseMove" MouseLeftButtonUp="Border_MouseLeftButtonUp" MouseEnter="Border_MouseEnter" MouseLeave="Border_MouseLeave">
+                        <Border x:Name="ResizableBorder" CornerRadius="16" Height="170" Width="205" Margin="25" VerticalAlignment="Top" MouseLeftButtonDown="Border_MouseLeftButtonDown" MouseMove="Border_MouseMove" MouseLeftButtonUp="Border_MouseLeftButtonUp" MouseEnter="Border_MouseEnter" MouseLeave="Border_MouseLeave">
                             <StackPanel>
-                                <TextBlock Style="{StaticResource txt_header}" Text="{Binding HeaderText}" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="5"/>
+                                <TextBlock Style="{StaticResource txt_header}" Text="{Binding HeaderText}" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="5" Foreground="DarkGray"/>
                                 <Image Source="{Binding ImageSource}" VerticalAlignment="Bottom"/>
+                                <Button x:Name="btn_edit" Content="Edit" Width="200" Height="30" Foreground="Black" Background="Transparent" BorderBrush="Transparent" Click="btn_edit_Click"/>
+                                <Border Background="White" Height="215" Width="325" CornerRadius="16" BorderBrush="#D6DC82" BorderThickness="7">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="90"/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+                                            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10">
+                                                <TextBlock Text="Name" Style="{StaticResource txt_header}" Margin="0,0,15,0" />
+                                            <Border BorderBrush="Black" BorderThickness="0,0,0,1">
+                                                <TextBlock Background="Transparent" Width="230" Text="{Binding HeaderText}" Style="{StaticResource txt}"/>
+                                            </Border>
+                                            
+                                            </StackPanel>
+                                        <StackPanel  Grid.Row="1" VerticalAlignment="Top" Orientation="Horizontal" Margin="10">
+                                            <TextBlock Text="Location" Style="{StaticResource txt_header}" Margin="0,0,15,0" VerticalAlignment="Bottom"/>
+                                            <Border BorderBrush="Black" BorderThickness="0,0,0,1">
+                                                <TextBlock Background="Transparent" Width="200" Text="{Binding Location}" TextWrapping="Wrap" Style="{StaticResource txt}"/>
+                                            </Border>
+                                        </StackPanel>
+                                        <StackPanel  Grid.Row="2" VerticalAlignment="Top" Orientation="Horizontal" Margin="10">
+                                            <TextBlock Text="Capacity" Style="{StaticResource txt_header}" Margin="0,0,15,0" VerticalAlignment="Bottom"/>
+                                            <Border BorderBrush="Black" BorderThickness="0,0,0,1">
+                                                <TextBlock Background="Transparent" Width="60" Text="{Binding Capacity}" Style="{StaticResource txt}"/>
+                                            </Border>
+                                            <TextBlock Text="Cost" Style="{StaticResource txt_header}" Margin="10,0,15,0" VerticalAlignment="Bottom"/>
+                                            <Border BorderBrush="Black" BorderThickness="0,0,0,1">
+                                                <TextBlock Background="Transparent" Width="60" Text="{Binding Cost}" Style="{StaticResource txt}"/>
+                                            </Border>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
                             </StackPanel>
                         </Border>
                     </DataTemplate>

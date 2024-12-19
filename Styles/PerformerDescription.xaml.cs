@@ -10,28 +10,23 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using OOP_EventsManagementSystem.ViewModel;
 
-namespace OOP_EventsManagementSystem.View
+namespace OOP_EventsManagementSystem.Styles
 {
     /// <summary>
-    /// Interaction logic for Show.xaml
+    /// Interaction logic for PerformerDescription.xaml
     /// </summary>
-    public partial class Show : UserControl
+    public partial class PerformerDescription : Window
     {
-        public Show()
+        public PerformerDescription()
         {
             InitializeComponent();
-            this.DataContext = new ShowVM();
-            btn_add.IsEnabled = true;
         }
-
-        private void btn_add_Click(object sender, RoutedEventArgs e)
+        private void btn_close_Click(object sender, RoutedEventArgs e)
         {
-            
+            this.Close();
         }
-
+        private void MouseLeftButtonDown(object sender, MouseButtonEventArgs e) { if (e.ButtonState == MouseButtonState.Pressed) { this.DragMove(); } }
     }
 }
