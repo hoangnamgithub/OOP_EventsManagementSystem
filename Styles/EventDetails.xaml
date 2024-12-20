@@ -36,20 +36,28 @@
                             <ColumnDefinition Width="auto" />
                             <ColumnDefinition Width="auto" />
                         </Grid.ColumnDefinitions>
-                        <StackPanel>
-                            <TextBlock
-                                Margin="20,15,0,20"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Center"
-                                Style="{StaticResource txt_header}"
-                                Text=" Event Description" />
-                            <local:EventDetailCard_v2
+                        <Grid Margin="20">
+                            <StackPanel VerticalAlignment="Center">
+                                <TextBlock
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    FontSize="30"
+                                    Style="{StaticResource txt_header}"
+                                    Text="Event" />
+                                <TextBlock
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    FontSize="30"
+                                    Style="{StaticResource txt_header}"
+                                    Text="Description" />
+                            </StackPanel>
+                            <!--<local:EventDetailCard_v2
                                 Grid.Row="1"
                                 Width="247"
                                 Height="137"
                                 Margin="20,0,10,0"
-                                HorizontalAlignment="Center" />
-                        </StackPanel>
+                                HorizontalAlignment="Center" />-->
+                        </Grid>
                         <StackPanel Grid.Column="1" Margin="20,10,0,0">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock
