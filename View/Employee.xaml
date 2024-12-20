@@ -169,10 +169,59 @@
                             </DataGrid>
 
                         </Border>
-                        <styles:SearchBar
-                            Margin="40,25,0,0"
+                        <Grid
+                            Margin="35,25,0,10"
                             HorizontalAlignment="Left"
-                            VerticalAlignment="Top" />
+                            VerticalAlignment="Top">
+                            <Border
+                                Width="280"
+                                Height="35"
+                                HorizontalAlignment="Left"
+                                Background="#FFDCDCE6"
+                                CornerRadius="16">
+                                <TextBox
+                                    x:Name="SearchBox"
+                                    Margin="30,0,30,0"
+                                    VerticalAlignment="Center"
+                                    Background="{x:Null}"
+                                    BorderBrush="{x:Null}"
+                                    CaretBrush="{x:Null}"
+                                    FontFamily="Bahnschrift SemiLight"
+                                    FontSize="14"
+                                    Foreground="Gray"
+                                    SelectionBrush="{x:Null}"
+                                    SelectionTextBrush="{x:Null}"
+                                    Text="{Binding NewSearchText}" />
+                            </Border>
+                            <Image
+                                Width="20"
+                                Height="20"
+                                Margin="250,0,0,0"
+                                HorizontalAlignment="Left"
+                                Source="pack://application:,,,/Resources/Images/magnify.png" />
+                            <Button
+                                x:Name="btn_search"
+                                Width="20"
+                                Height="20"
+                                Margin="250,0,0,0"
+                                HorizontalAlignment="Left"
+                                Background="{x:Null}"
+                                BorderBrush="{x:Null}" />
+                            <Image
+                                Width="20"
+                                Height="20"
+                                Margin="5,0,0,0"
+                                HorizontalAlignment="Left"
+                                Source="pack://application:,,,/Resources/Images/filter.png" />
+                            <Button
+                                x:Name="btn_filter"
+                                Width="20"
+                                Height="20"
+                                Margin="5,0,0,0"
+                                HorizontalAlignment="Left"
+                                Background="{x:Null}"
+                                BorderBrush="{x:Null}" />
+                        </Grid>
                     </Grid>
                 </StackPanel>
             </Grid>
