@@ -25,7 +25,7 @@ namespace OOP_EventsManagementSystem.View
         public Employee()
         {
             InitializeComponent();
-            DataContext = new EmployeeVM();
+            DataContext = new EmployeeVM(new EventManagementDbContext());
         }
     }
 }

@@ -1,88 +1,87 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using Microsoft.EntityFrameworkCore;
 using OOP_EventsManagementSystem.Model;
 using OOP_EventsManagementSystem.Styles;
-using OOP_EventsManagementSystem.Utilities;
-
 
 namespace OOP_EventsManagementSystem.ViewModel
 {
     class EmployeeVM : INotifyPropertyChanged
     {
-
         private readonly EventManagementDbContext _context;
-        public ObservableCollection<EmployeeDisplayModel> TodayEmployees { get; set; }
+
+        // Observable collection to bind to the DataGrid
+        private ObservableCollection<Employee> _employees;
+        public ObservableCollection<Employee> Employees
+        {
+            get => _employees;
+            set
+            {
+                _employees = value;
+                OnPropertyChanged(nameof(Employees));
+            }
+        }
+
         public ICommand AddCommand { get; }
         public ICommand EditCommand { get; }
         public ICommand DeleteCommand { get; }
 
-        public EmployeeVM(EventManagementDbContext context) 
+        public EmployeeVM(EventManagementDbContext context)
         {
             AddCommand = new RelayCommand(AddNewEmployee);
             EditCommand = new RelayCommand(EditEmployee);
             DeleteCommand = new RelayCommand(DeleteEmployee);
 
-            _context = context; 
-            LoadData();
+            _context = context;
+            _employees = new ObservableCollection<Employee>();
 
+            LoadEmployeesEngagedToday();
         }
 
-        private void LoadData()
+        // Fetch employees engaged in today's event from the database
+        private async void LoadEmployeesEngagedToday()
         {
-            var today = DateTime.Today;
-            var engagedToday = _context.Engageds
-                .Include(e => e.Employee)
-                .Include(e => e.Event)
-                .Include(e => e.Employee.Role)
-                .Where(e => e.Event.StartDate.ToDateTime(TimeOnly.MinValue) <= today &&
-                            e.Event.EndDate.ToDateTime(TimeOnly.MinValue) >= today)
-                .Select(e => new EmployeeDisplayModel
-                {
-                    FullName = e.Employee.FullName,
-                    Contact = e.Employee.Contact,
-                    RoleName = e.Employee.Role.RoleName,
-                    EventName = e.Event.EventName
-                })
-                .ToList();
+            // Get today's date
+            var today = DateOnly.FromDateTime(DateTime.Now);
 
-            TodayEmployees = new ObservableCollection<EmployeeDisplayModel>(engagedToday);
-            OnPropertyChanged(nameof(TodayEmployees));
+            // Query for employees engaged in today's event
+            var employeesFromDb = await _context.Employees
+                .Where(e => e.Accounts
+                    .Any(a => a.Engageds
+                        .Any(eng => eng.Event.StartDate == today)))
+                .Include(e => e.Role)  // Include role data
+                .Include(e => e.Accounts)  // Include related accounts
+                    .ThenInclude(a => a.Engageds)  // Include engagements related to accounts
+                    .ThenInclude(eng => eng.Event)  // Include events related to engagements
+                .ToListAsync();
+
+            Employees = new ObservableCollection<Employee>(employeesFromDb);
         }
 
-        private void AddNewEmployee (Object parameter) 
+        private void AddNewEmployee(Object parameter)
         {
-            // Logic khi nhấn nút Add (mở ShowDescription)
             var employeeDescriptionWindow = new EmployeeDescription();
             employeeDescriptionWindow.Show();
         }
-        private void EditEmployee(Object parameter) 
+
+        private void EditEmployee(Object parameter)
         {
-            // Logic khi nhấn nút Add (mở ShowDescription)
             var employeeDescriptionWindow = new EmployeeDescription();
             employeeDescriptionWindow.Show();
         }
-        private void DeleteEmployee(Object parameter) { }
+
+        private void DeleteEmployee(Object parameter)
+        {
+            // Logic to delete an employee
+        }
 
         public event PropertyChangedEventHandler? PropertyChanged;
+
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
     }
-    public class EmployeeDisplayModel
-    {
-        public string FullName { get; set; }
-        public string Contact { get; set; }
-        public string RoleName { get; set; }
-        public string EventName { get; set; }
-    }
-
 }

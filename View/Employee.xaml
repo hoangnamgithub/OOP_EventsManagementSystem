@@ -45,7 +45,7 @@
                         <RowDefinition Height="70*" />
                         <RowDefinition Height="28*" />
                     </Grid.RowDefinitions>
-                    <!--  List Employee wwork today  -->
+                    <!--  List Employee work today  -->
                     <TextBlock
                         Margin="20,35,10,5"
                         FontFamily="Bahnschrift SemiBold"
@@ -71,18 +71,31 @@
                                 Margin="0,45,0,0"
                                 AutoGenerateColumns="False"
                                 Background="Transparent"
-                                ItemsSource="{Binding TodayEmployees}">
+                                ItemsSource="{Binding Employees}">
+
+                                <!--  Define columns to display data  -->
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Binding="{Binding FullName}" Header="Full Name" />
-                                    <DataGridTextColumn Binding="{Binding Contact}" Header="Contact" />
-                                    <DataGridTextColumn Binding="{Binding RoleName}" Header="Role" />
-                                    <DataGridTextColumn Binding="{Binding EventName}" Header="Event" />
+                                    <DataGridTextColumn
+                                        Width="*"
+                                        Binding="{Binding FullName}"
+                                        Header="Full Name" />
+                                    <DataGridTextColumn
+                                        Width="*"
+                                        Binding="{Binding Contact}"
+                                        Header="Contact" />
+
+                                    <!--  Bind to RoleName of the Role navigation property  -->
+                                    <DataGridTextColumn
+                                        Width="*"
+                                        Binding="{Binding Role.RoleName}"
+                                        Header="Role" />
                                 </DataGrid.Columns>
                             </DataGrid>
+
+
                         </Border>
                         <styles:SearchBar Margin="0,25,140,0" VerticalAlignment="Top" />
                     </Grid>
-
                 </Grid>
             </Grid>
             <Grid Grid.Row="1">
@@ -104,7 +117,6 @@
                             ButtonCommand="{Binding AddCommand}"
                             ButtonText="Add" />
                     </Grid>
-
                     <Grid>
                         <Rectangle
                             Height="350"
