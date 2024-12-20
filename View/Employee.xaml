@@ -142,9 +142,25 @@
                             Background="White"
                             CornerRadius="16">
                             <DataGrid
+                                Name="dtgrd_allEmp"
                                 Margin="0,45,0,0"
-                                d:ItemsSource="{d:SampleData ItemCount=5}"
-                                Background="Transparent" />
+                                Background="Transparent"
+                                ItemsSource="{Binding Employees}">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn
+                                        Width="15*"
+                                        Binding="{Binding EmployeeId}"
+                                        Header="Employee ID" />
+                                    <DataGridTextColumn
+                                        Width="40*"
+                                        Binding="{Binding FullName}"
+                                        Header="Full Name" />
+                                    <DataGridTextColumn
+                                        Width="30*"
+                                        Binding="{Binding Contact}"
+                                        Header="Contact" />
+                                </DataGrid.Columns>
+                            </DataGrid>
                         </Border>
                         <styles:SearchBar
                             Margin="40,25,0,0"
