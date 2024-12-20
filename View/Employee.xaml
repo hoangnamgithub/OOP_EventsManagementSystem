@@ -35,7 +35,21 @@
                         Background="White"
                         CornerRadius="16">
                         <Grid>
-                            <DataGrid />
+                            <DataGrid
+                                Name="dtgrd_todayEvent"
+                                Margin="0,45,0,0"
+                                AutoGenerateColumns="False"
+                                Background="Transparent"
+                                CanUserAddRows="False"
+                                CanUserDeleteRows="False"
+                                IsReadOnly="True"
+                                ItemsSource="{Binding TodayEvents}"
+                                PreviewMouseLeftButtonDown="Dtgrd_TodayEvent_PreviewMouseLeftButtonDown"
+                                SelectedItem="{Binding SelectedEvent}">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Binding="{Binding EventName}" Header="Event Name" />
+                                </DataGrid.Columns>
+                            </DataGrid>
                         </Grid>
                     </Border>
                 </StackPanel>
@@ -71,28 +85,23 @@
                                 Margin="0,45,0,0"
                                 AutoGenerateColumns="False"
                                 Background="Transparent"
-                                ItemsSource="{Binding Employees}">
-
-                                <!--  Define columns to display data  -->
+                                IsReadOnly="True"
+                                ItemsSource="{Binding EngagedEmployees}">
                                 <DataGrid.Columns>
                                     <DataGridTextColumn
-                                        Width="*"
+                                        Width="auto"
+                                        Binding="{Binding EmployeeId}"
+                                        Header="Employee ID" />
+                                    <DataGridTextColumn
+                                        Width="auto"
                                         Binding="{Binding FullName}"
                                         Header="Full Name" />
                                     <DataGridTextColumn
-                                        Width="*"
+                                        Width="auto"
                                         Binding="{Binding Contact}"
                                         Header="Contact" />
-
-                                    <!--  Bind to RoleName of the Role navigation property  -->
-                                    <DataGridTextColumn
-                                        Width="*"
-                                        Binding="{Binding Role.RoleName}"
-                                        Header="Role" />
                                 </DataGrid.Columns>
                             </DataGrid>
-
-
                         </Border>
                         <styles:SearchBar Margin="0,25,140,0" VerticalAlignment="Top" />
                     </Grid>
