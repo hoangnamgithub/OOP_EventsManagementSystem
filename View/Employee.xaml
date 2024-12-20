@@ -69,7 +69,16 @@
                             <DataGrid
                                 Name="dtgrd_todayemployee"
                                 Margin="0,45,0,0"
-                                Background="Transparent" />
+                                AutoGenerateColumns="False"
+                                Background="Transparent"
+                                ItemsSource="{Binding TodayEmployees}">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Binding="{Binding FullName}" Header="Full Name" />
+                                    <DataGridTextColumn Binding="{Binding Contact}" Header="Contact" />
+                                    <DataGridTextColumn Binding="{Binding RoleName}" Header="Role" />
+                                    <DataGridTextColumn Binding="{Binding EventName}" Header="Event" />
+                                </DataGrid.Columns>
+                            </DataGrid>
                         </Border>
                         <styles:SearchBar Margin="0,25,140,0" VerticalAlignment="Top" />
                     </Grid>

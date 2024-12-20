@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using OOP_EventsManagementSystem.Model;
 using OOP_EventsManagementSystem.ViewModel;
 
 namespace OOP_EventsManagementSystem.View
