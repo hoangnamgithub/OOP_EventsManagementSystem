@@ -15,6 +15,7 @@ namespace OOP_EventsManagementSystem.ViewModel
 
         private ObservableCollection<Event> _todayEvents;
         private ObservableCollection<Employee> _engagedEmployees;
+        public ObservableCollection<Employee> Employees { get; set; }
         private Event _selectedEvent;
 
         public ObservableCollection<Event> TodayEvents
@@ -77,7 +78,14 @@ namespace OOP_EventsManagementSystem.ViewModel
             DeleteCommand = new RelayCommand(DeleteEmployee);
 
             LoadTodayEvents();
+            LoadEmployees();
             EngagedEmployees = new ObservableCollection<Employee>();
+        }
+
+        private void LoadEmployees()
+        {
+            var allEmployees = _context.Employees.ToList();  // Fetch all employees from the database
+            Employees = new ObservableCollection<Employee>(allEmployees);
         }
 
         private void AddNewEmployee(object parameter)
