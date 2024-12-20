@@ -39,7 +39,7 @@ namespace OOP_EventsManagementSystem.ViewModel
         }
         private void DeleteEmployee(Object parameter) { }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
