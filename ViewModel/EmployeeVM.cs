@@ -48,6 +48,22 @@ namespace OOP_EventsManagementSystem.ViewModel
             }
         }
 
+        private string _searchText = string.Empty;
+        public string SearchText
+        {
+            get => _searchText;
+            set
+            {
+                if (_searchText != value)
+                {
+                    _searchText = value;
+                    OnPropertyChanged(nameof(SearchText));
+                    FilterEmployees();
+                }
+            }
+        }
+
+
 
         public ICommand AddCommand { get; }
         public ICommand EditCommand { get; }
@@ -104,8 +120,17 @@ namespace OOP_EventsManagementSystem.ViewModel
                     .ThenInclude(a => a.Employee)
                     .Where(e => e.Event.StartDate <= today && e.Event.EndDate >= today)
                     .Select(e => e.Account.Employee)
-                    .Distinct() // Ensure no duplicates if an employee is engaged in multiple events
+                    .Distinct() // Ensure no duplicates
                     .ToList();
+
+                // Apply filtering based on SearchText
+                if (!string.IsNullOrEmpty(SearchText))
+                {
+                    engagedEmployees = engagedEmployees
+                        .Where(e => e.EmployeeId.ToString().Contains(SearchText) ||
+                                    e.FullName.Contains(SearchText, StringComparison.OrdinalIgnoreCase))
+                        .ToList();
+                }
 
                 EngagedEmployees = new ObservableCollection<Employee>(engagedEmployees);
             }
@@ -119,8 +144,41 @@ namespace OOP_EventsManagementSystem.ViewModel
                     .Select(e => e.Account.Employee)
                     .ToList();
 
+                // Apply filtering based on SearchText
+                if (!string.IsNullOrEmpty(SearchText))
+                {
+                    employees = employees
+                        .Where(e => e.EmployeeId.ToString().Contains(SearchText) ||
+                                    e.FullName.Contains(SearchText, StringComparison.OrdinalIgnoreCase))
+                        .ToList();
+                }
+
                 EngagedEmployees = new ObservableCollection<Employee>(employees);
             }
+        }
+
+        private void FilterEmployees()
+        {
+            // First, check if the search text is empty or null
+            var filteredEmployees = _context.Engageds
+                .Include(e => e.Account)
+                .ThenInclude(a => a.Employee)
+                .Where(e => e.Event.StartDate <= DateOnly.FromDateTime(DateTime.Today) && e.Event.EndDate >= DateOnly.FromDateTime(DateTime.Today))
+                .Select(e => e.Account.Employee)
+                .Distinct() // Ensure no duplicates if an employee is engaged in multiple events
+                .ToList();
+
+            // Apply filtering based on SearchText
+            if (!string.IsNullOrEmpty(SearchText))
+            {
+                filteredEmployees = filteredEmployees
+                    .Where(e => e.EmployeeId.ToString().Contains(SearchText) || // Search by EmployeeId
+                                e.FullName.Contains(SearchText, StringComparison.OrdinalIgnoreCase)) // Search by FullName
+                    .ToList();
+            }
+
+            // Update the EngagedEmployees collection after filtering
+            EngagedEmployees = new ObservableCollection<Employee>(filteredEmployees);
         }
 
 
