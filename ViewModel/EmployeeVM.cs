@@ -15,7 +15,7 @@ namespace OOP_EventsManagementSystem.ViewModel
 
         private ObservableCollection<Event> _todayEvents;
         private ObservableCollection<Employee> _engagedEmployees;
-        public ObservableCollection<Employee> Employees { get; set; }
+        private ObservableCollection<Employee> _employees;  // New collection for all employees
         private Event _selectedEvent;
 
         public ObservableCollection<Event> TodayEvents
@@ -35,6 +35,16 @@ namespace OOP_EventsManagementSystem.ViewModel
             {
                 _engagedEmployees = value;
                 OnPropertyChanged(nameof(EngagedEmployees));
+            }
+        }
+
+        public ObservableCollection<Employee> Employees  // New property for all employees
+        {
+            get => _employees;
+            set
+            {
+                _employees = value;
+                OnPropertyChanged(nameof(Employee));
             }
         }
 
@@ -59,12 +69,10 @@ namespace OOP_EventsManagementSystem.ViewModel
                 {
                     _searchText = value;
                     OnPropertyChanged(nameof(SearchText));
-                    FilterEmployees();
+                    LoadEngagedEmployees(); // Re-filter when search text changes
                 }
             }
         }
-
-
 
         public ICommand AddCommand { get; }
         public ICommand EditCommand { get; }
@@ -78,14 +86,8 @@ namespace OOP_EventsManagementSystem.ViewModel
             DeleteCommand = new RelayCommand(DeleteEmployee);
 
             LoadTodayEvents();
-            LoadEmployees();
+            LoadAllEmployees(); // Load all employees initially
             EngagedEmployees = new ObservableCollection<Employee>();
-        }
-
-        private void LoadEmployees()
-        {
-            var allEmployees = _context.Employees.ToList();  // Fetch all employees from the database
-            Employees = new ObservableCollection<Employee>(allEmployees);
         }
 
         private void AddNewEmployee(object parameter)
@@ -114,6 +116,13 @@ namespace OOP_EventsManagementSystem.ViewModel
                 .ToList();
 
             TodayEvents = new ObservableCollection<Event>(events);
+        }
+
+        private void LoadAllEmployees()
+        {
+            // Fetch all employees from the database
+            var employees = _context.Employees.ToList();
+            Employees = new ObservableCollection<Employee>(employees);
         }
 
         private void LoadEngagedEmployees()
@@ -165,33 +174,7 @@ namespace OOP_EventsManagementSystem.ViewModel
             }
         }
 
-        private void FilterEmployees()
-        {
-            // First, check if the search text is empty or null
-            var filteredEmployees = _context.Engageds
-                .Include(e => e.Account)
-                .ThenInclude(a => a.Employee)
-                .Where(e => e.Event.StartDate <= DateOnly.FromDateTime(DateTime.Today) && e.Event.EndDate >= DateOnly.FromDateTime(DateTime.Today))
-                .Select(e => e.Account.Employee)
-                .Distinct() // Ensure no duplicates if an employee is engaged in multiple events
-                .ToList();
-
-            // Apply filtering based on SearchText
-            if (!string.IsNullOrEmpty(SearchText))
-            {
-                filteredEmployees = filteredEmployees
-                    .Where(e => e.EmployeeId.ToString().Contains(SearchText) || // Search by EmployeeId
-                                e.FullName.Contains(SearchText, StringComparison.OrdinalIgnoreCase)) // Search by FullName
-                    .ToList();
-            }
-
-            // Update the EngagedEmployees collection after filtering
-            EngagedEmployees = new ObservableCollection<Employee>(filteredEmployees);
-        }
-
-
-
-        public event PropertyChangedEventHandler? PropertyChanged;
+        public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged(string propertyName)
         {
