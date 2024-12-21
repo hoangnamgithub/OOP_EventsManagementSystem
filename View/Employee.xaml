@@ -149,7 +149,9 @@
                                 VerticalAlignment="Center"
                                 ButtonBackground="#c6c3f2"
                                 ButtonCommand="{Binding EditCommand}"
-                                ButtonText="Edit" />
+                                ButtonText="Edit"
+                                Click="Btn_Edit_Click" />
+
                         </StackPanel>
                     </Grid>
                     <Grid>
