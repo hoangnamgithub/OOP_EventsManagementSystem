@@ -52,78 +52,182 @@ namespace OOP_EventsManagementSystem.View
                 _viewModel.LoadSponsorsForSelectedEvent();
             }
         }
-        
-        private void AddButton_Click(object sender, RoutedEventArgs e) 
-        {
-            Description.Visibility = Visibility.Visible;
-        }
-        private bool isEditing = false; // Cờ để theo dõi trạng thái chỉnh sửa
-        private object currentSelectedItem = null; // Hàng đang chỉnh sửa
 
+        private void AddButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Make Select_Sponsor Border visible
+            Select_Sponsor.Visibility = Visibility.Visible;
+
+            // Optionally clear previous inputs
+            SponsorNameComboBox.SelectedItem = null;
+            TextBoxDetails.Clear();
+            SponsorTierCb_box.SelectedItem = null;
+
+
+            // Make Description Border visible if all fields are filled
+            Description.Visibility = Visibility.Visible;
+
+                // Optionally clear previous inputs (this can be done after successful input validation)
+                TextBoxName.Clear();
+                TextBoxDetails.Clear();
+            SponsorTierComboBox.ClearValue(ComboBox.SelectedItemProperty);
+
+                // Scroll to the end of the ScrollViewer
+                if (DescriptionScrollViewer != null)
+                {
+                    DescriptionScrollViewer.ScrollToEnd();
+                }
+
+                // Optionally set the default value for SponsorTierName if required
+            
+        }
+
+        private bool isEditing = false; // Flag to track editing state
+        private object currentSelectedItem = null; // The item currently being edited
+
+        private bool isSelectionChangeAllowed = true; // Flag to control selection change
+
+        // Edit button click event
         private void EditButton_Click(object sender, RoutedEventArgs e)
         {
             if (SponsorDataGrid.SelectedItem != null)
             {
-                currentSelectedItem = SponsorDataGrid.SelectedItem; // Ghi lại hàng được chọn
+                currentSelectedItem = SponsorDataGrid.SelectedItem; // Record the selected row
                 foreach (var column in SponsorDataGrid.Columns)
                 {
                     if (column is DataGridTextColumn textColumn)
                     {
-                        textColumn.IsReadOnly = false; // Bật chỉnh sửa
+                        textColumn.IsReadOnly = false; // Allow editing
                     }
                 }
 
-                SponsorDataGrid.IsReadOnly = false; // Bật chỉnh sửa
-                isEditing = true; // Đặt cờ trạng thái chỉnh sửa
+                SponsorDataGrid.IsReadOnly = false; // Enable grid editing
+                isEditing = true; // Set editing state
 
-                EditButton.IsEnabled = false; // Vô hiệu hóa nút Edit
-                ConfirmButton.IsEnabled = true; // Bật nút Confirm
+                EditButton.IsEnabled = false; // Disable Edit button
+                ConfirmButton.IsEnabled = true; // Enable Confirm button
             }
             else
             {
-                MessageBox.Show("Vui lòng chọn một hàng để chỉnh sửa.", "Thông báo");
+                MessageBox.Show("Vui lòng chọn một hàng để chỉnh sửa.", "Thông báo"); // Prompt if no row is selected
             }
         }
 
+        // Confirm button click event
         private void ConfirmButton_Click(object sender, RoutedEventArgs e)
         {
             if (currentSelectedItem != null)
             {
-                foreach (var column in SponsorDataGrid.Columns)
+                try
                 {
-                    if (column is DataGridTextColumn textColumn)
+                    // Prevent selection change during confirmation
+                    isSelectionChangeAllowed = false;
+
+                    // Assuming currentSelectedItem is of type SponsorModel
+                    var sponsorToSave = currentSelectedItem as SponsorModel;
+
+                    if (sponsorToSave != null)
                     {
-                        textColumn.IsReadOnly = true; // Khóa chỉnh sửa
+                        // Save changes using the ViewModel's SaveChanges method
+                        var partnerVM = (PartnerVM)DataContext; // Get the current ViewModel
+                        partnerVM.SaveChanges(sponsorToSave); // Save the sponsor changes
+
+                        // After saving, lock the data grid and reset UI states
+                        foreach (var column in SponsorDataGrid.Columns)
+                        {
+                            // Make sure ID column is read-only
+                            if (column.Header.ToString() == "ID") // or use another condition to identify the ID column
+                            {
+                                column.IsReadOnly = true;
+                            }
+                            else if (column is DataGridTextColumn textColumn)
+                            {
+                                textColumn.IsReadOnly = true; // Lock editing for all other columns
+                            }
+                        }
+
+                        SponsorDataGrid.IsReadOnly = true; // Lock DataGrid
+                        isEditing = false; // Disable editing mode
+                        currentSelectedItem = null; // Clear current selection
+
+                        EditButton.IsEnabled = true; // Re-enable Edit button
+                        ConfirmButton.IsEnabled = false; // Disable Confirm button
+                    }
+                    else
+                    {
+                        MessageBox.Show("Invalid sponsor selected.", "Error");
                     }
                 }
-
-                SponsorDataGrid.IsReadOnly = true; // Khóa DataGrid
-                isEditing = false; // Tắt trạng thái chỉnh sửa
-                currentSelectedItem = null; // Xóa hàng hiện tại
-
-                EditButton.IsEnabled = true; // Bật lại nút Edit
-                ConfirmButton.IsEnabled = false; // Vô hiệu hóa nút Confirm
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"An error occurred: {ex.Message}", "Error");
+                }
+                finally
+                {
+                    // Re-enable selection change after the save operation
+                    isSelectionChangeAllowed = true;
+                }
             }
         }
 
+        // Selection changed event for preventing selection change while editing
         private void SponsorDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (isEditing && currentSelectedItem != null && SponsorDataGrid.SelectedItem != currentSelectedItem)
+            // Check if selection change is allowed
+            if (!isSelectionChangeAllowed || (isEditing && currentSelectedItem != null && SponsorDataGrid.SelectedItem != currentSelectedItem))
             {
-                // Ngăn thay đổi hàng khi đang chỉnh sửa
-                MessageBox.Show("Bạn không thể chọn hàng khác khi đang chỉnh sửa.", "Thông báo");
-                SponsorDataGrid.SelectedItem = currentSelectedItem; // Đặt lại hàng được chọn
+                
+                SponsorDataGrid.SelectedItem = currentSelectedItem; // Reset to the current selected item
             }
         }
 
+        // Beginning edit event to prevent editing on non-selected rows
         private void SponsorDataGrid_BeginningEdit(object sender, DataGridBeginningEditEventArgs e)
         {
             if (!isEditing || e.Row.Item != currentSelectedItem)
             {
-                e.Cancel = true; // Ngăn chỉnh sửa nếu không phải hàng đang được chỉnh sửa
+                e.Cancel = true; // Cancel edit if not the row currently being edited
             }
         }
 
+
+
+        private void ConfirmAddButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Check if required fields are filled
+            if (string.IsNullOrWhiteSpace(TextBoxName.Text) ||
+                string.IsNullOrWhiteSpace(TextBoxDetails.Text) ||
+                string.IsNullOrWhiteSpace(SponsorTierComboBox.SelectedValue?.ToString()))
+            {
+                // Show a reminder message if any field is empty
+                MessageBox.Show("Please fill in all the required information (Name, Details, and Sponsor Tier) before adding the sponsor.", "Missing Information", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            else
+            {
+                try
+                {
+                    var sponsorVM = (PartnerVM)DataContext;  // Get the ViewModel
+
+                    // Get the data from the UI
+                    string sponsorName = TextBoxName.Text;
+                    string sponsorDetails = TextBoxDetails.Text;
+                    string sponsorTierName = SponsorTierComboBox.SelectedValue.ToString();
+                    int selectedEventId = _viewModel.SelectedEventId;  // Assuming this is the ID of the selected event
+
+                    // Call the AddNewSponsor method in the ViewModel
+                    sponsorVM.AddNewSponsor(sponsorName, sponsorDetails, sponsorTierName, selectedEventId);
+
+                    // Hide the description border after adding
+                    Description.Visibility = Visibility.Collapsed;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"An error occurred: {ex.Message}", "Error");
+                }
+            }
+        }
+
+      
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
             // Kiểm tra xem có sponsor nào được chọn trong DataGrid không
