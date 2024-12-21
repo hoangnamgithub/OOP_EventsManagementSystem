@@ -108,11 +108,7 @@ Width="190" Height="40"
               Height="465" 
               IsReadOnly="True" 
               SelectedItem="{Binding SelectedSponsor}" >
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="ScrollChanged">
-                        <cmd:EventToCommand Command="{Binding ScrollChangedCommand}" PassEventArgsToCommand="True" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
+                <i:Interaction.Triggers></i:Interaction.Triggers>
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Sponsor Name" Binding="{Binding SponsorName}" />
                     <DataGridTemplateColumn Header="Sponsor Details" Width="150">
