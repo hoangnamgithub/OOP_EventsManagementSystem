@@ -58,17 +58,9 @@ namespace OOP_EventsManagementSystem.View
             }
         }
 
-        private void AddButton_Click(object sender, RoutedEventArgs e)
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            // Make Select_Sponsor Border visible
-            Select_Sponsor.Visibility = Visibility.Visible;
-
-            // Optionally clear previous inputs
-            SponsorNameComboBox.SelectedItem = null;
-            TextBoxDetails.Clear();
-            SponsorTierCb_box.SelectedItem = null;
-
-
+           
             // Make Description Border visible if all fields are filled
             Description.Visibility = Visibility.Visible;
 
@@ -85,6 +77,21 @@ namespace OOP_EventsManagementSystem.View
 
                 // Optionally set the default value for SponsorTierName if required
             
+        }
+        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+        {
+            // Make Select_Sponsor Border visible
+            Select_Sponsor.Visibility = Visibility.Visible;
+
+            // Optionally clear previous inputs
+            SponsorNameComboBox.SelectedItem = null;
+            TextBoxDetails.Clear();
+            SponsorTierCb_box.SelectedItem = null;
+
+            if (DescriptionScrollViewer != null)
+            {
+                DescriptionScrollViewer.ScrollToEnd();
+            }
         }
 
         private bool isEditing = false; // Flag to track editing state
@@ -110,7 +117,10 @@ namespace OOP_EventsManagementSystem.View
                 isEditing = true; // Set editing state
 
                 EditButton.IsEnabled = false; // Disable Edit button
+                EditButton.Visibility = Visibility.Collapsed;
                 ConfirmButton.IsEnabled = true; // Enable Confirm button
+                ConfirmButton.Visibility = Visibility.Visible;
+
             }
             else
             {
@@ -156,7 +166,10 @@ namespace OOP_EventsManagementSystem.View
                         currentSelectedItem = null; // Clear current selection
 
                         EditButton.IsEnabled = true; // Re-enable Edit button
+                        EditButton.Visibility = Visibility.Visible;
+
                         ConfirmButton.IsEnabled = false; // Disable Confirm button
+                        ConfirmButton.Visibility = Visibility.Collapsed;
                     }
                     else
                     {
@@ -272,6 +285,20 @@ namespace OOP_EventsManagementSystem.View
             }
         }
 
+        private void AddButton_Click(object sender, RoutedEventArgs e)
+        {
+            Choose.IsOpen = true;
+        }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            Description.Visibility = Visibility.Collapsed;
+            Select_Sponsor.Visibility = Visibility.Collapsed;
+        }
     }
 }

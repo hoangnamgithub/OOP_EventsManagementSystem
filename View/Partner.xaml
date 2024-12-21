@@ -30,14 +30,22 @@
                 </DataGrid.Columns>
             </DataGrid>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <StackPanel>
-                            <Button Style="{StaticResource GreenButton}" Content="Add" Height="45" Width="100" Margin="10,0" Click="AddButton_Click"/>
-                            <Button Style="{StaticResource PinkButton}" Content="Delete" Height="45" Width="100" Margin="10,0" Click="DeleteButton_Click"/>
-                        </StackPanel>
-                        <StackPanel>
-                            <Button x:Name="EditButton" Style="{StaticResource PurpleButton}" Content="Edit" Height="45" Width="100" Margin="10,0" Click="EditButton_Click"/>
-                            <Button x:Name="ConfirmButton" Style="{StaticResource PinkButton}" Background="#FF576DDC" Content="Comfirm" Height="45" Width="100" Margin="10,0" Click="ConfirmButton_Click"/>
-                        </StackPanel>
+                        
+                            <Button Style="{StaticResource GreenButton}" Content="Add" Height="45" Width="100" Margin="5" Click="AddButton_Click">
+                                <Button.ContextMenu>
+                                    <ContextMenu x:Name="Choose">
+                                        <MenuItem Header="Add New Sponsor"
+                                                  Click="MenuItem_Click"/>
+                                        <MenuItem Header="Add From List Sponsor"
+                                                  Click="MenuItem_Click_1"/>
+                                    </ContextMenu>
+                                </Button.ContextMenu>
+                            </Button>
+                            <Button Style="{StaticResource PinkButton}" Content="Delete" Height="45" Width="100" Margin="5" Click="DeleteButton_Click"/>
+                        
+                            <Button x:Name="EditButton" Style="{StaticResource PurpleButton}" Content="Edit" Height="45" Width="100" Margin="5" Click="EditButton_Click" Visibility="Visible"/>
+                            <Button x:Name="ConfirmButton" Style="{StaticResource PinkButton}" Background="#FF576DDC" Content="Comfirm" Height="45" Width="100" Margin="5" Click="ConfirmButton_Click" Visibility="Collapsed"/>
+                        
                     </StackPanel>
             </StackPanel>
         
@@ -125,16 +133,20 @@
                                     </Grid.RowDefinitions>
 
                                     <TextBlock Text="Sponsor Tier" VerticalAlignment="Top" Margin="5,0,0,0" FontFamily="Bahnschrift SemiLight" FontSize="16" />
-                                    <Border Grid.Row="1" CornerRadius="16" Background="#FFDCDCE6" Margin="5,5,15,5" VerticalAlignment="Top">
+                                    <Border Grid.Row="1" CornerRadius="16" Background="#FFDCDCE6" Margin="5,5,15,5" VerticalAlignment="Top" Height="45">
                                         <ComboBox x:Name="SponsorTierComboBox" 
 ItemsSource="{Binding SponsorTiers}" 
 DisplayMemberPath="TierName" 
 SelectedValuePath="TierName" 
-SelectedValue="{Binding SponsorTierName, Mode=TwoWay}" />
+SelectedValue="{Binding SponsorTierName, Mode=TwoWay}" Margin="5,0"/>
 
                                     </Border>
                                 </Grid>
-                                <Button Style="{StaticResource GreenButton}" Content="Comfirm" Height="45" Width="100" Margin="10,0" Click="ConfirmAddButton_Click"/>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">
+                                    <Button Style="{StaticResource GreenButton}" Content="Comfirm" Height="45" Width="100" Margin="5,0" Click="ConfirmAddButton_Click"/>
+                                    <Button Style="{StaticResource PinkButton}" Content="Cancel" Height="45" Width="100" Margin="5,0" Click="CancelButton_Click"/>
+                                </StackPanel>
+                                
                             </StackPanel>
                         </Grid>
                     </Grid>
@@ -196,16 +208,20 @@ SelectedValue="{Binding SponsorTierName, Mode=TwoWay}" />
                                     </Grid.RowDefinitions>
 
                                     <TextBlock Text="Sponsor Tier" VerticalAlignment="Top" Margin="5,0,0,0" FontFamily="Bahnschrift SemiLight" FontSize="16" />
-                                    <Border Grid.Row="1" CornerRadius="16" Background="#FFDCDCE6" Margin="5,5,15,5" VerticalAlignment="Top">
+                                    <Border Grid.Row="1" CornerRadius="16" Background="#FFDCDCE6" Margin="5,5,15,5" VerticalAlignment="Top" Height="45">
                                         <ComboBox x:Name="SponsorTierCb_box" 
 ItemsSource="{Binding SponsorTiers}" 
 DisplayMemberPath="TierName" 
 
-SelectedValue="{Binding SelectedSponsorTier, Mode=TwoWay}" />
+SelectedValue="{Binding SelectedSponsorTier, Mode=TwoWay}" Margin="5,0"/>
 
                                     </Border>
                                 </Grid>
-                                <Button Style="{StaticResource GreenButton}" Content="Comfirm" Height="45" Width="100" Margin="10,0" Click="ConfirmAddExistButton_Click"/>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">
+                                    <Button Style="{StaticResource GreenButton}" Content="Comfirm" Height="45" Width="100" Margin="10,0" Click="ConfirmAddExistButton_Click"/>
+                                    <Button Style="{StaticResource PinkButton}" Content="Cancel" Height="45" Width="100" Margin="5,0" Click="CancelButton_Click"/>
+                                </StackPanel>
+                               
                             </StackPanel>
                         </Grid>
                     </Grid>
