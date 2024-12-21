@@ -35,9 +35,9 @@ namespace OOP_EventsManagementSystem.ViewModel
 
         public ObservableCollection<SponsorModel> SponsorList { get; set; } = new ObservableCollection<SponsorModel>();
 
+        // Assuming you have a context for the database
         private void LoadSponsors()
         {
-            // Assuming you have a context for the database
             var sponsors = _context.Sponsors.Select(s => new SponsorModel
             {
                 SponsorId = s.SponsorId,
@@ -66,7 +66,34 @@ namespace OOP_EventsManagementSystem.ViewModel
                 }
             }
         }
+        private SponsorTier _selectedSponsorTier;
+        public SponsorTier SelectedSponsorTier
+        {
+            get => _selectedSponsorTier;
+            set
+            {
+                if (_selectedSponsorTier != value)
+                {
+                    _selectedSponsorTier = value;
+                    OnPropertyChanged(nameof(SelectedSponsorTier));
+                }
+            }
+        }
 
+        private SponsorModel _selectedSponsor;
+        public SponsorModel SelectedSponsor
+        {
+            get => _selectedSponsor;
+            set
+            {
+                if (_selectedSponsor != value)
+                {
+                    _selectedSponsor = value;
+                    OnPropertyChanged(nameof(SelectedSponsor));
+                    UpdateSponsorDetails();  // Update details when selection changes
+                }
+            }
+        }
         private string _selectedSponsorDetails;
         public string SelectedSponsorDetails
         {
@@ -77,18 +104,13 @@ namespace OOP_EventsManagementSystem.ViewModel
                 OnPropertyChanged(nameof(SelectedSponsorDetails));
             }
         }
-
         private void UpdateSponsorDetails()
         {
-            var selectedSponsor = SponsorList.FirstOrDefault(s => s.SponsorId == SelectedSponsorId);
-            if (selectedSponsor != null)
+            if (SelectedSponsor != null)
             {
-                SelectedSponsorDetails = selectedSponsor.SponsorDetails; // Set details
+                SelectedSponsorDetails = SelectedSponsor.SponsorDetails;
             }
         }
-
-
-
         // Phương thức để tải các sự kiện từ cơ sở dữ liệu
         private void LoadEvents()
         {
@@ -236,6 +258,59 @@ namespace OOP_EventsManagementSystem.ViewModel
         MessageBox.Show($"An error occurred: {ex.Message}", "Error");
     }
 }
+        public void AddExistingSponsorToEvent(SponsorModel selectedSponsor, int selectedEventId, string sponsorTierName)
+        {
+            try
+            {
+                // Validate input
+                if (selectedSponsor == null || string.IsNullOrEmpty(sponsorTierName))
+                {
+                    MessageBox.Show("Please select a sponsor and a valid tier.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                // Check if the sponsor is already associated with the event
+                var existingAssociation = _context.IsSponsors
+                    .FirstOrDefault(isSponsor => isSponsor.SponsorId == selectedSponsor.SponsorId && isSponsor.EventId == selectedEventId);
+
+                if (existingAssociation != null)
+                {
+                    // Sponsor already exists in the event
+                    MessageBox.Show("This sponsor is already associated with the selected event.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                // Get the SponsorTierId based on the selected tier name
+                int sponsorTierId = GetSponsorTierId(sponsorTierName);
+                if (sponsorTierId == 0)
+                {
+                    MessageBox.Show("The selected sponsor tier is invalid.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                // Create a new IsSponsor entry to associate the sponsor with the event
+                var newAssociation = new IsSponsor
+                {
+                    EventId = selectedEventId,
+                    SponsorId = selectedSponsor.SponsorId,
+                    SponsorTierId = sponsorTierId
+                };
+
+                // Add the association to the database
+                _context.IsSponsors.Add(newAssociation);
+                _context.SaveChanges();
+
+                // Optionally, update the UI by reloading the sponsor list for the selected event
+                LoadSponsorsForSelectedEvent();
+
+                MessageBox.Show("Sponsor successfully added to the event.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while adding the sponsor: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
 
         private int GetSponsorTierId(string sponsorTierName)
         {

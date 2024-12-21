@@ -41,6 +41,11 @@ namespace OOP_EventsManagementSystem.View
             DataContext = _viewModel;
         }
 
+        private void SponsorNameComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // The SelectedSponsor property will automatically update
+            // The details of the selected sponsor will be reflected in the TextBlock
+        }
         // Xử lý sự kiện chọn sự kiện từ DataGrid
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -227,7 +232,22 @@ namespace OOP_EventsManagementSystem.View
             }
         }
 
-      
+        private void ConfirmAddExistButton_Click(object sender, RoutedEventArgs e)
+        {
+            var viewModel = (PartnerVM)this.DataContext;
+
+            if (viewModel.SelectedSponsor != null && viewModel.SelectedSponsorTier != null)
+            {
+                viewModel.AddExistingSponsorToEvent(viewModel.SelectedSponsor, viewModel.SelectedEventId, viewModel.SelectedSponsorTier.TierName);
+            }
+            else
+            {
+                MessageBox.Show("Please select both a sponsor and a sponsor tier.");
+            }
+
+        }
+
+
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
             // Kiểm tra xem có sponsor nào được chọn trong DataGrid không

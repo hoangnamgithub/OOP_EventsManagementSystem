@@ -163,10 +163,11 @@ SelectedValue="{Binding SponsorTierName, Mode=TwoWay}" />
                                     <TextBlock Text="Name" VerticalAlignment="Center" Margin="30,0,0,0" FontFamily="Bahnschrift SemiLight" FontSize="16" />
                                     <Border Grid.Row="1" CornerRadius="16" Background="#FFDCDCE6" Margin="25,5,15,5" Height="45">
                                         <ComboBox x:Name="SponsorNameComboBox" 
-          ItemsSource="{Binding SponsorList}" 
-          DisplayMemberPath="SponsorName" 
-          SelectedValuePath="SponsorName" 
-          SelectedValue="{Binding SponsorName, Mode=TwoWay}" />
+              ItemsSource="{Binding SponsorList}" 
+              DisplayMemberPath="SponsorName" 
+              SelectedValuePath="SponsorId"                                    
+              SelectedItem="{Binding SelectedSponsor, Mode=TwoWay}" 
+              SelectionChanged="SponsorNameComboBox_SelectionChanged" />
 
                                     </Border>
                                 </Grid>
@@ -178,12 +179,12 @@ SelectedValue="{Binding SponsorTierName, Mode=TwoWay}" />
                                     <TextBlock Text="Details" VerticalAlignment="Center" Margin="30,0,0,0" FontFamily="Bahnschrift SemiLight" FontSize="16" Grid.ColumnSpan="2"/>
                                     <Border Grid.Row="1" CornerRadius="16" Background="#FFDCDCE6" Margin="25,5,15,5" Height="125" Grid.ColumnSpan="2">
                                         <TextBlock x:Name="Details" 
-           Text="{Binding SelectedSponsorDetails}" 
-           TextWrapping="Wrap" 
-           FontFamily="Bahnschrift SemiLight" 
-           FontSize="16" 
-           Margin="10,5,10,5" 
-           Background="{x:Null}" />
+                   Text="{Binding SelectedSponsorDetails}" 
+                   TextWrapping="Wrap" 
+                   FontFamily="Bahnschrift SemiLight" 
+                   FontSize="16" 
+                   Margin="10,5,10,5" 
+                   Background="{x:Null}" />
 
                                     </Border>
                                 </Grid>
@@ -199,12 +200,12 @@ SelectedValue="{Binding SponsorTierName, Mode=TwoWay}" />
                                         <ComboBox x:Name="SponsorTierCb_box" 
 ItemsSource="{Binding SponsorTiers}" 
 DisplayMemberPath="TierName" 
-SelectedValuePath="TierName" 
-SelectedValue="{Binding SponsorTierName, Mode=TwoWay}" />
+
+SelectedValue="{Binding SelectedSponsorTier, Mode=TwoWay}" />
 
                                     </Border>
                                 </Grid>
-                                <Button Style="{StaticResource GreenButton}" Content="Comfirm" Height="45" Width="100" Margin="10,0" Click="ConfirmAddButton_Click"/>
+                                <Button Style="{StaticResource GreenButton}" Content="Comfirm" Height="45" Width="100" Margin="10,0" Click="ConfirmAddExistButton_Click"/>
                             </StackPanel>
                         </Grid>
                     </Grid>
