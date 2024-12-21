@@ -14,7 +14,7 @@
                 Background="#FFDCDCE6"
                 HorizontalAlignment="Left">
             <TextBox x:Name="SearchBox"
-                     Text="{Binding SearchQuery, UpdateSourceTrigger=PropertyChanged}"
+                     Text="Search......"
                      Foreground="Gray"
                      Margin="5,0,30,0"
                      VerticalAlignment="Center"
@@ -26,7 +26,8 @@
                      SelectionBrush="{x:Null}"
                      SelectionTextBrush="{x:Null}"
                      GotFocus="SearchBox_GotFocus"
-                     LostFocus="SearchBox_LostFocus" />
+                     LostFocus="SearchBox_LostFocus"
+                     TextChanged="SearchBox_TextChanged" />
         </Border>
         <Image Source="pack://application:,,,/Resources/Images/magnify.png"
                Margin="145,0,0,0"
@@ -36,8 +37,6 @@
                 Width="20"
                 Height="20"
                 Margin="145,0,0,0"
-                Command="{Binding SearchCommand}"
-                CommandParameter="{Binding Text, ElementName=SearchBox}"
                 Background="{x:Null}"
                 BorderBrush="{x:Null}" />
         <Border Height="30"

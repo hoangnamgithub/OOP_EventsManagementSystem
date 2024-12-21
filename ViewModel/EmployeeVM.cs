@@ -12,12 +12,11 @@ namespace OOP_EventsManagementSystem.ViewModel
     public class EmployeeVM : INotifyPropertyChanged
     {
         private readonly EventManagementDbContext _context;
-        private string _searchQuery;
+        private ObservableCollection<EmployeeEventViewModel> _allEmployees;
 
         public ICommand AddCommand { get; }
         public ICommand EditCommand { get; }
         public ICommand DeleteCommand { get; }
-        public ICommand SearchCommand { get; }
 
         public ObservableCollection<EmployeeEventViewModel> Employees { get; set; }
 
@@ -29,7 +28,6 @@ namespace OOP_EventsManagementSystem.ViewModel
             AddCommand = new RelayCommand(AddNewEmployee);
             EditCommand = new RelayCommand(EditEmployee);
             DeleteCommand = new RelayCommand(DeleteEmployee);
-            SearchCommand = new RelayCommand(SearchEmployees);
         }
 
         private void LoadData()
@@ -52,19 +50,18 @@ namespace OOP_EventsManagementSystem.ViewModel
                                      EventEndDate = eventItem.EndDate
                                  };
 
-            Employees = new ObservableCollection<EmployeeEventViewModel>(employeesToday.AsEnumerable()
+            _allEmployees = new ObservableCollection<EmployeeEventViewModel>(employeesToday.AsEnumerable()
                 .Where(e => e.EventStartDate.ToDateTime(TimeOnly.MinValue) <= today && e.EventEndDate.ToDateTime(TimeOnly.MinValue) >= today)
                 .Distinct()
                 .ToList());
 
+            Employees = new ObservableCollection<EmployeeEventViewModel>(_allEmployees);
             OnPropertyChanged(nameof(Employees));
         }
 
-        private void SearchEmployees(object parameter)
+        public void SearchEmployees(string query)
         {
-            string query = parameter as string ?? string.Empty;
-
-            var filteredEmployees = Employees.Where(e =>
+            var filteredEmployees = _allEmployees.Where(e =>
                 e.EmployeeId.ToString().Contains(query, StringComparison.OrdinalIgnoreCase) ||
                 e.FullName.Contains(query, StringComparison.OrdinalIgnoreCase)).ToList();
 
@@ -86,23 +83,10 @@ namespace OOP_EventsManagementSystem.ViewModel
 
         private void DeleteEmployee(object parameter) { }
 
-        public event PropertyChangedEventHandler? PropertyChanged;
+        public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        public string SearchQuery
-        {
-            get => _searchQuery;
-            set
-            {
-                if (_searchQuery != value)
-                {
-                    _searchQuery = value;
-                    OnPropertyChanged(nameof(SearchQuery));
-                }
-            }
         }
     }
 
