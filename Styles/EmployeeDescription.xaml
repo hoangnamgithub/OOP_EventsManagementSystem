@@ -76,6 +76,7 @@
                             <TextBox
                                 Name="txtbox_empName"
                                 Margin="10,5,10,5"
+                                materialDesign:HintAssist.Hint="Employee Name"
                                 Background="{x:Null}"
                                 BorderBrush="{x:Null}"
                                 CaretBrush="{x:Null}"
@@ -107,14 +108,18 @@
                             <TextBox
                                 Name="txtbox_empContact"
                                 Margin="10,5,10,5"
+                                materialDesign:HintAssist.Hint="(XXX) XXX-XXXX"
                                 Background="{x:Null}"
                                 BorderBrush="{x:Null}"
                                 CaretBrush="{x:Null}"
                                 FontFamily="Bahnschrift SemiLight"
                                 FontSize="16"
+                                PreviewTextInput="Txtbox_empContact_PreviewTextInput"
                                 SelectionBrush="{x:Null}"
                                 SelectionTextBrush="{x:Null}"
-                                Text="{Binding EmployeeContact}" />
+                                Text="{Binding EmployeeContact, UpdateSourceTrigger=PropertyChanged}"
+                                TextChanged="Txtbox_empContact_TextChanged" />
+
                         </Border>
                     </Grid>
                     <Grid>
@@ -162,6 +167,7 @@
                             <TextBox
                                 Name="txtbox_acc"
                                 Margin="10,5,10,5"
+                                materialDesign:HintAssist.Hint="auto-generate"
                                 Background="{x:Null}"
                                 BorderBrush="{x:Null}"
                                 CaretBrush="{x:Null}"
@@ -193,6 +199,7 @@
                             <TextBox
                                 Name="txtbox_password"
                                 Margin="10,5,10,5"
+                                materialDesign:HintAssist.Hint="auto-generate"
                                 Background="{x:Null}"
                                 BorderBrush="{x:Null}"
                                 CaretBrush="{x:Null}"

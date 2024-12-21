@@ -125,15 +125,32 @@
                             FontFamily="Bahnschrift SemiBold"
                             FontSize="20"
                             Text="List Employee" />
-                        <styles:Button
-                            x:Name="btn_add"
-                            Margin="5,10,40,10"
+                        <StackPanel
+                            Margin="0,0,50,0"
                             HorizontalAlignment="Right"
-                            VerticalAlignment="Center"
-                            ButtonBackground="#D6DC82"
-                            ButtonCommand="{Binding AddCommand}"
-                            ButtonText="Add" />
-
+                            Orientation="Horizontal">
+                            <styles:Button
+                                x:Name="btn_delete"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                ButtonBackground="#d96073"
+                                ButtonCommand="{Binding DelCommand}"
+                                ButtonText="Delete" />
+                            <styles:Button
+                                x:Name="btn_add"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                ButtonBackground="#D6DC82"
+                                ButtonCommand="{Binding AddCommand}"
+                                ButtonText="Add" />
+                            <styles:Button
+                                x:Name="btn_edit"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                ButtonBackground="#c6c3f2"
+                                ButtonCommand="{Binding EditCommand}"
+                                ButtonText="Edit" />
+                        </StackPanel>
                     </Grid>
                     <Grid>
                         <Rectangle
@@ -156,13 +173,15 @@
                                 VerticalAlignment="Stretch"
                                 AutoGenerateColumns="False"
                                 Background="Transparent"
-                                ItemsSource="{Binding Employees}">
+                                ItemsSource="{Binding Employees}"
+                                SelectedItem="{Binding SelectedEmployee}">
                                 <DataGrid.Columns>
 
                                     <DataGridTextColumn
                                         Width="15*"
                                         Binding="{Binding EmployeeId}"
-                                        Header="ID" />
+                                        Header="ID"
+                                        IsReadOnly="True" />
                                     <DataGridTextColumn
                                         Width="40*"
                                         Binding="{Binding FullName}"

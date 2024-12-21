@@ -170,7 +170,7 @@ namespace OOP_EventsManagementSystem.ViewModel
             _context = context;
             AddCommand = new RelayCommand(AddNewEmployee);
             EditCommand = new RelayCommand(EditEmployee);
-            DeleteCommand = new RelayCommand(DeleteEmployee);
+            DeleteCommand = new RelayCommand(DeleteSelectedEmployee);
             GeneratePasswordCommand = new RelayCommand(GeneratePassword);
             ConfirmAddEmployeeCommand = new RelayCommand(ConfirmAddEmployee);
             DelCommand = new RelayCommand(DeleteSelectedEmployee);
