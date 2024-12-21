@@ -73,6 +73,11 @@
     <None Remove="Resources\Images\technical.png" />
     <None Remove="Resources\Images\tent.png" />
     <None Remove="Resources\Images\visual.png" />
+    <None Remove="Resources\Location\1k1a6995.png" />
+    <None Remove="Resources\Location\event+venues+okc_The+Plantation+at+coal+creek.png" />
+    <None Remove="Resources\Location\Factors-to-Consider-in-Choosing-an-Event-Venue.png" />
+    <None Remove="Resources\Location\images.png" />
+    <None Remove="Resources\Location\IMG_2663.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -217,6 +222,21 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Images\visual.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Location\1k1a6995.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Location\event+venues+okc_The+Plantation+at+coal+creek.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Location\Factors-to-Consider-in-Choosing-an-Event-Venue.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Location\images.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Location\IMG_2663.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

@@ -6,6 +6,10 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using OOP_EventsManagementSystem.ViewModel;
+using static OOP_EventsManagementSystem.ViewModel.LocationVM;
+using System.Windows.Media.Imaging;
+
 
 namespace OOP_EventsManagementSystem.View
 {
@@ -20,27 +24,8 @@ namespace OOP_EventsManagementSystem.View
         public Location()
         {
             InitializeComponent();
-            this.DataContext = this;
-
-            // Binding dữ liệu vào ItemsControl
-            var borderItems = new List<BorderItem>
-            {
-                new BorderItem { HeaderText = "VCCA Art Gallery", ImageSource = "pack://application:,,,/Resources/Images/event2.jpg", Location ="Nhawng hbsbshc handnhjfvjhjhsbvbvbnxjvxv,", Capacity=1000, Cost=200 },
-                new BorderItem { HeaderText = "Art Exhibition", ImageSource = "pack://application:,,,/Resources/Images/event2.jpg", Location ="Nhawng Nhawng hbsbshc handnhjfvjhjhsbvbvbnxjvxv", Capacity=1000, Cost=200 },
-                new BorderItem {HeaderText = "Modern Art", ImageSource = "pack://application:,,,/Resources/Images/event2.jpg", Location = "Nhawng Nhawng hbsbshc handnhjfvjhjhsbvbvbnxjvxv,", Capacity = 1000, Cost = 200},
-                new BorderItem {HeaderText = "VCCA Art Gallery", ImageSource = "pack://application:,,,/Resources/Images/event2.jpg", Location = "Nhawng Nhawng hbsbshc handnhjfvjhjhsbvbvbnxjvxv,", Capacity = 1000, Cost = 200},
-                new BorderItem {HeaderText = "Art Exhibition", ImageSource = "pack://application:,,,/Resources/Images/event2.jpg", Location = "Nhawng Nhawng hbsbshc handnhjfvjhjhsbvbvbnxjvxv,", Capacity = 1000, Cost = 200},
-                new BorderItem {HeaderText = "Modern Art", ImageSource = "pack://application:,,,/Resources/Images/event2.jpg", Location = "Nhawng Nhawng hbsbshc handnhjfvjhjhsbvbvbnxjvxv, ", Capacity = 1000, Cost = 200},
-                new BorderItem {HeaderText = "VCCA Art Gallery", ImageSource = "pack://application:,,,/Resources/Images/event2.jpg", Location = "Nhawng Nhawng hbsbshc handnhjfvjhjhsbvbvbnxjvxv,", Capacity = 1000, Cost = 200},
-                new BorderItem {HeaderText = "Modern Art", ImageSource = "pack://application:,,,/Resources/Images/event2.jpg", Location = "Nhawng Nhawng hbsbshc handnhjfvjhjhsbvbvbnxjvxv,", Capacity = 1000, Cost = 200},
-                new BorderItem {HeaderText = "VCCA Art Gallery", ImageSource = "pack://application:,,,/Resources/Images/event2.jpg", Location = "Nhawng Nhawng hbsbshc handnhjfvjhjhsbvbvbnxjvxv,", Capacity = 1000, Cost = 200},
-                new BorderItem {HeaderText = "Art Exhibition", ImageSource = "pack://application:,,,/Resources/Images/event2.jpg", Location = "Nhawng Nhawng hbsbshc handnhjfvjhjhsbvbvbnxjvxv,", Capacity = 1000, Cost = 200},
-                new BorderItem {HeaderText = "Modern Art", ImageSource = "pack://application:,,,/Resources/Images/event2.jpg", Location = "Nhawng Nhawng hbsbshc handnhjfvjhjhsbvbvbnxjvxv,", Capacity = 1000, Cost = 200}
-
-            };
-
-            ItemsControl.ItemsSource = borderItems;
-        }
+            this.DataContext = new LocationVM();
+        }     
 
         private Border _draggedBorder = null;
         private Point _lastMousePosition;
@@ -261,7 +246,10 @@ namespace OOP_EventsManagementSystem.View
             locationDescription.ShowDialog();
         }
 
-
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+           
+        }
     }
 
     // Class BorderItem để bind dữ liệu

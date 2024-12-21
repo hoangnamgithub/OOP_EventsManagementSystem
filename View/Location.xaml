@@ -6,7 +6,8 @@
              xmlns:local="clr-namespace:OOP_EventsManagementSystem.View"
              mc:Ignorable="d" 
              d:DesignHeight="555" d:DesignWidth="850"
-             Background="#EFE9E4">
+             Background="#EFE9E4"
+             Loaded="Window_Loaded">
     <Grid>
         <TextBlock Style="{StaticResource txt_header}" Text="List Venue" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,10,15,10" FontSize="25"/>
         <!-- The Grid that the Borders should expand into -->
@@ -18,7 +19,7 @@
                   VerticalAlignment="Top"
                       Height="545"
                       Margin="0,15,0,0">
-            <ItemsControl x:Name="ItemsControl" ScrollViewer.HorizontalScrollBarVisibility="Auto">
+            <ItemsControl x:Name="ItemsControl" ItemsSource="{Binding Venues}" ScrollViewer.HorizontalScrollBarVisibility="Auto">
                 <ItemsControl.ItemsPanel>
                     <!-- Sử dụng ItemsPanelTemplate để bố trí các mục theo hàng ngang -->
                     <ItemsPanelTemplate>
@@ -29,8 +30,11 @@
                     <DataTemplate>
                         <Border x:Name="ResizableBorder" CornerRadius="16" Height="170" Width="205" Margin="25" VerticalAlignment="Top" MouseLeftButtonDown="Border_MouseLeftButtonDown" MouseMove="Border_MouseMove" MouseLeftButtonUp="Border_MouseLeftButtonUp" MouseEnter="Border_MouseEnter" MouseLeave="Border_MouseLeave">
                             <StackPanel>
-                                <TextBlock Style="{StaticResource txt_header}" Text="{Binding HeaderText}" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="5" Foreground="DarkGray"/>
-                                <Image Source="{Binding ImageSource}" VerticalAlignment="Bottom"/>
+                                <TextBlock Style="{StaticResource txt_header}" Text="{Binding VenueName}" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="5" Foreground="DarkGray"/>
+
+                                <!-- Cố định hình ảnh ở đây -->
+                                <Image x:Name="VenueImage" VerticalAlignment="Bottom" Source="pack://application:,,,/Resources/Location/1k1a6995.png" />
+
                                 <Button x:Name="btn_edit" Content="Edit" Width="200" Height="30" Foreground="Black" Background="Transparent" BorderBrush="Transparent" Click="btn_edit_Click"/>
                                 <Border Background="White" Height="215" Width="325" CornerRadius="16" BorderBrush="#D6DC82" BorderThickness="7">
                                     <Grid>
@@ -42,14 +46,14 @@
                                         <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10">
                                             <TextBlock Text="Name" Style="{StaticResource txt_header}" Margin="0,0,15,0" />
                                             <Border BorderBrush="Black" BorderThickness="0,0,0,1">
-                                                <TextBlock Background="Transparent" Width="230" Text="{Binding HeaderText}" Style="{StaticResource txt}"/>
+                                                <TextBlock Background="Transparent" Width="230" Text="{Binding VenueName}" Style="{StaticResource txt}"/>
                                             </Border>
 
                                         </StackPanel>
                                         <StackPanel  Grid.Row="1" VerticalAlignment="Top" Orientation="Horizontal" Margin="10">
                                             <TextBlock Text="Location" Style="{StaticResource txt_header}" Margin="0,0,15,0" VerticalAlignment="Bottom"/>
                                             <Border BorderBrush="Black" BorderThickness="0,0,0,1">
-                                                <TextBlock Background="Transparent" Width="200" Text="{Binding Location}" TextWrapping="Wrap" Style="{StaticResource txt}"/>
+                                                <TextBlock Background="Transparent" Width="200" Text="{Binding Address}" TextWrapping="Wrap" Style="{StaticResource txt}"/>
                                             </Border>
                                         </StackPanel>
                                         <StackPanel  Grid.Row="2" VerticalAlignment="Top" Orientation="Horizontal" Margin="10">
