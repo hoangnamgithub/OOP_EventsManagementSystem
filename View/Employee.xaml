@@ -21,59 +21,23 @@
                     <ColumnDefinition Width="30*" />
                     <ColumnDefinition Width="70*" />
                 </Grid.ColumnDefinitions>
-                <StackPanel>
-                    <Border CornerRadius="16"
-                            Background="White"
-                            Height="265"
-                            Width="225"
-                            Margin="15,10,5,5"
-                            HorizontalAlignment="Left">
-                        <Grid>
-                            <TextBlock Text="Best Employee"
-                                       Margin="10,5,10,5"
-                                       FontFamily="Bahnschrift SemiLight"
-                                       FontSize="16" />
-                            <Image Source="pack://application:,,,/Resources/Images/event2.jpg"
-                                   Width="170"
-                                   Height="170"
-                                   Stretch="UniformToFill"
-                                   Margin="25,20,25,40">
-                                <Image.Clip>
-                                    <EllipseGeometry Center="85,85"
-                                                     RadiusX="85"
-                                                     RadiusY="85" />
-                                </Image.Clip>
-                            </Image>
-                            <Image Source="pack://application:,,,/Resources/Images/crown.png"
-                                   Height="40"
-                                   Width="40"
-                                   Margin="15,27,170,198"
-                                   RenderTransformOrigin="0.5,0.5">
-                                <Image.RenderTransform>
-                                    <TransformGroup>
-                                        <ScaleTransform />
-                                        <SkewTransform />
-                                        <RotateTransform Angle="-43.221" />
-                                        <TranslateTransform />
-                                    </TransformGroup>
-                                </Image.RenderTransform>
-                            </Image>
-                            <TextBlock Text="Employee Name"
-                                       Margin="0,0,0,35"
-                                       FontFamily="Bahnschrift SemiLight"
-                                       FontSize="16"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Bottom" />
-                            <TextBlock Text="more than 250 hour"
-                                       Margin="0,0,0,10"
-                                       FontFamily="Bahnschrift Light Condensed"
-                                       FontSize="16"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Bottom"
-                                       Foreground="#FFA8B31D" />
-                        </Grid>
-                    </Border>
-                </StackPanel>
+                <Grid Grid.Column="0">
+                    <StackPanel>
+                        <TextBlock Text="Today's Events"
+                                   Margin="20,35,10,5"
+                                   FontFamily="Bahnschrift SemiBold"
+                                   FontSize="16" />
+                        <Border CornerRadius="16"
+                                Background="White"
+                                Height="305"
+                                Width="225"
+                                Margin="0"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center">
+                            <Grid />
+                        </Border>
+                    </StackPanel>
+                </Grid>
                 <Grid Grid.Column="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="14*" />
@@ -98,20 +62,26 @@
                                 Margin="25,15,25,0"
                                 Height="280"
                                 VerticalAlignment="Top">
-                            <DataGrid ItemsSource="{Binding Employees}"
+                            <DataGrid Name="tbl_todayEmp"
+                                      ItemsSource="{Binding Employees}"
                                       AutoGenerateColumns="False"
                                       Background="Transparent"
-                                      Margin="0,45,0,0" >
+                                      Margin="0,45,0,0">
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Employee ID" Binding="{Binding EmployeeId}" />
-                                    <DataGridTextColumn Header="Full Name" Binding="{Binding FullName}" />
-                                    <DataGridTextColumn Header="Contact" Binding="{Binding Contact}" />
-                                    <DataGridTextColumn Header="Role" Binding="{Binding Role}" />
-                                    <DataGridTextColumn Header="Event ID" Binding="{Binding EventId}" />
-                                    <DataGridTextColumn Header="Event Name" Binding="{Binding EventName}" />
+                                    <DataGridTextColumn Header="Employee ID"
+                                                        Binding="{Binding EmployeeId}" />
+                                    <DataGridTextColumn Header="Full Name"
+                                                        Binding="{Binding FullName}" />
+                                    <DataGridTextColumn Header="Contact"
+                                                        Binding="{Binding Contact}" />
+                                    <DataGridTextColumn Header="Role"
+                                                        Binding="{Binding Role}" />
+                                    <DataGridTextColumn Header="Event ID"
+                                                        Binding="{Binding EventId}" />
+                                    <DataGridTextColumn Header="Event Name"
+                                                        Binding="{Binding EventName}" />
                                 </DataGrid.Columns>
                             </DataGrid>
-                            
                         </Border>
                         <styles:SearchBar Margin="0,25,140,0"
                                           VerticalAlignment="Top" />
