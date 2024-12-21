@@ -18,7 +18,10 @@ namespace OOP_EventsManagementSystem.Utilities
         public ObservableCollection<T> FullCollection { get; set; }
         public ObservableCollection<T> PagedCollection { get; set; }
 
-        
+        public int ItemsPerPage
+        {
+            get => _itemsPerPage; // Trả về số item mỗi trang
+        }
         public int CurrentPage
         {
             get => _currentPage;
@@ -68,7 +71,7 @@ namespace OOP_EventsManagementSystem.Utilities
         }
 
         public bool CanGoNext() => CurrentPage < TotalPages;
-        public bool CanGoPrevious() => CurrentPage > 1;
+        public bool CanGoPrevious() => CurrentPage > 0;
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string propertyName)
