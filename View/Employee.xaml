@@ -24,69 +24,6 @@
                 <StackPanel>
                     <Border CornerRadius="16"
                             Background="White"
-                            Height="35"
-                            Width="80"
-                            Margin="15,10,5,5"
-                            HorizontalAlignment="Left">
-                        <ComboBox Margin="5"
-                                  materialDesign:HintAssist.Hint="Monthly">
-                            <ComboBoxItem Content="Weekly" />
-                            <ComboBoxItem Content="Monthly" />
-                            <ComboBoxItem Content="Yearly" />
-                        </ComboBox>
-                    </Border>
-                    <Border CornerRadius="16"
-                            Background="White"
-                            Height="55"
-                            Width="225"
-                            Margin="15,10,5,5"
-                            HorizontalAlignment="Left">
-                        <Grid>
-                            <TextBlock Text="Total Employees"
-                                       Margin="10,5,10,5"
-                                       FontFamily="Bahnschrift SemiLight"
-                                       FontSize="16" />
-                            <TextBlock Text="205"
-                                       Margin="10,5,10,5"
-                                       FontFamily="Bahnschrift SemiLight"
-                                       FontSize="16"
-                                       VerticalAlignment="Bottom" />
-                            <TextBlock Text="+5% last month"
-                                       Margin="10,5,10,5"
-                                       FontFamily="Bahnschrift SemiLight"
-                                       FontSize="16"
-                                       VerticalAlignment="Bottom"
-                                       HorizontalAlignment="Right"
-                                       Foreground="#FFA8B31D" />
-                        </Grid>
-                    </Border>
-                    <Border CornerRadius="16"
-                            Background="White"
-                            Height="55"
-                            Width="225"
-                            Margin="15,10,5,5"
-                            HorizontalAlignment="Left">
-                        <Grid>
-                            <TextBlock Text="New Employees"
-                                       Margin="10,5,10,5"
-                                       FontFamily="Bahnschrift SemiLight"
-                                       FontSize="16" />
-                            <TextBlock Text="20"
-                                       Margin="10,5,10,5"
-                                       FontFamily="Bahnschrift SemiLight"
-                                       FontSize="16"
-                                       VerticalAlignment="Bottom" />
-                            <TextBlock Text="+2% last month"
-                                       Margin="10,5,10,5"
-                                       FontFamily="Bahnschrift SemiLight"
-                                       FontSize="16"
-                                       VerticalAlignment="Bottom"
-                                       HorizontalAlignment="Right"
-                                       Foreground="#FFA8B31D" />
-                        </Grid>
-                    </Border>
-                    <Border CornerRadius="16"
-                            Background="White"
                             Height="265"
                             Width="225"
                             Margin="15,10,5,5"
@@ -161,9 +98,20 @@
                                 Margin="25,15,25,0"
                                 Height="280"
                                 VerticalAlignment="Top">
-                            <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}"
+                            <DataGrid ItemsSource="{Binding Employees}"
+                                      AutoGenerateColumns="False"
                                       Background="Transparent"
-                                      Margin="0,45,0,0" />
+                                      Margin="0,45,0,0" >
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Employee ID" Binding="{Binding EmployeeId}" />
+                                    <DataGridTextColumn Header="Full Name" Binding="{Binding FullName}" />
+                                    <DataGridTextColumn Header="Contact" Binding="{Binding Contact}" />
+                                    <DataGridTextColumn Header="Role" Binding="{Binding Role}" />
+                                    <DataGridTextColumn Header="Event ID" Binding="{Binding EventId}" />
+                                    <DataGridTextColumn Header="Event Name" Binding="{Binding EventName}" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            
                         </Border>
                         <styles:SearchBar Margin="0,25,140,0"
                                           VerticalAlignment="Top" />
