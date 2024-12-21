@@ -30,7 +30,7 @@ namespace OOP_EventsManagementSystem.View
             InitializeComponent();
             this.DataContext = new EventVM();
             AddButton.IsEnabled = true;
-            CurrentDateTextBlock.Text = DateTime.Now.ToString("dd MMM");
+            CurrentDateTextBlock.Text = DateTime.Now.ToString("dd MM yyyy");
         }
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
