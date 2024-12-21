@@ -100,6 +100,14 @@
                                         Width="auto"
                                         Binding="{Binding Contact}"
                                         Header="Contact" />
+                                    <DataGridTextColumn
+                                        Width="auto"
+                                        Binding="{Binding Email}"
+                                        Header="Email" />
+                                    <DataGridTextColumn
+                                        Width="auto"
+                                        Binding="{Binding Password}"
+                                        Header="Password" />
                                 </DataGrid.Columns>
                             </DataGrid>
                         </Border>
@@ -125,6 +133,7 @@
                             ButtonBackground="#D6DC82"
                             ButtonCommand="{Binding AddCommand}"
                             ButtonText="Add" />
+
                     </Grid>
                     <Grid>
                         <Rectangle
@@ -153,19 +162,23 @@
                                     <DataGridTextColumn
                                         Width="15*"
                                         Binding="{Binding EmployeeId}"
-                                        Header="Employee ID" />
-
-                                    <!--  Ensure only one column for FullName  -->
+                                        Header="ID" />
                                     <DataGridTextColumn
                                         Width="40*"
                                         Binding="{Binding FullName}"
                                         Header="Full Name" />
-
-                                    <!--  Ensure only one column for Contact  -->
                                     <DataGridTextColumn
                                         Width="30*"
                                         Binding="{Binding Contact}"
                                         Header="Contact" />
+                                    <DataGridTextColumn
+                                        Width="40*"
+                                        Binding="{Binding Email}"
+                                        Header="Email" />
+                                    <DataGridTextColumn
+                                        Width="30*"
+                                        Binding="{Binding Password}"
+                                        Header="Password" />
                                 </DataGrid.Columns>
                             </DataGrid>
 
