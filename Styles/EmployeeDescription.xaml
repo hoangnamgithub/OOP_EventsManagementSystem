@@ -152,7 +152,7 @@
                             VerticalAlignment="Center"
                             FontFamily="Bahnschrift SemiLight"
                             FontSize="16"
-                            Text="Account" />
+                            Text="Preview Email" />
                         <Border
                             Grid.Row="1"
                             Height="45"

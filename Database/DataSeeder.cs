@@ -528,12 +528,6 @@ namespace OOP_EventsManagementSystem.Database
             Console.WriteLine("Seeded event data successfully.");
         }
 
-
-
-
-
-
-
         private static void SeedNeedData(EventManagementDbContext context)
         {
             if (context.Needs.Any())
@@ -602,11 +596,53 @@ namespace OOP_EventsManagementSystem.Database
 
             var isSponsors = new List<IsSponsor>();
 
+            // Set a maximum number of sponsors per event
+            int maxSponsorsPerEvent = 15;
+
+            // Get the Title Sponsor tier
+            var titleSponsorTier = sponsorTiers.FirstOrDefault(t => t.TierName == "Title Sponsor");
+            if (titleSponsorTier == null)
+            {
+                Console.WriteLine("Title Sponsor tier not found. Please seed sponsor tiers first.");
+                return;
+            }
+
             foreach (var @event in events)
             {
                 // Shuffle sponsors for more variety
                 var shuffledSponsors = sponsors.OrderBy(_ => faker.Random.Int()).ToList();
-                int numSponsors = faker.Random.Int(1, sponsors.Count);
+
+                // Assign a Title Sponsor
+                var titleSponsor = shuffledSponsors.FirstOrDefault();
+                if (titleSponsor != null)
+                {
+                    var isSponsor = new IsSponsor
+                    {
+                        EventId = @event.EventId,
+                        SponsorId = titleSponsor.SponsorId,
+                        SponsorTierId = titleSponsorTier.SponsorTierId
+                    };
+
+                    // Avoid duplicates in database and in-memory
+                    bool alreadyExistsInDb = existingIsSponsors.Any(existing =>
+                        existing.EventId == isSponsor.EventId &&
+                        existing.SponsorId == isSponsor.SponsorId &&
+                        existing.SponsorTierId == isSponsor.SponsorTierId);
+
+                    bool alreadyExistsInMemory = isSponsors.Any(existing =>
+                        existing.EventId == isSponsor.EventId &&
+                        existing.SponsorId == isSponsor.SponsorId &&
+                        existing.SponsorTierId == isSponsor.SponsorTierId);
+
+                    if (!alreadyExistsInDb && !alreadyExistsInMemory)
+                    {
+                        isSponsors.Add(isSponsor);
+                        shuffledSponsors.Remove(titleSponsor); // Remove the assigned sponsor from the list
+                    }
+                }
+
+                // Assign other sponsors
+                int numSponsors = faker.Random.Int(1, maxSponsorsPerEvent); // Limit the number of sponsors per event
 
                 for (int i = 0; i < numSponsors; i++)
                 {
@@ -977,9 +1013,6 @@ namespace OOP_EventsManagementSystem.Database
             context.SaveChanges();
             Console.WriteLine("Seeded Engaged data successfully.");
         }
-
-
-
 
     }
 }
