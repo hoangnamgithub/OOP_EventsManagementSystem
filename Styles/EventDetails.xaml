@@ -15,7 +15,6 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         Background="Transparent">
-
     <Border CornerRadius="16"
             Background="#EFE9E4"
             BorderThickness="10"
@@ -57,49 +56,48 @@
                                            VerticalAlignment="Center"
                                            Margin="5,0,15,0" />
                                 <TextBox x:Name="eventname_txtbox"
-         Text="{Binding SelectedEvent.EventName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-         FontFamily="Bahnschrift SemiLight"
-         FontSize="14"
-         Width="155"
-         Foreground="Gray" />
+                                         Text="{Binding SelectedEvent.EventName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                         FontFamily="Bahnschrift SemiLight"
+                                         FontSize="14"
+                                         Width="155"
+                                         Foreground="Gray" />
                                 <TextBlock Text="Attendee"
                                            FontFamily="Bahnschrift SemiBold"
                                            FontSize="16"
                                            VerticalAlignment="Center"
                                            Margin="20,0,15,0" />
                                 <TextBox x:Name="eventattendee_txtbox"
-         Text="{Binding SelectedEvent.ExptedAttendee, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-         FontFamily="Bahnschrift SemiLight"
-         FontSize="14"
-         Width="100"
-         Foreground="Gray" />
+                                         Text="{Binding SelectedEvent.ExptedAttendee, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                         FontFamily="Bahnschrift SemiLight"
+                                         FontSize="14"
+                                         Width="100"
+                                         Foreground="Gray" />
                             </StackPanel>
-                            <StackPanel Orientation="Horizontal" Margin="0,15,0,0">
+                            <StackPanel Orientation="Horizontal"
+                                        Margin="0,15,0,0">
                                 <TextBlock Text="Event Venue"
-               FontFamily="Bahnschrift SemiBold"
-               FontSize="16"
-               Margin="5,5,5,0" />
+                                           FontFamily="Bahnschrift SemiBold"
+                                           FontSize="16"
+                                           Margin="5,5,5,0" />
                                 <ComboBox Margin="10,0,5,5"
-              Width="155"
-              ItemsSource="{Binding Venues}"
-              DisplayMemberPath="VenueName"
-              SelectedValuePath="VenueId"
-              SelectedValue="{Binding SelectedVenueId, Mode=TwoWay}"
-              materialDesign:HintAssist.Hint="choosing..." />
-
+                                          Width="155"
+                                          ItemsSource="{Binding Venues}"
+                                          DisplayMemberPath="VenueName"
+                                          SelectedValuePath="VenueId"
+                                          SelectedValue="{Binding SelectedVenueId, Mode=TwoWay}"
+                                          materialDesign:HintAssist.Hint="choosing..." />
                                 <TextBlock Text="Event Type"
-               FontFamily="Bahnschrift SemiBold"
-               FontSize="16"
-               Margin="15,5,15,0" />
+                                           FontFamily="Bahnschrift SemiBold"
+                                           FontSize="16"
+                                           Margin="15,5,15,0" />
                                 <ComboBox Margin="8,0,12,5"
-              Width="100"
-              ItemsSource="{Binding EventTypes}"
-              DisplayMemberPath="TypeName"
-              SelectedValuePath="EventTypeId"
-              SelectedValue="{Binding SelectedEventTypeId, Mode=TwoWay}"
-              materialDesign:HintAssist.Hint="choosing..." />
+                                          Width="100"
+                                          ItemsSource="{Binding EventTypes}"
+                                          DisplayMemberPath="TypeName"
+                                          SelectedValuePath="EventTypeId"
+                                          SelectedValue="{Binding SelectedEventTypeId, Mode=TwoWay}"
+                                          materialDesign:HintAssist.Hint="choosing..." />
                             </StackPanel>
-
                             <StackPanel Orientation="Horizontal">
                                 <!-- Description -->
                                 <Border Background="White"
@@ -118,43 +116,42 @@
                                 </Border>
                                 <!-- Date -->
                                 <StackPanel Orientation="Vertical"
-            Margin="20,5,0,0">
+                                            Margin="20,5,0,0">
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock FontFamily="Bahnschrift SemiBold"
-                   FontSize="16"
-                   Margin="5,5,15,0"
-                   VerticalAlignment="Bottom">
-            <Run Text="Start" />
-            <LineBreak />
-            <Run />
+                                                   FontSize="16"
+                                                   Margin="5,5,15,0"
+                                                   VerticalAlignment="Bottom">
+                                            <Run Text="Start" />
+                                            <LineBreak />
+                                            <Run />
                                         </TextBlock>
                                         <DatePicker Margin="10,0,12,5"
-                    materialDesign:HintAssist.Hint="Pick Date"
-                    materialDesign:TextFieldAssist.HasClearButton="True"
-                    Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
-                    Width="137"
-                    SelectedDate="{Binding StartDate, Mode=TwoWay}" />
+                                                    materialDesign:HintAssist.Hint="Pick Date"
+                                                    materialDesign:TextFieldAssist.HasClearButton="True"
+                                                    Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
+                                                    Width="137"
+                                                    SelectedDate="{Binding StartDate, Mode=TwoWay}" />
                                         <!-- Bind to StartDate -->
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock FontFamily="Bahnschrift SemiBold"
-                   FontSize="16"
-                   Margin="5,5,5,0"
-                   VerticalAlignment="Bottom">
-            <Run Text="End" />
-            <LineBreak />
-            <Run />
+                                                   FontSize="16"
+                                                   Margin="5,5,5,0"
+                                                   VerticalAlignment="Bottom">
+                                            <Run Text="End" />
+                                            <LineBreak />
+                                            <Run />
                                         </TextBlock>
                                         <DatePicker Margin="30,0,12,5"
-                    Width="135"
-                    materialDesign:HintAssist.Hint="Pick Date"
-                    materialDesign:TextFieldAssist.HasClearButton="True"
-                    Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
-                    SelectedDate="{Binding EndDate, Mode=TwoWay}" />
+                                                    Width="135"
+                                                    materialDesign:HintAssist.Hint="Pick Date"
+                                                    materialDesign:TextFieldAssist.HasClearButton="True"
+                                                    Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
+                                                    SelectedDate="{Binding EndDate, Mode=TwoWay}" />
                                         <!-- Bind to EndDate -->
                                     </StackPanel>
                                 </StackPanel>
-
                             </StackPanel>
                         </StackPanel>
                     </Grid>
@@ -166,12 +163,11 @@
                         <!-- List -->
                         <StackPanel Margin="20,25,25,0">
                             <StackPanel>
-                                <!--Shows-->
+                                <!-- Shows -->
                                 <Expander Expanded="Expander_Expanded"
                                           HorizontalAlignment="Stretch"
                                           Header="Shows"
                                           Width="535"
-                                          
                                           Margin="0,5,0,5"
                                           FontFamily="Bahnschrift SemiBold"
                                           FontSize="18"
@@ -182,7 +178,7 @@
                                         <StackPanel Background="White"
                                                     Orientation="Vertical">
                                             <StackPanel Orientation="Horizontal">
-                                                <local:SearchBar Margin="10,0,0,0"/>
+                                                <local:SearchBar Margin="10,0,0,0" />
                                                 <Button Content="&lt;"
                                                         Command="{Binding PreviousPageCommand}"
                                                         CommandParameter="Shows"
@@ -190,7 +186,8 @@
                                                         Style="{StaticResource PurpleButton}"
                                                         Height="30"
                                                         Width="30"
-                                                        VerticalAlignment="Center" Margin="0" />
+                                                        VerticalAlignment="Center"
+                                                        Margin="0" />
                                                 <TextBlock Text="{Binding ShowsPagination.CurrentPage}"
                                                            Margin="3,15,2,0" />
                                                 <TextBlock Text="of"
@@ -238,10 +235,9 @@
                                                 </DataGrid>
                                             </Border>
                                         </StackPanel>
-
                                     </Grid>
                                 </Expander>
-                                <!--Sponsors-->
+                                <!-- Sponsors -->
                                 <Expander Expanded="Expander_Expanded"
                                           HorizontalAlignment="Stretch"
                                           Header="Sponsors"
@@ -254,47 +250,47 @@
                                     <Grid Margin="5,0,5,5"
                                           TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
                                         <StackPanel Background="White"
-            Orientation="Vertical">
+                                                    Orientation="Vertical">
                                             <StackPanel Orientation="Horizontal">
-                                                <local:SearchBar Margin="10,0,0,0"/>
+                                                <local:SearchBar Margin="10,0,0,0" />
                                                 <Button Content="&lt;"
-Command="{Binding PreviousPageCommand}"
-CommandParameter="Sponsors"
-IsEnabled="{Binding SponsorsPagination.CanGoPrevious}"
-Style="{StaticResource PurpleButton}"
-Height="30"
-Width="30"
-VerticalAlignment="Center" Margin="0" />
+                                                        Command="{Binding PreviousPageCommand}"
+                                                        CommandParameter="Sponsors"
+                                                        IsEnabled="{Binding SponsorsPagination.CanGoPrevious}"
+                                                        Style="{StaticResource PurpleButton}"
+                                                        Height="30"
+                                                        Width="30"
+                                                        VerticalAlignment="Center"
+                                                        Margin="0" />
                                                 <TextBlock Text="{Binding SponsorsPagination.CurrentPage}"
-   Margin="3,15,2,0" />
+                                                           Margin="3,15,2,0" />
                                                 <TextBlock Text="of"
-   Margin="2,15,3,0" />
+                                                           Margin="2,15,3,0" />
                                                 <TextBlock Text="{Binding SponsorsPagination.TotalPages}"
-   Margin="5,15" />
+                                                           Margin="5,15" />
                                                 <Button Content=">"
-Command="{Binding NextPageCommand}"
-CommandParameter="Sponsors"
-IsEnabled="{Binding UpcomingPagination.CanGoNext}"
-Style="{StaticResource PurpleButton}"
-Height="30"
-Width="30"
-VerticalAlignment="Center" />
+                                                        Command="{Binding NextPageCommand}"
+                                                        CommandParameter="Sponsors"
+                                                        IsEnabled="{Binding UpcomingPagination.CanGoNext}"
+                                                        Style="{StaticResource PurpleButton}"
+                                                        Height="30"
+                                                        Width="30"
+                                                        VerticalAlignment="Center" />
                                             </StackPanel>
                                             <Border Margin="0"
-                                                Background="White"
-                                                Height="250">
+                                                    Background="White"
+                                                    Height="250">
                                                 <DataGrid ItemsSource="{Binding SponsorsPagination.PagedCollection}"
-                                                      AutoGenerateColumns="True"
-                                                      Background="Transparent"
-                                                      Margin="0,0,0,0"
-                                                      VerticalAlignment="Stretch"
-                                                      HorizontalAlignment="Stretch" />
+                                                          AutoGenerateColumns="True"
+                                                          Background="Transparent"
+                                                          Margin="0,0,0,0"
+                                                          VerticalAlignment="Stretch"
+                                                          HorizontalAlignment="Stretch" />
                                             </Border>
-                                            
                                         </StackPanel>
                                     </Grid>
                                 </Expander>
-                                <!--Employees-->
+                                <!-- Employees -->
                                 <Expander Expanded="Expander_Expanded"
                                           HorizontalAlignment="Stretch"
                                           Header="Employees"
@@ -307,22 +303,23 @@ VerticalAlignment="Center" />
                                     <Grid Margin="5,0,5,5"
                                           TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
                                         <StackPanel Background="White"
-Orientation="Vertical">
-                                            <local:SearchBar HorizontalAlignment="Left" Margin="15,5,0,5"/>
+                                                    Orientation="Vertical">
+                                            <local:SearchBar HorizontalAlignment="Left"
+                                                             Margin="15,5,0,5" />
                                             <Border Margin="0"
-                                                Background="White"
-                                                Height="250">
+                                                    Background="White"
+                                                    Height="250">
                                                 <DataGrid ItemsSource="{Binding EmployeeRoles}"
-                                                      AutoGenerateColumns="True"
-                                                      Background="Transparent"
-                                                      Margin="0,0,0,0"
-                                                      VerticalAlignment="Stretch"
-                                                      HorizontalAlignment="Stretch" />
+                                                          AutoGenerateColumns="True"
+                                                          Background="Transparent"
+                                                          Margin="0,0,0,0"
+                                                          VerticalAlignment="Stretch"
+                                                          HorizontalAlignment="Stretch" />
                                             </Border>
                                         </StackPanel>
                                     </Grid>
                                 </Expander>
-                                <!--Equipments-->
+                                <!-- Equipments -->
                                 <Expander Expanded="Expander_Expanded"
                                           HorizontalAlignment="Stretch"
                                           Header="Equipments"
@@ -335,17 +332,18 @@ Orientation="Vertical">
                                     <Grid Margin="5,0,5,5"
                                           TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
                                         <StackPanel Background="White"
-Orientation="Vertical">
-                                            <local:SearchBar HorizontalAlignment="Left" Margin="15,5,0,5"/>
+                                                    Orientation="Vertical">
+                                            <local:SearchBar HorizontalAlignment="Left"
+                                                             Margin="15,5,0,5" />
                                             <Border Margin="0"
-                                                Background="White"
-                                                Height="250">
+                                                    Background="White"
+                                                    Height="250">
                                                 <DataGrid ItemsSource="{Binding EquipmentNames}"
-                                                      AutoGenerateColumns="True"
-                                                      Background="Transparent"
-                                                      Margin="0,0,0,0"
-                                                      VerticalAlignment="Stretch"
-                                                      HorizontalAlignment="Stretch" />
+                                                          AutoGenerateColumns="True"
+                                                          Background="Transparent"
+                                                          Margin="0,0,0,0"
+                                                          VerticalAlignment="Stretch"
+                                                          HorizontalAlignment="Stretch" />
                                             </Border>
                                         </StackPanel>
                                     </Grid>
@@ -413,11 +411,14 @@ Orientation="Vertical">
                                            FontFamily="Bahnschrift SemiLight"
                                            VerticalAlignment="Center"
                                            Margin="0,0,0,10" />
-                                <TextBlock
-                                           FontSize="16"
+                                <TextBlock FontSize="16"
                                            FontFamily="Bahnschrift SemiLight"
                                            VerticalAlignment="Center"
-                                           Margin="0,0,0,15" ><Run Text="Service Cost "/><LineBreak/><Run Text="(15%)"/></TextBlock>
+                                           Margin="0,0,0,15">
+                                    <Run Text="Service Cost " />
+                                    <LineBreak />
+                                    <Run Text="(15%)" />
+                                </TextBlock>
                                 <TextBlock Text="Total"
                                            FontSize="16"
                                            FontFamily="Bahnschrift SemiBold"
@@ -458,11 +459,11 @@ Orientation="Vertical">
                                            Margin="0,0,0,15" />
                             </StackPanel>
                             <TextBlock Text="750$"
-                                           FontSize="16"
-                                           FontFamily="Bahnschrift SemiBold"
-                                           Grid.Column="1" Margin="10,180,10,10"
-                                       HorizontalAlignment="Right"
-                                           />
+                                       FontSize="16"
+                                       FontFamily="Bahnschrift SemiBold"
+                                       Grid.Column="1"
+                                       Margin="10,180,10,10"
+                                       HorizontalAlignment="Right" />
                         </Grid>
                     </Border>
                 </Grid>
