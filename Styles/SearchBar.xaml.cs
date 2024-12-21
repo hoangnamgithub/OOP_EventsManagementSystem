@@ -32,8 +32,13 @@ namespace OOP_EventsManagementSystem.Styles
         {
             if (string.IsNullOrWhiteSpace(SearchBox.Text))
             {
-                SearchBox.Text = "Search......";
+                // Ensure the caret brush is set correctly
                 SearchBox.CaretBrush = System.Windows.Media.Brushes.Transparent;
+                // Trigger a search with an empty query to reset the data grid
+                if (DataContext is EmployeeVM viewModel)
+                {
+                    viewModel.SearchEmployees("");
+                }
             }
         }
 

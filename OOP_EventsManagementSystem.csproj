@@ -209,10 +209,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Model\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="..\..\..\Images\topic6\fish_830484.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>

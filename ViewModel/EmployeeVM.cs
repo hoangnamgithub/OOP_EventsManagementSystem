@@ -61,11 +61,21 @@ namespace OOP_EventsManagementSystem.ViewModel
 
         public void SearchEmployees(string query)
         {
-            var filteredEmployees = _allEmployees.Where(e =>
-                e.EmployeeId.ToString().Contains(query, StringComparison.OrdinalIgnoreCase) ||
-                e.FullName.Contains(query, StringComparison.OrdinalIgnoreCase)).ToList();
+            if (string.IsNullOrWhiteSpace(query))
+            {
+                // Reset to all employees if the query is empty
+                Employees = new ObservableCollection<EmployeeEventViewModel>(_allEmployees);
+            }
+            else
+            {
+                // Filter employees based on the query
+                var filteredEmployees = _allEmployees.Where(e =>
+                    e.EmployeeId.ToString().Contains(query, StringComparison.OrdinalIgnoreCase) ||
+                    e.FullName.Contains(query, StringComparison.OrdinalIgnoreCase)).ToList();
 
-            Employees = new ObservableCollection<EmployeeEventViewModel>(filteredEmployees);
+                Employees = new ObservableCollection<EmployeeEventViewModel>(filteredEmployees);
+            }
+
             OnPropertyChanged(nameof(Employees));
         }
 
