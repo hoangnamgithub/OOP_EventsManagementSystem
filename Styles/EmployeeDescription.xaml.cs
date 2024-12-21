@@ -89,7 +89,6 @@ namespace OOP_EventsManagementSystem.Styles
             return $"({text.Substring(0, 3)}) {text.Substring(3, 3)}-{text.Substring(6)}";
         }
 
-
         private static bool IsTextAllowed(string text)
         {
             return text.All(char.IsDigit);
