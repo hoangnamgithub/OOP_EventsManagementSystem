@@ -485,25 +485,26 @@ namespace OOP_EventsManagementSystem.Database
             var faker = new Bogus.Faker();
             var events = new List<Event>();
             var today = DateTime.Today;
+            var currentYear = today.Year;
 
             for (int i = 0; i < 100; i++)
             {
                 var eventType = eventTypes[faker.Random.Int(0, eventTypes.Count - 1)];
                 var venue = venues[faker.Random.Int(0, venues.Count - 1)];
 
-                // Randomly assign dates to be in the past, present, or future
+                // Randomly assign dates to be in the past, present, or near future
                 DateTime startDate;
-                if (i % 3 == 0) // Approximately one third in the past
+                if (i % 6 == 0) // Approximately one sixth in the past
                 {
-                    startDate = faker.Date.Past(2, today); // Past within the last 2 years
+                    startDate = faker.Date.Past(1, today); // Past within the last year
                 }
-                else if (i % 3 == 1) // Approximately one third in the present
+                else if (i % 2 != 0) // Approximately two thirds in the present
                 {
-                    startDate = faker.Date.Between(today.AddMonths(-1), today.AddMonths(1)); // Near present (within a month)
+                    startDate = faker.Date.Between(today.AddMonths(-1), today.AddMonths(1)); // Within the current date range
                 }
-                else // Approximately one third in the future
+                else // Approximately one sixth in the near future
                 {
-                    startDate = faker.Date.Future(1, today); // Future within the next 2 years
+                    startDate = faker.Date.Between(new DateTime(2025, 1, 1), new DateTime(2025, 3, 31)); // Future within the first few months of 2025
                 }
 
                 var endDate = startDate.AddDays(faker.Random.Int(1, 5)); // Ensuring end date is after start date
@@ -526,6 +527,12 @@ namespace OOP_EventsManagementSystem.Database
             context.SaveChanges();
             Console.WriteLine("Seeded event data successfully.");
         }
+
+
+
+
+
+
 
         private static void SeedNeedData(EventManagementDbContext context)
         {
