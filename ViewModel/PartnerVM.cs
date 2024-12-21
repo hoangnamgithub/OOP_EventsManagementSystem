@@ -5,69 +5,78 @@ using System.ComponentModel;
 using System.Windows.Input;
 using Microsoft.EntityFrameworkCore;
 using System.Windows.Controls;
+using System.Data.Entity;
+using System.Windows;
 
 namespace OOP_EventsManagementSystem.ViewModel
 {
     public class PartnerVM : INotifyPropertyChanged
-    {
-        public ICommand ScrollChangedCommand { get; }
-        private ObservableCollection<SponsorDisplayModel> _sponsors;
-        public ObservableCollection<SponsorDisplayModel> Sponsors
+    { 
+        private readonly EventManagementDbContext _context;
+    
+        public ObservableCollection<EventModel> Events { get; set; }
+        // ObservableCollection để hiển thị dữ liệu nhà tài trợ
+        public ObservableCollection<SponsorModel> Sponsors { get; set; }
+
+        // EventId của sự kiện được chọn
+        public int SelectedEventId { get; set; }
+
+        public PartnerVM(EventManagementDbContext context)
         {
-            get => _sponsors;
-            set
-            {
-                _sponsors = value;
-                OnPropertyChanged(nameof(Sponsors));
-            }
-        }
-
-        private bool _isLoading = false; // Biến để kiểm tra đang tải hay không
-
-        public PartnerVM()
+            _context = context;
+            Events = new ObservableCollection<EventModel>();
+            Sponsors = new ObservableCollection<SponsorModel>();
+            // Lấy dữ liệu từ cơ sở dữ liệu và chuyển thành ObservableCollection
+            LoadEvents();
+    }
+        // Phương thức để tải các sự kiện từ cơ sở dữ liệu
+        private void LoadEvents()
         {
-            ScrollChangedCommand = new RelayCommand(OnScrollChanged);
-            // Tải dữ liệu ban đầu
-            LoadSponsorsAsync();
-        }
-
-        // Phương thức tải dữ liệu ban đầu
-        private async Task LoadSponsorsAsync(int skip = 0, int take = 20)
-        {
-            if (_isLoading) return; // Nếu đang tải dữ liệu thì không tải lại
-
-            _isLoading = true;
-            using (var context = new EventManagementDbContext())
-            {
-                // Tải dữ liệu từ cơ sở dữ liệu
-                var sponsors = await context.IsSponsors
-                                             .Skip(skip)
-                                             .Take(take)
-                                             .Select(isSponsor => new SponsorDisplayModel
-                                             {
-                                                 SponsorName = isSponsor.Sponsor.SponsorName,
-                                                 SponsorDetails = isSponsor.Sponsor.SponsorDetails,
-                                                 SponsorTierName = isSponsor.SponsorTier.TierName,
-                                                 EventName = isSponsor.Event.EventName
-                                             })
-                                             .ToListAsync();
-
-                // Cập nhật danh sách sponsor
-                foreach (var sponsor in sponsors)
+            Events = new ObservableCollection<EventModel>(
+                _context.Events.Select(e => new EventModel
                 {
-                    Sponsors.Add(sponsor); // Thêm dữ liệu vào ObservableCollection
-                }
-            }
-            _isLoading = false;
+                    EventId = e.EventId,
+                    EventName = e.EventName
+                }).ToList());
         }
-
-        // Phương thức kiểm tra sự kiện cuộn
-        private void OnScrollChanged(object parameter)
+        public void LoadSponsorsForSelectedEvent()
         {
-            var scrollViewer = parameter as ScrollViewer;
-            if (scrollViewer != null && scrollViewer.VerticalOffset == scrollViewer.ScrollableHeight)
+            var sponsors = _context.IsSponsors
+                .Where(isSponsor => isSponsor.EventId == SelectedEventId)
+                .Select(isSponsor => new SponsorModel
+                {
+                    SponsorId = isSponsor.SponsorId,
+                    SponsorName = isSponsor.Sponsor.SponsorName,
+                    SponsorDetails = isSponsor.Sponsor.SponsorDetails,
+                    SponsorTierName = isSponsor.SponsorTier.TierName
+                }).ToList();
+
+            Sponsors.Clear();
+            foreach (var sponsor in sponsors)
             {
-                LoadSponsorsAsync(Sponsors.Count, 20); // Tải thêm dữ liệu khi cuộn đến cuối
+                Sponsors.Add(sponsor);
+            }
+        }
+        public void DeleteSponsorFromEvent(SponsorModel sponsorToDelete)
+        {
+            // Lấy EventId đã chọn từ UI hoặc ViewModel
+            int selectedEventId = SelectedEventId; // Đây là ID của sự kiện đã chọn, bạn cần đảm bảo có giá trị này
+
+            // Tìm và xóa sponsor khỏi event trong cơ sở dữ liệu
+            var sponsorToDeleteInDb = _context.IsSponsors
+                .FirstOrDefault(isSponsor => isSponsor.SponsorId == sponsorToDelete.SponsorId && isSponsor.EventId == selectedEventId);
+
+            if (sponsorToDeleteInDb != null)
+            {
+                _context.IsSponsors.Remove(sponsorToDeleteInDb); // Xóa sponsor khỏi event
+                _context.SaveChanges(); // Lưu thay đổi vào cơ sở dữ liệu
+
+                // Cập nhật danh sách sponsors trong UI sau khi xóa
+                LoadSponsorsForSelectedEvent(); // Hàm này sẽ tải lại danh sách sponsors cho event hiện tại
+            }
+            else
+            {
+                MessageBox.Show("Sponsor not found in the selected event.");
             }
         }
 
@@ -78,11 +87,21 @@ namespace OOP_EventsManagementSystem.ViewModel
         }
     }
 
-    public class SponsorDisplayModel
+    public class SponsorModel
     {
-        public string SponsorName { get; set; } = string.Empty;
+        public int SponsorId { get; set; }
+        public string SponsorName { get; set; }
         public string? SponsorDetails { get; set; }
-        public string SponsorTierName { get; set; } = string.Empty;
-        public string EventName { get; set; } = string.Empty;
+        public string SponsorTierName { get; set; }       
+        // Thêm thuộc tính liên kết với SponsorTier
+        public int SponsorTierId { get; set; }
+        public virtual SponsorTier SponsorTier { get; set; } = null!;
     }
+
+    public class EventModel
+    {
+        public int EventId { get; set; }
+        public string EventName { get; set; }
+    }
+
 }

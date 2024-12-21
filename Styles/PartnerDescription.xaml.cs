@@ -1,4 +1,6 @@
-﻿using System;
+﻿using OOP_EventsManagementSystem.Model;
+using OOP_EventsManagementSystem.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +21,11 @@ namespace OOP_EventsManagementSystem.Styles
     /// </summary>
     public partial class PartnerDescription : Window
     {
+        private readonly EventManagementDbContext _context;
         public PartnerDescription()
         {
             InitializeComponent();
+            _context = new EventManagementDbContext();
         }
 
         private void btn_close_Click(object sender, RoutedEventArgs e)
@@ -30,5 +34,14 @@ namespace OOP_EventsManagementSystem.Styles
         }
 
         private void MouseLeftButtonDown(object sender, MouseButtonEventArgs e) { if (e.ButtonState == MouseButtonState.Pressed) { this.DragMove(); } }
+        // Khi cửa sổ được hiển thị, dữ liệu sẽ được gán từ DataContext
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            
+    var selectedSponsor = (SponsorModel)this.DataContext;
+
+            // Kiểm tra và xử lý dữ liệu, ví dụ hiển thị thông tin chi tiết
+            Console.WriteLine(selectedSponsor.SponsorName);
+        }
     }
 }
