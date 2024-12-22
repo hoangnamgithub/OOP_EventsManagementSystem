@@ -22,6 +22,7 @@ namespace OOP_EventsManagementSystem.ViewModel
     {
         public ICommand OpenEventDetailCommand { get; set; }
         public ICommand ConfirmCommand { get; }
+        public ICommand EditCommand { get; }
 
         public PaginationHelper<Model.Event> UpcomingPagination { get; set; }
         public PaginationHelper<Model.Event> HappeningPagination { get; set; }
@@ -91,6 +92,19 @@ namespace OOP_EventsManagementSystem.ViewModel
         }
 
         // properties -------------------------------------
+        private bool _isEditing;
+        public bool IsEditing
+        {
+            get => _isEditing;
+            set
+            {
+                if (_isEditing != value)
+                {
+                    _isEditing = value;
+                    OnPropertyChanged(nameof(IsEditing));
+                }
+            }
+        }
 
         private string _eventName;
         public string EventName
@@ -195,12 +209,19 @@ namespace OOP_EventsManagementSystem.ViewModel
         public EventVM()
         {
             OpenEventDetailCommand = new RelayCommand(ExecuteOpenEventDetailCommand);
+            
             _context = new EventManagementDbContext();
+            EditCommand = new RelayCommand(_ => ToggleEditing());
 
             // Initialize commands
             LoadData();
             NextPageCommand = new RelayCommand(ExecuteNextPage);
             PreviousPageCommand = new RelayCommand(ExecutePreviousPage);
+        }
+
+        private void ToggleEditing()
+        {
+            IsEditing = !IsEditing;
         }
 
         private void ExecuteConfirmCommand(object parameter)
