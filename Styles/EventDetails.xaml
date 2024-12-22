@@ -74,7 +74,7 @@
                                     x:Name="txtbox_expectedAttendee"
                                     Width="154"
                                     Margin="20,0,0,0"
-                                    materialDesign:HintAssist.Hint="Entering..."
+                                    materialDesign:HintAssist.Hint="Number only..."
                                     FontFamily="Bahnschrift SemiLight"
                                     FontSize="14"
                                     Foreground="Gray"
