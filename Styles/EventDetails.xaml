@@ -45,7 +45,7 @@
                                 Style="{StaticResource txt_header}"
                                 Text="Description" />
                         </StackPanel>
-                        <StackPanel Grid.Column="1" Margin="20,10,0,0">
+                        <StackPanel Grid.Column="1" Margin="50,10,0,0">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock
                                     Margin="5,0,15,0"
@@ -54,7 +54,7 @@
                                     FontSize="16"
                                     Text="Event Name" />
                                 <TextBox
-                                    x:Name="eventname_txtbox"
+                                    x:Name="txtbox_eventname"
                                     Width="155"
                                     FontFamily="Bahnschrift SemiLight"
                                     FontSize="14"
@@ -67,7 +67,7 @@
                                     FontSize="16"
                                     Text="Attendee" />
                                 <TextBox
-                                    x:Name="eventattendee_txtbox"
+                                    x:Name="txtbox_expectedAttendee"
                                     Width="100"
                                     Margin="20,0,0,0"
                                     FontFamily="Bahnschrift SemiLight"
@@ -81,6 +81,7 @@
                                     FontSize="16"
                                     Text="Event Venue" />
                                 <ComboBox
+                                    Name="cmbbox_venue"
                                     Width="155"
                                     Margin="10,0,5,5"
                                     materialDesign:HintAssist.Hint="choosing..."
@@ -94,6 +95,7 @@
                                     FontSize="16"
                                     Text="Event Type" />
                                 <ComboBox
+                                    Name="cmbbox_eventType"
                                     Width="100"
                                     Margin="8,0,12,5"
                                     materialDesign:HintAssist.Hint="choosing..."
@@ -132,6 +134,7 @@
                                             <Run />
                                         </TextBlock>
                                         <DatePicker
+                                            Name="dtpckr_startDate"
                                             Width="137"
                                             Margin="10,0,12,5"
                                             materialDesign:HintAssist.Hint="Pick Date"
@@ -149,6 +152,7 @@
                                             <Run />
                                         </TextBlock>
                                         <DatePicker
+                                            Name="dtpckr_endDate"
                                             Width="135"
                                             Margin="30,0,12,5"
                                             materialDesign:HintAssist.Hint="Pick Date"
@@ -207,6 +211,7 @@
                                             </StackPanel>
                                             <Border Height="350" Margin="0">
                                                 <DataGrid
+                                                    Name="dtgrd_shows"
                                                     Margin="0,0,0,0"
                                                     VerticalAlignment="Stretch"
                                                     AutoGenerateColumns="False"
@@ -279,6 +284,7 @@
                                                 Margin="0"
                                                 Background="White">
                                                 <DataGrid
+                                                    Name="dtgrd_sponsors"
                                                     Margin="0,0,0,0"
                                                     HorizontalAlignment="Stretch"
                                                     VerticalAlignment="Stretch"
@@ -309,6 +315,7 @@
                                                 Margin="0"
                                                 Background="White">
                                                 <DataGrid
+                                                    Name="dtgrd_empRoles"
                                                     Margin="0,0,0,0"
                                                     HorizontalAlignment="Stretch"
                                                     VerticalAlignment="Stretch"
@@ -338,6 +345,7 @@
                                                 Margin="0"
                                                 Background="White">
                                                 <DataGrid
+                                                    Name="dtgrd_equipments"
                                                     Margin="0,0,0,0"
                                                     HorizontalAlignment="Stretch"
                                                     VerticalAlignment="Stretch"
@@ -368,7 +376,7 @@
                     Text="X" />
             </Button>
             <!--  Bang cost va nut  -->
-            <StackPanel Margin="0,0,10,25" VerticalAlignment="Bottom">
+            <StackPanel Margin="0,30,10,25" VerticalAlignment="Bottom">
                 <Grid
                     Width="216"
                     Margin="10,0,15,0"
@@ -378,7 +386,7 @@
                         <RowDefinition />
                     </Grid.RowDefinitions>
                     <TextBlock
-                        Margin="10,5"
+                        Margin="10,5,0,0"
                         FontFamily="Bahnschrift SemiBold"
                         FontSize="18"
                         Text="Cost" />
@@ -434,6 +442,7 @@
                                 Margin="10"
                                 Orientation="Vertical">
                                 <TextBlock
+                                    Name="txt_showCost"
                                     Margin="0,0,0,10"
                                     HorizontalAlignment="Right"
                                     VerticalAlignment="Center"
@@ -441,6 +450,7 @@
                                     FontSize="16"
                                     Text="100$" />
                                 <TextBlock
+                                    Name="txt_locationCost"
                                     Margin="0,0,0,10"
                                     HorizontalAlignment="Right"
                                     VerticalAlignment="Center"
@@ -448,6 +458,7 @@
                                     FontSize="16"
                                     Text="200$" />
                                 <TextBlock
+                                    Name="txt_empCost"
                                     Margin="0,0,0,10"
                                     HorizontalAlignment="Right"
                                     VerticalAlignment="Center"
@@ -455,6 +466,7 @@
                                     FontSize="16"
                                     Text="150$" />
                                 <TextBlock
+                                    Name="txt_equipmentCost"
                                     Margin="0,0,0,10"
                                     HorizontalAlignment="Right"
                                     VerticalAlignment="Center"
@@ -462,6 +474,7 @@
                                     FontSize="16"
                                     Text="300$" />
                                 <TextBlock
+                                    Name="txt_serviceCost"
                                     Margin="0,0,0,15"
                                     HorizontalAlignment="Right"
                                     VerticalAlignment="Center"
@@ -470,6 +483,7 @@
                                     Text="200$" />
                             </StackPanel>
                             <TextBlock
+                                Name="txt_total"
                                 Grid.Column="1"
                                 Margin="10,180,10,10"
                                 HorizontalAlignment="Right"
@@ -485,6 +499,7 @@
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <Button
+                        Name="btn_confirmEdit"
                         Width="100"
                         Height="50"
                         Margin="15,10,0,10"
@@ -492,6 +507,7 @@
                         Content="Comfirm"
                         Style="{StaticResource GreenButton}" />
                     <Button
+                        Name="btn_cancelEdit"
                         Grid.Column="1"
                         Width="100"
                         Height="50"
