@@ -198,7 +198,6 @@ namespace OOP_EventsManagementSystem.ViewModel
             _context = new EventManagementDbContext();
 
             // Initialize commands
-            ConfirmCommand = new RelayCommand(ExecuteConfirmCommand);
             LoadData();
             NextPageCommand = new RelayCommand(ExecuteNextPage);
             PreviousPageCommand = new RelayCommand(ExecutePreviousPage);
