@@ -68,6 +68,28 @@ namespace OOP_EventsManagementSystem.ViewModel
             }
         }
 
+        private ObservableCollection<object> _filteredEmployeeRoles;
+        public ObservableCollection<object> FilteredEmployeeRoles
+        {
+            get => _filteredEmployeeRoles;
+            set
+            {
+                _filteredEmployeeRoles = value;
+                OnPropertyChanged(nameof(FilteredEmployeeRoles));
+            }
+        }
+
+        private ObservableCollection<object> _filteredEquipments;
+        public ObservableCollection<object> FilteredEquipments
+        {
+            get => _filteredEquipments;
+            set
+            {
+                _filteredEquipments = value;
+                OnPropertyChanged(nameof(FilteredEquipments));
+            }
+        }
+
         // properties -------------------------------------
 
         private string _eventName;
@@ -201,23 +223,46 @@ namespace OOP_EventsManagementSystem.ViewModel
                 EndDate = selectedEvent.EndDate.ToDateTime(TimeOnly.MinValue);      // Convert DateOnly to DateTime
                 Description = selectedEvent.EventDescription;
 
+                // Filter equipment details for the selected event
+                var filteredEquipments = _context.Requireds
+                                                 .Where(required => required.EventId == selectedEvent.EventId)
+                                                 .Select(required => new
+                                                 {
+                                                     EquipNameId = required.EquipName.EquipNameId,
+                                                     EquipName = required.EquipName.EquipName,
+                                                     TypeName = required.EquipName.EquipType.TypeName,
+                                                     Quantity = required.Quantity,
+                                                     EquipCost = required.EquipName.EquipCost
+                                                 })
+                                                 .ToList();
+
+                FilteredEquipments = new ObservableCollection<object>(filteredEquipments);
+
+                // Filter employee roles for the selected event
+                var filteredEmployeeRoles = _context.Needs
+                                                    .Where(need => need.EventId == selectedEvent.EventId)
+                                                    .Select(need => new
+                                                    {
+                                                        RoleId = need.Role.RoleId,
+                                                        RoleName = need.Role.RoleName,
+                                                        Quantity = need.Quantity
+                                                    })
+                                                    .ToList();
+
+                FilteredEmployeeRoles = new ObservableCollection<object>(filteredEmployeeRoles);
+
                 // Filter sponsors for the selected event
-                var sponsorIds = _context.IsSponsors
+                var filteredSponsors = _context.IsSponsors
                                         .Where(isSponsor => isSponsor.EventId == selectedEvent.EventId)
-                                        .Select(isSponsor => isSponsor.SponsorId)
+                                        .Select(isSponsor => new
+                                        {
+                                            SponsorId = isSponsor.Sponsor.SponsorId,
+                                            SponsorName = isSponsor.Sponsor.SponsorName,
+                                            TierName = isSponsor.SponsorTier.TierName
+                                        })
                                         .ToList();
 
-                var filteredSponsors = _context.Sponsors
-                                               .Where(s => sponsorIds.Contains(s.SponsorId))
-                                               .Select(s => new
-                                               {
-                                                   s.SponsorId,
-                                                   s.SponsorName,
-                                                   TierName = s.IsSponsors.FirstOrDefault(isSponsor => isSponsor.EventId == selectedEvent.EventId).SponsorTier.TierName
-                                               })
-                                               .ToList();
-
-                SponsorsPagination = new PaginationHelper<dynamic>(filteredSponsors, 9); // Set the number of items per page
+                SponsorsPagination = new PaginationHelper<object>(filteredSponsors, 9); // Set the number of items per page
 
                 // Filter shows for the selected event
                 var showIds = _context.ShowSchedules

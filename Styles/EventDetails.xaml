@@ -187,6 +187,7 @@
                                 <!--  Shows  -->
                                 <Expander
                                     Width="535"
+                                    Height="auto"
                                     Margin="0,5,0,5"
                                     HorizontalAlignment="Stretch"
                                     Background="#FFD96073"
@@ -222,7 +223,7 @@
                                                     IsEnabled="{Binding ShowsPagination.CanGoNext}"
                                                     Style="{StaticResource PurpleButton}" />
                                             </StackPanel>
-                                            <Border Height="350" Margin="0">
+                                            <Border Height="300" Margin="0">
                                                 <DataGrid
                                                     Name="dtgrd_shows"
                                                     Margin="0,0,0,0"
@@ -293,13 +294,9 @@
                                                     IsEnabled="{Binding SponsorsPagination.CanGoNext}"
                                                     Style="{StaticResource PurpleButton}" />
                                             </StackPanel>
-                                            <Border
-                                                Height="250"
-                                                Margin="0"
-                                                Background="White">
+                                            <Border Height="300" Background="White">
                                                 <DataGrid
                                                     Name="dtgrd_sponsors"
-                                                    Margin="0,0,0,0"
                                                     HorizontalAlignment="Stretch"
                                                     VerticalAlignment="Stretch"
                                                     AutoGenerateColumns="False"
@@ -315,15 +312,15 @@
                                                             </DataGridTemplateColumn.CellTemplate>
                                                         </DataGridTemplateColumn>
                                                         <DataGridTextColumn
-                                                            Width="*"
+                                                            Width="10*"
                                                             Binding="{Binding SponsorId}"
                                                             Header="ID" />
                                                         <DataGridTextColumn
-                                                            Width="*"
+                                                            Width="40*"
                                                             Binding="{Binding SponsorName}"
                                                             Header="Sponsor Name" />
                                                         <DataGridTextColumn
-                                                            Width="*"
+                                                            Width="40*"
                                                             Binding="{Binding TierName}"
                                                             Header="Tier" />
                                                     </DataGrid.Columns>
@@ -348,7 +345,7 @@
                                         <StackPanel Background="White" Orientation="Vertical">
                                             <local:SearchBar Margin="15,5,0,5" HorizontalAlignment="Left" />
                                             <Border
-                                                Height="250"
+                                                Height="300"
                                                 Margin="0"
                                                 Background="White">
                                                 <DataGrid
@@ -356,9 +353,24 @@
                                                     Margin="0,0,0,0"
                                                     HorizontalAlignment="Stretch"
                                                     VerticalAlignment="Stretch"
-                                                    AutoGenerateColumns="True"
+                                                    AutoGenerateColumns="False"
                                                     Background="Transparent"
-                                                    ItemsSource="{Binding EmployeeRoles}" />
+                                                    ItemsSource="{Binding FilteredEmployeeRoles}">
+                                                    <DataGrid.Columns>
+                                                        <DataGridTextColumn
+                                                            Width="10*"
+                                                            Binding="{Binding RoleId}"
+                                                            Header="ID" />
+                                                        <DataGridTextColumn
+                                                            Width="70*"
+                                                            Binding="{Binding RoleName}"
+                                                            Header="Role Name" />
+                                                        <DataGridTextColumn
+                                                            Width="30*"
+                                                            Binding="{Binding Quantity}"
+                                                            Header="Quantity" />
+                                                    </DataGrid.Columns>
+                                                </DataGrid>
                                             </Border>
                                         </StackPanel>
                                     </Grid>
@@ -378,7 +390,7 @@
                                         <StackPanel Background="White" Orientation="Vertical">
                                             <local:SearchBar Margin="15,5,0,5" HorizontalAlignment="Left" />
                                             <Border
-                                                Height="250"
+                                                Height="300"
                                                 Margin="0"
                                                 Background="White">
                                                 <DataGrid
@@ -386,9 +398,32 @@
                                                     Margin="0,0,0,0"
                                                     HorizontalAlignment="Stretch"
                                                     VerticalAlignment="Stretch"
-                                                    AutoGenerateColumns="True"
+                                                    AutoGenerateColumns="False"
                                                     Background="Transparent"
-                                                    ItemsSource="{Binding EquipmentNames}" />
+                                                    ItemsSource="{Binding FilteredEquipments}">
+                                                    <DataGrid.Columns>
+                                                        <DataGridTextColumn
+                                                            Width="10*"
+                                                            Binding="{Binding EquipNameId}"
+                                                            Header="ID" />
+                                                        <DataGridTextColumn
+                                                            Width="20*"
+                                                            Binding="{Binding EquipName}"
+                                                            Header="Name" />
+                                                        <DataGridTextColumn
+                                                            Width="20*"
+                                                            Binding="{Binding TypeName}"
+                                                            Header="Type" />
+                                                        <DataGridTextColumn
+                                                            Width="20*"
+                                                            Binding="{Binding Quantity}"
+                                                            Header="Quantity" />
+                                                        <DataGridTextColumn
+                                                            Width="20*"
+                                                            Binding="{Binding EquipCost}"
+                                                            Header="Cost/Item" />
+                                                    </DataGrid.Columns>
+                                                </DataGrid>
                                             </Border>
                                         </StackPanel>
                                     </Grid>
