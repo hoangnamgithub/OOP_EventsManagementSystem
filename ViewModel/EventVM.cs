@@ -26,7 +26,7 @@ namespace OOP_EventsManagementSystem.ViewModel
         public PaginationHelper<Model.Event> UpcomingPagination { get; set; }
         public PaginationHelper<Model.Event> HappeningPagination { get; set; }
         public PaginationHelper<Model.Event> CompletedPagination { get; set; }
-        public PaginationHelper<Model.Sponsor> SponsorsPagination { get; set; }
+        public PaginationHelper<dynamic> SponsorsPagination { get; set; }
 
         public ICommand NextPageCommand { get; }
         public ICommand PreviousPageCommand { get; }
@@ -209,9 +209,15 @@ namespace OOP_EventsManagementSystem.ViewModel
 
                 var filteredSponsors = _context.Sponsors
                                                .Where(s => sponsorIds.Contains(s.SponsorId))
+                                               .Select(s => new
+                                               {
+                                                   s.SponsorId,
+                                                   s.SponsorName,
+                                                   TierName = s.IsSponsors.FirstOrDefault(isSponsor => isSponsor.EventId == selectedEvent.EventId).SponsorTier.TierName
+                                               })
                                                .ToList();
 
-                SponsorsPagination = new PaginationHelper<Model.Sponsor>(filteredSponsors, 9); // Set the number of items per page
+                SponsorsPagination = new PaginationHelper<dynamic>(filteredSponsors, 9); // Set the number of items per page
 
                 // Filter shows for the selected event
                 var showIds = _context.ShowSchedules
@@ -255,7 +261,7 @@ namespace OOP_EventsManagementSystem.ViewModel
             );
 
             ShowsPagination = new PaginationHelper<Model.Show>(_context.Shows.Include(s => s.Performer).Include(s => s.Genre).ToList(), 9);
-            SponsorsPagination = new PaginationHelper<Model.Sponsor>(_context.Sponsors.ToList(), 9);
+            SponsorsPagination = new PaginationHelper<dynamic>(_context.Sponsors.ToList(), 9);
 
             OnPropertyChanged(nameof(UpcomingPagination));
             OnPropertyChanged(nameof(HappeningPagination));
@@ -314,7 +320,7 @@ namespace OOP_EventsManagementSystem.ViewModel
         }
 
         // Implementation of INotifyPropertyChanged
-        public event PropertyChangedEventHandler? PropertyChanged;
+        public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
