@@ -66,6 +66,22 @@ namespace OOP_EventsManagementSystem.ViewModel
             }
         }
 
+        private int _expectedAttendee;
+        public int ExpectedAttendee
+        {
+            get => _expectedAttendee;
+            set
+            {
+                if (_expectedAttendee != value)
+                {
+                    _expectedAttendee = value;
+                    OnPropertyChanged(nameof(ExpectedAttendee));
+                }
+            }
+        }
+
+
+
         // constructor -------------------------------------
         public EventVM()
         {           
@@ -85,15 +101,27 @@ namespace OOP_EventsManagementSystem.ViewModel
         {
             // Thực hiện logic xác nhận tại đây
         }
-      
-             
+
+
         // Thực thi lệnh để mở cửa sổ EventDescription
         private void ExecuteOpenEventDetailCommand(object obj)
         {
-            var eventDescriptionWindow = new EventDetails();
-            eventDescriptionWindow.Show();
+            if (obj is Model.Event selectedEvent)
+            {
+                var eventDetailsVM = new EventVM
+                {
+                    EventName = selectedEvent.EventName,
+                    ExpectedAttendee = selectedEvent.ExptedAttendee // Adjust if needed
+                };
 
+                var eventDescriptionWindow = new EventDetails
+                {
+                    DataContext = eventDetailsVM
+                };
+                eventDescriptionWindow.Show();
+            }
         }
+
 
         // method -------------------------------------
         private void LoadData()
