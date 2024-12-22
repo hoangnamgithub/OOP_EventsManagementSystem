@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 
 namespace OOP_EventsManagementSystem.Utilities
 {
@@ -20,8 +18,18 @@ namespace OOP_EventsManagementSystem.Utilities
 
         public int ItemsPerPage
         {
-            get => _itemsPerPage; // Trả về số item mỗi trang
+            get => _itemsPerPage;
+            set
+            {
+                if (_itemsPerPage != value)
+                {
+                    _itemsPerPage = value;
+                    OnPropertyChanged(nameof(ItemsPerPage));
+                    UpdatePagedCollection();
+                }
+            }
         }
+
         public int CurrentPage
         {
             get => _currentPage;
@@ -79,5 +87,4 @@ namespace OOP_EventsManagementSystem.Utilities
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
-
 }

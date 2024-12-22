@@ -201,6 +201,18 @@ namespace OOP_EventsManagementSystem.ViewModel
                 EndDate = selectedEvent.EndDate.ToDateTime(TimeOnly.MinValue);      // Convert DateOnly to DateTime
                 Description = selectedEvent.EventDescription;
 
+                // Filter sponsors for the selected event
+                var sponsorIds = _context.IsSponsors
+                                        .Where(isSponsor => isSponsor.EventId == selectedEvent.EventId)
+                                        .Select(isSponsor => isSponsor.SponsorId)
+                                        .ToList();
+
+                var filteredSponsors = _context.Sponsors
+                                               .Where(s => sponsorIds.Contains(s.SponsorId))
+                                               .ToList();
+
+                SponsorsPagination = new PaginationHelper<Model.Sponsor>(filteredSponsors, 9); // Set the number of items per page
+
                 // Filter shows for the selected event
                 var showIds = _context.ShowSchedules
                                       .Where(ss => ss.EventId == selectedEvent.EventId)
@@ -213,7 +225,7 @@ namespace OOP_EventsManagementSystem.ViewModel
                                             .Where(s => showIds.Contains(s.ShowId))
                                             .ToList();
 
-                ShowsPagination = new PaginationHelper<Model.Show>(filteredShows);
+                ShowsPagination = new PaginationHelper<Model.Show>(filteredShows, 9); // Set the number of items per page
 
                 // Open the EventDetails window
                 var eventDetailsWindow = new EventDetails
@@ -230,20 +242,20 @@ namespace OOP_EventsManagementSystem.ViewModel
             var allEvents = _context.Events.Include(e => e.Venue).ToList();
 
             UpcomingPagination = new PaginationHelper<Model.Event>(
-                allEvents.Where(e => e.StartDate.ToDateTime(TimeOnly.MinValue) > DateTime.Now)
+                allEvents.Where(e => e.StartDate.ToDateTime(TimeOnly.MinValue) > DateTime.Now), 9
             );
 
             HappeningPagination = new PaginationHelper<Model.Event>(
                 allEvents.Where(e => e.StartDate.ToDateTime(TimeOnly.MinValue) <= DateTime.Now &&
-                                     e.EndDate.ToDateTime(TimeOnly.MinValue) >= DateTime.Now)
+                                     e.EndDate.ToDateTime(TimeOnly.MinValue) >= DateTime.Now), 9
             );
 
             CompletedPagination = new PaginationHelper<Model.Event>(
-                allEvents.Where(e => e.EndDate.ToDateTime(TimeOnly.MinValue) < DateTime.Now)
+                allEvents.Where(e => e.EndDate.ToDateTime(TimeOnly.MinValue) < DateTime.Now), 9
             );
 
-            ShowsPagination = new PaginationHelper<Model.Show>(_context.Shows.Include(s => s.Performer).Include(s => s.Genre).ToList());
-            SponsorsPagination = new PaginationHelper<Model.Sponsor>(_context.Sponsors.ToList());
+            ShowsPagination = new PaginationHelper<Model.Show>(_context.Shows.Include(s => s.Performer).Include(s => s.Genre).ToList(), 9);
+            SponsorsPagination = new PaginationHelper<Model.Sponsor>(_context.Sponsors.ToList(), 9);
 
             OnPropertyChanged(nameof(UpcomingPagination));
             OnPropertyChanged(nameof(HappeningPagination));
@@ -302,11 +314,10 @@ namespace OOP_EventsManagementSystem.ViewModel
         }
 
         // Implementation of INotifyPropertyChanged
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
-

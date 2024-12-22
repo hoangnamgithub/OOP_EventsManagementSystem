@@ -71,7 +71,7 @@ namespace OOP_EventsManagementSystem.Database
                 var venue = new Venue
                 {
                     VenueName = faker.Company.CompanyName(),
-                    Cost = faker.Finance.Amount(2000, 15000),
+                    Cost = faker.Random.Int(2000, 15000),
                     Address = faker.Address.FullAddress(),
                     Capacity = faker.Random.Int(70, 1000),
                 };
