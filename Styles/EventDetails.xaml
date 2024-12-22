@@ -32,12 +32,11 @@
                     <Grid Margin="0,0,0,5">
                         <!--  Chia cot  -->
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto" />
-                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="70*" />
+                            <ColumnDefinition Width="30*" />
                         </Grid.ColumnDefinitions>
                         <StackPanel
                             Grid.Column="1"
-                            Margin="40"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center">
                             <TextBlock
@@ -60,6 +59,7 @@
                                 <TextBox
                                     x:Name="txtbox_eventname"
                                     Width="155"
+                                    materialDesign:HintAssist.Hint="Entering..."
                                     FontFamily="Bahnschrift SemiLight"
                                     FontSize="14"
                                     Foreground="Gray"
@@ -72,8 +72,9 @@
                                     Text="Attendee" />
                                 <TextBox
                                     x:Name="txtbox_expectedAttendee"
-                                    Width="100"
+                                    Width="154"
                                     Margin="20,0,0,0"
+                                    materialDesign:HintAssist.Hint="Entering..."
                                     FontFamily="Bahnschrift SemiLight"
                                     FontSize="14"
                                     Foreground="Gray"
@@ -101,8 +102,9 @@
                                     Text="Event Type" />
                                 <ComboBox
                                     Name="cmbbox_eventType"
-                                    Width="100"
+                                    Width="152"
                                     Margin="8,0,12,5"
+                                    HorizontalAlignment="Stretch"
                                     materialDesign:HintAssist.Hint="choosing..."
                                     DisplayMemberPath="TypeName"
                                     ItemsSource="{Binding EventTypes}"
@@ -121,6 +123,7 @@
                                         Margin="5"
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Stretch"
+                                        BorderThickness="0"
                                         FontFamily="Bahnschrift SemiLight"
                                         FontSize="14"
                                         Foreground="Black"
@@ -141,9 +144,9 @@
                                         </TextBlock>
                                         <DatePicker
                                             Name="dtpckr_startDate"
-                                            Width="137"
+                                            Width="189"
                                             Margin="10,0,12,5"
-                                            materialDesign:HintAssist.Hint="Pick Date"
+                                            materialDesign:HintAssist.Hint="Pick a Date"
                                             materialDesign:TextFieldAssist.HasClearButton="True"
                                             SelectedDate="{Binding StartDate, Mode=TwoWay}"
                                             Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
@@ -160,9 +163,9 @@
                                         </TextBlock>
                                         <DatePicker
                                             Name="dtpckr_endDate"
-                                            Width="135"
+                                            Width="188"
                                             Margin="30,0,12,5"
-                                            materialDesign:HintAssist.Hint="Pick Date"
+                                            materialDesign:HintAssist.Hint="Pick a Date"
                                             materialDesign:TextFieldAssist.HasClearButton="True"
                                             SelectedDate="{Binding EndDate, Mode=TwoWay}"
                                             Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
@@ -214,7 +217,7 @@
                                                     Command="{Binding NextPageCommand}"
                                                     CommandParameter="Shows"
                                                     Content="&gt;"
-                                                    IsEnabled="{Binding UpcomingPagination.CanGoNext}"
+                                                    IsEnabled="{Binding ShowsPagination.CanGoNext}"
                                                     Style="{StaticResource PurpleButton}" />
                                             </StackPanel>
                                             <Border Height="350" Margin="0">
@@ -226,6 +229,7 @@
                                                     Background="Transparent"
                                                     EnableColumnVirtualization="True"
                                                     EnableRowVirtualization="True"
+                                                    IsReadOnly="True"
                                                     ItemsSource="{Binding ShowsPagination.PagedCollection}"
                                                     ScrollViewer.CanContentScroll="True"
                                                     VirtualizingStackPanel.IsVirtualizing="True"
@@ -248,6 +252,7 @@
                                         </StackPanel>
                                     </Grid>
                                 </Expander>
+
                                 <!--  Sponsors  -->
                                 <Expander
                                     Width="535"

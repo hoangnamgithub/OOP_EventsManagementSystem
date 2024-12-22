@@ -20,20 +20,18 @@ namespace OOP_EventsManagementSystem.ViewModel
 {
     public class EventVM : INotifyPropertyChanged
     {
-        
         public ICommand OpenEventDetailCommand { get; set; }
         public ICommand ConfirmCommand { get; }
 
         public PaginationHelper<Model.Event> UpcomingPagination { get; set; }
         public PaginationHelper<Model.Event> HappeningPagination { get; set; }
         public PaginationHelper<Model.Event> CompletedPagination { get; set; }
-        public PaginationHelper<Model.Show> ShowsPagination { get; set; }
         public PaginationHelper<Model.Sponsor> SponsorsPagination { get; set; }
-        
+
         public ICommand NextPageCommand { get; }
         public ICommand PreviousPageCommand { get; }
         private readonly EventManagementDbContext _context;
-        
+
         public ObservableCollection<Model.Event> UpcomingEvents { get; set; }
         public ObservableCollection<Model.Event> HappeningEvents { get; set; }
         public ObservableCollection<Model.Event> CompletedEvents { get; set; }
@@ -47,10 +45,30 @@ namespace OOP_EventsManagementSystem.ViewModel
         public ObservableCollection<Model.EquipmentName> EquipmentNames { get; set; }
 
         public ObservableCollection<Model.Show> PagedShows { get; set; }
-       
-        // properties -------------------------------------
-        
 
+        private ObservableCollection<Model.Show> _filteredShows;
+        public ObservableCollection<Model.Show> FilteredShows
+        {
+            get => _filteredShows;
+            set
+            {
+                _filteredShows = value;
+                OnPropertyChanged(nameof(FilteredShows));
+            }
+        }
+
+        private PaginationHelper<Model.Show> _showsPagination;
+        public PaginationHelper<Model.Show> ShowsPagination
+        {
+            get => _showsPagination;
+            set
+            {
+                _showsPagination = value;
+                OnPropertyChanged(nameof(ShowsPagination));
+            }
+        }
+
+        // properties -------------------------------------
 
         private string _eventName;
         public string EventName
@@ -151,27 +169,23 @@ namespace OOP_EventsManagementSystem.ViewModel
             }
         }
 
-
         // constructor -------------------------------------
         public EventVM()
-        {           
-            OpenEventDetailCommand = new RelayCommand(ExecuteOpenEventDetailCommand);           
+        {
+            OpenEventDetailCommand = new RelayCommand(ExecuteOpenEventDetailCommand);
             _context = new EventManagementDbContext();
-            
 
-            // Khởi tạo các command
-            ConfirmCommand = new Utilities.RelayCommand(ExecuteConfirmCommand);
+            // Initialize commands
+            ConfirmCommand = new RelayCommand(ExecuteConfirmCommand);
             LoadData();
-
             NextPageCommand = new RelayCommand(ExecuteNextPage);
             PreviousPageCommand = new RelayCommand(ExecutePreviousPage);
-
         }
+
         private void ExecuteConfirmCommand(object parameter)
         {
             // Thực hiện logic xác nhận tại đây
         }
-
 
         // Thực thi lệnh để mở cửa sổ EventDescription
         private void ExecuteOpenEventDetailCommand(object obj)
@@ -186,6 +200,21 @@ namespace OOP_EventsManagementSystem.ViewModel
                 StartDate = selectedEvent.StartDate.ToDateTime(TimeOnly.MinValue);  // Convert DateOnly to DateTime
                 EndDate = selectedEvent.EndDate.ToDateTime(TimeOnly.MinValue);      // Convert DateOnly to DateTime
                 Description = selectedEvent.EventDescription;
+
+                // Filter shows for the selected event
+                var showIds = _context.ShowSchedules
+                                      .Where(ss => ss.EventId == selectedEvent.EventId)
+                                      .Select(ss => ss.ShowId)
+                                      .ToList();
+
+                var filteredShows = _context.Shows
+                                            .Include(s => s.Performer)
+                                            .Include(s => s.Genre)
+                                            .Where(s => showIds.Contains(s.ShowId))
+                                            .ToList();
+
+                ShowsPagination = new PaginationHelper<Model.Show>(filteredShows);
+
                 // Open the EventDetails window
                 var eventDetailsWindow = new EventDetails
                 {
@@ -194,9 +223,6 @@ namespace OOP_EventsManagementSystem.ViewModel
                 eventDetailsWindow.Show();
             }
         }
-
-
-
 
         // method -------------------------------------
         private void LoadData()
@@ -224,7 +250,6 @@ namespace OOP_EventsManagementSystem.ViewModel
             OnPropertyChanged(nameof(CompletedPagination));
             OnPropertyChanged(nameof(ShowsPagination));
             OnPropertyChanged(nameof(SponsorsPagination));
-            
 
             UpcomingEvents = new ObservableCollection<Model.Event>(
                 allEvents.Where(e => e.StartDate.ToDateTime(TimeOnly.MinValue) > DateTime.Now)
@@ -246,8 +271,6 @@ namespace OOP_EventsManagementSystem.ViewModel
             EmployeeRoles = new ObservableCollection<Model.EmployeeRole>(_context.EmployeeRoles.ToList());
             EquipmentNames = new ObservableCollection<Model.EquipmentName>(_context.EquipmentNames.ToList());
 
-            
-
             OnPropertyChanged(nameof(UpcomingEvents));
             OnPropertyChanged(nameof(HappeningEvents));
             OnPropertyChanged(nameof(CompletedEvents));
@@ -257,9 +280,9 @@ namespace OOP_EventsManagementSystem.ViewModel
             OnPropertyChanged(nameof(Sponsors));
             OnPropertyChanged(nameof(Employees));
             OnPropertyChanged(nameof(EmployeeRoles));
-            OnPropertyChanged(nameof(EquipmentNames));             
-
+            OnPropertyChanged(nameof(EquipmentNames));
         }
+
         private void ExecuteNextPage(object parameter)
         {
             if (parameter?.ToString() == "Upcoming") UpcomingPagination.NextPage();
@@ -267,7 +290,6 @@ namespace OOP_EventsManagementSystem.ViewModel
             if (parameter?.ToString() == "Completed") CompletedPagination.NextPage();
             if (parameter?.ToString() == "Shows") ShowsPagination.NextPage();
             if (parameter?.ToString() == "Sponsors") SponsorsPagination.NextPage();
-           
         }
 
         private void ExecutePreviousPage(object parameter)
@@ -277,9 +299,8 @@ namespace OOP_EventsManagementSystem.ViewModel
             if (parameter?.ToString() == "Completed") CompletedPagination.PreviousPage();
             if (parameter?.ToString() == "Shows") ShowsPagination.PreviousPage();
             if (parameter?.ToString() == "Sponsors") SponsorsPagination.PreviousPage();
-            
         }
-       
+
         // Implementation of INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName)
@@ -288,3 +309,4 @@ namespace OOP_EventsManagementSystem.ViewModel
         }
     }
 }
+
