@@ -80,6 +80,76 @@ namespace OOP_EventsManagementSystem.ViewModel
             }
         }
 
+        private int _selectedVenueId;
+        public int SelectedVenueId
+        {
+            get => _selectedVenueId;
+            set
+            {
+                if (_selectedVenueId != value)
+                {
+                    _selectedVenueId = value;
+                    OnPropertyChanged(nameof(SelectedVenueId));
+                }
+            }
+        }
+
+        private int _selectedEventTypeId;
+        public int SelectedEventTypeId
+        {
+            get => _selectedEventTypeId;
+            set
+            {
+                if (_selectedEventTypeId != value)
+                {
+                    _selectedEventTypeId = value;
+                    OnPropertyChanged(nameof(SelectedEventTypeId));
+                }
+            }
+        }
+
+        private DateTime _startDate;
+        public DateTime StartDate
+        {
+            get => _startDate;
+            set
+            {
+                if (_startDate != value)
+                {
+                    _startDate = value;
+                    OnPropertyChanged(nameof(StartDate));
+                }
+            }
+        }
+
+        private DateTime _endDate;
+        public DateTime EndDate
+        {
+            get => _endDate;
+            set
+            {
+                if (_endDate != value)
+                {
+                    _endDate = value;
+                    OnPropertyChanged(nameof(EndDate));
+                }
+            }
+        }
+
+        // Property for binding TextBox Text
+        private string _description;
+        public string Description
+        {
+            get => _description;
+            set
+            {
+                if (_description != value)
+                {
+                    _description = value;
+                    OnPropertyChanged(nameof(Description)); // Notify when the property changes
+                }
+            }
+        }
 
 
         // constructor -------------------------------------
@@ -108,19 +178,24 @@ namespace OOP_EventsManagementSystem.ViewModel
         {
             if (obj is Model.Event selectedEvent)
             {
-                var eventDetailsVM = new EventVM
+                // Set properties based on the selected event
+                EventName = selectedEvent.EventName;
+                ExpectedAttendee = selectedEvent.ExptedAttendee;
+                SelectedVenueId = selectedEvent.VenueId;
+                SelectedEventTypeId = selectedEvent.EventTypeId;
+                StartDate = selectedEvent.StartDate.ToDateTime(TimeOnly.MinValue);  // Convert DateOnly to DateTime
+                EndDate = selectedEvent.EndDate.ToDateTime(TimeOnly.MinValue);      // Convert DateOnly to DateTime
+                Description = selectedEvent.EventDescription;
+                // Open the EventDetails window
+                var eventDetailsWindow = new EventDetails
                 {
-                    EventName = selectedEvent.EventName,
-                    ExpectedAttendee = selectedEvent.ExptedAttendee // Adjust if needed
+                    DataContext = this // Pass the current ViewModel as DataContext
                 };
-
-                var eventDescriptionWindow = new EventDetails
-                {
-                    DataContext = eventDetailsVM
-                };
-                eventDescriptionWindow.Show();
+                eventDetailsWindow.Show();
             }
         }
+
+
 
 
         // method -------------------------------------
