@@ -34,13 +34,13 @@ namespace OOP_EventsManagementSystem.View
         }
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            // Vô hiệu hóa nút Add khi cửa sổ được mở
+            
             AddButton.IsEnabled = false;
 
-            // Tạo và hiển thị cửa sổ EventDetails
+            
             var eventDescriptionWindow = new EventDetails();
 
-            // Đăng ký sự kiện Closed để kích hoạt lại nút Add khi cửa sổ đóng
+            
             eventDescriptionWindow.Closed += EventDescriptionWindow_Closed;
 
             // Hiển thị cửa sổ
