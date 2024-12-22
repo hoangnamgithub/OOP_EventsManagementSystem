@@ -234,7 +234,7 @@
                                         FontWeight="Bold"
                                         Foreground="#FFFCF8F8"
                                         Text="START" />
-                                    <TextBlock Foreground="#FFFCF8F8" Text="{Binding StartDate, StringFormat={}{0:dd/MM}}" />
+                                    <TextBlock Foreground="#FFFCF8F8" Text="{Binding StartDate, StringFormat={}{0:dd/MM/yyyy}}" />
                                 </StackPanel>
                             </Grid>
                             <Grid Grid.Column="1">
@@ -244,7 +244,7 @@
                                         FontWeight="Bold"
                                         Foreground="#FFFCF8F8"
                                         Text="END" />
-                                    <TextBlock Foreground="#FFFCF8F8" Text="{Binding EndDate, StringFormat={}{0:dd/MM}}" />
+                                    <TextBlock Foreground="#FFFCF8F8" Text="{Binding EndDate, StringFormat={}{0:dd/MM/yyyy}}" />
                                 </StackPanel>
                             </Grid>
 
