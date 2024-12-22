@@ -1,10 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Identity.Client;
-using OOP_EventsManagementSystem.Model;
-using OOP_EventsManagementSystem.Styles;
-using OOP_EventsManagementSystem.Utilities;
-using OOP_EventsManagementSystem.View;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -15,6 +9,12 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
+using OOP_EventsManagementSystem.Model;
+using OOP_EventsManagementSystem.Styles;
+using OOP_EventsManagementSystem.Utilities;
+using OOP_EventsManagementSystem.View;
 
 namespace OOP_EventsManagementSystem.ViewModel
 {
@@ -209,7 +209,7 @@ namespace OOP_EventsManagementSystem.ViewModel
         public EventVM()
         {
             OpenEventDetailCommand = new RelayCommand(ExecuteOpenEventDetailCommand);
-            
+
             _context = new EventManagementDbContext();
             EditCommand = new RelayCommand(_ => ToggleEditing());
 
@@ -239,69 +239,69 @@ namespace OOP_EventsManagementSystem.ViewModel
                 ExpectedAttendee = selectedEvent.ExptedAttendee;
                 SelectedVenueId = selectedEvent.VenueId;
                 SelectedEventTypeId = selectedEvent.EventTypeId;
-                StartDate = selectedEvent.StartDate.ToDateTime(TimeOnly.MinValue);  // Convert DateOnly to DateTime
-                EndDate = selectedEvent.EndDate.ToDateTime(TimeOnly.MinValue);      // Convert DateOnly to DateTime
+                StartDate = selectedEvent.StartDate.ToDateTime(TimeOnly.MinValue); // Convert DateOnly to DateTime
+                EndDate = selectedEvent.EndDate.ToDateTime(TimeOnly.MinValue); // Convert DateOnly to DateTime
                 Description = selectedEvent.EventDescription;
 
                 // Filter equipment details for the selected event
-                var filteredEquipments = _context.Requireds
-                                                 .Where(required => required.EventId == selectedEvent.EventId)
-                                                 .Select(required => new
-                                                 {
-                                                     EquipNameId = required.EquipName.EquipNameId,
-                                                     EquipName = required.EquipName.EquipName,
-                                                     TypeName = required.EquipName.EquipType.TypeName,
-                                                     Quantity = required.Quantity,
-                                                     EquipCost = required.EquipName.EquipCost
-                                                 })
-                                                 .ToList();
+                var filteredEquipments = _context
+                    .Requireds.Where(required => required.EventId == selectedEvent.EventId)
+                    .Select(required => new
+                    {
+                        EquipNameId = required.EquipName.EquipNameId,
+                        EquipName = required.EquipName.EquipName,
+                        TypeName = required.EquipName.EquipType.TypeName,
+                        Quantity = required.Quantity,
+                        EquipCost = required.EquipName.EquipCost,
+                    })
+                    .ToList();
 
                 FilteredEquipments = new ObservableCollection<object>(filteredEquipments);
 
                 // Filter employee roles for the selected event
-                var filteredEmployeeRoles = _context.Needs
-                                                    .Where(need => need.EventId == selectedEvent.EventId)
-                                                    .Select(need => new
-                                                    {
-                                                        RoleId = need.Role.RoleId,
-                                                        RoleName = need.Role.RoleName,
-                                                        Quantity = need.Quantity
-                                                    })
-                                                    .ToList();
+                var filteredEmployeeRoles = _context
+                    .Needs.Where(need => need.EventId == selectedEvent.EventId)
+                    .Select(need => new
+                    {
+                        RoleId = need.Role.RoleId,
+                        RoleName = need.Role.RoleName,
+                        Quantity = need.Quantity,
+                    })
+                    .ToList();
 
                 FilteredEmployeeRoles = new ObservableCollection<object>(filteredEmployeeRoles);
 
                 // Filter sponsors for the selected event
-                var filteredSponsors = _context.IsSponsors
-                                        .Where(isSponsor => isSponsor.EventId == selectedEvent.EventId)
-                                        .Select(isSponsor => new
-                                        {
-                                            SponsorId = isSponsor.Sponsor.SponsorId,
-                                            SponsorName = isSponsor.Sponsor.SponsorName,
-                                            TierName = isSponsor.SponsorTier.TierName
-                                        })
-                                        .ToList();
+                var filteredSponsors = _context
+                    .IsSponsors.Where(isSponsor => isSponsor.EventId == selectedEvent.EventId)
+                    .Select(isSponsor => new
+                    {
+                        SponsorId = isSponsor.Sponsor.SponsorId,
+                        SponsorName = isSponsor.Sponsor.SponsorName,
+                        TierName = isSponsor.SponsorTier.TierName,
+                    })
+                    .ToList();
 
                 SponsorsPagination = new PaginationHelper<object>(filteredSponsors, 9); // Set the number of items per page
 
                 // Filter shows for the selected event
-                var showIds = _context.ShowSchedules
-                                      .Where(ss => ss.EventId == selectedEvent.EventId)
-                                      .Select(ss => ss.ShowId)
-                                      .ToList();
+                var showIds = _context
+                    .ShowSchedules.Where(ss => ss.EventId == selectedEvent.EventId)
+                    .Select(ss => ss.ShowId)
+                    .ToList();
 
-                var filteredShows = _context.Shows
-                                            .Include(s => s.Performer)
-                                            .Include(s => s.Genre)
-                                            .Where(s => showIds.Contains(s.ShowId))
-                                            .ToList();
+                var filteredShows = _context
+                    .Shows.Include(s => s.Performer)
+                    .Include(s => s.Genre)
+                    .Where(s => showIds.Contains(s.ShowId))
+                    .ToList();
 
                 ShowsPagination = new PaginationHelper<Model.Show>(filteredShows, 9); // Set the number of items per page
 
                 // Open the EventDetails window
                 var eventDetailsWindow = new EventDetails
                 {
-                    DataContext = this // Pass the current ViewModel as DataContext
+                    DataContext = this, // Pass the current ViewModel as DataContext
                 };
                 eventDetailsWindow.Show();
             }
@@ -313,19 +313,27 @@ namespace OOP_EventsManagementSystem.ViewModel
             var allEvents = _context.Events.Include(e => e.Venue).ToList();
 
             UpcomingPagination = new PaginationHelper<Model.Event>(
-                allEvents.Where(e => e.StartDate.ToDateTime(TimeOnly.MinValue) > DateTime.Now), 9
+                allEvents.Where(e => e.StartDate.ToDateTime(TimeOnly.MinValue) > DateTime.Now),
+                9
             );
 
             HappeningPagination = new PaginationHelper<Model.Event>(
-                allEvents.Where(e => e.StartDate.ToDateTime(TimeOnly.MinValue) <= DateTime.Now &&
-                                     e.EndDate.ToDateTime(TimeOnly.MinValue) >= DateTime.Now), 9
+                allEvents.Where(e =>
+                    e.StartDate.ToDateTime(TimeOnly.MinValue) <= DateTime.Now
+                    && e.EndDate.ToDateTime(TimeOnly.MinValue) >= DateTime.Now
+                ),
+                9
             );
 
             CompletedPagination = new PaginationHelper<Model.Event>(
-                allEvents.Where(e => e.EndDate.ToDateTime(TimeOnly.MinValue) < DateTime.Now), 9
+                allEvents.Where(e => e.EndDate.ToDateTime(TimeOnly.MinValue) < DateTime.Now),
+                9
             );
 
-            ShowsPagination = new PaginationHelper<Model.Show>(_context.Shows.Include(s => s.Performer).Include(s => s.Genre).ToList(), 9);
+            ShowsPagination = new PaginationHelper<Model.Show>(
+                _context.Shows.Include(s => s.Performer).Include(s => s.Genre).ToList(),
+                9
+            );
             SponsorsPagination = new PaginationHelper<dynamic>(_context.Sponsors.ToList(), 9);
 
             OnPropertyChanged(nameof(UpcomingPagination));
@@ -340,19 +348,29 @@ namespace OOP_EventsManagementSystem.ViewModel
 
             // Các dữ liệu khác
             HappeningEvents = new ObservableCollection<Model.Event>(
-                allEvents.Where(e => e.StartDate.ToDateTime(TimeOnly.MinValue) <= DateTime.Now
-                                  && e.EndDate.ToDateTime(TimeOnly.MinValue) >= DateTime.Now)
+                allEvents.Where(e =>
+                    e.StartDate.ToDateTime(TimeOnly.MinValue) <= DateTime.Now
+                    && e.EndDate.ToDateTime(TimeOnly.MinValue) >= DateTime.Now
+                )
             );
             CompletedEvents = new ObservableCollection<Model.Event>(
                 allEvents.Where(e => e.EndDate.ToDateTime(TimeOnly.MinValue) < DateTime.Now)
             );
             EventTypes = new ObservableCollection<Model.EventType>(_context.EventTypes.ToList());
             Venues = new ObservableCollection<Model.Venue>(_context.Venues.ToList());
-            Shows = new ObservableCollection<Model.Show>(_context.Shows.Include(s => s.Performer).Include(s => s.Genre).ToList());
+            Shows = new ObservableCollection<Model.Show>(
+                _context.Shows.Include(s => s.Performer).Include(s => s.Genre).ToList()
+            );
             Sponsors = new ObservableCollection<Sponsor>(_context.Sponsors.ToList());
-            Employees = new ObservableCollection<Model.Employee>(_context.Employees.Include(e => e.Role).ToList());
-            EmployeeRoles = new ObservableCollection<Model.EmployeeRole>(_context.EmployeeRoles.ToList());
-            EquipmentNames = new ObservableCollection<Model.EquipmentName>(_context.EquipmentNames.ToList());
+            Employees = new ObservableCollection<Model.Employee>(
+                _context.Employees.Include(e => e.Role).ToList()
+            );
+            EmployeeRoles = new ObservableCollection<Model.EmployeeRole>(
+                _context.EmployeeRoles.ToList()
+            );
+            EquipmentNames = new ObservableCollection<Model.EquipmentName>(
+                _context.EquipmentNames.ToList()
+            );
 
             OnPropertyChanged(nameof(UpcomingEvents));
             OnPropertyChanged(nameof(HappeningEvents));
@@ -368,24 +386,35 @@ namespace OOP_EventsManagementSystem.ViewModel
 
         private void ExecuteNextPage(object parameter)
         {
-            if (parameter?.ToString() == "Upcoming") UpcomingPagination.NextPage();
-            if (parameter?.ToString() == "Happening") HappeningPagination.NextPage();
-            if (parameter?.ToString() == "Completed") CompletedPagination.NextPage();
-            if (parameter?.ToString() == "Shows") ShowsPagination.NextPage();
-            if (parameter?.ToString() == "Sponsors") SponsorsPagination.NextPage();
+            if (parameter?.ToString() == "Upcoming")
+                UpcomingPagination.NextPage();
+            if (parameter?.ToString() == "Happening")
+                HappeningPagination.NextPage();
+            if (parameter?.ToString() == "Completed")
+                CompletedPagination.NextPage();
+            if (parameter?.ToString() == "Shows")
+                ShowsPagination.NextPage();
+            if (parameter?.ToString() == "Sponsors")
+                SponsorsPagination.NextPage();
         }
 
         private void ExecutePreviousPage(object parameter)
         {
-            if (parameter?.ToString() == "Upcoming") UpcomingPagination.PreviousPage();
-            if (parameter?.ToString() == "Happening") HappeningPagination.PreviousPage();
-            if (parameter?.ToString() == "Completed") CompletedPagination.PreviousPage();
-            if (parameter?.ToString() == "Shows") ShowsPagination.PreviousPage();
-            if (parameter?.ToString() == "Sponsors") SponsorsPagination.PreviousPage();
+            if (parameter?.ToString() == "Upcoming")
+                UpcomingPagination.PreviousPage();
+            if (parameter?.ToString() == "Happening")
+                HappeningPagination.PreviousPage();
+            if (parameter?.ToString() == "Completed")
+                CompletedPagination.PreviousPage();
+            if (parameter?.ToString() == "Shows")
+                ShowsPagination.PreviousPage();
+            if (parameter?.ToString() == "Sponsors")
+                SponsorsPagination.PreviousPage();
         }
 
         // Implementation of INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
+
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
