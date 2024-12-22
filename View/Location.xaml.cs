@@ -238,13 +238,31 @@ namespace OOP_EventsManagementSystem.View
 
         private void btn_edit_Click(object sender, RoutedEventArgs e)
         {
-            var ownerWindow = Window.GetWindow(this); // Lấy cửa sổ cha
-            var locationDescription = new LocationDescription
+            var ownerWindow = Window.GetWindow(this);
+
+            // Lấy VenueViewModel từ DataContext của nút
+            var button = sender as System.Windows.Controls.Button;
+            var selectedVenue = button?.DataContext as VenueViewModel;
+
+            if (selectedVenue != null)
             {
-                Owner = ownerWindow
-            };
-            locationDescription.ShowDialog();
+                var locationDescription = new LocationDescription
+                {
+                    Owner = ownerWindow,
+                    VenueName = selectedVenue.VenueName,
+                    Address = selectedVenue.Address,
+                    Capacity = selectedVenue.Capacity,
+                    Cost = selectedVenue.Cost
+                };
+
+                locationDescription.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Failed to retrieve venue data.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
+
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {

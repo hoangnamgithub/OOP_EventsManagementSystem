@@ -34,7 +34,7 @@
                         </Grid.RowDefinitions>
                         <TextBlock Text="Name" VerticalAlignment="Center" Margin="30,0,0,0" FontFamily="Bahnschrift SemiLight" FontSize="16" />
                         <Border Grid.Row="1"  CornerRadius="16" Background="#FFDCDCE6" Margin="20,5,20,5" Height="45">
-                            <TextBox Text="Olivia Rose" CaretBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" FontFamily="Bahnschrift SemiLight" FontSize="16" Margin="10,5,10,5" Background="{x:Null}" BorderBrush="{x:Null}" />
+                            <TextBox x:Name="txtVenueName" CaretBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" FontFamily="Bahnschrift SemiLight" FontSize="16" Margin="10,5,10,5" Background="{x:Null}" BorderBrush="{x:Null}" />
                         </Border>
                     </Grid>
                     <Grid>
@@ -44,7 +44,7 @@
                         </Grid.RowDefinitions>
                         <TextBlock Text="Address" VerticalAlignment="Center" Margin="30,0,0,0" FontFamily="Bahnschrift SemiLight" FontSize="16" />
                         <Border Grid.Row="1"  CornerRadius="16" Background="#FFDCDCE6" Margin="20,5,20,5" Height="45">
-                            <TextBox Text="6130 Hipolito Wells, Volkmanville, Brunei Darussalam" TextWrapping="NoWrap" CaretBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" FontFamily="Bahnschrift SemiLight" FontSize="16" Margin="10,5,10,5" Background="{x:Null}" BorderBrush="{x:Null}" />
+                            <TextBox x:Name="txtAddress" TextWrapping="NoWrap" CaretBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" FontFamily="Bahnschrift SemiLight" FontSize="16" Margin="10,5,10,5" Background="{x:Null}" BorderBrush="{x:Null}" />
                         </Border>
                     </Grid>
                     <Grid>
@@ -54,7 +54,7 @@
                         </Grid.RowDefinitions>
                         <TextBlock Text="Cost" VerticalAlignment="Center" Margin="30,0,0,0" FontFamily="Bahnschrift SemiLight" FontSize="16" />
                         <Border Grid.Row="1"  CornerRadius="16" Background="#FFDCDCE6" Margin="20,5,20,5" Height="45">
-                            <TextBox Text="mkt_olivia@easys.com" CaretBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" FontFamily="Bahnschrift SemiLight" FontSize="16" Margin="10,5,10,5" Background="{x:Null}" BorderBrush="{x:Null}" />
+                            <TextBox x:Name="txtCost" Text="{Binding Cost}" CaretBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" FontFamily="Bahnschrift SemiLight" FontSize="16" Margin="10,5,10,5" Background="{x:Null}" BorderBrush="{x:Null}" />
                         </Border>
                     </Grid>
                     <Grid>
@@ -64,7 +64,7 @@
                         </Grid.RowDefinitions>
                         <TextBlock Text="Capacity" VerticalAlignment="Center" Margin="30,0,0,0" FontFamily="Bahnschrift SemiLight" FontSize="16" />
                         <Border Grid.Row="1"  CornerRadius="16" Background="#FFDCDCE6" Margin="20,5,20,5" Height="45">
-                            <TextBox Text="olivia12345" CaretBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" FontFamily="Bahnschrift SemiLight" FontSize="16" Margin="10,5,10,5" Background="{x:Null}" BorderBrush="{x:Null}" />
+                            <TextBox x:Name="txtCapacity" Text="{Binding Capacity}" CaretBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" FontFamily="Bahnschrift SemiLight" FontSize="16" Margin="10,5,10,5" Background="{x:Null}" BorderBrush="{x:Null}" />
                         </Border>
                     </Grid>
                     <Grid Margin="0,5,0,0">

@@ -64,13 +64,37 @@ namespace OOP_EventsManagementSystem.ViewModel
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
-    public class VenueViewModel
+
+public class VenueViewModel
     {
         public string VenueName { get; set; }
         public decimal Cost { get; set; }
         public string? Address { get; set; }
         public int Capacity { get; set; }
-        
+
+        // Command để mở LocationDescription
+        public ICommand EditCommand { get; set; }
+
+        public VenueViewModel()
+        {
+            EditCommand = new RelayCommand(OpenLocationDescription);
+        }
+
+        private void OpenLocationDescription(object parameter)
+        {
+            // Tạo cửa sổ LocationDescription
+            var locationDescription = new LocationDescription();
+
+            // Gán dữ liệu từ VenueViewModel vào các TextBox
+            locationDescription.txtVenueName.Text = VenueName;
+            locationDescription.txtAddress.Text = Address;
+            locationDescription.txtCost.Text = Cost.ToString();
+            locationDescription.txtCapacity.Text = Capacity.ToString();
+
+            // Hiển thị cửa sổ
+            locationDescription.ShowDialog();
+        }
     }
+
 
 }
