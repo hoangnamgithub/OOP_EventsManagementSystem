@@ -35,7 +35,7 @@
                                 <!-- Cố định hình ảnh ở đây -->
                                 <Image x:Name="VenueImage" VerticalAlignment="Bottom" Source="pack://application:,,,/Resources/Location/1k1a6995.png" />
 
-                                <Button x:Name="btn_edit" Content="Edit" Width="200" Height="30" Foreground="Black" Background="Transparent" BorderBrush="Transparent" Click="btn_edit_Click"/>
+                                <Button x:Name="btn_edit" Content="Edit" Width="200" Height="30" Foreground="Black" Background="Transparent" BorderBrush="Transparent" Command="{Binding EditCommand}"/>
                                 <Border Background="White" Height="215" Width="325" CornerRadius="16" BorderBrush="#D6DC82" BorderThickness="7">
                                     <Grid>
                                         <Grid.RowDefinitions>
