@@ -40,14 +40,14 @@ namespace OOP_EventsManagementSystem.ViewModel
             LoadData();
         }
 
-        private void LoadData()
-
-        {           
+        public void LoadData()
+        {
             using (var context = new EventManagementDbContext())
             {
                 Venues = new ObservableCollection<VenueViewModel>(
                     context.Venues.Select(v => new VenueViewModel
                     {
+                        VenueId = v.VenueId,
                         VenueName = v.VenueName,
                         Cost = v.Cost,
                         Address = v.Address,
@@ -57,6 +57,7 @@ namespace OOP_EventsManagementSystem.ViewModel
             }
         }
 
+
         public event PropertyChangedEventHandler? PropertyChanged;
 
         protected virtual void OnPropertyChanged(string propertyName)
@@ -65,8 +66,9 @@ namespace OOP_EventsManagementSystem.ViewModel
         }
     }
 
-public class VenueViewModel
+    public class VenueViewModel
     {
+        public int VenueId { get; set; } // Thêm VenueId
         public string VenueName { get; set; }
         public decimal Cost { get; set; }
         public string? Address { get; set; }
@@ -82,17 +84,18 @@ public class VenueViewModel
 
         private void OpenLocationDescription(object parameter)
         {
-            // Tạo cửa sổ LocationDescription
-            var locationDescription = new LocationDescription();
-
-            // Gán dữ liệu từ VenueViewModel vào các TextBox
-            locationDescription.txtVenueName.Text = VenueName;
-            locationDescription.txtAddress.Text = Address;
-            locationDescription.txtCost.Text = Cost.ToString();
-            locationDescription.txtCapacity.Text = Capacity.ToString();
+            // Tạo cửa sổ LocationDescription và truyền VenueViewModel cùng Action để reload
+            var locationDescription = new LocationDescription(this, ReloadData);
 
             // Hiển thị cửa sổ
             locationDescription.ShowDialog();
+        }
+
+        private void ReloadData()
+        {
+            // Reload dữ liệu từ cơ sở dữ liệu
+            var locationVM = Application.Current.MainWindow.DataContext as LocationVM;
+            locationVM?.LoadData();
         }
     }
 

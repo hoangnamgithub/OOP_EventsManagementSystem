@@ -60,39 +60,93 @@ namespace OOP_EventsManagementSystem.View
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-           
-            // Make Description Border visible if all fields are filled
-            Description.Visibility = Visibility.Visible;
+            // Hiển thị popup Description
+            DescriptionPopup.IsOpen = true;
 
-                // Optionally clear previous inputs (this can be done after successful input validation)
-                TextBoxName.Clear();
-                TextBoxDetails.Clear();
+            // Xóa các giá trị trước đó
+            TextBoxName.Clear();
+            TextBoxDetails.Clear();
             SponsorTierComboBox.ClearValue(ComboBox.SelectedItemProperty);
 
-                // Scroll to the end of the ScrollViewer
-                if (DescriptionScrollViewer != null)
-                {
-                    DescriptionScrollViewer.ScrollToEnd();
-                }
+            // Reset lại các giá trị cần thiết
+            SponsorTierComboBox.SelectedIndex = -1;  // Reset ComboBox nếu cần
+                                                     // Nếu có các thông báo hoặc tiêu đề trong Popup, làm mới chúng tại đây.
 
-                // Optionally set the default value for SponsorTierName if required
-            
+            // Scroll to the end of the ScrollViewer
+            if (DescriptionScrollViewer != null)
+            {
+                DescriptionScrollViewer.ScrollToEnd();
+            }
         }
+
         private void MenuItem_Click_1(object sender, RoutedEventArgs e)
         {
-            // Make Select_Sponsor Border visible
-            Select_Sponsor.Visibility = Visibility.Visible;
+            // Hiển thị popup Select Sponsor
+            SelectSponsorPopup.IsOpen = true;
 
-            // Optionally clear previous inputs
+            // Xóa các giá trị trước đó
             SponsorNameComboBox.SelectedItem = null;
-            TextBoxDetails.Clear();
             SponsorTierCb_box.SelectedItem = null;
+
+            // Reset lại các giá trị nếu cần
+            SponsorTierCb_box.SelectedIndex = -1;  // Reset ComboBox nếu cần
 
             if (DescriptionScrollViewer != null)
             {
                 DescriptionScrollViewer.ScrollToEnd();
             }
         }
+
+        private void ConfirmAddButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Kiểm tra nếu tất cả các trường được điền đầy đủ
+            if (string.IsNullOrWhiteSpace(TextBoxName.Text) ||
+                string.IsNullOrWhiteSpace(TextBoxDetails.Text) ||
+                string.IsNullOrWhiteSpace(SponsorTierComboBox.SelectedValue?.ToString()))
+            {
+                // Hiển thị thông báo nếu thiếu thông tin
+                MessageBox.Show("Please fill in all the required information (Name, Details, and Sponsor Tier) before adding the sponsor.", "Missing Information", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            else
+            {
+                try
+                {
+                    var sponsorVM = (PartnerVM)DataContext;  // Lấy ViewModel
+
+                    // Lấy dữ liệu từ UI
+                    string sponsorName = TextBoxName.Text;
+                    string sponsorDetails = TextBoxDetails.Text;
+                    string sponsorTierName = SponsorTierComboBox.SelectedValue.ToString();
+                    int selectedEventId = _viewModel.SelectedEventId;  // ID sự kiện đã chọn
+
+                    // Gọi phương thức AddNewSponsor trong ViewModel
+                    sponsorVM.AddNewSponsor(sponsorName, sponsorDetails, sponsorTierName, selectedEventId);
+
+                    // Ẩn popup sau khi thêm
+                    DescriptionPopup.IsOpen = false;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"An error occurred: {ex.Message}", "Error");
+                }
+            }
+        }
+
+        private void ConfirmAddExistButton_Click(object sender, RoutedEventArgs e)
+        {
+            var viewModel = (PartnerVM)this.DataContext;
+
+            if (viewModel.SelectedSponsor != null && viewModel.SelectedSponsorTier != null)
+            {
+                viewModel.AddExistingSponsorToEvent(viewModel.SelectedSponsor, viewModel.SelectedEventId, viewModel.SelectedSponsorTier.TierName);
+                SelectSponsorPopup.IsOpen = false;
+            }
+            else
+            {
+                MessageBox.Show("Please select both a sponsor and a sponsor tier.");
+            }
+        }
+
 
         private bool isEditing = false; // Flag to track editing state
         private object currentSelectedItem = null; // The item currently being edited
@@ -208,59 +262,6 @@ namespace OOP_EventsManagementSystem.View
             }
         }
 
-
-
-        private void ConfirmAddButton_Click(object sender, RoutedEventArgs e)
-        {
-            // Check if required fields are filled
-            if (string.IsNullOrWhiteSpace(TextBoxName.Text) ||
-                string.IsNullOrWhiteSpace(TextBoxDetails.Text) ||
-                string.IsNullOrWhiteSpace(SponsorTierComboBox.SelectedValue?.ToString()))
-            {
-                // Show a reminder message if any field is empty
-                MessageBox.Show("Please fill in all the required information (Name, Details, and Sponsor Tier) before adding the sponsor.", "Missing Information", MessageBoxButton.OK, MessageBoxImage.Warning);
-            }
-            else
-            {
-                try
-                {
-                    var sponsorVM = (PartnerVM)DataContext;  // Get the ViewModel
-
-                    // Get the data from the UI
-                    string sponsorName = TextBoxName.Text;
-                    string sponsorDetails = TextBoxDetails.Text;
-                    string sponsorTierName = SponsorTierComboBox.SelectedValue.ToString();
-                    int selectedEventId = _viewModel.SelectedEventId;  // Assuming this is the ID of the selected event
-
-                    // Call the AddNewSponsor method in the ViewModel
-                    sponsorVM.AddNewSponsor(sponsorName, sponsorDetails, sponsorTierName, selectedEventId);
-
-                    // Hide the description border after adding
-                    Description.Visibility = Visibility.Collapsed;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"An error occurred: {ex.Message}", "Error");
-                }
-            }
-        }
-
-        private void ConfirmAddExistButton_Click(object sender, RoutedEventArgs e)
-        {
-            var viewModel = (PartnerVM)this.DataContext;
-
-            if (viewModel.SelectedSponsor != null && viewModel.SelectedSponsorTier != null)
-            {
-                viewModel.AddExistingSponsorToEvent(viewModel.SelectedSponsor, viewModel.SelectedEventId, viewModel.SelectedSponsorTier.TierName);
-            }
-            else
-            {
-                MessageBox.Show("Please select both a sponsor and a sponsor tier.");
-            }
-
-        }
-
-
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
             // Kiểm tra xem có sponsor nào được chọn trong DataGrid không
@@ -287,18 +288,25 @@ namespace OOP_EventsManagementSystem.View
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            Choose.IsOpen = true;
+            
+            if (EventDataGrid.SelectedItem != null)
+            {
+                Choose.IsOpen = true;
+            }
+
+            else 
+            {
+                MessageBox.Show("Vui lòng chọn một sự kiện để chỉnh sửa.", "Thông báo");
+            }
+                
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+        
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            Description.Visibility = Visibility.Collapsed;
-            Select_Sponsor.Visibility = Visibility.Collapsed;
+            DescriptionPopup.IsOpen = false;
+            SelectSponsorPopup.IsOpen = false;
         }
     }
 }

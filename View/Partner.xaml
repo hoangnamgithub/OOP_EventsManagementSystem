@@ -2,80 +2,138 @@
     x:Class="OOP_EventsManagementSystem.View.Partner"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:cmd="http://www.galasoft.ch/xaml/behaviors"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
     xmlns:local="clr-namespace:OOP_EventsManagementSystem.View"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:styles="clr-namespace:OOP_EventsManagementSystem.Styles"
-    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-        xmlns:cmd="http://www.galasoft.ch/xaml/behaviors"
     d:DesignHeight="555"
     d:DesignWidth="850"
     Background="#EFE9E4"
     mc:Ignorable="d">
     <ScrollViewer x:Name="DescriptionScrollViewer" VerticalScrollBarVisibility="Auto">
-        <StackPanel>
-        
-    
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-        </Grid.ColumnDefinitions>
-        <StackPanel>
-            <DataGrid  ItemsSource="{Binding Events}" AutoGenerateColumns="False" Height="350" Margin="25,65,25,15" IsReadOnly="True" SelectionChanged="DataGrid_SelectionChanged">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="ID" Binding="{Binding EventId}" Width="60"/>
-                    <DataGridTextColumn Header="Event Name" Binding="{Binding EventName}" Width="250"/>
-                </DataGrid.Columns>
-            </DataGrid>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        
-                            <Button Style="{StaticResource GreenButton}" Content="Add" Height="45" Width="100" Margin="5" Click="AddButton_Click">
-                                <Button.ContextMenu>
-                                    <ContextMenu x:Name="Choose">
-                                        <MenuItem Header="Add New Sponsor"
-                                                  Click="MenuItem_Click"/>
-                                        <MenuItem Header="Add From List Sponsor"
-                                                  Click="MenuItem_Click_1"/>
-                                    </ContextMenu>
-                                </Button.ContextMenu>
-                            </Button>
-                            <Button Style="{StaticResource PinkButton}" Content="Delete" Height="45" Width="100" Margin="5" Click="DeleteButton_Click"/>
-                        
-                            <Button x:Name="EditButton" Style="{StaticResource PurpleButton}" Content="Edit" Height="45" Width="100" Margin="5" Click="EditButton_Click" Visibility="Visible"/>
-                            <Button x:Name="ConfirmButton" Style="{StaticResource PinkButton}" Background="#FF576DDC" Content="Comfirm" Height="45" Width="100" Margin="5" Click="ConfirmButton_Click" Visibility="Collapsed"/>
-                        
+        <Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+                <StackPanel>
+                    <DataGrid
+                        x:Name="EventDataGrid"
+                        Height="350"
+                        Margin="25,65,25,15"
+                        AutoGenerateColumns="False"
+                        IsReadOnly="True"
+                        ItemsSource="{Binding Events}"
+                        SelectionChanged="DataGrid_SelectionChanged">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn
+                                Width="60"
+                                Binding="{Binding EventId}"
+                                Header="ID" />
+                            <DataGridTextColumn
+                                Width="250"
+                                Binding="{Binding EventName}"
+                                Header="Event Name" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+
+                        <Button
+                            Width="100"
+                            Height="45"
+                            Margin="5"
+                            Click="AddButton_Click"
+                            Content="Add"
+                            Style="{StaticResource GreenButton}">
+                            <Button.ContextMenu>
+                                <ContextMenu x:Name="Choose">
+                                    <MenuItem Click="MenuItem_Click" Header="Add New Sponsor" />
+                                    <MenuItem Click="MenuItem_Click_1" Header="Add From List Sponsor" />
+                                </ContextMenu>
+                            </Button.ContextMenu>
+                        </Button>
+                        <Button
+                            Width="100"
+                            Height="45"
+                            Margin="5"
+                            Click="DeleteButton_Click"
+                            Content="Delete"
+                            Style="{StaticResource PinkButton}" />
+
+                        <Button
+                            x:Name="EditButton"
+                            Width="100"
+                            Height="45"
+                            Margin="5"
+                            Click="EditButton_Click"
+                            Content="Edit"
+                            Style="{StaticResource PurpleButton}"
+                            Visibility="Visible" />
+                        <Button
+                            x:Name="ConfirmButton"
+                            Width="100"
+                            Height="45"
+                            Margin="5"
+                            Background="#FF576DDC"
+                            Click="ConfirmButton_Click"
+                            Content="Comfirm"
+                            Style="{StaticResource PinkButton}"
+                            Visibility="Collapsed" />
+
                     </StackPanel>
-            </StackPanel>
-        
-        <StackPanel Grid.Column="1">
-            <TextBlock Style="{StaticResource txt_header}" Text="List Partner" Margin="20"/>
+                </StackPanel>
 
-                   
-                        <Grid>
-                        <DataGrid x:Name="SponsorDataGrid" ItemsSource="{Binding Sponsors}" AutoGenerateColumns="False" Height="450" Width="470"
-          IsReadOnly="True" SelectionChanged="SponsorDataGrid_SelectionChanged" BeginningEdit="SponsorDataGrid_BeginningEdit" >
+                <StackPanel Grid.Column="1">
+                    <TextBlock
+                        Margin="20"
+                        Style="{StaticResource txt_header}"
+                        Text="List Sponsors" />
+
+
+                    <Grid>
+                        <DataGrid
+                            x:Name="SponsorDataGrid"
+                            Width="470"
+                            Height="450"
+                            AutoGenerateColumns="False"
+                            BeginningEdit="SponsorDataGrid_BeginningEdit"
+                            IsReadOnly="True"
+                            ItemsSource="{Binding Sponsors}"
+                            SelectionChanged="SponsorDataGrid_SelectionChanged">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="ID" Binding="{Binding SponsorId}" Width="60"/>
-                                <DataGridTextColumn Header="Sponsor Name" Binding="{Binding SponsorName}" Width="150"/>
-                                <DataGridTextColumn Header="Sponsor Details" Binding="{Binding SponsorDetails}" Width="250"/>
+                                <DataGridTextColumn
+                                    Width="60"
+                                    Binding="{Binding SponsorId}"
+                                    Header="ID" />
+                                <DataGridTextColumn
+                                    Width="150"
+                                    Binding="{Binding SponsorName}"
+                                    Header="Sponsor Name" />
+                                <DataGridTextColumn
+                                    Width="250"
+                                    Binding="{Binding SponsorDetails}"
+                                    Header="Sponsor Details" />
 
-                                <!-- Cột với ComboBox -->
-                                <DataGridTemplateColumn Header="Tier" Width="100">
+                                <!--  Cột với ComboBox  -->
+                                <DataGridTemplateColumn Width="100" Header="Tier">
                                     <DataGridTemplateColumn.CellTemplate>
-                                        <!-- Hiển thị giá trị đã chọn trong chế độ đọc -->
+                                        <!--  Hiển thị giá trị đã chọn trong chế độ đọc  -->
                                         <DataTemplate>
                                             <TextBlock Text="{Binding SponsorTierName}" />
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                     <DataGridTemplateColumn.CellEditingTemplate>
-                                        <!-- Hiển thị ComboBox trong chế độ chỉnh sửa -->
+                                        <!--  Hiển thị ComboBox trong chế độ chỉnh sửa  -->
                                         <DataTemplate>
-                                            <ComboBox ItemsSource="{Binding DataContext.SponsorTiers, RelativeSource={RelativeSource AncestorType=DataGrid}}"
-                              DisplayMemberPath="TierName"
-                              SelectedValuePath="TierName"
-                              SelectedValue="{Binding SponsorTierName, Mode=TwoWay}" />
+                                            <ComboBox
+                                                DisplayMemberPath="TierName"
+                                                ItemsSource="{Binding DataContext.SponsorTiers, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                                SelectedValue="{Binding SponsorTierName, Mode=TwoWay}"
+                                                SelectedValuePath="TierName" />
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellEditingTemplate>
                                 </DataGridTemplateColumn>
@@ -83,153 +141,339 @@
                         </DataGrid>
                     </Grid>
 
-                   
+
 
 
                 </StackPanel>
-    </Grid>
+            </Grid>
             <StackPanel Orientation="Horizontal">
-                <Border x:Name="Description" CornerRadius="16" Background="#FF79ADD4" Height="440" Width="270" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="25,25,25,15" Visibility="Collapsed">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="40"/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-                        <Rectangle Grid.Row="1" RadiusX="16" RadiusY="16" Fill="White" Margin="10,0,10,10" />
+                <Popup
+                    x:Name="DescriptionPopup"
+                    AllowsTransparency="True"
+                    IsOpen="{Binding IsDescriptionPopupOpen, Mode=TwoWay}"
+                    Placement="Center"
+                    StaysOpen="False">
+                    <Border
+                        x:Name="Description"
+                        Width="270"
+                        Height="440"
+                        Margin="25,25,25,15"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Background="#FF79ADD4"
+                        CornerRadius="16"
+                        Visibility="Visible">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="40" />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Rectangle
+                                Grid.Row="1"
+                                Margin="10,0,10,10"
+                                Fill="White"
+                                RadiusX="16"
+                                RadiusY="16" />
 
-                        <TextBlock Text="Sponsor Description" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,0,0,0" Foreground="White" FontFamily="Bahnschrift SemiLight" FontSize="16" />
+                            <TextBlock
+                                Margin="15,0,0,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontFamily="Bahnschrift SemiLight"
+                                FontSize="16"
+                                Foreground="White"
+                                Text="Sponsor Description" />
 
-                        <Grid Grid.Row="1">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="260"/>
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-                            <StackPanel VerticalAlignment="Top" Margin="0,10,0,0">
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition/>
-                                        <RowDefinition/>
-                                    </Grid.RowDefinitions>
-                                    <TextBlock Text="Name" VerticalAlignment="Center" Margin="30,0,0,0" FontFamily="Bahnschrift SemiLight" FontSize="16" />
-                                    <Border Grid.Row="1" CornerRadius="16" Background="#FFDCDCE6" Margin="25,5,15,5" Height="45">
-                                        <TextBox x:Name="TextBoxName" Text="{Binding SponsorName}" CaretBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" FontFamily="Bahnschrift SemiLight" FontSize="16" Margin="10,5,10,5" Background="{x:Null}" BorderBrush="{x:Null}" IsReadOnly="False"/>
-                                    </Border>
-                                </Grid>
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition/>
-                                        <RowDefinition/>
-                                    </Grid.RowDefinitions>
-                                    <TextBlock Text="Details" VerticalAlignment="Center" Margin="30,0,0,0" FontFamily="Bahnschrift SemiLight" FontSize="16" Grid.ColumnSpan="2"/>
-                                    <Border Grid.Row="1" CornerRadius="16" Background="#FFDCDCE6" Margin="25,5,15,5" Height="125" Grid.ColumnSpan="2">
-                                        <TextBox x:Name="TextBoxDetails" Text="{Binding SponsorDetails}" TextWrapping="Wrap" CaretBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" FontFamily="Bahnschrift SemiLight" FontSize="16" Margin="10,5,10,5" Background="{x:Null}" BorderBrush="{x:Null}" IsReadOnly="False"/>
-                                    </Border>
-                                </Grid>
+                            <Grid Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="260" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Margin="0,10,0,0" VerticalAlignment="Top">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+                                        <TextBlock
+                                            Margin="30,0,0,0"
+                                            VerticalAlignment="Center"
+                                            FontFamily="Bahnschrift SemiLight"
+                                            FontSize="16"
+                                            Text="Name" />
+                                        <Border
+                                            Grid.Row="1"
+                                            Height="45"
+                                            Margin="25,5,15,5"
+                                            Background="#FFDCDCE6"
+                                            CornerRadius="16">
+                                            <TextBox
+                                                x:Name="TextBoxName"
+                                                Margin="10,5,10,5"
+                                                Background="{x:Null}"
+                                                BorderBrush="{x:Null}"
+                                                CaretBrush="{x:Null}"
+                                                FontFamily="Bahnschrift SemiLight"
+                                                FontSize="16"
+                                                IsReadOnly="False"
+                                                SelectionBrush="{x:Null}"
+                                                SelectionTextBrush="{x:Null}"
+                                                Text="{Binding SponsorName}" />
+                                        </Border>
+                                    </Grid>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+                                        <TextBlock
+                                            Grid.ColumnSpan="2"
+                                            Margin="30,0,0,0"
+                                            VerticalAlignment="Center"
+                                            FontFamily="Bahnschrift SemiLight"
+                                            FontSize="16"
+                                            Text="Details" />
+                                        <Border
+                                            Grid.Row="1"
+                                            Grid.ColumnSpan="2"
+                                            Height="125"
+                                            Margin="25,5,15,5"
+                                            Background="#FFDCDCE6"
+                                            CornerRadius="16">
+                                            <TextBox
+                                                x:Name="TextBoxDetails"
+                                                Margin="10,5,10,5"
+                                                Background="{x:Null}"
+                                                BorderBrush="{x:Null}"
+                                                CaretBrush="{x:Null}"
+                                                FontFamily="Bahnschrift SemiLight"
+                                                FontSize="16"
+                                                IsReadOnly="False"
+                                                SelectionBrush="{x:Null}"
+                                                SelectionTextBrush="{x:Null}"
+                                                Text="{Binding SponsorDetails}"
+                                                TextWrapping="Wrap" />
+                                        </Border>
+                                    </Grid>
 
-                                <Grid Margin="25,0,0,0">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition/>
-                                    </Grid.RowDefinitions>
+                                    <Grid Margin="25,0,0,0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
 
-                                    <TextBlock Text="Sponsor Tier" VerticalAlignment="Top" Margin="5,0,0,0" FontFamily="Bahnschrift SemiLight" FontSize="16" />
-                                    <Border Grid.Row="1" CornerRadius="16" Background="#FFDCDCE6" Margin="5,5,15,5" VerticalAlignment="Top" Height="45">
-                                        <ComboBox x:Name="SponsorTierComboBox" 
-ItemsSource="{Binding SponsorTiers}" 
-DisplayMemberPath="TierName" 
-SelectedValuePath="TierName" 
-SelectedValue="{Binding SponsorTierName, Mode=TwoWay}" Margin="5,0"/>
+                                        <TextBlock
+                                            Margin="5,0,0,0"
+                                            VerticalAlignment="Top"
+                                            FontFamily="Bahnschrift SemiLight"
+                                            FontSize="16"
+                                            Text="Sponsor Tier" />
+                                        <Border
+                                            Grid.Row="1"
+                                            Height="45"
+                                            Margin="5,5,15,5"
+                                            VerticalAlignment="Top"
+                                            Background="#FFDCDCE6"
+                                            CornerRadius="16">
+                                            <ComboBox
+                                                x:Name="SponsorTierComboBox"
+                                                Margin="5,0"
+                                                DisplayMemberPath="TierName"
+                                                ItemsSource="{Binding SponsorTiers}"
+                                                SelectedValue="{Binding SponsorTierName, Mode=TwoWay}"
+                                                SelectedValuePath="TierName" />
 
-                                    </Border>
-                                </Grid>
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">
-                                    <Button Style="{StaticResource GreenButton}" Content="Comfirm" Height="45" Width="100" Margin="5,0" Click="ConfirmAddButton_Click"/>
-                                    <Button Style="{StaticResource PinkButton}" Content="Cancel" Height="45" Width="100" Margin="5,0" Click="CancelButton_Click"/>
+                                        </Border>
+                                    </Grid>
+                                    <StackPanel
+                                        Margin="10"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Orientation="Horizontal">
+                                        <Button
+                                            Width="100"
+                                            Height="45"
+                                            Margin="5,0"
+                                            Click="ConfirmAddButton_Click"
+                                            Content="Comfirm"
+                                            Style="{StaticResource GreenButton}" />
+                                        <Button
+                                            Width="100"
+                                            Height="45"
+                                            Margin="5,0"
+                                            Click="CancelButton_Click"
+                                            Content="Cancel"
+                                            Style="{StaticResource PinkButton}" />
+                                    </StackPanel>
+
                                 </StackPanel>
-                                
-                            </StackPanel>
+                            </Grid>
                         </Grid>
-                    </Grid>
-                </Border>
-                <Border x:Name="Select_Sponsor" CornerRadius="16" Background="#FF79ADD4" Height="440" Width="270" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="25,25,25,15" Visibility="Collapsed">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="40"/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-                        <Rectangle Grid.Row="1" RadiusX="16" RadiusY="16" Fill="White" Margin="10,0,10,10" />
+                    </Border>
+                </Popup>
 
-                        <TextBlock Text="Select Sponsor" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,0,0,0" Foreground="White" FontFamily="Bahnschrift SemiLight" FontSize="16" />
+                <Popup
+                    x:Name="SelectSponsorPopup"
+                    AllowsTransparency="True"
+                    IsOpen="{Binding IsSelectSponsorPopupOpen, Mode=TwoWay}"
+                    Placement="Center"
+                    StaysOpen="False">
+                    <Border
+                        x:Name="Select_Sponsor"
+                        Width="270"
+                        Height="440"
+                        Margin="25,25,25,15"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Background="#FF79ADD4"
+                        CornerRadius="16"
+                        Visibility="Visible">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="40" />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Rectangle
+                                Grid.Row="1"
+                                Margin="10,0,10,10"
+                                Fill="White"
+                                RadiusX="16"
+                                RadiusY="16" />
 
-                        <Grid Grid.Row="1">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="260"/>
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-                            <StackPanel VerticalAlignment="Top" Margin="0,10,0,0">
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition/>
-                                        <RowDefinition/>
-                                    </Grid.RowDefinitions>
-                                    <TextBlock Text="Name" VerticalAlignment="Center" Margin="30,0,0,0" FontFamily="Bahnschrift SemiLight" FontSize="16" />
-                                    <Border Grid.Row="1" CornerRadius="16" Background="#FFDCDCE6" Margin="25,5,15,5" Height="45">
-                                        <ComboBox x:Name="SponsorNameComboBox" 
-              ItemsSource="{Binding SponsorList}" 
-              DisplayMemberPath="SponsorName" 
-              SelectedValuePath="SponsorId"                                    
-              SelectedItem="{Binding SelectedSponsor, Mode=TwoWay}" 
-              SelectionChanged="SponsorNameComboBox_SelectionChanged" />
+                            <TextBlock
+                                Margin="15,0,0,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontFamily="Bahnschrift SemiLight"
+                                FontSize="16"
+                                Foreground="White"
+                                Text="Select Sponsor" />
 
-                                    </Border>
-                                </Grid>
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition/>
-                                        <RowDefinition/>
-                                    </Grid.RowDefinitions>
-                                    <TextBlock Text="Details" VerticalAlignment="Center" Margin="30,0,0,0" FontFamily="Bahnschrift SemiLight" FontSize="16" Grid.ColumnSpan="2"/>
-                                    <Border Grid.Row="1" CornerRadius="16" Background="#FFDCDCE6" Margin="25,5,15,5" Height="125" Grid.ColumnSpan="2">
-                                        <TextBlock x:Name="Details" 
-                   Text="{Binding SelectedSponsorDetails}" 
-                   TextWrapping="Wrap" 
-                   FontFamily="Bahnschrift SemiLight" 
-                   FontSize="16" 
-                   Margin="10,5,10,5" 
-                   Background="{x:Null}" />
+                            <Grid Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="260" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Margin="0,10,0,0" VerticalAlignment="Top">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+                                        <TextBlock
+                                            Margin="30,0,0,0"
+                                            VerticalAlignment="Center"
+                                            FontFamily="Bahnschrift SemiLight"
+                                            FontSize="16"
+                                            Text="Name" />
+                                        <Border
+                                            Grid.Row="1"
+                                            Height="45"
+                                            Margin="25,5,15,5"
+                                            Background="#FFDCDCE6"
+                                            CornerRadius="16">
+                                            <ComboBox
+                                                x:Name="SponsorNameComboBox"
+                                                DisplayMemberPath="SponsorName"
+                                                ItemsSource="{Binding SponsorList}"
+                                                SelectedItem="{Binding SelectedSponsor, Mode=TwoWay}"
+                                                SelectedValuePath="SponsorId"
+                                                SelectionChanged="SponsorNameComboBox_SelectionChanged" />
 
-                                    </Border>
-                                </Grid>
+                                        </Border>
+                                    </Grid>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+                                        <TextBlock
+                                            Grid.ColumnSpan="2"
+                                            Margin="30,0,0,0"
+                                            VerticalAlignment="Center"
+                                            FontFamily="Bahnschrift SemiLight"
+                                            FontSize="16"
+                                            Text="Details" />
+                                        <Border
+                                            Grid.Row="1"
+                                            Grid.ColumnSpan="2"
+                                            Height="125"
+                                            Margin="25,5,15,5"
+                                            Background="#FFDCDCE6"
+                                            CornerRadius="16">
+                                            <TextBlock
+                                                x:Name="Details"
+                                                Margin="10,5,10,5"
+                                                Background="{x:Null}"
+                                                FontFamily="Bahnschrift SemiLight"
+                                                FontSize="16"
+                                                Text="{Binding SelectedSponsorDetails}"
+                                                TextWrapping="Wrap" />
 
-                                <Grid Margin="25,0,0,0">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition/>
-                                    </Grid.RowDefinitions>
+                                        </Border>
+                                    </Grid>
 
-                                    <TextBlock Text="Sponsor Tier" VerticalAlignment="Top" Margin="5,0,0,0" FontFamily="Bahnschrift SemiLight" FontSize="16" />
-                                    <Border Grid.Row="1" CornerRadius="16" Background="#FFDCDCE6" Margin="5,5,15,5" VerticalAlignment="Top" Height="45">
-                                        <ComboBox x:Name="SponsorTierCb_box" 
-ItemsSource="{Binding SponsorTiers}" 
-DisplayMemberPath="TierName" 
+                                    <Grid Margin="25,0,0,0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
 
-SelectedValue="{Binding SelectedSponsorTier, Mode=TwoWay}" Margin="5,0"/>
+                                        <TextBlock
+                                            Margin="5,0,0,0"
+                                            VerticalAlignment="Top"
+                                            FontFamily="Bahnschrift SemiLight"
+                                            FontSize="16"
+                                            Text="Sponsor Tier" />
+                                        <Border
+                                            Grid.Row="1"
+                                            Height="45"
+                                            Margin="5,5,15,5"
+                                            VerticalAlignment="Top"
+                                            Background="#FFDCDCE6"
+                                            CornerRadius="16">
+                                            <ComboBox
+                                                x:Name="SponsorTierCb_box"
+                                                Margin="5,0"
+                                                DisplayMemberPath="TierName"
+                                                ItemsSource="{Binding SponsorTiers}"
+                                                SelectedValue="{Binding SelectedSponsorTier, Mode=TwoWay}" />
 
-                                    </Border>
-                                </Grid>
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">
-                                    <Button Style="{StaticResource GreenButton}" Content="Comfirm" Height="45" Width="100" Margin="10,0" Click="ConfirmAddExistButton_Click"/>
-                                    <Button Style="{StaticResource PinkButton}" Content="Cancel" Height="45" Width="100" Margin="5,0" Click="CancelButton_Click"/>
+                                        </Border>
+                                    </Grid>
+                                    <StackPanel
+                                        Margin="10"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Orientation="Horizontal">
+                                        <Button
+                                            Width="100"
+                                            Height="45"
+                                            Margin="10,0"
+                                            Click="ConfirmAddExistButton_Click"
+                                            Content="Comfirm"
+                                            Style="{StaticResource GreenButton}" />
+                                        <Button
+                                            Width="100"
+                                            Height="45"
+                                            Margin="5,0"
+                                            Click="CancelButton_Click"
+                                            Content="Cancel"
+                                            Style="{StaticResource PinkButton}" />
+                                    </StackPanel>
+
                                 </StackPanel>
-                               
-                            </StackPanel>
+                            </Grid>
                         </Grid>
-                    </Grid>
-                </Border>
+                    </Border>
+                </Popup>
+
+
+
 
 
             </StackPanel>
-            
-        </StackPanel>
+
+        </Grid>
     </ScrollViewer>
 </UserControl>
