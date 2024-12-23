@@ -255,8 +255,49 @@ namespace OOP_EventsManagementSystem.ViewModel
 
         private void SaveChanges()
         {
-            if (!ValidateAttendeeCount())
+            var warnings = new StringBuilder();
+
+            if (!ValidateFields(warnings))
             {
+                MessageBox.Show(
+                    warnings.ToString(),
+                    "Validation Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
+                return;
+            }
+
+            if (!ValidateAttendeeCount(warnings))
+            {
+                MessageBox.Show(
+                    warnings.ToString(),
+                    "Validation Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
+                return;
+            }
+
+            if (!ValidateDates(warnings))
+            {
+                MessageBox.Show(
+                    warnings.ToString(),
+                    "Validation Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
+                return;
+            }
+
+            if (warnings.Length > 0)
+            {
+                MessageBox.Show(
+                    warnings.ToString(),
+                    "Validation Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
                 return;
             }
 
@@ -273,6 +314,14 @@ namespace OOP_EventsManagementSystem.ViewModel
                 );
                 if (eventToUpdate != null)
                 {
+                    var selectedVenue = _context.Venues.FirstOrDefault(v =>
+                        v.VenueId == SelectedVenueId
+                    );
+                    if (ExpectedAttendee <= 0 && selectedVenue != null)
+                    {
+                        ExpectedAttendee = selectedVenue.Capacity;
+                    }
+
                     eventToUpdate.EventName = EventName;
                     eventToUpdate.ExptedAttendee = ExpectedAttendee;
                     eventToUpdate.VenueId = SelectedVenueId;
@@ -319,6 +368,50 @@ namespace OOP_EventsManagementSystem.ViewModel
 
                 ToggleEditing();
             }
+        }
+
+        private bool ValidateFields(StringBuilder warnings)
+        {
+            if (string.IsNullOrWhiteSpace(EventName))
+            {
+                warnings.AppendLine("Event name cannot be left blank.");
+            }
+
+            if (StartDate == default)
+            {
+                warnings.AppendLine("Start date cannot be left blank.");
+            }
+
+            if (EndDate == default)
+            {
+                warnings.AppendLine("End date cannot be left blank.");
+            }
+
+            return warnings.Length == 0;
+        }
+
+        private bool ValidateAttendeeCount(StringBuilder warnings)
+        {
+            var selectedVenue = _context.Venues.FirstOrDefault(v => v.VenueId == SelectedVenueId);
+            if (selectedVenue != null && ExpectedAttendee > selectedVenue.Capacity)
+            {
+                warnings.AppendLine(
+                    $"The number of attendees ({ExpectedAttendee}) exceeds the venue capacity ({selectedVenue.Capacity})."
+                );
+                return false;
+            }
+            return true;
+        }
+
+        private bool ValidateDates(StringBuilder warnings)
+        {
+            if (EndDate < StartDate)
+            {
+                warnings.AppendLine("End date cannot be before the start date.");
+                return false;
+            }
+
+            return true;
         }
 
         // Thực thi lệnh để mở cửa sổ EventDescription

@@ -66,7 +66,6 @@
                                     materialDesign:HintAssist.Hint="Entering..."
                                     FontFamily="Bahnschrift SemiLight"
                                     FontSize="14"
-                                    Foreground="Gray"
                                     IsEnabled="{Binding IsEditing}"
                                     Text="{Binding EventName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 <TextBlock
@@ -82,7 +81,6 @@
                                     materialDesign:HintAssist.Hint="Number only..."
                                     FontFamily="Bahnschrift SemiLight"
                                     FontSize="14"
-                                    Foreground="Gray"
                                     IsEnabled="{Binding IsEditing}"
                                     PreviewTextInput="txtbox_expectedAttendee_PreviewTextInput"
                                     Text="{Binding ExpectedAttendee, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
@@ -161,6 +159,7 @@
                                             materialDesign:TextFieldAssist.HasClearButton="True"
                                             IsEnabled="{Binding IsEditing}"
                                             SelectedDate="{Binding StartDate, Mode=TwoWay}"
+                                            SelectedDateChanged="dtpckr_startDate_SelectedDateChanged"
                                             Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
@@ -181,6 +180,7 @@
                                             materialDesign:TextFieldAssist.HasClearButton="True"
                                             IsEnabled="{Binding IsEditing}"
                                             SelectedDate="{Binding EndDate, Mode=TwoWay}"
+                                            SelectedDateChanged="dtpckr_endDate_SelectedDateChanged"
                                             Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
                                     </StackPanel>
                                 </StackPanel>

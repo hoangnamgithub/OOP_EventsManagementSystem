@@ -30,6 +30,56 @@ namespace OOP_EventsManagementSystem.Styles
             e.Handled = !IsTextNumeric(e.Text);
         }
 
+        private void dtpckr_startDate_SelectedDateChanged(
+            object sender,
+            SelectionChangedEventArgs e
+        )
+        {
+            if (dtpckr_startDate.SelectedDate.HasValue)
+            {
+                DateTime startDate = dtpckr_startDate.SelectedDate.Value;
+                if (
+                    dtpckr_endDate.SelectedDate.HasValue
+                    && dtpckr_endDate.SelectedDate.Value < startDate
+                )
+                {
+                    MessageBox.Show(
+                        "Start date cannot be after the end date.",
+                        "Validation Error",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Error
+                    );
+                    dtpckr_startDate.SelectedDate = dtpckr_endDate.SelectedDate.Value.AddDays(-1);
+                }
+                else if (
+                    !dtpckr_endDate.SelectedDate.HasValue
+                    || dtpckr_endDate.SelectedDate.Value < startDate
+                )
+                {
+                    dtpckr_endDate.SelectedDate = startDate.AddDays(1);
+                }
+            }
+        }
+
+        private void dtpckr_endDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (dtpckr_startDate.SelectedDate.HasValue && dtpckr_endDate.SelectedDate.HasValue)
+            {
+                DateTime startDate = dtpckr_startDate.SelectedDate.Value;
+                DateTime endDate = dtpckr_endDate.SelectedDate.Value;
+                if (endDate < startDate)
+                {
+                    MessageBox.Show(
+                        "End date cannot be before the start date.",
+                        "Validation Error",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Error
+                    );
+                    dtpckr_endDate.SelectedDate = startDate.AddDays(1);
+                }
+            }
+        }
+
         private static bool IsTextNumeric(string text)
         {
             Regex regex = new Regex("[^0-9]+"); // Regex to match non-numeric text
