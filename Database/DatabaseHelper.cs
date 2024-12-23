@@ -17,7 +17,8 @@ namespace OOP_EventsManagementSystem.Database
                     connection.Open();
 
                     // Check if the database exists and create it if not
-                    string checkDbQuery = $"IF DB_ID('{DatabaseName}') IS NULL CREATE DATABASE {DatabaseName};";
+                    string checkDbQuery =
+                        $"IF DB_ID('{DatabaseName}') IS NULL CREATE DATABASE {DatabaseName};";
                     using (var command = new SqlCommand(checkDbQuery, connection))
                     {
                         command.ExecuteNonQuery();
@@ -51,7 +52,9 @@ namespace OOP_EventsManagementSystem.Database
                         }
                         catch (Exception ex)
                         {
-                            Console.WriteLine($"Error executing script: {script.Substring(0, Math.Min(script.Length, 100))}...");
+                            Console.WriteLine(
+                                $"Error executing script: {script.Substring(0, Math.Min(script.Length, 100))}..."
+                            );
                             Console.WriteLine($"Error details: {ex.Message}");
                             throw;
                         }
@@ -76,7 +79,7 @@ namespace OOP_EventsManagementSystem.Database
                 "IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = 'Shows') EXEC('CREATE SCHEMA Shows');",
                 "IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = 'Employees') EXEC('CREATE SCHEMA Employees');",
                 "IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = 'Equipments') EXEC('CREATE SCHEMA Equipments');",
-                "IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = 'Accounts') EXEC('CREATE SCHEMA Accounts');"
+                "IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = 'Accounts') EXEC('CREATE SCHEMA Accounts');",
             };
         }
 
@@ -84,7 +87,7 @@ namespace OOP_EventsManagementSystem.Database
         {
             return new string[]
             {
-        @"
+                @"
 
 IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='employee_role' AND xtype='U')
 CREATE TABLE Employees.employee_role (
@@ -288,9 +291,8 @@ CREATE TABLE Employees.engaged (
     FOREIGN KEY (event_id) REFERENCES Events.event(event_id) ON DELETE CASCADE,
     UNIQUE (account_id, event_id)
 );
-        "
+        ",
             };
         }
-
     }
 }
