@@ -587,13 +587,14 @@
                         Content="Edit"
                         Style="{StaticResource GreenButton}" />
                     <Button
-                        Name="btn_cancelEdit"
+                        Name="btn_confirmEdit"
                         Grid.Column="1"
                         Width="100"
                         Height="50"
                         Margin="0,10,15,10"
-                        Content="Cancel"
-                        Style="{StaticResource PinkButton}" />
+                        Content="Confirm"
+                        Style="{StaticResource PinkButton}"
+                        Visibility="Collapsed" />
                 </Grid>
             </StackPanel>
         </Grid>
