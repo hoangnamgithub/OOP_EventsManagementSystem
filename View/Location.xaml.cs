@@ -9,6 +9,7 @@ using System.Windows.Media.Animation;
 using OOP_EventsManagementSystem.ViewModel;
 using static OOP_EventsManagementSystem.ViewModel.LocationVM;
 using System.Windows.Media.Imaging;
+using OOP_EventsManagementSystem.Model;
 
 
 namespace OOP_EventsManagementSystem.View
@@ -222,8 +223,6 @@ namespace OOP_EventsManagementSystem.View
             return null;
         }
 
-
-
         private Rect GetBorderRect(BorderItem borderItem)
         {
             // Đây là một phương thức để lấy tọa độ của Border từ mỗi item trong ItemsControl
@@ -232,42 +231,78 @@ namespace OOP_EventsManagementSystem.View
 
         private void btn_add_Click(object sender, RoutedEventArgs e)
         {
-            var locationDescription = new LocationDescription();
-            locationDescription.Show();
+            // Tạo một VenueViewModel mới để thêm venue
+            var newVenue = new VenueViewModel
+            {
+                VenueId = 0, // ID mặc định
+                VenueName = string.Empty,
+                Address = string.Empty,
+                Cost = 0,
+                Capacity = 0
+            };
+
+            // Lấy DataContext là LocationVM
+            var locationVM = DataContext as LocationVM;
+
+            // Đảm bảo rằng LoadData được truyền vào là một delegate hợp lệ
+            Action reloadAction = locationVM != null ? new Action(locationVM.LoadData) : (() => { });
+
+            // Tạo LocationDescription với VenueViewModel và hành động reload
+            var locationDescription = new LocationDescription(newVenue, reloadAction);
+
+            locationDescription.ShowDialog();
         }
 
-        private void btn_edit_Click(object sender, RoutedEventArgs e)
+        private void btn_delete_Click(object sender, RoutedEventArgs e)
         {
-            var ownerWindow = Window.GetWindow(this);
-
-            // Lấy VenueViewModel từ DataContext của nút
+            // Xác định VenueViewModel được liên kết với nút này
             var button = sender as System.Windows.Controls.Button;
-            var selectedVenue = button?.DataContext as VenueViewModel;
-
-            if (selectedVenue != null)
+            if (button?.DataContext is VenueViewModel venueToDelete)
             {
-                var locationDescription = new LocationDescription
+                // Hiện thông báo xác nhận
+                var result = MessageBox.Show(
+                    $"Bạn có chắc chắn muốn xóa địa điểm \"{venueToDelete.VenueName}\" không?",
+                    "Xác nhận xóa",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Warning
+                );
+
+                if (result == MessageBoxResult.Yes)
                 {
-                    Owner = ownerWindow,
-                    VenueName = selectedVenue.VenueName,
-                    Address = selectedVenue.Address,
-                    Capacity = selectedVenue.Capacity,
-                    Cost = selectedVenue.Cost
-                };
-
-                locationDescription.ShowDialog();
-            }
-            else
-            {
-                MessageBox.Show("Failed to retrieve venue data.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    // Nếu người dùng xác nhận, xóa venue
+                    DeleteVenue(venueToDelete.VenueId);
+                }
             }
         }
-
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        private void DeleteVenue(int venueId)
         {
-           
+            using (var context = new EventManagementDbContext())
+            {
+                // Tìm venue theo VenueId
+                var venue = context.Venues.FirstOrDefault(v => v.VenueId == venueId);
+
+                if (venue != null)
+                {
+                    // Xóa venue
+                    context.Venues.Remove(venue);
+                    context.SaveChanges();
+
+                    // Hiển thị thông báo
+                    MessageBox.Show("Địa điểm đã được xóa thành công.", "Thành công", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    // Reload lại dữ liệu trong danh sách
+                    var locationVM = this.DataContext as LocationVM;
+                    locationVM?.LoadData();
+                }
+                else
+                {
+                    // Hiển thị thông báo lỗi nếu không tìm thấy venue
+                    MessageBox.Show("Không tìm thấy địa điểm trong cơ sở dữ liệu.", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
         }
+
+
     }
 
     // Class BorderItem để bind dữ liệu
