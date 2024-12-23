@@ -132,30 +132,30 @@ namespace OOP_EventsManagementSystem.Database
 
         private static void SeedPerformerData(EventManagementDbContext context)
         {
-            // Kiểm tra xem dữ liệu đã được seed hay chưa
+            // Check if data has already been seeded
             if (context.Performers.Any())
             {
                 Console.WriteLine("Performer data already seeded.");
                 return;
             }
 
-            // Bogus Faker instance để tạo dữ liệu giả
-            var faker = new Bogus.Faker();
+            // Bogus Faker instance to generate fake data
+            var faker = new Bogus.Faker("en_US");
 
-            // Tạo 1000 Performer
+            // Create 200 Performers
             var performers = new List<Performer>();
-            for (int i = 0; i < 200; i++)
+            for (int i = 0; i < 100; i++)
             {
                 var performer = new Performer
                 {
                     FullName = faker.Name.FullName(),
-                    ContactDetail = faker.Phone.PhoneNumber(),
+                    ContactDetail = faker.Phone.PhoneNumber("(###)###-####"),
                 };
 
                 performers.Add(performer);
             }
 
-            // Thêm dữ liệu Performer vào database
+            // Add Performer data to the database
             context.Performers.AddRange(performers);
             context.SaveChanges();
             Console.WriteLine("Seeded 200 Performer data successfully.");
@@ -380,7 +380,7 @@ namespace OOP_EventsManagementSystem.Database
                             var employee = new Employee
                             {
                                 FullName = faker.Name.FullName(),
-                                Contact = faker.Phone.PhoneNumber(),
+                                Contact = faker.Phone.PhoneNumber("(###)###-####"),
                                 RoleId = role.RoleId,
                             };
 
@@ -484,7 +484,8 @@ namespace OOP_EventsManagementSystem.Database
                 // Create account for the employee
                 var account = new Account
                 {
-                    Email = $"{employee.FullName.Replace(" ", "").ToLower()}@easys.com",
+                    Email =
+                        $"{employee.FullName.Replace(" ", "").ToLower()}{employee.EmployeeId}@easys.com",
                     Password = Guid.NewGuid().ToString().Substring(0, 8), // Generate a random password
                     PermissionId = permissionId,
                     EmployeeId = employee.EmployeeId,
@@ -560,7 +561,7 @@ namespace OOP_EventsManagementSystem.Database
             var events = new List<Event>();
             var today = DateTime.Today;
 
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 50; i++)
             {
                 var eventType = eventTypes[faker.Random.Int(0, eventTypes.Count - 1)];
                 var venue = venues[faker.Random.Int(0, venues.Count - 1)];
@@ -624,7 +625,7 @@ namespace OOP_EventsManagementSystem.Database
             {
                 foreach (var role in roles)
                 {
-                    var quantity = faker.Random.Int(0, 10); // Quantity can be between 0 and 10
+                    var quantity = faker.Random.Int(1, 10); // Quantity can be between 0 and 10
 
                     var need = new Need
                     {
@@ -663,29 +664,30 @@ namespace OOP_EventsManagementSystem.Database
             }
 
             var faker = new Bogus.Faker();
-
-            // Fetch existing IsSponsor combinations from the database
-            var existingIsSponsors = context
-                .IsSponsors.Select(isSponsor => new
-                {
-                    isSponsor.EventId,
-                    isSponsor.SponsorId,
-                    isSponsor.SponsorTierId,
-                })
-                .ToList();
-
             var isSponsors = new List<IsSponsor>();
 
             foreach (var @event in events)
             {
                 // Shuffle sponsors for more variety
                 var shuffledSponsors = sponsors.OrderBy(_ => faker.Random.Int()).ToList();
-                int numSponsors = faker.Random.Int(1, sponsors.Count);
+                int numSponsors = Math.Min(faker.Random.Int(9, 20), sponsors.Count); // Limit to a maximum of 20 sponsors
+
+                bool titleSponsorAssigned = false;
 
                 for (int i = 0; i < numSponsors; i++)
                 {
                     var sponsor = shuffledSponsors[i];
                     var sponsorTier = sponsorTiers[faker.Random.Int(0, sponsorTiers.Count - 1)];
+
+                    // Ensure only one "Title Sponsor" per event
+                    if (sponsorTier.TierName == "Title Sponsor")
+                    {
+                        if (titleSponsorAssigned)
+                        {
+                            continue;
+                        }
+                        titleSponsorAssigned = true;
+                    }
 
                     var isSponsor = new IsSponsor
                     {
@@ -694,25 +696,17 @@ namespace OOP_EventsManagementSystem.Database
                         SponsorTierId = sponsorTier.SponsorTierId,
                     };
 
-                    // Avoid duplicates in database and in-memory
-                    bool alreadyExistsInDb = existingIsSponsors.Any(existing =>
-                        existing.EventId == isSponsor.EventId
-                        && existing.SponsorId == isSponsor.SponsorId
-                        && existing.SponsorTierId == isSponsor.SponsorTierId
-                    );
-
-                    bool alreadyExistsInMemory = isSponsors.Any(existing =>
-                        existing.EventId == isSponsor.EventId
-                        && existing.SponsorId == isSponsor.SponsorId
-                        && existing.SponsorTierId == isSponsor.SponsorTierId
-                    );
-
-                    if (alreadyExistsInDb || alreadyExistsInMemory)
+                    // Avoid duplicates
+                    if (
+                        !isSponsors.Any(x =>
+                            x.EventId == isSponsor.EventId
+                            && x.SponsorId == isSponsor.SponsorId
+                            && x.SponsorTierId == isSponsor.SponsorTierId
+                        )
+                    )
                     {
-                        continue;
+                        isSponsors.Add(isSponsor);
                     }
-
-                    isSponsors.Add(isSponsor);
                 }
             }
 
@@ -794,7 +788,7 @@ namespace OOP_EventsManagementSystem.Database
             foreach (var @event in events)
             {
                 // Each event needs a few different shows
-                int numShows = faker.Random.Int(1, 10);
+                int numShows = faker.Random.Int(10, 20);
 
                 for (int i = 0; i < numShows; i++)
                 {
@@ -1050,7 +1044,7 @@ namespace OOP_EventsManagementSystem.Database
             {
                 foreach (var equipName in equipmentNames)
                 {
-                    var quantity = faker.Random.Int(0, 10); // Quantity can be between 0 and 10
+                    var quantity = faker.Random.Int(2, 10); // Quantity can be between 0 and 10
 
                     var required = new Required
                     {
@@ -1168,7 +1162,7 @@ namespace OOP_EventsManagementSystem.Database
                         };
 
                         engageds.Add(engaged);
-                        availableAccounts.Remove(account); // Remove to prevent duplicate assignments
+                        availableAccounts.Remove(account);
                     }
                 }
             }
