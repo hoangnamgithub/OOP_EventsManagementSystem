@@ -586,6 +586,7 @@
                                     FontFamily="Bahnschrift SemiLight"
                                     FontSize="16"
                                     Text="{Binding TotalShowCost, StringFormat=C}" />
+
                                 <TextBlock
                                     Name="txt_locationCost"
                                     Margin="0,0,0,10"
@@ -594,6 +595,7 @@
                                     FontFamily="Bahnschrift SemiLight"
                                     FontSize="16"
                                     Text="{Binding TotalLocationCost, StringFormat=C}" />
+
                                 <TextBlock
                                     Name="txt_empCost"
                                     Margin="0,0,0,10"
@@ -602,6 +604,7 @@
                                     FontFamily="Bahnschrift SemiLight"
                                     FontSize="16"
                                     Text="{Binding TotalEmployeeCost, StringFormat=C}" />
+
                                 <TextBlock
                                     Name="txt_equipmentCost"
                                     Margin="0,0,0,10"
@@ -609,7 +612,8 @@
                                     VerticalAlignment="Center"
                                     FontFamily="Bahnschrift SemiLight"
                                     FontSize="16"
-                                    Text="300$" />
+                                    Text="{Binding TotalEquipmentCost, StringFormat=C}" />
+
                                 <TextBlock
                                     Name="txt_serviceCost"
                                     Margin="0,0,0,15"

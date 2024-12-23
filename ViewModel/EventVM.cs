@@ -21,15 +21,15 @@ namespace OOP_EventsManagementSystem.ViewModel
         public ICommand OpenEventDetailCommand { get; set; }
         public ICommand EditCommand { get; }
         public ICommand SaveCommand { get; }
+        public ICommand NextPageCommand { get; }
+        public ICommand PreviousPageCommand { get; }
 
+        private readonly EventManagementDbContext _context;
+
+        public PaginationHelper<dynamic> SponsorsPagination { get; set; }
         public PaginationHelper<Model.Event> UpcomingPagination { get; set; }
         public PaginationHelper<Model.Event> HappeningPagination { get; set; }
         public PaginationHelper<Model.Event> CompletedPagination { get; set; }
-        public PaginationHelper<dynamic> SponsorsPagination { get; set; }
-
-        public ICommand NextPageCommand { get; }
-        public ICommand PreviousPageCommand { get; }
-        private readonly EventManagementDbContext _context;
 
         public ObservableCollection<Model.Event> UpcomingEvents { get; set; }
         public ObservableCollection<Model.Event> HappeningEvents { get; set; }
@@ -39,12 +39,11 @@ namespace OOP_EventsManagementSystem.ViewModel
         public ObservableCollection<Model.Show> Shows { get; set; }
         public ObservableCollection<Model.Sponsor> Sponsors { get; set; }
         public ObservableCollection<Model.Employee> Employees { get; set; }
-
         public ObservableCollection<Model.EmployeeRole> EmployeeRoles { get; set; }
         public ObservableCollection<Model.EquipmentName> EquipmentNames { get; set; }
-
         public ObservableCollection<Model.Show> PagedShows { get; set; }
 
+        // Properties -------------------------------------
         private ObservableCollection<Model.Show> _filteredShows;
         public ObservableCollection<Model.Show> FilteredShows
         {
@@ -89,7 +88,6 @@ namespace OOP_EventsManagementSystem.ViewModel
             }
         }
 
-        // properties -------------------------------------
         private decimal _totalShowCost;
         public decimal TotalShowCost
         {
@@ -128,6 +126,20 @@ namespace OOP_EventsManagementSystem.ViewModel
                 {
                     _totalEmployeeCost = value;
                     OnPropertyChanged(nameof(TotalEmployeeCost));
+                }
+            }
+        }
+
+        private decimal _totalEquipmentCost;
+        public decimal TotalEquipmentCost
+        {
+            get => _totalEquipmentCost;
+            set
+            {
+                if (_totalEquipmentCost != value)
+                {
+                    _totalEquipmentCost = value;
+                    OnPropertyChanged(nameof(TotalEquipmentCost));
                 }
             }
         }
@@ -230,7 +242,6 @@ namespace OOP_EventsManagementSystem.ViewModel
             }
         }
 
-        // Property for binding TextBox Text
         private string _description;
         private int _selectedEventId;
         public string Description
@@ -241,7 +252,7 @@ namespace OOP_EventsManagementSystem.ViewModel
                 if (_description != value)
                 {
                     _description = value;
-                    OnPropertyChanged(nameof(Description)); // Notify when the property changes
+                    OnPropertyChanged(nameof(Description));
                 }
             }
         }
@@ -258,7 +269,7 @@ namespace OOP_EventsManagementSystem.ViewModel
             }
         }
 
-        // constructor -------------------------------------
+        // constructor ----------------------------------------------
         public EventVM()
         {
             OpenEventDetailCommand = new RelayCommand(ExecuteOpenEventDetailCommand);
@@ -273,6 +284,7 @@ namespace OOP_EventsManagementSystem.ViewModel
             PreviousPageCommand = new RelayCommand(ExecutePreviousPage);
         }
 
+        //--------------------------------------------------------------
         private void ToggleEditing()
         {
             IsEditing = !IsEditing;
@@ -509,6 +521,14 @@ namespace OOP_EventsManagementSystem.ViewModel
                         EquipCost = required.EquipName.EquipCost,
                     })
                     .ToList();
+
+                var requiredEquipments = _context
+                    .Requireds.Include(r => r.EquipName)
+                    .Where(r => r.EventId == selectedEvent.EventId)
+                    .ToList();
+                TotalEquipmentCost = requiredEquipments.Sum(r =>
+                    r.Quantity * (r.EquipName?.EquipCost ?? 0)
+                );
 
                 FilteredEquipments = new ObservableCollection<object>(filteredEquipments);
 
