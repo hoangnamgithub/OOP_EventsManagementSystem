@@ -688,7 +688,7 @@ namespace OOP_EventsManagementSystem.Database
                     var show = new Show
                     {
                         ShowName = faker.Lorem.Sentence(3), // Generate a show name with 3 words
-                        Cost = faker.Finance.Amount(1000, 5000), // Random cost between 100 and 1000
+                        Cost = faker.Random.Int(1000, 5000), // Random cost between 100 and 1000
                         PerformerId = performer.PerformerId,
                         GenreId = genre.GenreId,
                     };
@@ -941,7 +941,7 @@ namespace OOP_EventsManagementSystem.Database
                         var equipmentName = new EquipmentName
                         {
                             EquipName = equipName,
-                            EquipCost = faker.Finance.Amount(100, 10000), // Random cost between 100 and 10,000
+                            EquipCost = faker.Random.Int(100, 10000), // Random cost between 100 and 10,000
                             EquipTypeId = equipmentType.EquipTypeId,
                         };
 

@@ -98,6 +98,8 @@ namespace OOP_EventsManagementSystem.ViewModel
                 {
                     _totalShowCost = value;
                     OnPropertyChanged(nameof(TotalShowCost));
+                    UpdateServiceCost();
+                    UpdateTotalCost();
                 }
             }
         }
@@ -112,6 +114,8 @@ namespace OOP_EventsManagementSystem.ViewModel
                 {
                     _totalLocationCost = value;
                     OnPropertyChanged(nameof(TotalLocationCost));
+                    UpdateServiceCost();
+                    UpdateTotalCost();
                 }
             }
         }
@@ -126,6 +130,8 @@ namespace OOP_EventsManagementSystem.ViewModel
                 {
                     _totalEmployeeCost = value;
                     OnPropertyChanged(nameof(TotalEmployeeCost));
+                    UpdateServiceCost();
+                    UpdateTotalCost();
                 }
             }
         }
@@ -140,6 +146,37 @@ namespace OOP_EventsManagementSystem.ViewModel
                 {
                     _totalEquipmentCost = value;
                     OnPropertyChanged(nameof(TotalEquipmentCost));
+                    UpdateServiceCost();
+                    UpdateTotalCost();
+                }
+            }
+        }
+
+        private decimal _serviceCost;
+        public decimal ServiceCost
+        {
+            get => _serviceCost;
+            set
+            {
+                if (_serviceCost != value)
+                {
+                    _serviceCost = value;
+                    OnPropertyChanged(nameof(ServiceCost));
+                    UpdateTotalCost();
+                }
+            }
+        }
+
+        private decimal _totalCost;
+        public decimal TotalCost
+        {
+            get => _totalCost;
+            set
+            {
+                if (_totalCost != value)
+                {
+                    _totalCost = value;
+                    OnPropertyChanged(nameof(TotalCost));
                 }
             }
         }
@@ -305,6 +342,23 @@ namespace OOP_EventsManagementSystem.ViewModel
                 return false;
             }
             return true;
+        }
+
+        private void UpdateServiceCost()
+        {
+            ServiceCost =
+                0.12m
+                * (TotalShowCost + TotalLocationCost + TotalEmployeeCost + TotalEquipmentCost);
+        }
+
+        private void UpdateTotalCost()
+        {
+            TotalCost =
+                TotalShowCost
+                + TotalLocationCost
+                + TotalEmployeeCost
+                + TotalEquipmentCost
+                + ServiceCost;
         }
 
         private void SaveChanges()

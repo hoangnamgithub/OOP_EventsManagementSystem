@@ -621,7 +621,7 @@
                                     VerticalAlignment="Center"
                                     FontFamily="Bahnschrift SemiLight"
                                     FontSize="16"
-                                    Text="200$" />
+                                    Text="{Binding ServiceCost, StringFormat=C}" />
                             </StackPanel>
                             <TextBlock
                                 Name="txt_total"
@@ -630,7 +630,7 @@
                                 HorizontalAlignment="Right"
                                 FontFamily="Bahnschrift SemiBold"
                                 FontSize="16"
-                                Text="750$" />
+                                Text="{Binding TotalCost, StringFormat=C}" />
                         </Grid>
                     </Border>
                 </Grid>
