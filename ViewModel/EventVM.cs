@@ -10,28 +10,26 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Identity.Client;
 using OOP_EventsManagementSystem.Model;
 using OOP_EventsManagementSystem.Styles;
 using OOP_EventsManagementSystem.Utilities;
-using OOP_EventsManagementSystem.View;
 
 namespace OOP_EventsManagementSystem.ViewModel
 {
     public class EventVM : INotifyPropertyChanged
     {
         public ICommand OpenEventDetailCommand { get; set; }
-        public ICommand ConfirmCommand { get; }
         public ICommand EditCommand { get; }
+        public ICommand SaveCommand { get; }
+        public ICommand NextPageCommand { get; }
+        public ICommand PreviousPageCommand { get; }
 
+        private readonly EventManagementDbContext _context;
+
+        public PaginationHelper<dynamic> SponsorsPagination { get; set; }
         public PaginationHelper<Model.Event> UpcomingPagination { get; set; }
         public PaginationHelper<Model.Event> HappeningPagination { get; set; }
         public PaginationHelper<Model.Event> CompletedPagination { get; set; }
-        public PaginationHelper<dynamic> SponsorsPagination { get; set; }
-
-        public ICommand NextPageCommand { get; }
-        public ICommand PreviousPageCommand { get; }
-        private readonly EventManagementDbContext _context;
 
         public ObservableCollection<Model.Event> UpcomingEvents { get; set; }
         public ObservableCollection<Model.Event> HappeningEvents { get; set; }
@@ -41,12 +39,11 @@ namespace OOP_EventsManagementSystem.ViewModel
         public ObservableCollection<Model.Show> Shows { get; set; }
         public ObservableCollection<Model.Sponsor> Sponsors { get; set; }
         public ObservableCollection<Model.Employee> Employees { get; set; }
-
         public ObservableCollection<Model.EmployeeRole> EmployeeRoles { get; set; }
         public ObservableCollection<Model.EquipmentName> EquipmentNames { get; set; }
-
         public ObservableCollection<Model.Show> PagedShows { get; set; }
 
+        // Properties -------------------------------------
         private ObservableCollection<Model.Show> _filteredShows;
         public ObservableCollection<Model.Show> FilteredShows
         {
@@ -91,7 +88,99 @@ namespace OOP_EventsManagementSystem.ViewModel
             }
         }
 
-        // properties -------------------------------------
+        private decimal _totalShowCost;
+        public decimal TotalShowCost
+        {
+            get => _totalShowCost;
+            set
+            {
+                if (_totalShowCost != value)
+                {
+                    _totalShowCost = value;
+                    OnPropertyChanged(nameof(TotalShowCost));
+                    UpdateServiceCost();
+                    UpdateTotalCost();
+                }
+            }
+        }
+
+        private decimal _totalLocationCost;
+        public decimal TotalLocationCost
+        {
+            get => _totalLocationCost;
+            set
+            {
+                if (_totalLocationCost != value)
+                {
+                    _totalLocationCost = value;
+                    OnPropertyChanged(nameof(TotalLocationCost));
+                    UpdateServiceCost();
+                    UpdateTotalCost();
+                }
+            }
+        }
+
+        private decimal _totalEmployeeCost;
+        public decimal TotalEmployeeCost
+        {
+            get => _totalEmployeeCost;
+            set
+            {
+                if (_totalEmployeeCost != value)
+                {
+                    _totalEmployeeCost = value;
+                    OnPropertyChanged(nameof(TotalEmployeeCost));
+                    UpdateServiceCost();
+                    UpdateTotalCost();
+                }
+            }
+        }
+
+        private decimal _totalEquipmentCost;
+        public decimal TotalEquipmentCost
+        {
+            get => _totalEquipmentCost;
+            set
+            {
+                if (_totalEquipmentCost != value)
+                {
+                    _totalEquipmentCost = value;
+                    OnPropertyChanged(nameof(TotalEquipmentCost));
+                    UpdateServiceCost();
+                    UpdateTotalCost();
+                }
+            }
+        }
+
+        private decimal _serviceCost;
+        public decimal ServiceCost
+        {
+            get => _serviceCost;
+            set
+            {
+                if (_serviceCost != value)
+                {
+                    _serviceCost = value;
+                    OnPropertyChanged(nameof(ServiceCost));
+                    UpdateTotalCost();
+                }
+            }
+        }
+
+        private decimal _totalCost;
+        public decimal TotalCost
+        {
+            get => _totalCost;
+            set
+            {
+                if (_totalCost != value)
+                {
+                    _totalCost = value;
+                    OnPropertyChanged(nameof(TotalCost));
+                }
+            }
+        }
+
         private bool _isEditing;
         public bool IsEditing
         {
@@ -190,8 +279,8 @@ namespace OOP_EventsManagementSystem.ViewModel
             }
         }
 
-        // Property for binding TextBox Text
         private string _description;
+        private int _selectedEventId;
         public string Description
         {
             get => _description;
@@ -200,18 +289,31 @@ namespace OOP_EventsManagementSystem.ViewModel
                 if (_description != value)
                 {
                     _description = value;
-                    OnPropertyChanged(nameof(Description)); // Notify when the property changes
+                    OnPropertyChanged(nameof(Description));
+                }
+            }
+        }
+        public int SelectedEventId
+        {
+            get => _selectedEventId;
+            set
+            {
+                if (_selectedEventId != value)
+                {
+                    _selectedEventId = value;
+                    OnPropertyChanged(nameof(SelectedEventId));
                 }
             }
         }
 
-        // constructor -------------------------------------
+        // constructor ----------------------------------------------
         public EventVM()
         {
             OpenEventDetailCommand = new RelayCommand(ExecuteOpenEventDetailCommand);
 
             _context = new EventManagementDbContext();
             EditCommand = new RelayCommand(_ => ToggleEditing());
+            SaveCommand = new RelayCommand(_ => SaveChanges());
 
             // Initialize commands
             LoadData();
@@ -219,14 +321,205 @@ namespace OOP_EventsManagementSystem.ViewModel
             PreviousPageCommand = new RelayCommand(ExecutePreviousPage);
         }
 
+        //--------------------------------------------------------------
         private void ToggleEditing()
         {
             IsEditing = !IsEditing;
+            OnPropertyChanged(nameof(IsEditing));
         }
 
-        private void ExecuteConfirmCommand(object parameter)
+        private bool ValidateAttendeeCount()
         {
-            // Thực hiện logic xác nhận tại đây
+            var selectedVenue = _context.Venues.FirstOrDefault(v => v.VenueId == SelectedVenueId);
+            if (selectedVenue != null && ExpectedAttendee > selectedVenue.Capacity)
+            {
+                MessageBox.Show(
+                    $"The number of attendees ({ExpectedAttendee}) exceeds the venue capacity ({selectedVenue.Capacity}).",
+                    "Validation Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
+                return false;
+            }
+            return true;
+        }
+
+        private void UpdateServiceCost()
+        {
+            ServiceCost =
+                0.12m
+                * (TotalShowCost + TotalLocationCost + TotalEmployeeCost + TotalEquipmentCost);
+        }
+
+        private void UpdateTotalCost()
+        {
+            TotalCost =
+                TotalShowCost
+                + TotalLocationCost
+                + TotalEmployeeCost
+                + TotalEquipmentCost
+                + ServiceCost;
+        }
+
+        private void SaveChanges()
+        {
+            var warnings = new StringBuilder();
+
+            if (!ValidateFields(warnings))
+            {
+                MessageBox.Show(
+                    warnings.ToString(),
+                    "Validation Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
+                return;
+            }
+
+            if (!ValidateAttendeeCount(warnings))
+            {
+                MessageBox.Show(
+                    warnings.ToString(),
+                    "Validation Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
+                return;
+            }
+
+            if (!ValidateDates(warnings))
+            {
+                MessageBox.Show(
+                    warnings.ToString(),
+                    "Validation Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
+                return;
+            }
+
+            if (warnings.Length > 0)
+            {
+                MessageBox.Show(
+                    warnings.ToString(),
+                    "Validation Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
+                return;
+            }
+
+            MessageBoxResult result = MessageBox.Show(
+                "Are you sure you want to save the changes?",
+                "Confirm Save",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question
+            );
+            if (result == MessageBoxResult.Yes)
+            {
+                var eventToUpdate = _context.Events.FirstOrDefault(e =>
+                    e.EventId == SelectedEventId
+                );
+                if (eventToUpdate != null)
+                {
+                    var selectedVenue = _context.Venues.FirstOrDefault(v =>
+                        v.VenueId == SelectedVenueId
+                    );
+                    if (ExpectedAttendee <= 0 && selectedVenue != null)
+                    {
+                        ExpectedAttendee = selectedVenue.Capacity;
+                    }
+
+                    eventToUpdate.EventName = EventName;
+                    eventToUpdate.ExptedAttendee = ExpectedAttendee;
+                    eventToUpdate.VenueId = SelectedVenueId;
+                    eventToUpdate.EventTypeId = SelectedEventTypeId;
+                    eventToUpdate.StartDate = DateOnly.FromDateTime(StartDate);
+                    eventToUpdate.EndDate = DateOnly.FromDateTime(EndDate);
+                    eventToUpdate.EventDescription = Description;
+
+                    _context.SaveChanges();
+
+                    // Refresh data in Event.xaml
+                    LoadData();
+
+                    // Reapply filtering logic for the selected event's shows
+                    var showIds = _context
+                        .ShowSchedules.Where(ss => ss.EventId == SelectedEventId)
+                        .Select(ss => ss.ShowId)
+                        .ToList();
+
+                    var filteredShows = _context
+                        .Shows.Include(s => s.Performer)
+                        .Include(s => s.Genre)
+                        .Where(s => showIds.Contains(s.ShowId))
+                        .ToList();
+
+                    ShowsPagination = new PaginationHelper<Model.Show>(filteredShows, 9); // Set the number of items per page
+
+                    // Reapply filtering logic for the selected event's sponsors
+                    var filteredSponsors = _context
+                        .IsSponsors.Where(isSponsor => isSponsor.EventId == SelectedEventId)
+                        .Select(isSponsor => new
+                        {
+                            SponsorId = isSponsor.Sponsor.SponsorId,
+                            SponsorName = isSponsor.Sponsor.SponsorName,
+                            TierName = isSponsor.SponsorTier.TierName,
+                        })
+                        .ToList();
+
+                    SponsorsPagination = new PaginationHelper<object>(filteredSponsors, 8); // Set the number of items per page
+
+                    OnPropertyChanged(nameof(ShowsPagination));
+                    OnPropertyChanged(nameof(SponsorsPagination));
+                }
+
+                ToggleEditing();
+            }
+        }
+
+        private bool ValidateFields(StringBuilder warnings)
+        {
+            if (string.IsNullOrWhiteSpace(EventName))
+            {
+                warnings.AppendLine("Event name cannot be left blank.");
+            }
+
+            if (StartDate == default)
+            {
+                warnings.AppendLine("Start date cannot be left blank.");
+            }
+
+            if (EndDate == default)
+            {
+                warnings.AppendLine("End date cannot be left blank.");
+            }
+
+            return warnings.Length == 0;
+        }
+
+        private bool ValidateAttendeeCount(StringBuilder warnings)
+        {
+            var selectedVenue = _context.Venues.FirstOrDefault(v => v.VenueId == SelectedVenueId);
+            if (selectedVenue != null && ExpectedAttendee > selectedVenue.Capacity)
+            {
+                warnings.AppendLine(
+                    $"The number of attendees ({ExpectedAttendee}) exceeds the venue capacity ({selectedVenue.Capacity})."
+                );
+                return false;
+            }
+            return true;
+        }
+
+        private bool ValidateDates(StringBuilder warnings)
+        {
+            if (EndDate < StartDate)
+            {
+                warnings.AppendLine("End date cannot be before the start date.");
+                return false;
+            }
+
+            return true;
         }
 
         // Thực thi lệnh để mở cửa sổ EventDescription
@@ -242,6 +535,33 @@ namespace OOP_EventsManagementSystem.ViewModel
                 StartDate = selectedEvent.StartDate.ToDateTime(TimeOnly.MinValue); // Convert DateOnly to DateTime
                 EndDate = selectedEvent.EndDate.ToDateTime(TimeOnly.MinValue); // Convert DateOnly to DateTime
                 Description = selectedEvent.EventDescription;
+                SelectedEventId = selectedEvent.EventId;
+
+                // Calculate the total show cost
+                var showIds = _context
+                    .ShowSchedules.Where(ss => ss.EventId == selectedEvent.EventId)
+                    .Select(ss => ss.ShowId)
+                    .ToList();
+
+                var filteredShows = _context
+                    .Shows.Include(s => s.Performer)
+                    .Include(s => s.Genre)
+                    .Where(s => showIds.Contains(s.ShowId))
+                    .ToList();
+
+                TotalShowCost = filteredShows.Sum(s => s.Cost);
+
+                // Calculate the total location cost
+                var selectedVenue = _context.Venues.FirstOrDefault(v =>
+                    v.VenueId == SelectedVenueId
+                );
+                TotalLocationCost = selectedVenue?.Cost ?? 0;
+
+                // Calculate the total employee cost
+                var needs = _context.Needs.Where(n => n.EventId == selectedEvent.EventId).ToList();
+                TotalEmployeeCost = needs.Sum(n => n.Quantity * n.Role.Salary);
+
+                ShowsPagination = new PaginationHelper<Model.Show>(filteredShows, 9); // Set the number of items per page
 
                 // Filter equipment details for the selected event
                 var filteredEquipments = _context
@@ -255,6 +575,14 @@ namespace OOP_EventsManagementSystem.ViewModel
                         EquipCost = required.EquipName.EquipCost,
                     })
                     .ToList();
+
+                var requiredEquipments = _context
+                    .Requireds.Include(r => r.EquipName)
+                    .Where(r => r.EventId == selectedEvent.EventId)
+                    .ToList();
+                TotalEquipmentCost = requiredEquipments.Sum(r =>
+                    r.Quantity * (r.EquipName?.EquipCost ?? 0)
+                );
 
                 FilteredEquipments = new ObservableCollection<object>(filteredEquipments);
 
@@ -282,21 +610,7 @@ namespace OOP_EventsManagementSystem.ViewModel
                     })
                     .ToList();
 
-                SponsorsPagination = new PaginationHelper<object>(filteredSponsors, 9); // Set the number of items per page
-
-                // Filter shows for the selected event
-                var showIds = _context
-                    .ShowSchedules.Where(ss => ss.EventId == selectedEvent.EventId)
-                    .Select(ss => ss.ShowId)
-                    .ToList();
-
-                var filteredShows = _context
-                    .Shows.Include(s => s.Performer)
-                    .Include(s => s.Genre)
-                    .Where(s => showIds.Contains(s.ShowId))
-                    .ToList();
-
-                ShowsPagination = new PaginationHelper<Model.Show>(filteredShows, 9); // Set the number of items per page
+                SponsorsPagination = new PaginationHelper<object>(filteredSponsors, 8); // Set the number of items per page
 
                 // Open the EventDetails window
                 var eventDetailsWindow = new EventDetails

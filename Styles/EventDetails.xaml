@@ -15,6 +15,10 @@
     WindowStartupLocation="CenterScreen"
     WindowStyle="None"
     mc:Ignorable="d">
+    <Window.Resources>
+        <local:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <local:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter" />
+    </Window.Resources>
     <Border
         Margin="10"
         Background="#EFE9E4"
@@ -62,7 +66,6 @@
                                     materialDesign:HintAssist.Hint="Entering..."
                                     FontFamily="Bahnschrift SemiLight"
                                     FontSize="14"
-                                    Foreground="Gray"
                                     IsEnabled="{Binding IsEditing}"
                                     Text="{Binding EventName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 <TextBlock
@@ -78,8 +81,8 @@
                                     materialDesign:HintAssist.Hint="Number only..."
                                     FontFamily="Bahnschrift SemiLight"
                                     FontSize="14"
-                                    Foreground="Gray"
                                     IsEnabled="{Binding IsEditing}"
+                                    PreviewTextInput="txtbox_expectedAttendee_PreviewTextInput"
                                     Text="{Binding ExpectedAttendee, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             </StackPanel>
                             <StackPanel Margin="0,15,0,0" Orientation="Horizontal">
@@ -124,7 +127,6 @@
                                     <TextBox
                                         x:Name="des_txtbo"
                                         Width="235"
-                                        Height="80"
                                         Margin="5"
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Stretch"
@@ -132,7 +134,7 @@
                                         FontFamily="Bahnschrift SemiLight"
                                         FontSize="14"
                                         Foreground="Black"
-                                        IsReadOnly="True"
+                                        IsEnabled="{Binding IsEditing}"
                                         Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                         TextWrapping="Wrap"
                                         VerticalScrollBarVisibility="Hidden" />
@@ -155,8 +157,9 @@
                                             Margin="10,0,12,5"
                                             materialDesign:HintAssist.Hint="Pick a Date"
                                             materialDesign:TextFieldAssist.HasClearButton="True"
-                                            IsEnabled="False"
+                                            IsEnabled="{Binding IsEditing}"
                                             SelectedDate="{Binding StartDate, Mode=TwoWay}"
+                                            SelectedDateChanged="dtpckr_startDate_SelectedDateChanged"
                                             Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
@@ -175,8 +178,9 @@
                                             Margin="30,0,12,5"
                                             materialDesign:HintAssist.Hint="Pick a Date"
                                             materialDesign:TextFieldAssist.HasClearButton="True"
-                                            IsEnabled="False"
+                                            IsEnabled="{Binding IsEditing}"
                                             SelectedDate="{Binding EndDate, Mode=TwoWay}"
+                                            SelectedDateChanged="dtpckr_endDate_SelectedDateChanged"
                                             Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
                                     </StackPanel>
                                 </StackPanel>
@@ -206,7 +210,33 @@
                                     <Grid Margin="5,0,5,5" TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
                                         <StackPanel Background="White" Orientation="Vertical">
                                             <StackPanel Orientation="Horizontal">
-                                                <local:SearchBar Margin="10,0,0,0" />
+                                                <Grid
+                                                    Margin="25,10,0,10"
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Top">
+                                                    <Border
+                                                        Width="280"
+                                                        Height="35"
+                                                        Margin="0,0,80,0"
+                                                        HorizontalAlignment="Left"
+                                                        Background="#FFDCDCE6"
+                                                        CornerRadius="16">
+                                                        <TextBox
+                                                            x:Name="SearchBox_show"
+                                                            Margin="30,0,30,0"
+                                                            VerticalAlignment="Center"
+                                                            Background="{x:Null}"
+                                                            BorderBrush="{x:Null}"
+                                                            CaretBrush="{x:Null}"
+                                                            FontFamily="Bahnschrift SemiLight"
+                                                            FontSize="14"
+                                                            Foreground="Gray"
+                                                            SelectionBrush="{x:Null}"
+                                                            SelectionTextBrush="{x:Null}"
+                                                            Text="Search......" />
+                                                    </Border>
+                                                </Grid>
+                                                <!--<local:SearchBar Margin="10,0,0,0" />-->
                                                 <Button
                                                     Width="30"
                                                     Height="30"
@@ -277,7 +307,33 @@
                                     <Grid Margin="5,0,5,5" TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
                                         <StackPanel Background="White" Orientation="Vertical">
                                             <StackPanel Orientation="Horizontal">
-                                                <local:SearchBar Margin="10,0,0,0" />
+                                                <Grid
+                                                    Margin="25,10,0,10"
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Top">
+                                                    <Border
+                                                        Width="280"
+                                                        Height="35"
+                                                        Margin="0,0,80,0"
+                                                        HorizontalAlignment="Left"
+                                                        Background="#FFDCDCE6"
+                                                        CornerRadius="16">
+                                                        <TextBox
+                                                            x:Name="SearchBox_sponsor"
+                                                            Margin="30,0,30,0"
+                                                            VerticalAlignment="Center"
+                                                            Background="{x:Null}"
+                                                            BorderBrush="{x:Null}"
+                                                            CaretBrush="{x:Null}"
+                                                            FontFamily="Bahnschrift SemiLight"
+                                                            FontSize="14"
+                                                            Foreground="Gray"
+                                                            SelectionBrush="{x:Null}"
+                                                            SelectionTextBrush="{x:Null}"
+                                                            Text="Search......" />
+                                                    </Border>
+                                                </Grid>
+                                                <!--<local:SearchBar Margin="10,0,0,0" />-->
                                                 <Button
                                                     Width="30"
                                                     Height="30"
@@ -350,7 +406,7 @@
                                     Header="Employees">
                                     <Grid Margin="5,0,5,5" TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
                                         <StackPanel Background="White" Orientation="Vertical">
-                                            <local:SearchBar Margin="15,5,0,5" HorizontalAlignment="Left" />
+                                            <!--<local:SearchBar Margin="15,5,0,5" HorizontalAlignment="Left" />-->
                                             <Border
                                                 Height="300"
                                                 Margin="0"
@@ -396,7 +452,7 @@
                                     Header="Equipments">
                                     <Grid Margin="5,0,5,5" TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
                                         <StackPanel Background="White" Orientation="Vertical">
-                                            <local:SearchBar Margin="15,5,0,5" HorizontalAlignment="Left" />
+                                            <!--<local:SearchBar Margin="15,5,0,5" HorizontalAlignment="Left" />-->
                                             <Border
                                                 Height="300"
                                                 Margin="0"
@@ -479,7 +535,7 @@
                         CornerRadius="16">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="140" />
+                                <ColumnDefinition />
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
                             <StackPanel Margin="10" Orientation="Vertical">
@@ -488,30 +544,30 @@
                                     VerticalAlignment="Center"
                                     FontFamily="Bahnschrift SemiLight"
                                     FontSize="16"
-                                    Text="Show Cost" />
+                                    Text="Show" />
                                 <TextBlock
                                     Margin="0,0,0,10"
                                     VerticalAlignment="Center"
                                     FontFamily="Bahnschrift SemiLight"
                                     FontSize="16"
-                                    Text="Location Cost" />
+                                    Text="Location" />
                                 <TextBlock
                                     Margin="0,0,0,10"
                                     VerticalAlignment="Center"
                                     FontFamily="Bahnschrift SemiLight"
                                     FontSize="16"
-                                    Text="Employee Cost" />
+                                    Text="Employee" />
                                 <TextBlock
                                     Margin="0,0,0,10"
                                     VerticalAlignment="Center"
                                     FontFamily="Bahnschrift SemiLight"
                                     FontSize="16"
-                                    Text="Equipment Cost" />
+                                    Text="Equipment" />
                                 <TextBlock
                                     Margin="0,0,0,15"
                                     VerticalAlignment="Center"
                                     FontFamily="Bahnschrift SemiLight"
-                                    FontSize="16"><Run Text="Service Cost " /><LineBreak /><Run Text="(15%)" /></TextBlock>
+                                    FontSize="16"><Run Text="Service" /><LineBreak /><Run FontSize="16" Text="(15%)" /></TextBlock>
                                 <TextBlock
                                     VerticalAlignment="Center"
                                     FontFamily="Bahnschrift SemiBold"
@@ -529,7 +585,8 @@
                                     VerticalAlignment="Center"
                                     FontFamily="Bahnschrift SemiLight"
                                     FontSize="16"
-                                    Text="100$" />
+                                    Text="{Binding TotalShowCost, StringFormat=C}" />
+
                                 <TextBlock
                                     Name="txt_locationCost"
                                     Margin="0,0,0,10"
@@ -537,7 +594,8 @@
                                     VerticalAlignment="Center"
                                     FontFamily="Bahnschrift SemiLight"
                                     FontSize="16"
-                                    Text="200$" />
+                                    Text="{Binding TotalLocationCost, StringFormat=C}" />
+
                                 <TextBlock
                                     Name="txt_empCost"
                                     Margin="0,0,0,10"
@@ -545,7 +603,8 @@
                                     VerticalAlignment="Center"
                                     FontFamily="Bahnschrift SemiLight"
                                     FontSize="16"
-                                    Text="150$" />
+                                    Text="{Binding TotalEmployeeCost, StringFormat=C}" />
+
                                 <TextBlock
                                     Name="txt_equipmentCost"
                                     Margin="0,0,0,10"
@@ -553,7 +612,8 @@
                                     VerticalAlignment="Center"
                                     FontFamily="Bahnschrift SemiLight"
                                     FontSize="16"
-                                    Text="300$" />
+                                    Text="{Binding TotalEquipmentCost, StringFormat=C}" />
+
                                 <TextBlock
                                     Name="txt_serviceCost"
                                     Margin="0,0,0,15"
@@ -561,7 +621,7 @@
                                     VerticalAlignment="Center"
                                     FontFamily="Bahnschrift SemiLight"
                                     FontSize="16"
-                                    Text="200$" />
+                                    Text="{Binding ServiceCost, StringFormat=C}" />
                             </StackPanel>
                             <TextBlock
                                 Name="txt_total"
@@ -570,7 +630,7 @@
                                 HorizontalAlignment="Right"
                                 FontFamily="Bahnschrift SemiBold"
                                 FontSize="16"
-                                Text="750$" />
+                                Text="{Binding TotalCost, StringFormat=C}" />
                         </Grid>
                     </Border>
                 </Grid>
@@ -586,15 +646,19 @@
                         Margin="15,10,0,10"
                         Command="{Binding EditCommand}"
                         Content="Edit"
-                        Style="{StaticResource GreenButton}" />
+                        Style="{StaticResource GreenButton}"
+                        Visibility="{Binding IsEditing, Converter={StaticResource InverseBooleanToVisibilityConverter}}" />
                     <Button
-                        Name="btn_cancelEdit"
+                        Name="btn_confirmEdit"
                         Grid.Column="1"
                         Width="100"
                         Height="50"
                         Margin="0,10,15,10"
-                        Content="Cancel"
-                        Style="{StaticResource PinkButton}" />
+                        Command="{Binding SaveCommand}"
+                        Content="Confirm"
+                        Style="{StaticResource PinkButton}"
+                        Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
                 </Grid>
             </StackPanel>
         </Grid>
