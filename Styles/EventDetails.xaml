@@ -535,7 +535,7 @@
                         CornerRadius="16">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="140" />
+                                <ColumnDefinition />
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
                             <StackPanel Margin="10" Orientation="Vertical">
@@ -544,30 +544,30 @@
                                     VerticalAlignment="Center"
                                     FontFamily="Bahnschrift SemiLight"
                                     FontSize="16"
-                                    Text="Show Cost" />
+                                    Text="Show" />
                                 <TextBlock
                                     Margin="0,0,0,10"
                                     VerticalAlignment="Center"
                                     FontFamily="Bahnschrift SemiLight"
                                     FontSize="16"
-                                    Text="Location Cost" />
+                                    Text="Location" />
                                 <TextBlock
                                     Margin="0,0,0,10"
                                     VerticalAlignment="Center"
                                     FontFamily="Bahnschrift SemiLight"
                                     FontSize="16"
-                                    Text="Employee Cost" />
+                                    Text="Employee" />
                                 <TextBlock
                                     Margin="0,0,0,10"
                                     VerticalAlignment="Center"
                                     FontFamily="Bahnschrift SemiLight"
                                     FontSize="16"
-                                    Text="Equipment Cost" />
+                                    Text="Equipment" />
                                 <TextBlock
                                     Margin="0,0,0,15"
                                     VerticalAlignment="Center"
                                     FontFamily="Bahnschrift SemiLight"
-                                    FontSize="16"><Run Text="Service Cost " /><LineBreak /><Run Text="(15%)" /></TextBlock>
+                                    FontSize="16"><Run Text="Service" /><LineBreak /><Run FontSize="16" Text="(15%)" /></TextBlock>
                                 <TextBlock
                                     VerticalAlignment="Center"
                                     FontFamily="Bahnschrift SemiBold"
@@ -585,7 +585,7 @@
                                     VerticalAlignment="Center"
                                     FontFamily="Bahnschrift SemiLight"
                                     FontSize="16"
-                                    Text="100$" />
+                                    Text="{Binding TotalShowCost, StringFormat=C}" />
                                 <TextBlock
                                     Name="txt_locationCost"
                                     Margin="0,0,0,10"
@@ -593,7 +593,7 @@
                                     VerticalAlignment="Center"
                                     FontFamily="Bahnschrift SemiLight"
                                     FontSize="16"
-                                    Text="200$" />
+                                    Text="{Binding TotalLocationCost, StringFormat=C}" />
                                 <TextBlock
                                     Name="txt_empCost"
                                     Margin="0,0,0,10"
@@ -601,7 +601,7 @@
                                     VerticalAlignment="Center"
                                     FontFamily="Bahnschrift SemiLight"
                                     FontSize="16"
-                                    Text="150$" />
+                                    Text="{Binding TotalEmployeeCost, StringFormat=C}" />
                                 <TextBlock
                                     Name="txt_equipmentCost"
                                     Margin="0,0,0,10"

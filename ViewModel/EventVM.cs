@@ -90,6 +90,48 @@ namespace OOP_EventsManagementSystem.ViewModel
         }
 
         // properties -------------------------------------
+        private decimal _totalShowCost;
+        public decimal TotalShowCost
+        {
+            get => _totalShowCost;
+            set
+            {
+                if (_totalShowCost != value)
+                {
+                    _totalShowCost = value;
+                    OnPropertyChanged(nameof(TotalShowCost));
+                }
+            }
+        }
+
+        private decimal _totalLocationCost;
+        public decimal TotalLocationCost
+        {
+            get => _totalLocationCost;
+            set
+            {
+                if (_totalLocationCost != value)
+                {
+                    _totalLocationCost = value;
+                    OnPropertyChanged(nameof(TotalLocationCost));
+                }
+            }
+        }
+
+        private decimal _totalEmployeeCost;
+        public decimal TotalEmployeeCost
+        {
+            get => _totalEmployeeCost;
+            set
+            {
+                if (_totalEmployeeCost != value)
+                {
+                    _totalEmployeeCost = value;
+                    OnPropertyChanged(nameof(TotalEmployeeCost));
+                }
+            }
+        }
+
         private bool _isEditing;
         public bool IsEditing
         {
@@ -429,6 +471,32 @@ namespace OOP_EventsManagementSystem.ViewModel
                 Description = selectedEvent.EventDescription;
                 SelectedEventId = selectedEvent.EventId;
 
+                // Calculate the total show cost
+                var showIds = _context
+                    .ShowSchedules.Where(ss => ss.EventId == selectedEvent.EventId)
+                    .Select(ss => ss.ShowId)
+                    .ToList();
+
+                var filteredShows = _context
+                    .Shows.Include(s => s.Performer)
+                    .Include(s => s.Genre)
+                    .Where(s => showIds.Contains(s.ShowId))
+                    .ToList();
+
+                TotalShowCost = filteredShows.Sum(s => s.Cost);
+
+                // Calculate the total location cost
+                var selectedVenue = _context.Venues.FirstOrDefault(v =>
+                    v.VenueId == SelectedVenueId
+                );
+                TotalLocationCost = selectedVenue?.Cost ?? 0;
+
+                // Calculate the total employee cost
+                var needs = _context.Needs.Where(n => n.EventId == selectedEvent.EventId).ToList();
+                TotalEmployeeCost = needs.Sum(n => n.Quantity * n.Role.Salary);
+
+                ShowsPagination = new PaginationHelper<Model.Show>(filteredShows, 9); // Set the number of items per page
+
                 // Filter equipment details for the selected event
                 var filteredEquipments = _context
                     .Requireds.Where(required => required.EventId == selectedEvent.EventId)
@@ -469,20 +537,6 @@ namespace OOP_EventsManagementSystem.ViewModel
                     .ToList();
 
                 SponsorsPagination = new PaginationHelper<object>(filteredSponsors, 8); // Set the number of items per page
-
-                // Filter shows for the selected event
-                var showIds = _context
-                    .ShowSchedules.Where(ss => ss.EventId == selectedEvent.EventId)
-                    .Select(ss => ss.ShowId)
-                    .ToList();
-
-                var filteredShows = _context
-                    .Shows.Include(s => s.Performer)
-                    .Include(s => s.Genre)
-                    .Where(s => showIds.Contains(s.ShowId))
-                    .ToList();
-
-                ShowsPagination = new PaginationHelper<Model.Show>(filteredShows, 9); // Set the number of items per page
 
                 // Open the EventDetails window
                 var eventDetailsWindow = new EventDetails
