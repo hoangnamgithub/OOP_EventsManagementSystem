@@ -224,7 +224,7 @@ namespace OOP_EventsManagementSystem.Database
 
         private static void SeedSponsorsData(EventManagementDbContext context)
         {
-            // Kiểm tra xem dữ liệu đã được seed hay chưa
+            // Check if data has already been seeded
             if (context.Sponsors.Any())
             {
                 Console.WriteLine("Sponsors data already seeded.");
@@ -232,8 +232,8 @@ namespace OOP_EventsManagementSystem.Database
             }
 
             var faker = new Bogus.Faker();
-
             var sponsors = new List<Sponsor>();
+
             for (int i = 0; i < 200; i++)
             {
                 var sponsor = new Sponsor
@@ -246,7 +246,77 @@ namespace OOP_EventsManagementSystem.Database
 
             context.Sponsors.AddRange(sponsors);
             context.SaveChanges();
-            Console.WriteLine("Seeded 50 Sponsors data successfully.");
+            Console.WriteLine("Seeded 200 Sponsors data successfully.");
+
+            // Ensure only one "Title Sponsor" per event
+            var events = context.Events.ToList();
+            var sponsorTiers = context.SponsorTiers.ToList();
+            var titleSponsorTier = sponsorTiers.FirstOrDefault(t => t.TierName == "Title Sponsor");
+
+            if (titleSponsorTier == null)
+            {
+                Console.WriteLine(
+                    "Title Sponsor tier not found. Please seed SponsorTier data first."
+                );
+                return;
+            }
+
+            var isSponsors = new List<IsSponsor>();
+
+            foreach (var @event in events)
+            {
+                // Shuffle sponsors for more variety
+                var shuffledSponsors = sponsors.OrderBy(_ => faker.Random.Int()).ToList();
+                int numSponsors = faker.Random.Int(1, sponsors.Count);
+
+                bool titleSponsorAssigned = false;
+
+                for (int i = 0; i < numSponsors; i++)
+                {
+                    var sponsor = shuffledSponsors[i];
+                    var sponsorTier = sponsorTiers[faker.Random.Int(0, sponsorTiers.Count - 1)];
+
+                    // Ensure only one "Title Sponsor" per event
+                    if (sponsorTier.TierName == "Title Sponsor")
+                    {
+                        if (titleSponsorAssigned)
+                        {
+                            continue;
+                        }
+                        titleSponsorAssigned = true;
+                    }
+
+                    var isSponsor = new IsSponsor
+                    {
+                        EventId = @event.EventId,
+                        SponsorId = sponsor.SponsorId,
+                        SponsorTierId = sponsorTier.SponsorTierId,
+                    };
+
+                    // Avoid duplicates
+                    if (
+                        !isSponsors.Any(x =>
+                            x.EventId == isSponsor.EventId
+                            && x.SponsorId == isSponsor.SponsorId
+                            && x.SponsorTierId == isSponsor.SponsorTierId
+                        )
+                    )
+                    {
+                        isSponsors.Add(isSponsor);
+                    }
+                }
+            }
+
+            if (isSponsors.Any())
+            {
+                context.IsSponsors.AddRange(isSponsors);
+                context.SaveChanges();
+                Console.WriteLine("Seeded IsSponsor data successfully.");
+            }
+            else
+            {
+                Console.WriteLine("No IsSponsor data to seed.");
+            }
         }
 
         private static void SeedEmployeeRoles(EventManagementDbContext context)
