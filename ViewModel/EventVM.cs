@@ -262,7 +262,21 @@ namespace OOP_EventsManagementSystem.ViewModel
 
                     _context.SaveChanges();
 
-                    LoadData();
+                    // Reapply filtering logic for the selected event's shows
+                    var showIds = _context
+                        .ShowSchedules.Where(ss => ss.EventId == SelectedEventId)
+                        .Select(ss => ss.ShowId)
+                        .ToList();
+
+                    var filteredShows = _context
+                        .Shows.Include(s => s.Performer)
+                        .Include(s => s.Genre)
+                        .Where(s => showIds.Contains(s.ShowId))
+                        .ToList();
+
+                    ShowsPagination = new PaginationHelper<Model.Show>(filteredShows, 9); // Set the number of items per page
+
+                    OnPropertyChanged(nameof(ShowsPagination));
                 }
 
                 ToggleEditing();

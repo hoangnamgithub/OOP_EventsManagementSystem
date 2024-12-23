@@ -84,6 +84,7 @@
                                     FontSize="14"
                                     Foreground="Gray"
                                     IsEnabled="{Binding IsEditing}"
+                                    PreviewTextInput="txtbox_expectedAttendee_PreviewTextInput"
                                     Text="{Binding ExpectedAttendee, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             </StackPanel>
                             <StackPanel Margin="0,15,0,0" Orientation="Horizontal">
@@ -209,6 +210,32 @@
                                     <Grid Margin="5,0,5,5" TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
                                         <StackPanel Background="White" Orientation="Vertical">
                                             <StackPanel Orientation="Horizontal">
+                                                <Grid
+                                                    Margin="25,10,0,10"
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Top">
+                                                    <Border
+                                                        Width="280"
+                                                        Height="35"
+                                                        Margin="0,0,80,0"
+                                                        HorizontalAlignment="Left"
+                                                        Background="#FFDCDCE6"
+                                                        CornerRadius="16">
+                                                        <TextBox
+                                                            x:Name="SearchBox_show"
+                                                            Margin="30,0,30,0"
+                                                            VerticalAlignment="Center"
+                                                            Background="{x:Null}"
+                                                            BorderBrush="{x:Null}"
+                                                            CaretBrush="{x:Null}"
+                                                            FontFamily="Bahnschrift SemiLight"
+                                                            FontSize="14"
+                                                            Foreground="Gray"
+                                                            SelectionBrush="{x:Null}"
+                                                            SelectionTextBrush="{x:Null}"
+                                                            Text="Search......" />
+                                                    </Border>
+                                                </Grid>
                                                 <!--<local:SearchBar Margin="10,0,0,0" />-->
                                                 <Button
                                                     Width="30"
@@ -280,6 +307,32 @@
                                     <Grid Margin="5,0,5,5" TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
                                         <StackPanel Background="White" Orientation="Vertical">
                                             <StackPanel Orientation="Horizontal">
+                                                <Grid
+                                                    Margin="25,10,0,10"
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Top">
+                                                    <Border
+                                                        Width="280"
+                                                        Height="35"
+                                                        Margin="0,0,80,0"
+                                                        HorizontalAlignment="Left"
+                                                        Background="#FFDCDCE6"
+                                                        CornerRadius="16">
+                                                        <TextBox
+                                                            x:Name="SearchBox_sponsor"
+                                                            Margin="30,0,30,0"
+                                                            VerticalAlignment="Center"
+                                                            Background="{x:Null}"
+                                                            BorderBrush="{x:Null}"
+                                                            CaretBrush="{x:Null}"
+                                                            FontFamily="Bahnschrift SemiLight"
+                                                            FontSize="14"
+                                                            Foreground="Gray"
+                                                            SelectionBrush="{x:Null}"
+                                                            SelectionTextBrush="{x:Null}"
+                                                            Text="Search......" />
+                                                    </Border>
+                                                </Grid>
                                                 <!--<local:SearchBar Margin="10,0,0,0" />-->
                                                 <Button
                                                     Width="30"

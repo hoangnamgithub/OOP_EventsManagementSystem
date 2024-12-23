@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -19,6 +20,20 @@ namespace OOP_EventsManagementSystem.Styles
         {
             InitializeComponent();
             DataContext = new EventVM();
+        }
+
+        private void txtbox_expectedAttendee_PreviewTextInput(
+            object sender,
+            TextCompositionEventArgs e
+        )
+        {
+            e.Handled = !IsTextNumeric(e.Text);
+        }
+
+        private static bool IsTextNumeric(string text)
+        {
+            Regex regex = new Regex("[^0-9]+"); // Regex to match non-numeric text
+            return !regex.IsMatch(text);
         }
 
         // Xử lý mở rộng Expander
