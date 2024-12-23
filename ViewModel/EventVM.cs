@@ -237,8 +237,29 @@ namespace OOP_EventsManagementSystem.ViewModel
             OnPropertyChanged(nameof(IsEditing));
         }
 
+        private bool ValidateAttendeeCount()
+        {
+            var selectedVenue = _context.Venues.FirstOrDefault(v => v.VenueId == SelectedVenueId);
+            if (selectedVenue != null && ExpectedAttendee > selectedVenue.Capacity)
+            {
+                MessageBox.Show(
+                    $"The number of attendees ({ExpectedAttendee}) exceeds the venue capacity ({selectedVenue.Capacity}).",
+                    "Validation Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
+                return false;
+            }
+            return true;
+        }
+
         private void SaveChanges()
         {
+            if (!ValidateAttendeeCount())
+            {
+                return;
+            }
+
             MessageBoxResult result = MessageBox.Show(
                 "Are you sure you want to save the changes?",
                 "Confirm Save",
@@ -262,6 +283,9 @@ namespace OOP_EventsManagementSystem.ViewModel
 
                     _context.SaveChanges();
 
+                    // Refresh data in Event.xaml
+                    LoadData();
+
                     // Reapply filtering logic for the selected event's shows
                     var showIds = _context
                         .ShowSchedules.Where(ss => ss.EventId == SelectedEventId)
@@ -276,7 +300,21 @@ namespace OOP_EventsManagementSystem.ViewModel
 
                     ShowsPagination = new PaginationHelper<Model.Show>(filteredShows, 9); // Set the number of items per page
 
+                    // Reapply filtering logic for the selected event's sponsors
+                    var filteredSponsors = _context
+                        .IsSponsors.Where(isSponsor => isSponsor.EventId == SelectedEventId)
+                        .Select(isSponsor => new
+                        {
+                            SponsorId = isSponsor.Sponsor.SponsorId,
+                            SponsorName = isSponsor.Sponsor.SponsorName,
+                            TierName = isSponsor.SponsorTier.TierName,
+                        })
+                        .ToList();
+
+                    SponsorsPagination = new PaginationHelper<object>(filteredSponsors, 8); // Set the number of items per page
+
                     OnPropertyChanged(nameof(ShowsPagination));
+                    OnPropertyChanged(nameof(SponsorsPagination));
                 }
 
                 ToggleEditing();
