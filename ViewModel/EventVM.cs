@@ -10,19 +10,17 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Identity.Client;
 using OOP_EventsManagementSystem.Model;
 using OOP_EventsManagementSystem.Styles;
 using OOP_EventsManagementSystem.Utilities;
-using OOP_EventsManagementSystem.View;
 
 namespace OOP_EventsManagementSystem.ViewModel
 {
     public class EventVM : INotifyPropertyChanged
     {
         public ICommand OpenEventDetailCommand { get; set; }
-        public ICommand ConfirmCommand { get; }
         public ICommand EditCommand { get; }
+        public ICommand SaveCommand { get; }
 
         public PaginationHelper<Model.Event> UpcomingPagination { get; set; }
         public PaginationHelper<Model.Event> HappeningPagination { get; set; }
@@ -192,6 +190,7 @@ namespace OOP_EventsManagementSystem.ViewModel
 
         // Property for binding TextBox Text
         private string _description;
+        private int _selectedEventId;
         public string Description
         {
             get => _description;
@@ -204,6 +203,18 @@ namespace OOP_EventsManagementSystem.ViewModel
                 }
             }
         }
+        public int SelectedEventId
+        {
+            get => _selectedEventId;
+            set
+            {
+                if (_selectedEventId != value)
+                {
+                    _selectedEventId = value;
+                    OnPropertyChanged(nameof(SelectedEventId));
+                }
+            }
+        }
 
         // constructor -------------------------------------
         public EventVM()
@@ -212,6 +223,7 @@ namespace OOP_EventsManagementSystem.ViewModel
 
             _context = new EventManagementDbContext();
             EditCommand = new RelayCommand(_ => ToggleEditing());
+            SaveCommand = new RelayCommand(_ => SaveChanges());
 
             // Initialize commands
             LoadData();
@@ -222,11 +234,39 @@ namespace OOP_EventsManagementSystem.ViewModel
         private void ToggleEditing()
         {
             IsEditing = !IsEditing;
+            OnPropertyChanged(nameof(IsEditing));
         }
 
-        private void ExecuteConfirmCommand(object parameter)
+        private void SaveChanges()
         {
-            // Thực hiện logic xác nhận tại đây
+            MessageBoxResult result = MessageBox.Show(
+                "Are you sure you want to save the changes?",
+                "Confirm Save",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question
+            );
+            if (result == MessageBoxResult.Yes)
+            {
+                var eventToUpdate = _context.Events.FirstOrDefault(e =>
+                    e.EventId == SelectedEventId
+                );
+                if (eventToUpdate != null)
+                {
+                    eventToUpdate.EventName = EventName;
+                    eventToUpdate.ExptedAttendee = ExpectedAttendee;
+                    eventToUpdate.VenueId = SelectedVenueId;
+                    eventToUpdate.EventTypeId = SelectedEventTypeId;
+                    eventToUpdate.StartDate = DateOnly.FromDateTime(StartDate);
+                    eventToUpdate.EndDate = DateOnly.FromDateTime(EndDate);
+                    eventToUpdate.EventDescription = Description;
+
+                    _context.SaveChanges();
+
+                    LoadData();
+                }
+
+                ToggleEditing();
+            }
         }
 
         // Thực thi lệnh để mở cửa sổ EventDescription
@@ -242,6 +282,7 @@ namespace OOP_EventsManagementSystem.ViewModel
                 StartDate = selectedEvent.StartDate.ToDateTime(TimeOnly.MinValue); // Convert DateOnly to DateTime
                 EndDate = selectedEvent.EndDate.ToDateTime(TimeOnly.MinValue); // Convert DateOnly to DateTime
                 Description = selectedEvent.EventDescription;
+                SelectedEventId = selectedEvent.EventId;
 
                 // Filter equipment details for the selected event
                 var filteredEquipments = _context

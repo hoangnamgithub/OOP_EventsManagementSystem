@@ -16,9 +16,9 @@
         <materialDesign:Card>
             <TabControl Margin="5,0,0,0" HorizontalContentAlignment="Left">
                 <!--  Up Coming Tab  -->
-                <TabItem Header="Up Coming">
+                <TabItem Name="upComingEvent" Header="Up Coming">
                     <Grid>
-                        <ScrollViewer Margin="10,55,0,10">
+                        <ScrollViewer x:Name="EventList" Margin="10,55,0,10">
                             <ItemsControl ItemsSource="{Binding UpcomingPagination.PagedCollection}">
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
@@ -125,7 +125,7 @@
                     </Grid>
                 </TabItem>
                 <!--  Happening Tab  -->
-                <TabItem Header="Happening">
+                <TabItem Name="happeningEvent" Header="Happening">
                     <Grid>
                         <ScrollViewer Margin="10,55,0,10">
                             <ItemsControl ItemsSource="{Binding HappeningPagination.PagedCollection}">
@@ -234,7 +234,7 @@
                     </Grid>
                 </TabItem>
                 <!--  Completed Tab  -->
-                <TabItem Header="Completed">
+                <TabItem Name="completedEvent" Header="Completed">
                     <Grid>
                         <ScrollViewer Margin="10,55,0,10">
                             <ItemsControl ItemsSource="{Binding CompletedPagination.PagedCollection}">
