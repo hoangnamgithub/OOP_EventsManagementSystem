@@ -282,7 +282,7 @@ namespace OOP_EventsManagementSystem.ViewModel
                     })
                     .ToList();
 
-                SponsorsPagination = new PaginationHelper<object>(filteredSponsors, 9); // Set the number of items per page
+                SponsorsPagination = new PaginationHelper<object>(filteredSponsors, 8); // Set the number of items per page
 
                 // Filter shows for the selected event
                 var showIds = _context

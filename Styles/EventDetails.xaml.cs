@@ -60,17 +60,5 @@ namespace OOP_EventsManagementSystem.Styles
                 this.DragMove();
             }
         }
-
-        private void btn_startEdit_Click(object sender, RoutedEventArgs e)
-        {
-            if (btn_startEdit.Content.ToString() == "Edit")
-            {
-                btn_startEdit.Content = "Confirm";
-            }
-            else
-            {
-                btn_startEdit.Content = "Edit";
-            }
-        }
     }
 }
