@@ -1,14 +1,12 @@
-﻿using OOP_EventsManagementSystem.ViewModel;
-using System;
+﻿using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using OOP_EventsManagementSystem.ViewModel;
-
+using OOP_EventsManagementSystem.ViewModel;
 
 namespace OOP_EventsManagementSystem.Styles
 {
@@ -22,8 +20,6 @@ namespace OOP_EventsManagementSystem.Styles
             InitializeComponent();
             DataContext = new EventVM();
         }
-
-
 
         // Xử lý mở rộng Expander
         private void Expander_Expanded(object sender, RoutedEventArgs e)
@@ -62,6 +58,18 @@ namespace OOP_EventsManagementSystem.Styles
             if (e.ButtonState == MouseButtonState.Pressed)
             {
                 this.DragMove();
+            }
+        }
+
+        private void btn_startEdit_Click(object sender, RoutedEventArgs e)
+        {
+            if (btn_startEdit.Content.ToString() == "Edit")
+            {
+                btn_startEdit.Content = "Confirm";
+            }
+            else
+            {
+                btn_startEdit.Content = "Edit";
             }
         }
     }

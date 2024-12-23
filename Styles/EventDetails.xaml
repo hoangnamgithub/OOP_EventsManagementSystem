@@ -586,7 +586,8 @@
                         Margin="15,10,0,10"
                         Command="{Binding EditCommand}"
                         Content="Edit"
-                        Style="{StaticResource GreenButton}" />
+                        Style="{StaticResource GreenButton}" 
+                        Click="btn_startEdit_Click"/>
                     <Button
                         Name="btn_cancelEdit"
                         Grid.Column="1"
