@@ -72,11 +72,7 @@ namespace OOP_EventsManagementSystem.View
             SponsorTierComboBox.SelectedIndex = -1;  // Reset ComboBox nếu cần
                                                      // Nếu có các thông báo hoặc tiêu đề trong Popup, làm mới chúng tại đây.
 
-            // Scroll to the end of the ScrollViewer
-            if (DescriptionScrollViewer != null)
-            {
-                DescriptionScrollViewer.ScrollToEnd();
-            }
+            
         }
 
         private void MenuItem_Click_1(object sender, RoutedEventArgs e)
@@ -91,10 +87,7 @@ namespace OOP_EventsManagementSystem.View
             // Reset lại các giá trị nếu cần
             SponsorTierCb_box.SelectedIndex = -1;  // Reset ComboBox nếu cần
 
-            if (DescriptionScrollViewer != null)
-            {
-                DescriptionScrollViewer.ScrollToEnd();
-            }
+            
         }
 
         private void ConfirmAddButton_Click(object sender, RoutedEventArgs e)

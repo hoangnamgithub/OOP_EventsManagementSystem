@@ -25,32 +25,69 @@ namespace OOP_EventsManagementSystem.View
         public Show()
         {
             InitializeComponent();
-            this.DataContext = new ShowVM();
-            btn_add.IsEnabled = true;
+            var viewModel = new ShowVM();
+            this.DataContext = viewModel;
+            viewModel.LoadPerformers();
         }
 
-        private void btn_add_Click(object sender, RoutedEventArgs e)
+        private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            // Vô hiệu hóa nút Add khi cửa sổ được mở
-            btn_add.IsEnabled = false;           
-            var ownerWindow = Window.GetWindow(this); // Lấy cửa sổ cha
-            var choose = new ShowOrPerformer
-            {
-                Owner = ownerWindow
-            };
-            choose.ShowDialog();
-            choose.Closed += choose_Closed;
-        }
-        private void choose_Closed(object? sender, EventArgs e)
-        {
-            // Kích hoạt lại nút Add sau khi cửa sổ được đóng
-            btn_add.IsEnabled = true;
 
-            // Hủy đăng ký sự kiện Closed để tránh lỗi nếu cửa sổ được tạo lại
-            if (sender is Window window)
-            {
-                window.Closed -= choose_Closed;
-            }
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void EditButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ConfirmButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SponsorDataGrid_BeginningEdit(object sender, DataGridBeginningEditEventArgs e)
+        {
+
+        }
+
+        private void SponsorDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void ConfirmAddButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SponsorNameComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void ConfirmAddExistButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
