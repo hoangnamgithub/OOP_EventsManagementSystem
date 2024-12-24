@@ -73,7 +73,8 @@
                             IsReadOnly="True"
                             ItemsSource="{Binding Performers}"
                             SelectedItem="{Binding SelectedPerformer}"
-                            SelectionChanged="PerformerDataGrid_SelectionChanged">
+                            SelectionChanged="PerformerDataGrid_SelectionChanged"
+                            SelectionMode="Extended">
 
                             <!--  Cột cho PerformerId  -->
                             <DataGrid.Columns>

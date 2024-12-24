@@ -382,7 +382,7 @@ public partial class EventManagementDbContext : DbContext
 
             entity.HasOne(d => d.Performer).WithMany(p => p.Shows)
                 .HasForeignKey(d => d.PerformerId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK__show__performer___5BE2A6F2");
         });
 

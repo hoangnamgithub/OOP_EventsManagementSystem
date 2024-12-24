@@ -34,14 +34,16 @@ namespace OOP_EventsManagementSystem.View
 
         private void PerformerDataGrid_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            var selectedPerformer = (Performer)((DataGrid)sender).SelectedItem;
+            var selectedPerformer = ((DataGrid)sender).SelectedItem as Performer;
 
             if (selectedPerformer != null)
             {
                 _viewModel.SelectedPerformerId = selectedPerformer.PerformerId;
                 _viewModel.LoadShowsForSelectedPerformer();
             }
+            
         }
+
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
@@ -75,49 +77,57 @@ namespace OOP_EventsManagementSystem.View
 
         private void Add_Performer(object sender, RoutedEventArgs e)
         {
-
+            var PerformerDes = new PerformerDescription();
+            PerformerDes.Show();
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-            // Kiểm tra xem có show nào được chọn trong DataGrid không
-            var selectedShow = ShowDataGrid.SelectedItem as OOP_EventsManagementSystem.Model.Show;
-            if (selectedShow != null)
+            // Kiểm tra xem có show nào được chọn trong DataGrid Show không
+            var selectedShows = ShowDataGrid.SelectedItems.Cast<OOP_EventsManagementSystem.Model.Show>().ToList();
+            if (selectedShows.Any())
             {
-                // Hiển thị MessageBox xác nhận xóa
-                var result = MessageBox.Show($"Are you sure you want to delete {selectedShow.ShowName}?",
+                // Xác nhận xóa nhiều show
+                var result = MessageBox.Show($"Are you sure you want to delete {selectedShows.Count} show(s)?",
                                               "Confirm Delete",
                                               MessageBoxButton.YesNo);
 
                 if (result == MessageBoxResult.Yes)
                 {
-                    // Gọi hàm xóa từ ViewModel
                     var performerVM = (ShowVM)DataContext;
-                    performerVM.DeleteShow(selectedShow);
+                    foreach (var show in selectedShows)
+                    {
+                        performerVM.DeleteShow(show); // Gọi hàm xóa cho từng show
+                    }
                 }
             }
             else
             {
-                // Nếu không có show, thì xóa performer được chọn
-                var selectedPerformer = PerformerDataGrid.SelectedItem as OOP_EventsManagementSystem.Model.Performer;
-                if (selectedPerformer != null)
+                // Nếu không có show, kiểm tra Performer
+                var selectedPerformers = PerformerDataGrid.SelectedItems.Cast<OOP_EventsManagementSystem.Model.Performer>().ToList();
+                if (selectedPerformers.Any())
                 {
-                    var result = MessageBox.Show($"Are you sure you want to delete the performer {selectedPerformer.FullName}?",
+                    // Xác nhận xóa nhiều performer
+                    var result = MessageBox.Show($"Are you sure you want to delete {selectedPerformers.Count} performer(s)?",
                                                   "Confirm Delete",
                                                   MessageBoxButton.YesNo);
 
                     if (result == MessageBoxResult.Yes)
                     {
                         var performerVM = (ShowVM)DataContext;
-                        performerVM.DeletePerformer(selectedPerformer); // Gọi hàm xóa performer
+                        foreach (var performer in selectedPerformers)
+                        {
+                            performerVM.DeletePerformer(performer); // Gọi hàm xóa cho từng performer
+                        }
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Please select a show or performer to delete.");
+                    MessageBox.Show("Please select one or more shows or performers to delete.");
                 }
             }
         }
+
 
         private bool isEditing = false; // Flag to track editing state
         private object currentSelectedItem = null; // The item currently being edited
@@ -150,10 +160,11 @@ namespace OOP_EventsManagementSystem.View
                 {
                     if (column is DataGridTextColumn textColumn)
                     {
-                        textColumn.IsReadOnly = false; // Cho phép chỉnh sửa cột
+                        textColumn.IsReadOnly = false; // Khóa tất cả các cột
                     }
                 }
 
+                // Chỉ cho phép chỉnh sửa trên hàng đã chọn
                 PerformerDataGrid.IsReadOnly = false; // Kích hoạt chỉnh sửa trên bảng
                 isEditing = true; // Đánh dấu trạng thái chỉnh sửa
 
@@ -166,12 +177,18 @@ namespace OOP_EventsManagementSystem.View
                 // Khóa tất cả các hàng không phải hàng được chọn
                 foreach (var row in PerformerDataGrid.Items)
                 {
-                    if (row != currentSelectedItem)
+                    var rowAsDataRow = row as Performer; // Kiểm tra kiểu dữ liệu
+                    if (rowAsDataRow != null && rowAsDataRow != currentSelectedItem)
                     {
-                        PerformerDataGrid.SelectedItem = row; // Tự động bỏ chọn các hàng còn lại
+                        // Dùng DataGridTemplateColumn để chỉ cho phép chỉnh sửa trên hàng được chọn
+                        int rowIndex = PerformerDataGrid.Items.IndexOf(row);
+                        DataGridRow dataGridRow = (DataGridRow)PerformerDataGrid.ItemContainerGenerator.ContainerFromIndex(rowIndex);
+                        if (dataGridRow != null)
+                        {
+                            dataGridRow.IsEnabled = false; // Vô hiệu hóa các hàng không phải hàng được chọn
+                        }
                     }
                 }
-
             }
             else
             {

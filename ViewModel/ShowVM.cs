@@ -117,14 +117,14 @@ namespace OOP_EventsManagementSystem.ViewModel
                         if (shows.Any())
                         {
                             context.Shows.RemoveRange(shows);
-                            MessageBox.Show($"Found {shows.Count} show(s) linked to this performer. They will be deleted.");
+                            
                         }
 
                         // Xóa performer
                         context.Performers.Remove(performer);
                         context.SaveChanges();
-
-                        MessageBox.Show("Performer and related shows deleted successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                        LoadPerformers();
+                        
                     }
                 }
                 catch (Exception ex)
@@ -144,27 +144,63 @@ namespace OOP_EventsManagementSystem.ViewModel
                     {
                         // Tìm performer trong cơ sở dữ liệu
                         var existingPerformer = context.Performers.FirstOrDefault(p => p.PerformerId == performer.PerformerId);
+
                         if (existingPerformer != null)
                         {
-                            // Cập nhật các trường của performer
+                            // Cập nhật các trường của performer nếu đã tồn tại
                             existingPerformer.FullName = performer.FullName;
                             existingPerformer.ContactDetail = performer.ContactDetail;
 
                             context.SaveChanges();
-
-                            MessageBox.Show("Performer information saved successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                            MessageBox.Show("Performer information updated successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                         }
                         else
                         {
-                            MessageBox.Show("Performer not found.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            // Tìm ID chưa tồn tại trong cơ sở dữ liệu
+                            int newId = GetNextAvailablePerformerId(context);
+                            performer.PerformerId = newId;  // Gán ID chưa sử dụng cho performer
+
+                            // Thêm performer vào cơ sở dữ liệu
+                            context.Performers.Add(performer);
+                            context.SaveChanges();
+                            MessageBox.Show("New performer saved successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                         }
+
+                        // Reload lại danh sách Performer sau khi thay đổi
+                        LoadPerformers();
                     }
                 }
+                
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"An error occurred while saving performer: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    // In thông tin chi tiết lỗi ra console hoặc messagebox
+                    string errorMessage = $"An error occurred while saving performer: {ex.Message}";
+
+                    // Kiểm tra xem có inner exception không
+                    if (ex.InnerException != null)
+                    {
+                        errorMessage += $"\nInner Exception: {ex.InnerException.Message}";
+                    }
+
+                    MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
+
             }
+        }
+
+        // Hàm tìm ID chưa tồn tại
+        private int GetNextAvailablePerformerId(EventManagementDbContext context)
+        {
+            var usedIds = context.Performers.Select(p => p.PerformerId).ToList();
+            int newId = 1;
+
+            // Kiểm tra ID tiếp theo chưa được sử dụng
+            while (usedIds.Contains(newId))
+            {
+                newId++;
+            }
+
+            return newId;
         }
 
         public void SaveChanges(Show showToSave)
