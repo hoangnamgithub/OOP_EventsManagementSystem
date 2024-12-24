@@ -22,6 +22,7 @@ namespace OOP_EventsManagementSystem.Styles
         public AddEventWindow()
         {
             InitializeComponent();
+            this.DataContext = new ViewModel.EventVM();
         }
     }
 }
