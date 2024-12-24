@@ -247,7 +247,8 @@
                                                             Width="20"
                                                             Height="20"
                                                             Background="{x:Null}"
-                                                            BorderBrush="{x:Null}" />
+                                                            BorderBrush="{x:Null}"
+                                                            Command="{Binding DeleteShowCommand}" />
                                                     </Grid>
                                                 </Border>
 
@@ -295,7 +296,7 @@
                                                         <DataGridTemplateColumn Header="">
                                                             <DataGridTemplateColumn.CellTemplate>
                                                                 <DataTemplate>
-                                                                    <CheckBox Name="chckbox_delShow" />
+                                                                    <CheckBox IsChecked="{Binding IsChecked, Mode=TwoWay}" />
                                                                 </DataTemplate>
                                                             </DataGridTemplateColumn.CellTemplate>
                                                         </DataGridTemplateColumn>
@@ -305,6 +306,7 @@
                                                         <DataGridTextColumn Binding="{Binding Genre.Genre1}" Header="Genre" />
                                                     </DataGrid.Columns>
                                                 </DataGrid>
+
                                             </Border>
                                         </StackPanel>
                                     </Grid>
