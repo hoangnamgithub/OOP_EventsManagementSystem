@@ -349,7 +349,7 @@
                                                     </Border>
                                                 </Grid>
 
-                                                <Border
+                                                <!--<Border
                                                     Width="30"
                                                     Height="30"
                                                     Margin="5"
@@ -364,7 +364,7 @@
                                                             Background="{x:Null}"
                                                             BorderBrush="{x:Null}" />
                                                     </Grid>
-                                                </Border>
+                                                </Border>-->
                                                 <!--<local:SearchBar Margin="10,0,0,0" />-->
                                                 <StackPanel Orientation="Horizontal">
                                                     <Button
@@ -400,13 +400,7 @@
                                                     Background="Transparent"
                                                     ItemsSource="{Binding SponsorsPagination.PagedCollection}">
                                                     <DataGrid.Columns>
-                                                        <DataGridTemplateColumn Header="">
-                                                            <DataGridTemplateColumn.CellTemplate>
-                                                                <DataTemplate>
-                                                                    <CheckBox />
-                                                                </DataTemplate>
-                                                            </DataGridTemplateColumn.CellTemplate>
-                                                        </DataGridTemplateColumn>
+
                                                         <DataGridTextColumn
                                                             Width="10*"
                                                             Binding="{Binding SponsorId}"
@@ -416,10 +410,22 @@
                                                             Width="40*"
                                                             Binding="{Binding SponsorName}"
                                                             Header="Sponsor Name" />
-                                                        <DataGridTextColumn
-                                                            Width="40*"
-                                                            Binding="{Binding TierName}"
-                                                            Header="Tier" />
+                                                        <DataGridTemplateColumn Width="40*" Header="Tier">
+                                                            <DataGridTemplateColumn.CellTemplate>
+                                                                <DataTemplate>
+                                                                    <TextBlock Text="{Binding TierName}" />
+                                                                </DataTemplate>
+                                                            </DataGridTemplateColumn.CellTemplate>
+                                                            <DataGridTemplateColumn.CellEditingTemplate>
+                                                                <DataTemplate>
+                                                                    <ComboBox
+                                                                        DisplayMemberPath="TierName"
+                                                                        ItemsSource="{Binding DataContext.SponsorTiers, RelativeSource={RelativeSource AncestorType=Window}}"
+                                                                        SelectedValue="{Binding TierName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                                        SelectedValuePath="TierName" />
+                                                                </DataTemplate>
+                                                            </DataGridTemplateColumn.CellEditingTemplate>
+                                                        </DataGridTemplateColumn>
                                                     </DataGrid.Columns>
                                                 </DataGrid>
                                             </Border>
