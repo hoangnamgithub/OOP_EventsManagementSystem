@@ -30,6 +30,7 @@
                     Height="350"
                     Margin="25,0,25,15"
                     AutoGenerateColumns="False"
+                    Background="White"
                     IsReadOnly="True"
                     ItemsSource="{Binding Events}"
                     SelectionChanged="DataGrid_SelectionChanged">
@@ -104,6 +105,7 @@
                         Width="470"
                         Height="450"
                         AutoGenerateColumns="False"
+                        Background="White"
                         BeginningEdit="SponsorDataGrid_BeginningEdit"
                         IsReadOnly="True"
                         ItemsSource="{Binding Sponsors}"
