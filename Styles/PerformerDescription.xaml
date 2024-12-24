@@ -45,19 +45,7 @@ Background="Transparent">
                             <RowDefinition/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Show" VerticalAlignment="Center" Margin="30,0,0,0" FontFamily="Bahnschrift SemiLight" FontSize="16" Grid.ColumnSpan="2" />
-                            
-                        </StackPanel>
-                        <Border Grid.Row="1"  CornerRadius="16" Background="#FFDCDCE6" Margin="25,5,15,5" Height="45" Grid.ColumnSpan="2">
-                            <ComboBox x:Name="performerchoose" Visibility="Visible" Margin="10,0,5,0"
-          Width="200" Height="40"
-          ItemsSource="{Binding Venues}"
-          DisplayMemberPath="VenueName"
-          SelectedValuePath="VenueId"
-          SelectedValue="{Binding SelectedVenueId, Mode=TwoWay}"
-          materialDesign:HintAssist.Hint="choosing..." />
-                        </Border>
+                        <StackPanel Orientation="Horizontal"/>
 
                     </Grid>
                     <Grid x:Name="addPerformer" Visibility="Collapsed">

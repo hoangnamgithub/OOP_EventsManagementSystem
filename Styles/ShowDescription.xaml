@@ -77,6 +77,7 @@
                             Background="#FFDCDCE6"
                             CornerRadius="16">
                             <TextBox
+                                x:Name="txtShowName"
                                 Margin="10,5,10,5"
                                 Background="{x:Null}"
                                 BorderBrush="{x:Null}"
@@ -84,8 +85,7 @@
                                 FontFamily="Bahnschrift SemiLight"
                                 FontSize="16"
                                 SelectionBrush="{x:Null}"
-                                SelectionTextBrush="{x:Null}"
-                                Text="Happy New Year" />
+                                SelectionTextBrush="{x:Null}" />
                         </Border>
                     </Grid>
                     <Grid>
@@ -101,40 +101,7 @@
                                 FontFamily="Bahnschrift SemiLight"
                                 FontSize="16"
                                 Text="Performer" />
-                            <Grid>
-                                <Grid x:Name="gridbtn_add" Visibility="Visible">
-                                    <Image
-                                        Width="20"
-                                        Height="20"
-                                        Margin="10,0,0,0"
-                                        Source="pack://application:,,,/Resources/Images/plus.png" />
-                                    <Button
-                                        x:Name="btn_addPerformer"
-                                        Width="20"
-                                        Height="20"
-                                        Margin="10,0,0,0"
-                                        Background="Transparent"
-                                        BorderBrush="Transparent"
-                                        Click="btn_addPerformer_Click"
-                                        Foreground="Black" />
-                                </Grid>
-                                <Grid x:Name="gridbtn_close" Visibility="Collapsed">
-                                    <Image
-                                        Width="20"
-                                        Height="20"
-                                        Margin="10,0,0,0"
-                                        Source="pack://application:,,,/Resources/Images/minus.png" />
-                                    <Button
-                                        x:Name="btn_closePerformer"
-                                        Width="20"
-                                        Height="20"
-                                        Margin="10,0,0,0"
-                                        Background="Transparent"
-                                        BorderBrush="Transparent"
-                                        Click="btn_closePerformer_Click"
-                                        Foreground="Black" />
-                                </Grid>
-                            </Grid>
+
                         </StackPanel>
                         <Border
                             Grid.Row="1"
@@ -143,52 +110,18 @@
                             Margin="25,5,15,5"
                             Background="#FFDCDCE6"
                             CornerRadius="16">
-                            <ComboBox
-                                x:Name="performerchoose"
-                                Width="200"
-                                Height="40"
-                                Margin="10,0,5,0"
-                                materialDesign:HintAssist.Hint="choosing..."
-                                DisplayMemberPath="VenueName"
-                                ItemsSource="{Binding Venues}"
-                                SelectedValue="{Binding SelectedVenueId, Mode=TwoWay}"
-                                SelectedValuePath="VenueId"
-                                Visibility="Visible" />
+                            <TextBox
+                                x:Name="txtPerformerName"
+                                Margin="10,5,10,5"
+                                Background="{x:Null}"
+                                BorderBrush="{x:Null}"
+                                FontFamily="Bahnschrift SemiLight"
+                                FontSize="16"
+                                IsReadOnly="True" />
                         </Border>
 
                     </Grid>
-                    <Grid x:Name="addPerformer" Visibility="Collapsed">
-                        <Border
-                            Height="75"
-                            Margin="25,0,15,5"
-                            Background="#FFDCDCE6">
-                            <StackPanel>
-                                <TextBox
-                                    Margin="5,0,5,0"
-                                    VerticalAlignment="Top"
-                                    Background="{x:Null}"
-                                    BorderBrush="{x:Null}"
-                                    CaretBrush="{x:Null}"
-                                    FontFamily="Bahnschrift SemiLight"
-                                    FontSize="16"
-                                    SelectionBrush="{x:Null}"
-                                    SelectionTextBrush="{x:Null}"
-                                    Text="Name" />
-                                <TextBox
-                                    Margin="5,0,5,0"
-                                    VerticalAlignment="Top"
-                                    Background="{x:Null}"
-                                    BorderBrush="{x:Null}"
-                                    CaretBrush="{x:Null}"
-                                    FontFamily="Bahnschrift SemiLight"
-                                    FontSize="16"
-                                    SelectionBrush="{x:Null}"
-                                    SelectionTextBrush="{x:Null}"
-                                    Text="Contact" />
-                            </StackPanel>
 
-                        </Border>
-                    </Grid>
                 </StackPanel>
                 <StackPanel
                     Grid.Column="1"
@@ -212,6 +145,7 @@
                             Background="#FFDCDCE6"
                             CornerRadius="16">
                             <TextBox
+                                x:Name="txtCost"
                                 Margin="10,5,10,5"
                                 Background="{x:Null}"
                                 BorderBrush="{x:Null}"
@@ -219,8 +153,7 @@
                                 FontFamily="Bahnschrift SemiLight"
                                 FontSize="16"
                                 SelectionBrush="{x:Null}"
-                                SelectionTextBrush="{x:Null}"
-                                Text="Happy New Year" />
+                                SelectionTextBrush="{x:Null}" />
                         </Border>
                     </Grid>
                     <Grid>
@@ -241,14 +174,12 @@
                             Background="#FFDCDCE6"
                             CornerRadius="16">
                             <ComboBox
-                                Width="190"
+                                x:Name="genreComboBox"
+                                Width="200"
                                 Height="40"
                                 Margin="10,0,5,0"
-                                materialDesign:HintAssist.Hint="choosing..."
-                                DisplayMemberPath="VenueName"
-                                ItemsSource="{Binding Venues}"
-                                SelectedValue="{Binding SelectedVenueId, Mode=TwoWay}"
-                                SelectedValuePath="VenueId" />
+                                HorizontalAlignment="Left"
+                                materialDesign:HintAssist.Hint="Select Genre" />
                         </Border>
                     </Grid>
                     <Grid Margin="0,30" Column="1">
@@ -268,6 +199,7 @@
                             Width="110"
                             Height="50"
                             HorizontalAlignment="Left"
+                            Click="btn_comfirm_Click"
                             Content="Comfirm"
                             Style="{StaticResource PinkButton}" />
                         <Button

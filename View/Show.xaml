@@ -209,8 +209,8 @@
                         Style="{StaticResource GreenButton}">
                         <Button.ContextMenu>
                             <ContextMenu x:Name="Choose">
-                                <MenuItem Click="MenuItem_Click" Header="Add New Show" />
-                                <MenuItem Click="MenuItem_Click_1" Header="Add From List Performer" />
+                                <MenuItem Click="Add_Show" Header="Add New Show" />
+                                <MenuItem Click="Add_Performer" Header="Add New Performer" />
                             </ContextMenu>
                         </Button.ContextMenu>
                     </Button>

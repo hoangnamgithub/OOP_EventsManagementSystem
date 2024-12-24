@@ -26,9 +26,7 @@ namespace OOP_EventsManagementSystem.Styles
 
         private void btn_chooseShow_click(object sender, RoutedEventArgs e)
         {
-        var showDescription = new ShowDescription();
-            showDescription.Show();
-            this.Close();
+        
         }
 
         private void btn_choosePerformer_click(object sender, RoutedEventArgs e)

@@ -21,7 +21,7 @@ namespace OOP_EventsManagementSystem.ViewModel
         public ObservableCollection<Genre> Genres { get; set; }
         public ObservableCollection<Performer> Performers { get; set; }
         public ObservableCollection<Show> SelectedPerformerShows { get; set; }
-
+        public Action ReloadAction { get; set; } // Sự kiện reload
         private int? _selectedPerformerId;
         public int? SelectedPerformerId
         {
@@ -51,6 +51,7 @@ namespace OOP_EventsManagementSystem.ViewModel
             }
         }
 
+        
         public void LoadShowsForSelectedPerformer()
         {
             if (SelectedPerformerId == null)
@@ -70,7 +71,6 @@ namespace OOP_EventsManagementSystem.ViewModel
                 SelectedPerformerShows.Add(show);
             }
         }
-
         public void DeleteShow(Show show)
         {
             if (show != null)
@@ -100,6 +100,70 @@ namespace OOP_EventsManagementSystem.ViewModel
 
                 // Xóa khỏi danh sách hiển thị
                 SelectedPerformerShows.Remove(show);
+            }
+        }
+        public void DeletePerformer(Performer performer)
+        {
+            if (performer != null)
+            {
+                try
+                {
+                    using (var context = new EventManagementDbContext())
+                    {
+                        // Lấy danh sách các show liên quan đến performer
+                        var shows = context.Shows.Where(s => s.PerformerId == performer.PerformerId).ToList();
+
+                        // Xóa tất cả các show liên quan đến performer
+                        if (shows.Any())
+                        {
+                            context.Shows.RemoveRange(shows);
+                            MessageBox.Show($"Found {shows.Count} show(s) linked to this performer. They will be deleted.");
+                        }
+
+                        // Xóa performer
+                        context.Performers.Remove(performer);
+                        context.SaveChanges();
+
+                        MessageBox.Show("Performer and related shows deleted successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error occurred while deleting performer and related shows: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+
+        public void SaveChangesForPerformer(Performer performer)
+        {
+            if (performer != null)
+            {
+                try
+                {
+                    using (var context = new EventManagementDbContext())
+                    {
+                        // Tìm performer trong cơ sở dữ liệu
+                        var existingPerformer = context.Performers.FirstOrDefault(p => p.PerformerId == performer.PerformerId);
+                        if (existingPerformer != null)
+                        {
+                            // Cập nhật các trường của performer
+                            existingPerformer.FullName = performer.FullName;
+                            existingPerformer.ContactDetail = performer.ContactDetail;
+
+                            context.SaveChanges();
+
+                            MessageBox.Show("Performer information saved successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Performer not found.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"An error occurred while saving performer: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
 
