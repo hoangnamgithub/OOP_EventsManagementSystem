@@ -156,11 +156,7 @@ namespace OOP_EventsManagementSystem.ViewModel
                         }
                         else
                         {
-                            // Tìm ID chưa tồn tại trong cơ sở dữ liệu
-                            int newId = GetNextAvailablePerformerId(context);
-                            performer.PerformerId = newId;  // Gán ID chưa sử dụng cho performer
-
-                            // Thêm performer vào cơ sở dữ liệu
+                            // Nếu performer không tồn tại, thêm mới performer vào cơ sở dữ liệu
                             context.Performers.Add(performer);
                             context.SaveChanges();
                             MessageBox.Show("New performer saved successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -170,37 +166,11 @@ namespace OOP_EventsManagementSystem.ViewModel
                         LoadPerformers();
                     }
                 }
-                
                 catch (Exception ex)
                 {
-                    // In thông tin chi tiết lỗi ra console hoặc messagebox
-                    string errorMessage = $"An error occurred while saving performer: {ex.Message}";
-
-                    // Kiểm tra xem có inner exception không
-                    if (ex.InnerException != null)
-                    {
-                        errorMessage += $"\nInner Exception: {ex.InnerException.Message}";
-                    }
-
-                    MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show($"An error occurred while saving performer: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-
             }
-        }
-
-        // Hàm tìm ID chưa tồn tại
-        private int GetNextAvailablePerformerId(EventManagementDbContext context)
-        {
-            var usedIds = context.Performers.Select(p => p.PerformerId).ToList();
-            int newId = 1;
-
-            // Kiểm tra ID tiếp theo chưa được sử dụng
-            while (usedIds.Contains(newId))
-            {
-                newId++;
-            }
-
-            return newId;
         }
 
         public void SaveChanges(Show showToSave)
