@@ -106,16 +106,6 @@ namespace OOP_EventsManagementSystem.Styles
         }
 
         // Xử lý chỉnh sửa
-        private void btn_edit_Click(object sender, RoutedEventArgs e)
-        {
-            // Logic chỉnh sửa sẽ được thực hiện ở đây
-        }
-
-        // Xử lý xóa
-        private void btn_delete_Click(object sender, RoutedEventArgs e)
-        {
-            // Logic xóa sẽ được thực hiện ở đây
-        }
 
         // Xử lý di chuyển cửa sổ bằng chuột
         private void EventDescription_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
