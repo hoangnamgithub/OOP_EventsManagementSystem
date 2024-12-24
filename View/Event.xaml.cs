@@ -1,7 +1,3 @@
-
-﻿using OOP_EventsManagementSystem.Styles;
-﻿using OOP_EventsManagementSystem.ViewModel;
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using OOP_EventsManagementSystem.Styles;
+using OOP_EventsManagementSystem.ViewModel;
 
 namespace OOP_EventsManagementSystem.View
 {
@@ -24,7 +22,6 @@ namespace OOP_EventsManagementSystem.View
     /// </summary>
     public partial class Event : UserControl
     {
-
         public Event()
         {
             InitializeComponent();
@@ -32,15 +29,13 @@ namespace OOP_EventsManagementSystem.View
             AddButton.IsEnabled = true;
             CurrentDateTextBlock.Text = DateTime.Now.ToString("dd-MM-yyyy");
         }
+
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            
             AddButton.IsEnabled = false;
 
-            
             var eventDescriptionWindow = new EventDetails();
 
-            
             eventDescriptionWindow.Closed += EventDescriptionWindow_Closed;
 
             // Hiển thị cửa sổ
@@ -57,12 +52,26 @@ namespace OOP_EventsManagementSystem.View
             {
                 window.Closed -= EventDescriptionWindow_Closed;
             }
-        }       
-        private void SearchBox_GotFocus(object sender, RoutedEventArgs e) { if (SearchBox.Text == "Search......") { SearchBox.Text = ""; SearchBox.CaretBrush = System.Windows.Media.Brushes.Black; } }
-        private void SearchBox_LostFocus(object sender, RoutedEventArgs e) { if (string.IsNullOrWhiteSpace(SearchBox.Text)) { SearchBox.Text = "Search......"; SearchBox.CaretBrush = System.Windows.Media.Brushes.Transparent; } }
-        private void btn_search_Click(object sender, RoutedEventArgs e)
-        {
-
         }
+
+        private void SearchBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (SearchBox.Text == "Search......")
+            {
+                SearchBox.Text = "";
+                SearchBox.CaretBrush = System.Windows.Media.Brushes.Black;
+            }
+        }
+
+        private void SearchBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(SearchBox.Text))
+            {
+                SearchBox.Text = "Search......";
+                SearchBox.CaretBrush = System.Windows.Media.Brushes.Transparent;
+            }
+        }
+
+        private void btn_search_Click(object sender, RoutedEventArgs e) { }
     }
 }
