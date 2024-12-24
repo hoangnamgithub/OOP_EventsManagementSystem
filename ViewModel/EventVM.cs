@@ -24,6 +24,8 @@ namespace OOP_EventsManagementSystem.ViewModel
         public ICommand NextPageCommand { get; }
         public ICommand PreviousPageCommand { get; }
 
+        public ICommand DeleteShowCommand { get; }
+
         private readonly EventManagementDbContext _context;
 
         public PaginationHelper<dynamic> SponsorsPagination { get; set; }
@@ -309,11 +311,11 @@ namespace OOP_EventsManagementSystem.ViewModel
         // constructor ----------------------------------------------
         public EventVM()
         {
-            OpenEventDetailCommand = new RelayCommand(ExecuteOpenEventDetailCommand);
-
             _context = new EventManagementDbContext();
+            OpenEventDetailCommand = new RelayCommand(ExecuteOpenEventDetailCommand);
             EditCommand = new RelayCommand(_ => ToggleEditing());
             SaveCommand = new RelayCommand(_ => SaveChanges());
+            DeleteShowCommand = new RelayCommand(ExecuteDeleteShowCommand);
 
             // Initialize commands
             LoadData();
@@ -322,6 +324,72 @@ namespace OOP_EventsManagementSystem.ViewModel
         }
 
         //--------------------------------------------------------------
+        private void ExecuteDeleteShowCommand(object parameter)
+        {
+            // Show a confirmation message box
+            MessageBoxResult result = MessageBox.Show(
+                "Are you sure you want to delete the selected shows?",
+                "Confirm Delete",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Warning
+            );
+
+            // If the user clicks 'Yes', proceed with the deletion
+            if (result == MessageBoxResult.Yes)
+            {
+                var showsToDelete = ShowsPagination
+                    .PagedCollection.Where(show => show.IsChecked)
+                    .ToList();
+
+                foreach (var show in showsToDelete)
+                {
+                    // Remove associated ShowSchedules
+                    var showSchedules = _context
+                        .ShowSchedules.Where(ss =>
+                            ss.ShowId == show.ShowId && ss.EventId == SelectedEventId
+                        )
+                        .ToList();
+                    _context.ShowSchedules.RemoveRange(showSchedules);
+
+                    // Remove the Show itself
+                    _context.Shows.Remove(show);
+                }
+
+                _context.SaveChanges();
+                LoadData();
+
+                // Reapply filtering logic for the selected event's shows
+                var showIds = _context
+                    .ShowSchedules.Where(ss => ss.EventId == SelectedEventId)
+                    .Select(ss => ss.ShowId)
+                    .ToList();
+
+                var filteredShows = _context
+                    .Shows.Include(s => s.Performer)
+                    .Include(s => s.Genre)
+                    .Where(s => showIds.Contains(s.ShowId))
+                    .ToList();
+
+                ShowsPagination = new PaginationHelper<Model.Show>(filteredShows, 9); // Set the number of items per page
+
+                // Reapply filtering logic for the selected event's sponsors
+                var filteredSponsors = _context
+                    .IsSponsors.Where(isSponsor => isSponsor.EventId == SelectedEventId)
+                    .Select(isSponsor => new
+                    {
+                        SponsorId = isSponsor.Sponsor.SponsorId,
+                        SponsorName = isSponsor.Sponsor.SponsorName,
+                        TierName = isSponsor.SponsorTier.TierName,
+                    })
+                    .ToList();
+
+                SponsorsPagination = new PaginationHelper<object>(filteredSponsors, 8); // Set the number of items per page
+
+                OnPropertyChanged(nameof(ShowsPagination));
+                OnPropertyChanged(nameof(SponsorsPagination));
+            }
+        }
+
         private void ToggleEditing()
         {
             IsEditing = !IsEditing;
@@ -644,10 +712,10 @@ namespace OOP_EventsManagementSystem.ViewModel
                 9
             );
 
-            ShowsPagination = new PaginationHelper<Model.Show>(
-                _context.Shows.Include(s => s.Performer).Include(s => s.Genre).ToList(),
-                9
-            );
+            // Ensure IsChecked is not used in the query
+            var shows = _context.Shows.Include(s => s.Performer).Include(s => s.Genre).ToList();
+            ShowsPagination = new PaginationHelper<Model.Show>(shows, 9);
+
             SponsorsPagination = new PaginationHelper<dynamic>(_context.Sponsors.ToList(), 9);
 
             OnPropertyChanged(nameof(UpcomingPagination));
@@ -660,21 +728,20 @@ namespace OOP_EventsManagementSystem.ViewModel
                 allEvents.Where(e => e.StartDate.ToDateTime(TimeOnly.MinValue) > DateTime.Now)
             );
 
-            // Các dữ liệu khác
             HappeningEvents = new ObservableCollection<Model.Event>(
                 allEvents.Where(e =>
                     e.StartDate.ToDateTime(TimeOnly.MinValue) <= DateTime.Now
                     && e.EndDate.ToDateTime(TimeOnly.MinValue) >= DateTime.Now
                 )
             );
+
             CompletedEvents = new ObservableCollection<Model.Event>(
                 allEvents.Where(e => e.EndDate.ToDateTime(TimeOnly.MinValue) < DateTime.Now)
             );
+
             EventTypes = new ObservableCollection<Model.EventType>(_context.EventTypes.ToList());
             Venues = new ObservableCollection<Model.Venue>(_context.Venues.ToList());
-            Shows = new ObservableCollection<Model.Show>(
-                _context.Shows.Include(s => s.Performer).Include(s => s.Genre).ToList()
-            );
+            Shows = new ObservableCollection<Model.Show>(shows);
             Sponsors = new ObservableCollection<Sponsor>(_context.Sponsors.ToList());
             Employees = new ObservableCollection<Model.Employee>(
                 _context.Employees.Include(e => e.Role).ToList()

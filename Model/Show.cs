@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OOP_EventsManagementSystem.Model;
 
@@ -20,4 +22,23 @@ public partial class Show
     public virtual Performer Performer { get; set; } = null!;
 
     public virtual ICollection<ShowSchedule> ShowSchedules { get; set; } = new List<ShowSchedule>();
+
+    [NotMapped]
+    private bool _isChecked;
+    public bool IsChecked
+    {
+        get => _isChecked;
+        set
+        {
+            _isChecked = value;
+            OnPropertyChanged(nameof(IsChecked));
+        }
+    }
+
+    public event PropertyChangedEventHandler? PropertyChanged;
+
+    protected virtual void OnPropertyChanged(string propertyName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
 }

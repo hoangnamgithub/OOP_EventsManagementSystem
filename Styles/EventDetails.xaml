@@ -48,9 +48,10 @@
                                 Style="{StaticResource txt_header}"
                                 Text="Event" />
                             <TextBlock
+                                Margin="50,0,0,0"
                                 FontSize="40"
                                 Style="{StaticResource txt_header}"
-                                Text="Description" />
+                                Text="Details" />
                         </StackPanel>
                         <StackPanel Grid.Column="0" Margin="20,10,0,0">
                             <StackPanel Orientation="Horizontal">
@@ -209,15 +210,11 @@
                                     Header="Shows">
                                     <Grid Margin="5,0,5,5" TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
                                         <StackPanel Background="White" Orientation="Vertical">
-                                            <StackPanel Orientation="Horizontal">
-                                                <Grid
-                                                    Margin="25,10,0,10"
-                                                    HorizontalAlignment="Left"
-                                                    VerticalAlignment="Top">
+                                            <StackPanel Margin="5" Orientation="Horizontal">
+                                                <Grid HorizontalAlignment="Left">
                                                     <Border
                                                         Width="280"
                                                         Height="35"
-                                                        Margin="0,0,80,0"
                                                         HorizontalAlignment="Left"
                                                         Background="#FFDCDCE6"
                                                         CornerRadius="16">
@@ -225,6 +222,7 @@
                                                             x:Name="SearchBox_show"
                                                             Margin="30,0,30,0"
                                                             VerticalAlignment="Center"
+                                                            materialDesign:HintAssist.Hint="Search"
                                                             Background="{x:Null}"
                                                             BorderBrush="{x:Null}"
                                                             CaretBrush="{x:Null}"
@@ -232,33 +230,53 @@
                                                             FontSize="14"
                                                             Foreground="Gray"
                                                             SelectionBrush="{x:Null}"
-                                                            SelectionTextBrush="{x:Null}"
-                                                            Text="Search......" />
+                                                            SelectionTextBrush="{x:Null}" />
                                                     </Border>
                                                 </Grid>
+
+                                                <Border
+                                                    Width="30"
+                                                    Height="30"
+                                                    Margin="5"
+                                                    Background="#FFDCDCE6"
+                                                    CornerRadius="16">
+                                                    <Grid>
+                                                        <Image Margin="6" Source="pack://application:,,,/Resources/Images/delete-outline.png" />
+                                                        <Button
+                                                            x:Name="btn_deleteShow"
+                                                            Width="20"
+                                                            Height="20"
+                                                            Background="{x:Null}"
+                                                            BorderBrush="{x:Null}"
+                                                            Command="{Binding DeleteShowCommand}" />
+                                                    </Grid>
+                                                </Border>
+
                                                 <!--<local:SearchBar Margin="10,0,0,0" />-->
-                                                <Button
-                                                    Width="30"
-                                                    Height="30"
-                                                    Margin="0"
-                                                    VerticalAlignment="Center"
-                                                    Command="{Binding PreviousPageCommand}"
-                                                    CommandParameter="Shows"
-                                                    Content="&lt;"
-                                                    IsEnabled="{Binding ShowsPagination.CanGoPrevious}"
-                                                    Style="{StaticResource PurpleButton}" />
-                                                <TextBlock Margin="3,15,2,0" Text="{Binding ShowsPagination.CurrentPage}" />
-                                                <TextBlock Margin="2,15,3,0" Text="of" />
-                                                <TextBlock Margin="5,15" Text="{Binding ShowsPagination.TotalPages}" />
-                                                <Button
-                                                    Width="30"
-                                                    Height="30"
-                                                    VerticalAlignment="Center"
-                                                    Command="{Binding NextPageCommand}"
-                                                    CommandParameter="Shows"
-                                                    Content="&gt;"
-                                                    IsEnabled="{Binding ShowsPagination.CanGoNext}"
-                                                    Style="{StaticResource PurpleButton}" />
+                                                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                                                    <Button
+                                                        Width="30"
+                                                        Height="30"
+                                                        Margin="0"
+                                                        VerticalAlignment="Center"
+                                                        Command="{Binding PreviousPageCommand}"
+                                                        CommandParameter="Shows"
+                                                        Content="&lt;"
+                                                        IsEnabled="{Binding ShowsPagination.CanGoPrevious}"
+                                                        Style="{StaticResource PurpleButton}" />
+                                                    <TextBlock VerticalAlignment="Center" Text="{Binding ShowsPagination.CurrentPage}" />
+                                                    <TextBlock VerticalAlignment="Center" Text=" of " />
+                                                    <TextBlock VerticalAlignment="Center" Text="{Binding ShowsPagination.TotalPages}" />
+                                                    <Button
+                                                        Width="30"
+                                                        Height="30"
+                                                        VerticalAlignment="Center"
+                                                        Command="{Binding NextPageCommand}"
+                                                        CommandParameter="Shows"
+                                                        Content="&gt;"
+                                                        IsEnabled="{Binding ShowsPagination.CanGoNext}"
+                                                        Style="{StaticResource PurpleButton}" />
+                                                </StackPanel>
                                             </StackPanel>
                                             <Border Height="300" Margin="0">
                                                 <DataGrid
@@ -278,7 +296,7 @@
                                                         <DataGridTemplateColumn Header="">
                                                             <DataGridTemplateColumn.CellTemplate>
                                                                 <DataTemplate>
-                                                                    <CheckBox />
+                                                                    <CheckBox IsChecked="{Binding IsChecked, Mode=TwoWay}" />
                                                                 </DataTemplate>
                                                             </DataGridTemplateColumn.CellTemplate>
                                                         </DataGridTemplateColumn>
@@ -288,6 +306,7 @@
                                                         <DataGridTextColumn Binding="{Binding Genre.Genre1}" Header="Genre" />
                                                     </DataGrid.Columns>
                                                 </DataGrid>
+
                                             </Border>
                                         </StackPanel>
                                     </Grid>
@@ -306,15 +325,11 @@
                                     Header="Sponsors">
                                     <Grid Margin="5,0,5,5" TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
                                         <StackPanel Background="White" Orientation="Vertical">
-                                            <StackPanel Orientation="Horizontal">
-                                                <Grid
-                                                    Margin="25,10,0,10"
-                                                    HorizontalAlignment="Left"
-                                                    VerticalAlignment="Top">
+                                            <StackPanel Margin="5" Orientation="Horizontal">
+                                                <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
                                                     <Border
                                                         Width="280"
                                                         Height="35"
-                                                        Margin="0,0,80,0"
                                                         HorizontalAlignment="Left"
                                                         Background="#FFDCDCE6"
                                                         CornerRadius="16">
@@ -322,6 +337,7 @@
                                                             x:Name="SearchBox_sponsor"
                                                             Margin="30,0,30,0"
                                                             VerticalAlignment="Center"
+                                                            materialDesign:HintAssist.Hint="Search"
                                                             Background="{x:Null}"
                                                             BorderBrush="{x:Null}"
                                                             CaretBrush="{x:Null}"
@@ -329,33 +345,51 @@
                                                             FontSize="14"
                                                             Foreground="Gray"
                                                             SelectionBrush="{x:Null}"
-                                                            SelectionTextBrush="{x:Null}"
-                                                            Text="Search......" />
+                                                            SelectionTextBrush="{x:Null}" />
                                                     </Border>
                                                 </Grid>
+
+                                                <Border
+                                                    Width="30"
+                                                    Height="30"
+                                                    Margin="5"
+                                                    Background="#FFDCDCE6"
+                                                    CornerRadius="16">
+                                                    <Grid>
+                                                        <Image Margin="6" Source="pack://application:,,,/Resources/Images/delete-outline.png" />
+                                                        <Button
+                                                            x:Name="btn_deleteSponsor"
+                                                            Width="20"
+                                                            Height="20"
+                                                            Background="{x:Null}"
+                                                            BorderBrush="{x:Null}" />
+                                                    </Grid>
+                                                </Border>
                                                 <!--<local:SearchBar Margin="10,0,0,0" />-->
-                                                <Button
-                                                    Width="30"
-                                                    Height="30"
-                                                    Margin="0"
-                                                    VerticalAlignment="Center"
-                                                    Command="{Binding PreviousPageCommand}"
-                                                    CommandParameter="Sponsors"
-                                                    Content="&lt;"
-                                                    IsEnabled="{Binding SponsorsPagination.CanGoPrevious}"
-                                                    Style="{StaticResource PurpleButton}" />
-                                                <TextBlock Margin="3,15,2,0" Text="{Binding SponsorsPagination.CurrentPage}" />
-                                                <TextBlock Margin="2,15,3,0" Text="of" />
-                                                <TextBlock Margin="5,15" Text="{Binding SponsorsPagination.TotalPages}" />
-                                                <Button
-                                                    Width="30"
-                                                    Height="30"
-                                                    VerticalAlignment="Center"
-                                                    Command="{Binding NextPageCommand}"
-                                                    CommandParameter="Sponsors"
-                                                    Content="&gt;"
-                                                    IsEnabled="{Binding SponsorsPagination.CanGoNext}"
-                                                    Style="{StaticResource PurpleButton}" />
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Button
+                                                        Width="30"
+                                                        Height="30"
+                                                        Margin="0"
+                                                        VerticalAlignment="Center"
+                                                        Command="{Binding PreviousPageCommand}"
+                                                        CommandParameter="Sponsors"
+                                                        Content="&lt;"
+                                                        IsEnabled="{Binding SponsorsPagination.CanGoPrevious}"
+                                                        Style="{StaticResource PurpleButton}" />
+                                                    <TextBlock VerticalAlignment="Center" Text="{Binding SponsorsPagination.CurrentPage}" />
+                                                    <TextBlock VerticalAlignment="Center" Text=" of " />
+                                                    <TextBlock VerticalAlignment="Center" Text="{Binding SponsorsPagination.TotalPages}" />
+                                                    <Button
+                                                        Width="30"
+                                                        Height="30"
+                                                        VerticalAlignment="Center"
+                                                        Command="{Binding NextPageCommand}"
+                                                        CommandParameter="Sponsors"
+                                                        Content="&gt;"
+                                                        IsEnabled="{Binding SponsorsPagination.CanGoNext}"
+                                                        Style="{StaticResource PurpleButton}" />
+                                                </StackPanel>
                                             </StackPanel>
                                             <Border Height="300" Background="White">
                                                 <DataGrid
@@ -364,7 +398,6 @@
                                                     VerticalAlignment="Stretch"
                                                     AutoGenerateColumns="False"
                                                     Background="Transparent"
-                                                    IsReadOnly="True"
                                                     ItemsSource="{Binding SponsorsPagination.PagedCollection}">
                                                     <DataGrid.Columns>
                                                         <DataGridTemplateColumn Header="">
@@ -377,7 +410,8 @@
                                                         <DataGridTextColumn
                                                             Width="10*"
                                                             Binding="{Binding SponsorId}"
-                                                            Header="ID" />
+                                                            Header="ID"
+                                                            IsReadOnly="True" />
                                                         <DataGridTextColumn
                                                             Width="40*"
                                                             Binding="{Binding SponsorName}"
