@@ -66,63 +66,13 @@
                     Name="equipment_requirements_section"
                     Margin="10,0,10,10"
                     HorizontalAlignment="Stretch"
-                    Background="Gray"
+                    Background="LightGreen"
                     Expanded="Expander_Expanded"
                     FontFamily="Bahnschrift SemiBold"
                     FontSize="18"
                     Foreground="White"
-                    Header="Equipment Req Statistic">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="40*" />
-                            <RowDefinition Height="30*" />
-                            <RowDefinition Height="30*" />
-                        </Grid.RowDefinitions>
-                        <!--  Chart Area 1  -->
-
-                        <Border
-                            Grid.Row="0"
-                            Height="200"
-                            Margin="5"
-                            Padding="10"
-                            BorderBrush="Gray"
-                            BorderThickness="1">
-                            <lvc:CartesianChart
-                                Grid.Row="0"
-                                LegendLocation="Right"
-                                Series="{Binding EquipmentQuantityByEvent}">
-                                <lvc:CartesianChart.AxisX>
-                                    <lvc:Axis Title="Event" Labels="{Binding EventLabels}" />
-                                </lvc:CartesianChart.AxisX>
-                                <lvc:CartesianChart.AxisY>
-                                    <lvc:Axis Title="Quantity" />
-                                </lvc:CartesianChart.AxisY>
-                            </lvc:CartesianChart>
-                        </Border>
-                        <Border
-                            Grid.Row="0"
-                            Height="200"
-                            Margin="5"
-                            Padding="10"
-                            Background="Transparent"
-                            BorderBrush="Gray"
-                            BorderThickness="1">
-                            <lvc:CartesianChart
-                                Grid.Row="1"
-                                LegendLocation="Right"
-                                Series="{Binding EquipmentByTypeAcrossEvents}">
-                                <lvc:CartesianChart.AxisX>
-                                    <lvc:Axis Title="Event" Labels="{Binding EventLabels}" />
-                                </lvc:CartesianChart.AxisX>
-                                <lvc:CartesianChart.AxisY>
-                                    <lvc:Axis Title="Quantity" />
-                                </lvc:CartesianChart.AxisY>
-                            </lvc:CartesianChart>
-                        </Border>
-
-
-
-                    </Grid>
+                    Header="Venue">
+                    <styles:VenueAnalyze />
                 </Expander>
             </StackPanel>
         </ScrollViewer>

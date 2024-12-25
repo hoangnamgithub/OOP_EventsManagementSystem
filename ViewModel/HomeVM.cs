@@ -205,6 +205,30 @@ namespace OOP_EventsManagementSystem.ViewModel
             }
         }
 
+        // Bar Chart: Venue cost comparison
+        private SeriesCollection _venueCostComparison;
+        public SeriesCollection VenueCostComparison
+        {
+            get => _venueCostComparison;
+            set
+            {
+                _venueCostComparison = value;
+                OnPropertyChanged(nameof(VenueCostComparison));
+            }
+        }
+
+        // Histogram: Venue capacity distribution
+        private SeriesCollection _venueCapacityDistribution;
+        public SeriesCollection VenueCapacityDistribution
+        {
+            get => _venueCapacityDistribution;
+            set
+            {
+                _venueCapacityDistribution = value;
+                OnPropertyChanged(nameof(VenueCapacityDistribution));
+            }
+        }
+
         //--------------------------------------------------------------------------------------------------------------
         //--------------------------------------------------------------------------------------------------------------
         //--------------------------------------------------------------------------------------------------------------
@@ -454,6 +478,52 @@ namespace OOP_EventsManagementSystem.ViewModel
 
                 StackedSponsorChart.Add(columnSeries);
             }
+
+            VenueLabels = eventsByVenueData.Select(d => d.VenueName).ToList();
+            EventsByVenue = new SeriesCollection();
+            foreach (var item in eventsByVenueData)
+            {
+                EventsByVenue.Add(
+                    new PieSeries
+                    {
+                        Title = item.VenueName,
+                        Values = new ChartValues<int> { item.EventCount },
+                        DataLabels = true,
+                    }
+                );
+            }
+
+            // Bar Chart: Venue cost comparison
+            var venueCostComparisonData = _context
+                .Venues.Select(v => new { v.VenueName, v.Cost })
+                .ToList();
+
+            VenueCostComparison = new SeriesCollection
+            {
+                new ColumnSeries
+                {
+                    Title = "Venue Cost",
+                    Values = new ChartValues<decimal>(venueCostComparisonData.Select(d => d.Cost)),
+                },
+            };
+
+            // Histogram: Venue capacity distribution
+            var venueCapacityDistributionData = _context
+                .Venues.GroupBy(v => v.Capacity)
+                .Select(g => new { Capacity = g.Key, VenueCount = g.Count() })
+                .OrderBy(d => d.Capacity)
+                .ToList();
+
+            VenueCapacityDistribution = new SeriesCollection
+            {
+                new ColumnSeries
+                {
+                    Title = "Number of Venues",
+                    Values = new ChartValues<int>(
+                        venueCapacityDistributionData.Select(d => d.VenueCount)
+                    ),
+                },
+            };
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
