@@ -159,6 +159,52 @@ namespace OOP_EventsManagementSystem.ViewModel
             }
         }
 
+        private SeriesCollection _sponsorCountByTier;
+        public SeriesCollection SponsorCountByTier
+        {
+            get => _sponsorCountByTier;
+            set
+            {
+                _sponsorCountByTier = value;
+                OnPropertyChanged(nameof(SponsorCountByTier));
+            }
+        }
+
+        // Pie Chart: Percentage of sponsors by sponsor tier
+        private SeriesCollection _sponsorPercentageByTier;
+        public SeriesCollection SponsorPercentageByTier
+        {
+            get => _sponsorPercentageByTier;
+            set
+            {
+                _sponsorPercentageByTier = value;
+                OnPropertyChanged(nameof(SponsorPercentageByTier));
+            }
+        }
+
+        // Stacked Bar Chart: Sponsors contributing to multiple events by sponsor tier
+        private SeriesCollection _stackedSponsorChart;
+        public SeriesCollection StackedSponsorChart
+        {
+            get => _stackedSponsorChart;
+            set
+            {
+                _stackedSponsorChart = value;
+                OnPropertyChanged(nameof(StackedSponsorChart));
+            }
+        }
+
+        private List<string> _tierLabels;
+        public List<string> TierLabels
+        {
+            get => _tierLabels;
+            set
+            {
+                _tierLabels = value;
+                OnPropertyChanged(nameof(TierLabels));
+            }
+        }
+
         //--------------------------------------------------------------------------------------------------------------
         //--------------------------------------------------------------------------------------------------------------
         //--------------------------------------------------------------------------------------------------------------
@@ -337,6 +383,76 @@ namespace OOP_EventsManagementSystem.ViewModel
                         DataLabels = true,
                     }
                 );
+            }
+
+            var sponsorCountByTierData = _context
+                .SponsorTiers.Select(t => new
+                {
+                    t.TierName,
+                    SponsorCount = t
+                        .IsSponsors.Select(isSponsor => isSponsor.SponsorId)
+                        .Distinct()
+                        .Count(),
+                })
+                .ToList();
+
+            TierLabels = sponsorCountByTierData.Select(d => d.TierName).ToList();
+            SponsorCountByTier = new SeriesCollection
+            {
+                new ColumnSeries
+                {
+                    Title = "Number of Sponsors",
+                    Values = new ChartValues<int>(
+                        sponsorCountByTierData.Select(d => d.SponsorCount)
+                    ),
+                },
+            };
+
+            // Pie Chart: Percentage of sponsors by sponsor tier
+            var totalSponsors = sponsorCountByTierData.Sum(d => d.SponsorCount);
+            SponsorPercentageByTier = new SeriesCollection();
+            foreach (var item in sponsorCountByTierData)
+            {
+                SponsorPercentageByTier.Add(
+                    new PieSeries
+                    {
+                        Title = item.TierName,
+                        Values = new ChartValues<double>
+                        {
+                            (double)item.SponsorCount / totalSponsors * 100,
+                        },
+                        DataLabels = true,
+                    }
+                );
+            }
+
+            // Stacked Bar Chart: Sponsors contributing to multiple events by sponsor tier
+            var stackedSponsorChartData = _context
+                .SponsorTiers.Select(t => new
+                {
+                    t.TierName,
+                    SponsorCounts = t
+                        .IsSponsors.GroupBy(isSponsor => isSponsor.SponsorId)
+                        .Select(g => new { SponsorId = g.Key, EventCount = g.Count() }),
+                })
+                .ToList();
+
+            StackedSponsorChart = new SeriesCollection();
+            foreach (var tier in stackedSponsorChartData)
+            {
+                var values = tier
+                    .SponsorCounts.GroupBy(sc => sc.EventCount)
+                    .Select(g => new { EventCount = g.Key, Count = g.Count() })
+                    .OrderBy(sc => sc.EventCount)
+                    .ToList();
+
+                var columnSeries = new StackedColumnSeries
+                {
+                    Title = tier.TierName,
+                    Values = new ChartValues<int>(values.Select(v => v.Count)),
+                };
+
+                StackedSponsorChart.Add(columnSeries);
             }
         }
 

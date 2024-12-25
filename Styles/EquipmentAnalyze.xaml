@@ -86,7 +86,7 @@
                                 HorizontalAlignment="Center"
                                 FontSize="10"
                                 Foreground="Black"
-                                LegendLocation="Right"
+                                LegendLocation="Left"
                                 Series="{Binding EquipmentCostByType}" />
                         </Grid>
                     </Border>
