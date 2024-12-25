@@ -324,6 +324,52 @@ namespace OOP_EventsManagementSystem.ViewModel
         }
 
         //--------------------------------------------------------------
+        private void RecalculateAndRefreshCosts()
+        {
+            // Recalculate the total show cost
+            var showIds = _context
+                .ShowSchedules.Where(ss => ss.EventId == SelectedEventId)
+                .Select(ss => ss.ShowId)
+                .ToList();
+
+            var filteredShows = _context
+                .Shows.Include(s => s.Performer)
+                .Include(s => s.Genre)
+                .Where(s => showIds.Contains(s.ShowId))
+                .ToList();
+
+            TotalShowCost = filteredShows.Sum(s => s.Cost);
+
+            // Recalculate the total location cost
+            var selectedVenue = _context.Venues.FirstOrDefault(v => v.VenueId == SelectedVenueId);
+            TotalLocationCost = selectedVenue?.Cost ?? 0;
+
+            // Recalculate the total employee cost
+            var needs = _context.Needs.Where(n => n.EventId == SelectedEventId).ToList();
+            TotalEmployeeCost = needs.Sum(n => n.Quantity * n.Role.Salary);
+
+            // Recalculate the total equipment cost
+            var requiredEquipments = _context
+                .Requireds.Include(r => r.EquipName)
+                .Where(r => r.EventId == SelectedEventId)
+                .ToList();
+            TotalEquipmentCost = requiredEquipments.Sum(r =>
+                r.Quantity * (r.EquipName?.EquipCost ?? 0)
+            );
+
+            // Update service cost and total cost
+            UpdateServiceCost();
+            UpdateTotalCost();
+
+            // Notify property changes
+            OnPropertyChanged(nameof(TotalShowCost));
+            OnPropertyChanged(nameof(TotalLocationCost));
+            OnPropertyChanged(nameof(TotalEmployeeCost));
+            OnPropertyChanged(nameof(TotalEquipmentCost));
+            OnPropertyChanged(nameof(ServiceCost));
+            OnPropertyChanged(nameof(TotalCost));
+        }
+
         private void ExecuteDeleteShowCommand(object parameter)
         {
             // Show a confirmation message box
@@ -374,19 +420,16 @@ namespace OOP_EventsManagementSystem.ViewModel
 
                 // Reapply filtering logic for the selected event's sponsors
                 var filteredSponsors = _context
-    .IsSponsors
-    .Include(isSponsor => isSponsor.Sponsor)          // Bao gồm dữ liệu từ bảng Sponsor
-    .Include(isSponsor => isSponsor.SponsorTier)      // Bao gồm dữ liệu từ bảng SponsorTier
-    .Where(isSponsor => isSponsor.EventId == SelectedEventId)
-    .Select(isSponsor => new FilteredSponsor
-    {
-        SponsorId = isSponsor.Sponsor.SponsorId,     // Lấy thông tin từ Sponsor
-        SponsorName = isSponsor.Sponsor.SponsorName, // Lấy tên của sponsor
-        TierName = isSponsor.SponsorTier.TierName    // Lấy tên của sponsor tier
-    })
-    .ToList();
-
-
+                    .IsSponsors.Include(isSponsor => isSponsor.Sponsor) // Bao gồm dữ liệu từ bảng Sponsor
+                    .Include(isSponsor => isSponsor.SponsorTier) // Bao gồm dữ liệu từ bảng SponsorTier
+                    .Where(isSponsor => isSponsor.EventId == SelectedEventId)
+                    .Select(isSponsor => new FilteredSponsor
+                    {
+                        SponsorId = isSponsor.Sponsor.SponsorId, // Lấy thông tin từ Sponsor
+                        SponsorName = isSponsor.Sponsor.SponsorName, // Lấy tên của sponsor
+                        TierName = isSponsor.SponsorTier.TierName, // Lấy tên của sponsor tier
+                    })
+                    .ToList();
 
                 SponsorsPagination = new PaginationHelper<FilteredSponsor>(filteredSponsors, 8); // Set the number of items per page
 
@@ -544,63 +587,58 @@ namespace OOP_EventsManagementSystem.ViewModel
                         {
                             SponsorId = isSponsor.Sponsor.SponsorId,
                             SponsorName = isSponsor.Sponsor.SponsorName,
-                            TierName = isSponsor.SponsorTier.TierName
+                            TierName = isSponsor.SponsorTier.TierName,
                         })
                         .ToList();
 
                     SponsorsPagination = new PaginationHelper<FilteredSponsor>(filteredSponsors, 8); // Set the number of items per page
 
-                    // Notify property changes
-                    OnPropertyChanged(nameof(ShowsPagination));
-                    OnPropertyChanged(nameof(SponsorsPagination));
-                }
-
-                // Update Employees DataGrid changes
-                foreach (var employee in FilteredEmployeeRoles)
-                {
-                    // Lấy thông tin từ bảng Need dựa trên RoleId và EventId
-                    var need = _context.Needs
-                                       .FirstOrDefault(n => n.RoleId == employee.RoleId && n.EventId == SelectedEventId);
-
-                    if (need != null)
+                    // Update Employees DataGrid changes
+                    foreach (var employee in FilteredEmployeeRoles)
                     {
+                        // Lấy thông tin từ bảng Need dựa trên RoleId và EventId
+                        var need = _context.Needs.FirstOrDefault(n =>
+                            n.RoleId == employee.RoleId && n.EventId == SelectedEventId
+                        );
 
-
-                        // Cập nhật Quantity từ bảng Need vào EmployeeRole
-                        need.Quantity = employee.Quantity;
+                        if (need != null)
+                        {
+                            // Cập nhật Quantity từ bảng Need vào EmployeeRole
+                            need.Quantity = employee.Quantity;
 
                             _context.SaveChanges();
-                        
+                        }
                     }
-                }
 
-
-                // Update Equipments DataGrid changes
-                foreach (var equipment in FilteredEquipments)
-                {
-                    // Tìm đối tượng Required tương ứng với EquipNameId
-                    var requiredToUpdate = _context.Requireds
-                        .FirstOrDefault(r => r.EquipNameId == equipment.EquipNameId && r.EventId == SelectedEventId); // Thêm điều kiện EventId nếu cần
-
-                    if (requiredToUpdate != null)
+                    // Update Equipments DataGrid changes
+                    foreach (var equipment in FilteredEquipments)
                     {
-                        // Cập nhật Quantity và EquipCost trong bảng Required
-                        requiredToUpdate.Quantity = equipment.Quantity;
+                        // Tìm đối tượng Required tương ứng với EquipNameId
+                        var requiredToUpdate = _context.Requireds.FirstOrDefault(r =>
+                            r.EquipNameId == equipment.EquipNameId && r.EventId == SelectedEventId
+                        ); // Thêm điều kiện EventId nếu cần
 
-                        // Nếu bạn cũng muốn cập nhật EquipCost trong bảng Required, thêm logic ở đây
-                        // requiredToUpdate.EquipCost = equipment.EquipCost;
+                        if (requiredToUpdate != null)
+                        {
+                            // Cập nhật Quantity và EquipCost trong bảng Required
+                            requiredToUpdate.Quantity = equipment.Quantity;
 
-                        // Lưu thay đổi vào cơ sở dữ liệu
-                        _context.SaveChanges();
+                            // Nếu bạn cũng muốn cập nhật EquipCost trong bảng Required, thêm logic ở đây
+                            // requiredToUpdate.EquipCost = equipment.EquipCost;
+
+                            // Lưu thay đổi vào cơ sở dữ liệu
+                            _context.SaveChanges();
+                        }
                     }
+
+                    // Recalculate and refresh costs
+                    RecalculateAndRefreshCosts();
+
+                    // Toggle editing mode
+                    ToggleEditing();
                 }
-
-
-                // Toggle editing mode
-                ToggleEditing();
             }
         }
-
 
         private bool ValidateFields(StringBuilder warnings)
         {
@@ -708,7 +746,9 @@ namespace OOP_EventsManagementSystem.ViewModel
                     r.Quantity * (r.EquipName?.EquipCost ?? 0)
                 );
 
-                FilteredEquipments = new ObservableCollection<FilteredEquipment>(filteredEquipments);
+                FilteredEquipments = new ObservableCollection<FilteredEquipment>(
+                    filteredEquipments
+                );
 
                 // Filter employee roles for the selected event
                 var filteredEmployeeRoles = _context
@@ -721,7 +761,9 @@ namespace OOP_EventsManagementSystem.ViewModel
                     })
                     .ToList();
 
-                FilteredEmployeeRoles = new ObservableCollection<FilteredEmployeeRole>(filteredEmployeeRoles);
+                FilteredEmployeeRoles = new ObservableCollection<FilteredEmployeeRole>(
+                    filteredEmployeeRoles
+                );
 
                 // Filter sponsors for the selected event
                 var filteredSponsors = _context
@@ -774,19 +816,16 @@ namespace OOP_EventsManagementSystem.ViewModel
 
             // Convert Sponsors to FilteredSponsor before passing to PaginationHelper
             var filteredSponsors = _context
-    .IsSponsors
-    .Include(isSponsor => isSponsor.Sponsor)          // Bao gồm dữ liệu từ bảng Sponsor
-    .Include(isSponsor => isSponsor.SponsorTier)      // Bao gồm dữ liệu từ bảng SponsorTier
-    .Where(isSponsor => isSponsor.EventId == SelectedEventId)
-    .Select(isSponsor => new FilteredSponsor
-    {
-        SponsorId = isSponsor.Sponsor.SponsorId,     // Lấy thông tin từ Sponsor
-        SponsorName = isSponsor.Sponsor.SponsorName, // Lấy tên của sponsor
-        TierName = isSponsor.SponsorTier.TierName    // Lấy tên của sponsor tier
-    })
-    .ToList();
-
-
+                .IsSponsors.Include(isSponsor => isSponsor.Sponsor) // Bao gồm dữ liệu từ bảng Sponsor
+                .Include(isSponsor => isSponsor.SponsorTier) // Bao gồm dữ liệu từ bảng SponsorTier
+                .Where(isSponsor => isSponsor.EventId == SelectedEventId)
+                .Select(isSponsor => new FilteredSponsor
+                {
+                    SponsorId = isSponsor.Sponsor.SponsorId, // Lấy thông tin từ Sponsor
+                    SponsorName = isSponsor.Sponsor.SponsorName, // Lấy tên của sponsor
+                    TierName = isSponsor.SponsorTier.TierName, // Lấy tên của sponsor tier
+                })
+                .ToList();
 
             SponsorsPagination = new PaginationHelper<FilteredSponsor>(filteredSponsors, 9); // Set the number of items per page
 
@@ -837,7 +876,6 @@ namespace OOP_EventsManagementSystem.ViewModel
             OnPropertyChanged(nameof(EquipmentNames));
         }
 
-
         private void ExecuteNextPage(object parameter)
         {
             if (parameter?.ToString() == "Upcoming")
@@ -874,6 +912,7 @@ namespace OOP_EventsManagementSystem.ViewModel
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
+
     public class FilteredEquipment
     {
         public int EquipNameId { get; set; }
@@ -882,18 +921,18 @@ namespace OOP_EventsManagementSystem.ViewModel
         public int Quantity { get; set; }
         public decimal EquipCost { get; set; }
     }
+
     public class FilteredEmployeeRole
     {
         public int RoleId { get; set; }
         public string RoleName { get; set; }
         public int Quantity { get; set; }
     }
+
     public class FilteredSponsor
     {
         public int SponsorId { get; set; }
         public string SponsorName { get; set; }
         public string TierName { get; set; }
     }
-
-
 }
