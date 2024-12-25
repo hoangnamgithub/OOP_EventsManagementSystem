@@ -1,10 +1,10 @@
-﻿using OOP_EventsManagementSystem.Model;
-using OOP_EventsManagementSystem.ViewModel;
-using System;
+﻿using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using OOP_EventsManagementSystem.Model;
+using OOP_EventsManagementSystem.ViewModel;
 
 namespace OOP_EventsManagementSystem.Styles
 {
@@ -28,7 +28,10 @@ namespace OOP_EventsManagementSystem.Styles
 
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if (e.ButtonState == MouseButtonState.Pressed && this.WindowState != WindowState.Maximized)
+            if (
+                e.ButtonState == MouseButtonState.Pressed
+                && this.WindowState != WindowState.Maximized
+            )
             {
                 this.DragMove();
             }
@@ -47,7 +50,12 @@ namespace OOP_EventsManagementSystem.Styles
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(
+                        $"An error occurred: {ex.Message}",
+                        "Error",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Error
+                    );
                 }
             }
         }
@@ -59,10 +67,12 @@ namespace OOP_EventsManagementSystem.Styles
 
         private void Txtbox_empContact_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (isTextChanging) return;
+            if (isTextChanging)
+                return;
 
             var textBox = sender as TextBox;
-            if (textBox == null) return;
+            if (textBox == null)
+                return;
 
             var text = new string(textBox.Text.Where(char.IsDigit).ToArray());
 
@@ -88,7 +98,6 @@ namespace OOP_EventsManagementSystem.Styles
                 return $"({text.Substring(0, 3)}) {text.Substring(3)}";
             return $"({text.Substring(0, 3)}) {text.Substring(3, 3)}-{text.Substring(6)}";
         }
-
 
         private static bool IsTextAllowed(string text)
         {

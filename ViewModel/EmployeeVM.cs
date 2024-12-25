@@ -174,11 +174,11 @@ namespace OOP_EventsManagementSystem.ViewModel
             GeneratePasswordCommand = new RelayCommand(GeneratePassword);
             ConfirmAddEmployeeCommand = new RelayCommand(ConfirmAddEmployee);
             DelCommand = new RelayCommand(DeleteSelectedEmployee);
+            EngagedEmployees = new ObservableCollection<EngagedEmployeeWithAccount>();
 
             LoadTodayEvents();
             LoadAllEmployees();
             LoadEmployeeRoles();
-            EngagedEmployees = new ObservableCollection<EngagedEmployeeWithAccount>();
         }
 
         // Method to add a new employee
@@ -200,16 +200,28 @@ namespace OOP_EventsManagementSystem.ViewModel
         {
             if (SelectedEmployee == null)
             {
-                MessageBox.Show("Please select an employee to delete.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(
+                    "Please select an employee to delete.",
+                    "Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
                 return;
             }
 
-            MessageBoxResult result = MessageBox.Show($"Are you sure you want to delete {SelectedEmployee.FullName}?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            MessageBoxResult result = MessageBox.Show(
+                $"Are you sure you want to delete {SelectedEmployee.FullName}?",
+                "Confirmation",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Warning
+            );
             if (result == MessageBoxResult.Yes)
             {
                 try
                 {
-                    var employee = _context.Employees.Include(e => e.Accounts).FirstOrDefault(e => e.EmployeeId == SelectedEmployee.EmployeeId);
+                    var employee = _context
+                        .Employees.Include(e => e.Accounts)
+                        .FirstOrDefault(e => e.EmployeeId == SelectedEmployee.EmployeeId);
                     if (employee != null)
                     {
                         // Delete associated accounts
@@ -235,8 +247,8 @@ namespace OOP_EventsManagementSystem.ViewModel
         private void LoadTodayEvents()
         {
             var today = DateOnly.FromDateTime(DateTime.Today);
-            var events = _context.Events
-                .Where(e => e.StartDate <= today && e.EndDate >= today)
+            var events = _context
+                .Events.Where(e => e.StartDate <= today && e.EndDate >= today)
                 .ToList();
             TodayEvents = new ObservableCollection<Event>(events);
         }
@@ -244,15 +256,15 @@ namespace OOP_EventsManagementSystem.ViewModel
         // Method to load all employees with account information
         private void LoadAllEmployees()
         {
-            var employeesWithAccounts = _context.Employees
-                .Include(e => e.Accounts)
+            var employeesWithAccounts = _context
+                .Employees.Include(e => e.Accounts)
                 .Select(e => new EmployeeWithAccount
                 {
                     EmployeeId = e.EmployeeId,
                     FullName = e.FullName,
                     Contact = e.Contact,
                     Email = e.Accounts.FirstOrDefault().Email,
-                    Password = e.Accounts.FirstOrDefault().Password
+                    Password = e.Accounts.FirstOrDefault().Password,
                 })
                 .ToList();
 
@@ -273,8 +285,8 @@ namespace OOP_EventsManagementSystem.ViewModel
             if (SelectedEvent == null)
             {
                 var today = DateOnly.FromDateTime(DateTime.Today);
-                var engagedEmployeesWithAccounts = _context.Engageds
-                    .Include(e => e.Account)
+                var engagedEmployeesWithAccounts = _context
+                    .Engageds.Include(e => e.Account)
                     .ThenInclude(a => a.Employee)
                     .Where(e => e.Event.StartDate <= today && e.Event.EndDate >= today)
                     .Select(e => new EngagedEmployeeWithAccount
@@ -283,7 +295,7 @@ namespace OOP_EventsManagementSystem.ViewModel
                         FullName = e.Account.Employee.FullName,
                         Contact = e.Account.Employee.Contact,
                         Email = e.Account.Email,
-                        Password = e.Account.Password
+                        Password = e.Account.Password,
                     })
                     .Distinct()
                     .ToList();
@@ -291,17 +303,21 @@ namespace OOP_EventsManagementSystem.ViewModel
                 if (!string.IsNullOrEmpty(SearchText))
                 {
                     engagedEmployeesWithAccounts = engagedEmployeesWithAccounts
-                        .Where(e => e.EmployeeId.ToString().Contains(SearchText) ||
-                                    e.FullName.Contains(SearchText, StringComparison.OrdinalIgnoreCase))
+                        .Where(e =>
+                            e.EmployeeId.ToString().Contains(SearchText)
+                            || e.FullName.Contains(SearchText, StringComparison.OrdinalIgnoreCase)
+                        )
                         .ToList();
                 }
 
-                EngagedEmployees = new ObservableCollection<EngagedEmployeeWithAccount>(engagedEmployeesWithAccounts);
+                EngagedEmployees = new ObservableCollection<EngagedEmployeeWithAccount>(
+                    engagedEmployeesWithAccounts
+                );
             }
             else
             {
-                var engagedEmployeesWithAccounts = _context.Engageds
-                    .Include(e => e.Account)
+                var engagedEmployeesWithAccounts = _context
+                    .Engageds.Include(e => e.Account)
                     .ThenInclude(a => a.Employee)
                     .Where(e => e.EventId == SelectedEvent.EventId)
                     .Select(e => new EngagedEmployeeWithAccount
@@ -310,19 +326,23 @@ namespace OOP_EventsManagementSystem.ViewModel
                         FullName = e.Account.Employee.FullName,
                         Contact = e.Account.Employee.Contact,
                         Email = e.Account.Email,
-                        Password = e.Account.Password
+                        Password = e.Account.Password,
                     })
                     .ToList();
 
                 if (!string.IsNullOrEmpty(SearchText))
                 {
                     engagedEmployeesWithAccounts = engagedEmployeesWithAccounts
-                        .Where(e => e.EmployeeId.ToString().Contains(SearchText) ||
-                                    e.FullName.Contains(SearchText, StringComparison.OrdinalIgnoreCase))
+                        .Where(e =>
+                            e.EmployeeId.ToString().Contains(SearchText)
+                            || e.FullName.Contains(SearchText, StringComparison.OrdinalIgnoreCase)
+                        )
                         .ToList();
                 }
 
-                EngagedEmployees = new ObservableCollection<EngagedEmployeeWithAccount>(engagedEmployeesWithAccounts);
+                EngagedEmployees = new ObservableCollection<EngagedEmployeeWithAccount>(
+                    engagedEmployeesWithAccounts
+                );
             }
         }
 
@@ -351,29 +371,53 @@ namespace OOP_EventsManagementSystem.ViewModel
             // Validate required fields
             if (string.IsNullOrWhiteSpace(EmployeeName))
             {
-                MessageBox.Show("Employee name cannot be empty.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(
+                    "Employee name cannot be empty.",
+                    "Validation Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
                 return;
             }
 
             if (string.IsNullOrWhiteSpace(EmployeeContact))
             {
-                MessageBox.Show("Employee contact cannot be empty.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(
+                    "Employee contact cannot be empty.",
+                    "Validation Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
                 return;
             }
 
             if (SelectedEmployeeRole == null)
             {
-                MessageBox.Show("Employee role must be selected.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(
+                    "Employee role must be selected.",
+                    "Validation Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
                 return;
             }
 
             if (string.IsNullOrWhiteSpace(EmployeePassword))
             {
-                MessageBox.Show("Employee password cannot be empty.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(
+                    "Employee password cannot be empty.",
+                    "Validation Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
                 return;
             }
 
-            MessageBoxResult result = MessageBox.Show("Do you want to confirm adding this employee?", "Confirmation", MessageBoxButton.YesNo);
+            MessageBoxResult result = MessageBox.Show(
+                "Do you want to confirm adding this employee?",
+                "Confirmation",
+                MessageBoxButton.YesNo
+            );
             if (result == MessageBoxResult.Yes)
             {
                 try
@@ -389,7 +433,11 @@ namespace OOP_EventsManagementSystem.ViewModel
                     _context.SaveChanges();
 
                     // Get the latest EmployeeId and increment it by 1
-                    var latestEmployeeId = _context.Employees.OrderByDescending(e => e.EmployeeId).FirstOrDefault()?.EmployeeId ?? 0;
+                    var latestEmployeeId =
+                        _context
+                            .Employees.OrderByDescending(e => e.EmployeeId)
+                            .FirstOrDefault()
+                            ?.EmployeeId ?? 0;
                     var fakeEmployeeId = latestEmployeeId + 1;
 
                     // Generate the email using the fake EmployeeId
