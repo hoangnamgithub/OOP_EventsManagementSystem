@@ -46,7 +46,7 @@
                                     Margin="10,5"
                                     HorizontalAlignment="Right"
                                     Style="{StaticResource txt_header}"
-                                    Text="Adele" />
+                                    Text="{Binding TopPerformerName}" />
                             </StackPanel>
                             <Image
                                 Width="100"
@@ -130,16 +130,18 @@
                                     <Run FontSize="25" Text="1" />
                                     <Run Text="Show" />
                                 </TextBlock>
+                                <!--  Bind Tên Show  -->
                                 <TextBlock
                                     Margin="10,0"
                                     HorizontalAlignment="Left"
                                     Style="{StaticResource txt_header}"
-                                    Text="Die with a smile" />
+                                    Text="{Binding TopShowName}" />
+                                <!--  Bind Tên Performer  -->
                                 <TextBlock
                                     Margin="10,-5"
                                     HorizontalAlignment="Left"
                                     Style="{StaticResource txt}"
-                                    Text="Adele" />
+                                    Text="{Binding PerformerName}" />
                             </StackPanel>
                         </StackPanel>
                         <TextBlock

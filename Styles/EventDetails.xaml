@@ -458,21 +458,30 @@
                                                     VerticalAlignment="Stretch"
                                                     AutoGenerateColumns="False"
                                                     Background="Transparent"
-                                                    IsReadOnly="True"
                                                     ItemsSource="{Binding FilteredEmployeeRoles}">
                                                     <DataGrid.Columns>
                                                         <DataGridTextColumn
                                                             Width="10*"
                                                             Binding="{Binding RoleId}"
-                                                            Header="ID" />
+                                                            Header="ID"
+                                                            IsReadOnly="True" />
                                                         <DataGridTextColumn
                                                             Width="70*"
                                                             Binding="{Binding RoleName}"
-                                                            Header="Role Name" />
-                                                        <DataGridTextColumn
-                                                            Width="30*"
-                                                            Binding="{Binding Quantity}"
-                                                            Header="Quantity" />
+                                                            Header="Role Name"
+                                                            IsReadOnly="True" />
+                                                        <DataGridTemplateColumn Width="30*" Header="Quantity">
+                                                            <DataGridTemplateColumn.CellTemplate>
+                                                                <DataTemplate>
+                                                                    <TextBlock Text="{Binding Quantity}" />
+                                                                </DataTemplate>
+                                                            </DataGridTemplateColumn.CellTemplate>
+                                                            <DataGridTemplateColumn.CellEditingTemplate>
+                                                                <DataTemplate>
+                                                                    <TextBox IsEnabled="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType=DataGrid}}" Text="{Binding Quantity}" />
+                                                                </DataTemplate>
+                                                            </DataGridTemplateColumn.CellEditingTemplate>
+                                                        </DataGridTemplateColumn>
                                                     </DataGrid.Columns>
                                                 </DataGrid>
                                             </Border>
@@ -504,29 +513,40 @@
                                                     VerticalAlignment="Stretch"
                                                     AutoGenerateColumns="False"
                                                     Background="Transparent"
-                                                    IsReadOnly="True"
                                                     ItemsSource="{Binding FilteredEquipments}">
                                                     <DataGrid.Columns>
                                                         <DataGridTextColumn
                                                             Width="10*"
                                                             Binding="{Binding EquipNameId}"
-                                                            Header="ID" />
+                                                            Header="ID"
+                                                            IsReadOnly="True" />
                                                         <DataGridTextColumn
                                                             Width="20*"
                                                             Binding="{Binding EquipName}"
-                                                            Header="Name" />
+                                                            Header="Name"
+                                                            IsReadOnly="True" />
                                                         <DataGridTextColumn
                                                             Width="20*"
                                                             Binding="{Binding TypeName}"
-                                                            Header="Type" />
-                                                        <DataGridTextColumn
-                                                            Width="20*"
-                                                            Binding="{Binding Quantity}"
-                                                            Header="Quantity" />
+                                                            Header="Type"
+                                                            IsReadOnly="True" />
+                                                        <DataGridTemplateColumn Width="30*" Header="Quantity">
+                                                            <DataGridTemplateColumn.CellTemplate>
+                                                                <DataTemplate>
+                                                                    <TextBlock Text="{Binding Quantity}" />
+                                                                </DataTemplate>
+                                                            </DataGridTemplateColumn.CellTemplate>
+                                                            <DataGridTemplateColumn.CellEditingTemplate>
+                                                                <DataTemplate>
+                                                                    <TextBox IsEnabled="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType=DataGrid}}" Text="{Binding Quantity}" />
+                                                                </DataTemplate>
+                                                            </DataGridTemplateColumn.CellEditingTemplate>
+                                                        </DataGridTemplateColumn>
                                                         <DataGridTextColumn
                                                             Width="20*"
                                                             Binding="{Binding EquipCost}"
-                                                            Header="Cost/Item" />
+                                                            Header="Cost/Item"
+                                                            IsReadOnly="True" />
                                                     </DataGrid.Columns>
                                                 </DataGrid>
                                             </Border>

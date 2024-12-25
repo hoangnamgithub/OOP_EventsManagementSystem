@@ -28,7 +28,7 @@ namespace OOP_EventsManagementSystem.ViewModel
 
         private readonly EventManagementDbContext _context;
 
-        public PaginationHelper<dynamic> SponsorsPagination { get; set; }
+        public PaginationHelper<FilteredSponsor> SponsorsPagination { get; set; }
         public PaginationHelper<Model.Event> UpcomingPagination { get; set; }
         public PaginationHelper<Model.Event> HappeningPagination { get; set; }
         public PaginationHelper<Model.Event> CompletedPagination { get; set; }
@@ -68,8 +68,8 @@ namespace OOP_EventsManagementSystem.ViewModel
             }
         }
 
-        private ObservableCollection<object> _filteredEmployeeRoles;
-        public ObservableCollection<object> FilteredEmployeeRoles
+        private ObservableCollection<FilteredEmployeeRole> _filteredEmployeeRoles;
+        public ObservableCollection<FilteredEmployeeRole> FilteredEmployeeRoles
         {
             get => _filteredEmployeeRoles;
             set
@@ -79,8 +79,8 @@ namespace OOP_EventsManagementSystem.ViewModel
             }
         }
 
-        private ObservableCollection<object> _filteredEquipments;
-        public ObservableCollection<object> FilteredEquipments
+        private ObservableCollection<FilteredEquipment> _filteredEquipments;
+        public ObservableCollection<FilteredEquipment> FilteredEquipments
         {
             get => _filteredEquipments;
             set
@@ -374,16 +374,21 @@ namespace OOP_EventsManagementSystem.ViewModel
 
                 // Reapply filtering logic for the selected event's sponsors
                 var filteredSponsors = _context
-                    .IsSponsors.Where(isSponsor => isSponsor.EventId == SelectedEventId)
-                    .Select(isSponsor => new
-                    {
-                        SponsorId = isSponsor.Sponsor.SponsorId,
-                        SponsorName = isSponsor.Sponsor.SponsorName,
-                        TierName = isSponsor.SponsorTier.TierName,
-                    })
-                    .ToList();
+    .IsSponsors
+    .Include(isSponsor => isSponsor.Sponsor)          // Bao gồm dữ liệu từ bảng Sponsor
+    .Include(isSponsor => isSponsor.SponsorTier)      // Bao gồm dữ liệu từ bảng SponsorTier
+    .Where(isSponsor => isSponsor.EventId == SelectedEventId)
+    .Select(isSponsor => new FilteredSponsor
+    {
+        SponsorId = isSponsor.Sponsor.SponsorId,     // Lấy thông tin từ Sponsor
+        SponsorName = isSponsor.Sponsor.SponsorName, // Lấy tên của sponsor
+        TierName = isSponsor.SponsorTier.TierName    // Lấy tên của sponsor tier
+    })
+    .ToList();
 
-                SponsorsPagination = new PaginationHelper<object>(filteredSponsors, 8); // Set the number of items per page
+
+
+                SponsorsPagination = new PaginationHelper<FilteredSponsor>(filteredSponsors, 8); // Set the number of items per page
 
                 OnPropertyChanged(nameof(ShowsPagination));
                 OnPropertyChanged(nameof(SponsorsPagination));
@@ -433,6 +438,7 @@ namespace OOP_EventsManagementSystem.ViewModel
         {
             var warnings = new StringBuilder();
 
+            // Validate all fields before saving
             if (!ValidateFields(warnings))
             {
                 MessageBox.Show(
@@ -477,27 +483,33 @@ namespace OOP_EventsManagementSystem.ViewModel
                 return;
             }
 
+            // Confirm save operation
             MessageBoxResult result = MessageBox.Show(
                 "Are you sure you want to save the changes?",
                 "Confirm Save",
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Question
             );
+
             if (result == MessageBoxResult.Yes)
             {
                 var eventToUpdate = _context.Events.FirstOrDefault(e =>
                     e.EventId == SelectedEventId
                 );
+
                 if (eventToUpdate != null)
                 {
+                    // Ensure ExpectedAttendee is updated properly based on venue capacity
                     var selectedVenue = _context.Venues.FirstOrDefault(v =>
                         v.VenueId == SelectedVenueId
                     );
+
                     if (ExpectedAttendee <= 0 && selectedVenue != null)
                     {
                         ExpectedAttendee = selectedVenue.Capacity;
                     }
 
+                    // Update the event's details
                     eventToUpdate.EventName = EventName;
                     eventToUpdate.ExptedAttendee = ExpectedAttendee;
                     eventToUpdate.VenueId = SelectedVenueId;
@@ -528,23 +540,67 @@ namespace OOP_EventsManagementSystem.ViewModel
                     // Reapply filtering logic for the selected event's sponsors
                     var filteredSponsors = _context
                         .IsSponsors.Where(isSponsor => isSponsor.EventId == SelectedEventId)
-                        .Select(isSponsor => new
+                        .Select(isSponsor => new FilteredSponsor
                         {
                             SponsorId = isSponsor.Sponsor.SponsorId,
                             SponsorName = isSponsor.Sponsor.SponsorName,
-                            TierName = isSponsor.SponsorTier.TierName,
+                            TierName = isSponsor.SponsorTier.TierName
                         })
                         .ToList();
 
-                    SponsorsPagination = new PaginationHelper<object>(filteredSponsors, 8); // Set the number of items per page
+                    SponsorsPagination = new PaginationHelper<FilteredSponsor>(filteredSponsors, 8); // Set the number of items per page
 
+                    // Notify property changes
                     OnPropertyChanged(nameof(ShowsPagination));
                     OnPropertyChanged(nameof(SponsorsPagination));
                 }
 
+                // Update Employees DataGrid changes
+                foreach (var employee in FilteredEmployeeRoles)
+                {
+                    // Lấy thông tin từ bảng Need dựa trên RoleId và EventId
+                    var need = _context.Needs
+                                       .FirstOrDefault(n => n.RoleId == employee.RoleId && n.EventId == SelectedEventId);
+
+                    if (need != null)
+                    {
+
+
+                        // Cập nhật Quantity từ bảng Need vào EmployeeRole
+                        need.Quantity = employee.Quantity;
+
+                            _context.SaveChanges();
+                        
+                    }
+                }
+
+
+                // Update Equipments DataGrid changes
+                foreach (var equipment in FilteredEquipments)
+                {
+                    // Tìm đối tượng Required tương ứng với EquipNameId
+                    var requiredToUpdate = _context.Requireds
+                        .FirstOrDefault(r => r.EquipNameId == equipment.EquipNameId && r.EventId == SelectedEventId); // Thêm điều kiện EventId nếu cần
+
+                    if (requiredToUpdate != null)
+                    {
+                        // Cập nhật Quantity và EquipCost trong bảng Required
+                        requiredToUpdate.Quantity = equipment.Quantity;
+
+                        // Nếu bạn cũng muốn cập nhật EquipCost trong bảng Required, thêm logic ở đây
+                        // requiredToUpdate.EquipCost = equipment.EquipCost;
+
+                        // Lưu thay đổi vào cơ sở dữ liệu
+                        _context.SaveChanges();
+                    }
+                }
+
+
+                // Toggle editing mode
                 ToggleEditing();
             }
         }
+
 
         private bool ValidateFields(StringBuilder warnings)
         {
@@ -634,7 +690,7 @@ namespace OOP_EventsManagementSystem.ViewModel
                 // Filter equipment details for the selected event
                 var filteredEquipments = _context
                     .Requireds.Where(required => required.EventId == selectedEvent.EventId)
-                    .Select(required => new
+                    .Select(required => new FilteredEquipment
                     {
                         EquipNameId = required.EquipName.EquipNameId,
                         EquipName = required.EquipName.EquipName,
@@ -652,12 +708,12 @@ namespace OOP_EventsManagementSystem.ViewModel
                     r.Quantity * (r.EquipName?.EquipCost ?? 0)
                 );
 
-                FilteredEquipments = new ObservableCollection<object>(filteredEquipments);
+                FilteredEquipments = new ObservableCollection<FilteredEquipment>(filteredEquipments);
 
                 // Filter employee roles for the selected event
                 var filteredEmployeeRoles = _context
                     .Needs.Where(need => need.EventId == selectedEvent.EventId)
-                    .Select(need => new
+                    .Select(need => new FilteredEmployeeRole
                     {
                         RoleId = need.Role.RoleId,
                         RoleName = need.Role.RoleName,
@@ -665,12 +721,12 @@ namespace OOP_EventsManagementSystem.ViewModel
                     })
                     .ToList();
 
-                FilteredEmployeeRoles = new ObservableCollection<object>(filteredEmployeeRoles);
+                FilteredEmployeeRoles = new ObservableCollection<FilteredEmployeeRole>(filteredEmployeeRoles);
 
                 // Filter sponsors for the selected event
                 var filteredSponsors = _context
                     .IsSponsors.Where(isSponsor => isSponsor.EventId == selectedEvent.EventId)
-                    .Select(isSponsor => new
+                    .Select(isSponsor => new FilteredSponsor
                     {
                         SponsorId = isSponsor.Sponsor.SponsorId,
                         SponsorName = isSponsor.Sponsor.SponsorName,
@@ -678,7 +734,7 @@ namespace OOP_EventsManagementSystem.ViewModel
                     })
                     .ToList();
 
-                SponsorsPagination = new PaginationHelper<object>(filteredSponsors, 8); // Set the number of items per page
+                SponsorsPagination = new PaginationHelper<FilteredSponsor>(filteredSponsors, 8); // Set the number of items per page
 
                 // Open the EventDetails window
                 var eventDetailsWindow = new EventDetails
@@ -716,7 +772,23 @@ namespace OOP_EventsManagementSystem.ViewModel
             var shows = _context.Shows.Include(s => s.Performer).Include(s => s.Genre).ToList();
             ShowsPagination = new PaginationHelper<Model.Show>(shows, 9);
 
-            SponsorsPagination = new PaginationHelper<dynamic>(_context.Sponsors.ToList(), 9);
+            // Convert Sponsors to FilteredSponsor before passing to PaginationHelper
+            var filteredSponsors = _context
+    .IsSponsors
+    .Include(isSponsor => isSponsor.Sponsor)          // Bao gồm dữ liệu từ bảng Sponsor
+    .Include(isSponsor => isSponsor.SponsorTier)      // Bao gồm dữ liệu từ bảng SponsorTier
+    .Where(isSponsor => isSponsor.EventId == SelectedEventId)
+    .Select(isSponsor => new FilteredSponsor
+    {
+        SponsorId = isSponsor.Sponsor.SponsorId,     // Lấy thông tin từ Sponsor
+        SponsorName = isSponsor.Sponsor.SponsorName, // Lấy tên của sponsor
+        TierName = isSponsor.SponsorTier.TierName    // Lấy tên của sponsor tier
+    })
+    .ToList();
+
+
+
+            SponsorsPagination = new PaginationHelper<FilteredSponsor>(filteredSponsors, 9); // Set the number of items per page
 
             OnPropertyChanged(nameof(UpcomingPagination));
             OnPropertyChanged(nameof(HappeningPagination));
@@ -765,6 +837,7 @@ namespace OOP_EventsManagementSystem.ViewModel
             OnPropertyChanged(nameof(EquipmentNames));
         }
 
+
         private void ExecuteNextPage(object parameter)
         {
             if (parameter?.ToString() == "Upcoming")
@@ -801,4 +874,26 @@ namespace OOP_EventsManagementSystem.ViewModel
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
+    public class FilteredEquipment
+    {
+        public int EquipNameId { get; set; }
+        public string EquipName { get; set; }
+        public string TypeName { get; set; }
+        public int Quantity { get; set; }
+        public decimal EquipCost { get; set; }
+    }
+    public class FilteredEmployeeRole
+    {
+        public int RoleId { get; set; }
+        public string RoleName { get; set; }
+        public int Quantity { get; set; }
+    }
+    public class FilteredSponsor
+    {
+        public int SponsorId { get; set; }
+        public string SponsorName { get; set; }
+        public string TierName { get; set; }
+    }
+
+
 }

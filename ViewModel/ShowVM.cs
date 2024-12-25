@@ -22,6 +22,27 @@ namespace OOP_EventsManagementSystem.ViewModel
         public ObservableCollection<Performer> Performers { get; set; }
         public ObservableCollection<Show> SelectedPerformerShows { get; set; }
         public Action ReloadAction { get; set; } // Sự kiện reload
+        private string _topShowName;
+        public string TopShowName
+        {
+            get => _topShowName;
+            set
+            {
+                _topShowName = value;
+                OnPropertyChanged(nameof(TopShowName));
+            }
+        }
+
+        private string _PerformerName;
+        public string PerformerName
+        {
+            get => _PerformerName;
+            set
+            {
+                _PerformerName = value;
+                OnPropertyChanged(nameof(PerformerName));
+            }
+        }
         private int? _selectedPerformerId;
         public int? SelectedPerformerId
         {
@@ -39,8 +60,94 @@ namespace OOP_EventsManagementSystem.ViewModel
             Performers = new ObservableCollection<Performer>();
             SelectedPerformerShows = new ObservableCollection<Show>();
             Genres = new ObservableCollection<Genre>(_context.Genres.ToList());
+            LoadTopShowData();
+            LoadTopPerformer();
+        }
+        private string _topPerformerName;
+
+        public string TopPerformerName
+        {
+            get => _topPerformerName;
+            set
+            {
+                _topPerformerName = value;
+                OnPropertyChanged(nameof(TopPerformerName));
+            }
         }
 
+        // Implement logic để tính toán ca sĩ có nhiều bài hát nhất
+        public void LoadTopPerformer()
+        {
+            var top25Shows = _context.ShowSchedules
+                .GroupBy(ss => ss.ShowId)
+                .Select(g => new
+                {
+                    ShowId = g.Key,
+                    PerformanceCount = g.Count()
+                })
+                .OrderByDescending(x => x.PerformanceCount)
+                .Take(25) // Lấy Top 25
+                .ToList();
+
+            var result = (from topShow in top25Shows
+                          join show in _context.Shows
+                          on topShow.ShowId equals show.ShowId
+                          join performer in _context.Performers
+                          on show.PerformerId equals performer.PerformerId
+                          group show by new { performer.PerformerId, performer.FullName } into g
+                          select new
+                          {
+                              PerformerName = g.Key.FullName,
+                              ShowCount = g.Count()
+                          })
+                          .OrderByDescending(x => x.ShowCount)
+                          .FirstOrDefault();
+
+            TopPerformerName = result != null ? result.PerformerName : "No Performers";
+        }
+
+        private void LoadTopShowData()
+        {
+            var mostPerformedShow = _context.ShowSchedules
+    .GroupBy(ss => ss.ShowId)
+    .Select(g => new
+    {
+        ShowId = g.Key,
+        PerformanceCount = g.Count()
+    })
+    .OrderByDescending(x => x.PerformanceCount)
+    .FirstOrDefault();
+
+            if (mostPerformedShow != null)
+            {
+                // Sử dụng join để lấy thông tin từ bảng Show và Performer
+                var result = (from show in _context.Shows
+                              join performer in _context.Performers
+                              on show.PerformerId equals performer.PerformerId
+                              where show.ShowId == mostPerformedShow.ShowId
+                              select new
+                              {
+                                  ShowName = show.ShowName,
+                                  PerformerName = performer.FullName
+                              }).FirstOrDefault();
+
+                if (result != null)
+                {
+                    TopShowName = result.ShowName;
+                    PerformerName = result.PerformerName;
+                }
+                else
+                {
+                    TopShowName = "No Shows";
+                    PerformerName = "No Performers";
+                }
+            }
+            else
+            {
+                TopShowName = "No Shows";
+                PerformerName = "No Performers";
+            }
+        }
         public void LoadPerformers()
         {
             var performers = _context.Performers.ToList();
