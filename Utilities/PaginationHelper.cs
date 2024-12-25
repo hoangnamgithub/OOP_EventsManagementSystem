@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 
 namespace OOP_EventsManagementSystem.Utilities
 {
@@ -18,7 +16,20 @@ namespace OOP_EventsManagementSystem.Utilities
         public ObservableCollection<T> FullCollection { get; set; }
         public ObservableCollection<T> PagedCollection { get; set; }
 
-        
+        public int ItemsPerPage
+        {
+            get => _itemsPerPage;
+            set
+            {
+                if (_itemsPerPage != value)
+                {
+                    _itemsPerPage = value;
+                    OnPropertyChanged(nameof(ItemsPerPage));
+                    UpdatePagedCollection();
+                }
+            }
+        }
+
         public int CurrentPage
         {
             get => _currentPage;
@@ -68,7 +79,7 @@ namespace OOP_EventsManagementSystem.Utilities
         }
 
         public bool CanGoNext() => CurrentPage < TotalPages;
-        public bool CanGoPrevious() => CurrentPage > 1;
+        public bool CanGoPrevious() => CurrentPage > 0;
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string propertyName)
@@ -76,5 +87,4 @@ namespace OOP_EventsManagementSystem.Utilities
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
-
 }

@@ -1,6 +1,6 @@
-﻿using Bogus;
+﻿using System.Data.Entity;
+using Bogus;
 using OOP_EventsManagementSystem.Model;
-using System.Data.Entity;
 
 namespace OOP_EventsManagementSystem.Database
 {
@@ -12,7 +12,7 @@ namespace OOP_EventsManagementSystem.Database
             {
                 SeedVenueData(context); //1
 
-                SeedGenreData(context); //2 
+                SeedGenreData(context); //2
 
                 SeedPerformerData(context); //3
 
@@ -23,31 +23,31 @@ namespace OOP_EventsManagementSystem.Database
                 SeedEmployeeRoles(context); //6
 
                 SeedEmployeeData(context); //7
-                AssignRandomManagers(context);//7
+                AssignRandomManagers(context); //7
 
-                SeedPermissions(context);//9
+                SeedPermissions(context); //9
 
-                SeedAccounts(context);//10
+                SeedAccounts(context); //10
 
-                SeedSponsorTierData(context);//11
+                SeedSponsorTierData(context); //11
 
-                SeedEventData(context);//12
+                SeedEventData(context); //12
 
-                SeedNeedData(context);//13
+                SeedNeedData(context); //13
 
-                SeedIsSponsorData(context);//14
+                SeedIsSponsorData(context); //14
 
-                SeedShowData(context);//15
+                SeedShowData(context); //15
 
-                SeedShowScheduleData(context);//16
+                SeedShowScheduleData(context); //16
 
-                SeedEquipmentTypeData(context);//17
+                SeedEquipmentTypeData(context); //17
 
-                SeedEquipmentNameData(context);//18
+                SeedEquipmentNameData(context); //18
 
-                SeedRequiredData(context);//19
+                SeedRequiredData(context); //19
 
-                SeedEquipmentData(context);//20
+                SeedEquipmentData(context); //20
 
                 SeedEngagedData(context);
             }
@@ -71,7 +71,7 @@ namespace OOP_EventsManagementSystem.Database
                 var venue = new Venue
                 {
                     VenueName = faker.Company.CompanyName(),
-                    Cost = faker.Finance.Amount(2000, 15000),
+                    Cost = faker.Random.Int(2000, 15000),
                     Address = faker.Address.FullAddress(),
                     Capacity = faker.Random.Int(70, 1000),
                 };
@@ -97,35 +97,32 @@ namespace OOP_EventsManagementSystem.Database
 
             // List of predefined stage performing arts genres
             var predefinedGenres = new List<string>
-    {
-        "Classical Theater",
-        "Comedy",
-        "Modern Drama",
-        "Opera",
-        "Ballet",
-        "Musicals",
-        "Physical Theater",
-        "Classical Ballet",
-        "Hip-hop Dance",
-        "Contemporary Dance",
-        "Flamenco",
-        "Ballroom Dance",
-        "Folk Dance",
-        "Pop",
-        "Rock",
-        "Jazz",
-        "Classical",
-        "Blues",
-        "Country",
-        "Electronic",
-        "Soul/R&B"
-    };
+            {
+                "Classical Theater",
+                "Comedy",
+                "Modern Drama",
+                "Opera",
+                "Ballet",
+                "Musicals",
+                "Physical Theater",
+                "Classical Ballet",
+                "Hip-hop Dance",
+                "Contemporary Dance",
+                "Flamenco",
+                "Ballroom Dance",
+                "Folk Dance",
+                "Pop",
+                "Rock",
+                "Jazz",
+                "Classical",
+                "Blues",
+                "Country",
+                "Electronic",
+                "Soul/R&B",
+            };
 
             // Map genres to Genre entity objects
-            var genres = predefinedGenres.Select(g => new Genre
-            {
-                Genre1 = g
-            }).ToList();
+            var genres = predefinedGenres.Select(g => new Genre { Genre1 = g }).ToList();
 
             // Thêm dữ liệu Genre vào database
             context.Genres.AddRange(genres);
@@ -135,30 +132,30 @@ namespace OOP_EventsManagementSystem.Database
 
         private static void SeedPerformerData(EventManagementDbContext context)
         {
-            // Kiểm tra xem dữ liệu đã được seed hay chưa
+            // Check if data has already been seeded
             if (context.Performers.Any())
             {
                 Console.WriteLine("Performer data already seeded.");
                 return;
             }
 
-            // Bogus Faker instance để tạo dữ liệu giả
-            var faker = new Bogus.Faker();
+            // Bogus Faker instance to generate fake data
+            var faker = new Bogus.Faker("en_US");
 
-            // Tạo 1000 Performer
+            // Create 200 Performers
             var performers = new List<Performer>();
-            for (int i = 0; i < 200; i++)
+            for (int i = 0; i < 100; i++)
             {
                 var performer = new Performer
                 {
                     FullName = faker.Name.FullName(),
-                    ContactDetail = faker.Phone.PhoneNumber(),
+                    ContactDetail = faker.Phone.PhoneNumber("(###)###-####"),
                 };
 
                 performers.Add(performer);
             }
 
-            // Thêm dữ liệu Performer vào database
+            // Add Performer data to the database
             context.Performers.AddRange(performers);
             context.SaveChanges();
             Console.WriteLine("Seeded 200 Performer data successfully.");
@@ -175,50 +172,49 @@ namespace OOP_EventsManagementSystem.Database
 
             // List of predefined event types
             var predefinedEventTypes = new List<string>
-    {
-        "Conference",
-        "Seminar",
-        "Workshop",
-        "Webinar",
-        "Trade Show",
-        "Expo",
-        "Networking Event",
-        "Product Launch",
-        "Fundraiser",
-        "Awards Ceremony",
-        "Concert",
-        "Festival",
-        "Team Building Event",
-        "Charity Event",
-        "Meetup",
-        "Symposium",
-        "Summit",
-        "Hackathon",
-        "Retreat",
-        "Press Conference",
-        "Training Session",
-        "Lectures",
-        "Cultural Festival",
-        "Community Event",
-        "Sporting Event",
-        "Gala",
-        "Networking Breakfast/Lunch/Dinner",
-        "Open House",
-        "Pop-Up Event",
-        "Focus Group",
-        "Anniversary Celebration",
-        "Orientation Event",
-        "Demo Day",
-        "Charity Walk/Run",
-        "Auction",
-        "Meet and Greet"
-    };
+            {
+                "Conference",
+                "Seminar",
+                "Workshop",
+                "Webinar",
+                "Trade Show",
+                "Expo",
+                "Networking Event",
+                "Product Launch",
+                "Fundraiser",
+                "Awards Ceremony",
+                "Concert",
+                "Festival",
+                "Team Building Event",
+                "Charity Event",
+                "Meetup",
+                "Symposium",
+                "Summit",
+                "Hackathon",
+                "Retreat",
+                "Press Conference",
+                "Training Session",
+                "Lectures",
+                "Cultural Festival",
+                "Community Event",
+                "Sporting Event",
+                "Gala",
+                "Networking Breakfast/Lunch/Dinner",
+                "Open House",
+                "Pop-Up Event",
+                "Focus Group",
+                "Anniversary Celebration",
+                "Orientation Event",
+                "Demo Day",
+                "Charity Walk/Run",
+                "Auction",
+                "Meet and Greet",
+            };
 
             // Map event types to EventType entity objects
-            var eventTypes = predefinedEventTypes.Select(et => new EventType
-            {
-                TypeName = et
-            }).ToList();
+            var eventTypes = predefinedEventTypes
+                .Select(et => new EventType { TypeName = et })
+                .ToList();
 
             // Add EventType data to the database
             context.EventTypes.AddRange(eventTypes);
@@ -228,7 +224,7 @@ namespace OOP_EventsManagementSystem.Database
 
         private static void SeedSponsorsData(EventManagementDbContext context)
         {
-            // Kiểm tra xem dữ liệu đã được seed hay chưa
+            // Check if data has already been seeded
             if (context.Sponsors.Any())
             {
                 Console.WriteLine("Sponsors data already seeded.");
@@ -236,8 +232,8 @@ namespace OOP_EventsManagementSystem.Database
             }
 
             var faker = new Bogus.Faker();
-
             var sponsors = new List<Sponsor>();
+
             for (int i = 0; i < 200; i++)
             {
                 var sponsor = new Sponsor
@@ -250,7 +246,77 @@ namespace OOP_EventsManagementSystem.Database
 
             context.Sponsors.AddRange(sponsors);
             context.SaveChanges();
-            Console.WriteLine("Seeded 50 Sponsors data successfully.");
+            Console.WriteLine("Seeded 200 Sponsors data successfully.");
+
+            // Ensure only one "Title Sponsor" per event
+            var events = context.Events.ToList();
+            var sponsorTiers = context.SponsorTiers.ToList();
+            var titleSponsorTier = sponsorTiers.FirstOrDefault(t => t.TierName == "Title Sponsor");
+
+            if (titleSponsorTier == null)
+            {
+                Console.WriteLine(
+                    "Title Sponsor tier not found. Please seed SponsorTier data first."
+                );
+                return;
+            }
+
+            var isSponsors = new List<IsSponsor>();
+
+            foreach (var @event in events)
+            {
+                // Shuffle sponsors for more variety
+                var shuffledSponsors = sponsors.OrderBy(_ => faker.Random.Int()).ToList();
+                int numSponsors = faker.Random.Int(1, sponsors.Count);
+
+                bool titleSponsorAssigned = false;
+
+                for (int i = 0; i < numSponsors; i++)
+                {
+                    var sponsor = shuffledSponsors[i];
+                    var sponsorTier = sponsorTiers[faker.Random.Int(0, sponsorTiers.Count - 1)];
+
+                    // Ensure only one "Title Sponsor" per event
+                    if (sponsorTier.TierName == "Title Sponsor")
+                    {
+                        if (titleSponsorAssigned)
+                        {
+                            continue;
+                        }
+                        titleSponsorAssigned = true;
+                    }
+
+                    var isSponsor = new IsSponsor
+                    {
+                        EventId = @event.EventId,
+                        SponsorId = sponsor.SponsorId,
+                        SponsorTierId = sponsorTier.SponsorTierId,
+                    };
+
+                    // Avoid duplicates
+                    if (
+                        !isSponsors.Any(x =>
+                            x.EventId == isSponsor.EventId
+                            && x.SponsorId == isSponsor.SponsorId
+                            && x.SponsorTierId == isSponsor.SponsorTierId
+                        )
+                    )
+                    {
+                        isSponsors.Add(isSponsor);
+                    }
+                }
+            }
+
+            if (isSponsors.Any())
+            {
+                context.IsSponsors.AddRange(isSponsors);
+                context.SaveChanges();
+                Console.WriteLine("Seeded IsSponsor data successfully.");
+            }
+            else
+            {
+                Console.WriteLine("No IsSponsor data to seed.");
+            }
         }
 
         private static void SeedEmployeeRoles(EventManagementDbContext context)
@@ -262,22 +328,22 @@ namespace OOP_EventsManagementSystem.Database
             }
 
             var roles = new List<EmployeeRole>
-    {
-        new EmployeeRole { RoleName = "PlanningAndCoordination", Salary = 4000.00M },
-        new EmployeeRole { RoleName = "Logistics", Salary = 3500.00M },
-        new EmployeeRole { RoleName = "TechnicalSupport", Salary = 3500.00M },
-        new EmployeeRole { RoleName = "MarketingAndPromotions", Salary = 4000.00M },
-        new EmployeeRole { RoleName = "SalesAndTicketing", Salary = 3500.00M },
-        new EmployeeRole { RoleName = "Catering", Salary = 4000.00M },
-        new EmployeeRole { RoleName = "Security", Salary = 3000.00M },
-        new EmployeeRole { RoleName = "FinanceAndBudgeting", Salary = 4500.00M },
-        new EmployeeRole { RoleName = "CustomerService", Salary = 3500.00M },
-        new EmployeeRole { RoleName = "DesignAndDecor", Salary = 4000.00M },
-        new EmployeeRole { RoleName = "EntertainmentAndProgramming", Salary = 4500.00M },
-        new EmployeeRole { RoleName = "VenueManagement", Salary = 3500.00M },
-        new EmployeeRole { RoleName = "PublicRelations", Salary = 4000.00M },
-        new EmployeeRole { RoleName = "Coordinator", Salary = 6000.00M }
-    };
+            {
+                new EmployeeRole { RoleName = "PlanningAndCoordination", Salary = 4000.00M },
+                new EmployeeRole { RoleName = "Logistics", Salary = 3500.00M },
+                new EmployeeRole { RoleName = "TechnicalSupport", Salary = 3500.00M },
+                new EmployeeRole { RoleName = "MarketingAndPromotions", Salary = 4000.00M },
+                new EmployeeRole { RoleName = "SalesAndTicketing", Salary = 3500.00M },
+                new EmployeeRole { RoleName = "Catering", Salary = 4000.00M },
+                new EmployeeRole { RoleName = "Security", Salary = 3000.00M },
+                new EmployeeRole { RoleName = "FinanceAndBudgeting", Salary = 4500.00M },
+                new EmployeeRole { RoleName = "CustomerService", Salary = 3500.00M },
+                new EmployeeRole { RoleName = "DesignAndDecor", Salary = 4000.00M },
+                new EmployeeRole { RoleName = "EntertainmentAndProgramming", Salary = 4500.00M },
+                new EmployeeRole { RoleName = "VenueManagement", Salary = 3500.00M },
+                new EmployeeRole { RoleName = "PublicRelations", Salary = 4000.00M },
+                new EmployeeRole { RoleName = "Coordinator", Salary = 6000.00M },
+            };
 
             context.EmployeeRoles.AddRange(roles);
             context.SaveChanges();
@@ -314,8 +380,8 @@ namespace OOP_EventsManagementSystem.Database
                             var employee = new Employee
                             {
                                 FullName = faker.Name.FullName(),
-                                Contact = faker.Phone.PhoneNumber(),
-                                RoleId = role.RoleId
+                                Contact = faker.Phone.PhoneNumber("(###)###-####"),
+                                RoleId = role.RoleId,
                             };
 
                             context.Employees.Add(employee);
@@ -362,7 +428,7 @@ namespace OOP_EventsManagementSystem.Database
             {
                 new Permission { Permission1 = "Admin" },
                 new Permission { Permission1 = "Manager" },
-                new Permission { Permission1 = "Employee" }
+                new Permission { Permission1 = "Employee" },
             };
 
             context.Permissions.AddRange(permissions);
@@ -386,7 +452,9 @@ namespace OOP_EventsManagementSystem.Database
 
             if (!employees.Any() || !permissions.Any() || !roles.Any())
             {
-                Console.WriteLine("No employees, roles, or permissions found. Please seed these tables first.");
+                Console.WriteLine(
+                    "No employees, roles, or permissions found. Please seed these tables first."
+                );
                 return;
             }
 
@@ -395,13 +463,16 @@ namespace OOP_EventsManagementSystem.Database
             foreach (var employee in employees)
             {
                 // Default permission for employees
-                int permissionId = permissions.FirstOrDefault(p => p.Permission1 == "Employee")?.PermissionId ?? 0;
+                int permissionId =
+                    permissions.FirstOrDefault(p => p.Permission1 == "Employee")?.PermissionId ?? 0;
 
                 // Check if the employee is a manager by checking if their EmployeeId exists in EmployeeRole.ManagerId
                 bool isManager = roles.Any(r => r.ManagerId == employee.EmployeeId);
                 if (isManager)
                 {
-                    permissionId = permissions.FirstOrDefault(p => p.Permission1 == "Manager")?.PermissionId ?? 0;
+                    permissionId =
+                        permissions.FirstOrDefault(p => p.Permission1 == "Manager")?.PermissionId
+                        ?? 0;
                 }
 
                 if (permissionId == 0)
@@ -413,10 +484,11 @@ namespace OOP_EventsManagementSystem.Database
                 // Create account for the employee
                 var account = new Account
                 {
-                    Email = $"{employee.FullName.Replace(" ", "").ToLower()}@easys.com",
+                    Email =
+                        $"{employee.FullName.Replace(" ", "").ToLower()}{employee.EmployeeId}@easys.com",
                     Password = Guid.NewGuid().ToString().Substring(0, 8), // Generate a random password
                     PermissionId = permissionId,
-                    EmployeeId = employee.EmployeeId
+                    EmployeeId = employee.EmployeeId,
                 };
 
                 accounts.Add(account);
@@ -445,25 +517,26 @@ namespace OOP_EventsManagementSystem.Database
 
             // List of predefined sponsorship tiers
             var predefinedTiers = new List<string>
-    {
-        "Title Sponsor",
-        "Platinum Sponsor",
-        "Gold Sponsor",
-        "Silver Sponsor",
-        "Bronze Sponsor",
-        "Supporting Sponsor"
-    };
+            {
+                "Title Sponsor",
+                "Platinum Sponsor",
+                "Gold Sponsor",
+                "Silver Sponsor",
+                "Bronze Sponsor",
+                "Supporting Sponsor",
+            };
 
             // Map tiers to SponsorTier entity objects
-            var sponsorTiers = predefinedTiers.Select(t => new SponsorTier
-            {
-                TierName = t
-            }).ToList();
+            var sponsorTiers = predefinedTiers
+                .Select(t => new SponsorTier { TierName = t })
+                .ToList();
 
             // Add SponsorTier data to the database
             context.SponsorTiers.AddRange(sponsorTiers);
             context.SaveChanges();
-            Console.WriteLine($"Seeded {sponsorTiers.Count} predefined SponsorTier data successfully.");
+            Console.WriteLine(
+                $"Seeded {sponsorTiers.Count} predefined SponsorTier data successfully."
+            );
         }
 
         private static void SeedEventData(EventManagementDbContext context)
@@ -478,7 +551,9 @@ namespace OOP_EventsManagementSystem.Database
             var venues = context.Venues.ToList();
             if (!eventTypes.Any() || !venues.Any())
             {
-                Console.WriteLine("No event types or venues found. Please seed these tables first.");
+                Console.WriteLine(
+                    "No event types or venues found. Please seed these tables first."
+                );
                 return;
             }
 
@@ -517,7 +592,7 @@ namespace OOP_EventsManagementSystem.Database
                     StartDate = DateOnly.FromDateTime(startDate),
                     EndDate = DateOnly.FromDateTime(endDate),
                     EventTypeId = eventType.EventTypeId,
-                    VenueId = venue.VenueId
+                    VenueId = venue.VenueId,
                 };
 
                 events.Add(@event);
@@ -551,13 +626,13 @@ namespace OOP_EventsManagementSystem.Database
             {
                 foreach (var role in roles)
                 {
-                    var quantity = faker.Random.Int(0, 10); // Quantity can be between 0 and 10
+                    var quantity = faker.Random.Int(1, 10); // Quantity can be between 0 and 10
 
                     var need = new Need
                     {
                         RoleId = role.RoleId,
                         EventId = @event.EventId,
-                        Quantity = quantity
+                        Quantity = quantity,
                     };
 
                     needs.Add(need);
@@ -583,17 +658,13 @@ namespace OOP_EventsManagementSystem.Database
 
             if (!events.Any() || !sponsors.Any() || !sponsorTiers.Any())
             {
-                Console.WriteLine("No events, sponsors, or sponsor tiers found. Please seed these tables first.");
+                Console.WriteLine(
+                    "No events, sponsors, or sponsor tiers found. Please seed these tables first."
+                );
                 return;
             }
 
             var faker = new Bogus.Faker();
-
-            // Fetch existing IsSponsor combinations from the database
-            var existingIsSponsors = context.IsSponsors
-                .Select(isSponsor => new { isSponsor.EventId, isSponsor.SponsorId, isSponsor.SponsorTierId })
-                .ToList();
-
             var isSponsors = new List<IsSponsor>();
 
             // Set a maximum number of sponsors per event
@@ -612,67 +683,44 @@ namespace OOP_EventsManagementSystem.Database
                 // Shuffle sponsors for more variety
                 var shuffledSponsors = sponsors.OrderBy(_ => faker.Random.Int()).ToList();
 
-                // Assign a Title Sponsor
-                var titleSponsor = shuffledSponsors.FirstOrDefault();
-                if (titleSponsor != null)
-                {
-                    var isSponsor = new IsSponsor
-                    {
-                        EventId = @event.EventId,
-                        SponsorId = titleSponsor.SponsorId,
-                        SponsorTierId = titleSponsorTier.SponsorTierId
-                    };
+                int numSponsors = Math.Min(faker.Random.Int(9, 20), sponsors.Count); // Limit to a maximum of 20 sponsors
 
-                    // Avoid duplicates in database and in-memory
-                    bool alreadyExistsInDb = existingIsSponsors.Any(existing =>
-                        existing.EventId == isSponsor.EventId &&
-                        existing.SponsorId == isSponsor.SponsorId &&
-                        existing.SponsorTierId == isSponsor.SponsorTierId);
+                bool titleSponsorAssigned = false;
 
-                    bool alreadyExistsInMemory = isSponsors.Any(existing =>
-                        existing.EventId == isSponsor.EventId &&
-                        existing.SponsorId == isSponsor.SponsorId &&
-                        existing.SponsorTierId == isSponsor.SponsorTierId);
-
-                    if (!alreadyExistsInDb && !alreadyExistsInMemory)
-                    {
-                        isSponsors.Add(isSponsor);
-                        shuffledSponsors.Remove(titleSponsor); // Remove the assigned sponsor from the list
-                    }
-                }
-
-                // Assign other sponsors
-                int numSponsors = faker.Random.Int(1, maxSponsorsPerEvent); // Limit the number of sponsors per event
 
                 for (int i = 0; i < numSponsors; i++)
                 {
                     var sponsor = shuffledSponsors[i];
                     var sponsorTier = sponsorTiers[faker.Random.Int(0, sponsorTiers.Count - 1)];
 
+                    // Ensure only one "Title Sponsor" per event
+                    if (sponsorTier.TierName == "Title Sponsor")
+                    {
+                        if (titleSponsorAssigned)
+                        {
+                            continue;
+                        }
+                        titleSponsorAssigned = true;
+                    }
+
                     var isSponsor = new IsSponsor
                     {
                         EventId = @event.EventId,
                         SponsorId = sponsor.SponsorId,
-                        SponsorTierId = sponsorTier.SponsorTierId
+                        SponsorTierId = sponsorTier.SponsorTierId,
                     };
 
-                    // Avoid duplicates in database and in-memory
-                    bool alreadyExistsInDb = existingIsSponsors.Any(existing =>
-                        existing.EventId == isSponsor.EventId &&
-                        existing.SponsorId == isSponsor.SponsorId &&
-                        existing.SponsorTierId == isSponsor.SponsorTierId);
-
-                    bool alreadyExistsInMemory = isSponsors.Any(existing =>
-                        existing.EventId == isSponsor.EventId &&
-                        existing.SponsorId == isSponsor.SponsorId &&
-                        existing.SponsorTierId == isSponsor.SponsorTierId);
-
-                    if (alreadyExistsInDb || alreadyExistsInMemory)
+                    // Avoid duplicates
+                    if (
+                        !isSponsors.Any(x =>
+                            x.EventId == isSponsor.EventId
+                            && x.SponsorId == isSponsor.SponsorId
+                            && x.SponsorTierId == isSponsor.SponsorTierId
+                        )
+                    )
                     {
-                        continue;
+                        isSponsors.Add(isSponsor);
                     }
-
-                    isSponsors.Add(isSponsor);
                 }
             }
 
@@ -718,9 +766,9 @@ namespace OOP_EventsManagementSystem.Database
                     var show = new Show
                     {
                         ShowName = faker.Lorem.Sentence(3), // Generate a show name with 3 words
-                        Cost = faker.Finance.Amount(1000, 5000), // Random cost between 100 and 1000
+                        Cost = faker.Random.Int(1000, 5000), // Random cost between 100 and 1000
                         PerformerId = performer.PerformerId,
-                        GenreId = genre.GenreId
+                        GenreId = genre.GenreId,
                     };
 
                     shows.Add(show);
@@ -754,12 +802,15 @@ namespace OOP_EventsManagementSystem.Database
             foreach (var @event in events)
             {
                 // Each event needs a few different shows
-                int numShows = faker.Random.Int(1, 10);
+                int numShows = faker.Random.Int(10, 20);
 
                 for (int i = 0; i < numShows; i++)
                 {
                     var show = shows[faker.Random.Int(0, shows.Count - 1)];
-                    var startDate = faker.Date.Between(@event.StartDate.ToDateTime(TimeOnly.MinValue), @event.EndDate.ToDateTime(TimeOnly.MinValue));
+                    var startDate = faker.Date.Between(
+                        @event.StartDate.ToDateTime(TimeOnly.MinValue),
+                        @event.EndDate.ToDateTime(TimeOnly.MinValue)
+                    );
                     var estDuration = faker.Random.Int(30, 120); // Estimated duration between 30 minutes and 3 hours
 
                     var showSchedule = new ShowSchedule
@@ -767,11 +818,15 @@ namespace OOP_EventsManagementSystem.Database
                         StartDate = DateOnly.FromDateTime(startDate),
                         EstDuration = estDuration,
                         ShowId = show.ShowId,
-                        EventId = @event.EventId
+                        EventId = @event.EventId,
                     };
 
                     // Avoid duplicates
-                    if (!showSchedules.Any(x => x.ShowId == showSchedule.ShowId && x.EventId == showSchedule.EventId))
+                    if (
+                        !showSchedules.Any(x =>
+                            x.ShowId == showSchedule.ShowId && x.EventId == showSchedule.EventId
+                        )
+                    )
                     {
                         showSchedules.Add(showSchedule);
                     }
@@ -794,31 +849,32 @@ namespace OOP_EventsManagementSystem.Database
 
             // List of general equipment types
             var predefinedEquipmentTypes = new List<string>
-    {
-        "Audio Equipment",
-        "Visual Equipment",
-        "Lighting Equipment",
-        "Staging Equipment",
-        "Communication Equipment",
-        "Power Equipment",
-        "Seating and Furniture",
-        "Tents and Canopies",
-        "Decoration Equipment",
-        "Catering Equipment",
-        "Safety and Security Equipment",
-        "Miscellaneous"
-    };
+            {
+                "Audio Equipment",
+                "Visual Equipment",
+                "Lighting Equipment",
+                "Staging Equipment",
+                "Communication Equipment",
+                "Power Equipment",
+                "Seating and Furniture",
+                "Tents and Canopies",
+                "Decoration Equipment",
+                "Catering Equipment",
+                "Safety and Security Equipment",
+                "Miscellaneous",
+            };
 
             // Map equipment types to EquipmentType entity objects
-            var equipmentTypes = predefinedEquipmentTypes.Select(et => new EquipmentType
-            {
-                TypeName = et
-            }).ToList();
+            var equipmentTypes = predefinedEquipmentTypes
+                .Select(et => new EquipmentType { TypeName = et })
+                .ToList();
 
             // Add EquipmentType data to the database
             context.EquipmentTypes.AddRange(equipmentTypes);
             context.SaveChanges();
-            Console.WriteLine($"Seeded {equipmentTypes.Count} predefined EquipmentType data successfully.");
+            Console.WriteLine(
+                $"Seeded {equipmentTypes.Count} predefined EquipmentType data successfully."
+            );
         }
 
         private static void SeedEquipmentNameData(EventManagementDbContext context)
@@ -840,20 +896,119 @@ namespace OOP_EventsManagementSystem.Database
             var equipmentNames = new List<EquipmentName>();
 
             var equipmentDetails = new Dictionary<string, List<string>>
-    {
-        { "Audio Equipment", new List<string> { "Microphone", "Speaker", "Subwoofer", "Mixer", "Amplifier" } },
-        { "Visual Equipment", new List<string> { "Projector", "Screen", "LED Wall", "Monitor", "Camera" } },
-        { "Lighting Equipment", new List<string> { "Stage Light", "Uplight", "Spotlight", "Gobo", "DMX Controller" } },
-        { "Staging Equipment", new List<string> { "Portable Stage", "Stage Riser", "Stage Skirt", "Podium", "Stage Barrier" } },
-        { "Communication Equipment", new List<string> { "Two-way Radio", "Intercom System", "Paging System", "Walkie-talkie", "Headset" } },
-        { "Power Equipment", new List<string> { "Generator", "Extension Cord", "Power Strip", "Power Conditioner", "UPS" } },
-        { "Seating and Furniture", new List<string> { "Folding Chair", "Banquet Table", "Sofa", "Bar Stool", "Lectern" } },
-        { "Tents and Canopies", new List<string> { "Pop-up Tent", "Canopy", "Marquee", "Gazebo", "Sidewall" } },
-        { "Decoration Equipment", new List<string> { "Banner", "Balloon", "Flower Arrangement", "Centerpiece", "Tablecloth" } },
-        { "Catering Equipment", new List<string> { "Chafing Dish", "Beverage Dispenser", "Cooler", "Serving Tray", "Tableware" } },
-        { "Safety and Security Equipment", new List<string> { "Fire Extinguisher", "First Aid Kit", "Barrier", "Security Camera", "Emergency Exit Sign" } },
-        { "Miscellaneous", new List<string> { "Signage", "Registration Desk", "Coat Rack", "Trash Bin", "Hand Sanitizing Station" } }
-    };
+            {
+                {
+                    "Audio Equipment",
+                    new List<string> { "Microphone", "Speaker", "Subwoofer", "Mixer", "Amplifier" }
+                },
+                {
+                    "Visual Equipment",
+                    new List<string> { "Projector", "Screen", "LED Wall", "Monitor", "Camera" }
+                },
+                {
+                    "Lighting Equipment",
+                    new List<string>
+                    {
+                        "Stage Light",
+                        "Uplight",
+                        "Spotlight",
+                        "Gobo",
+                        "DMX Controller",
+                    }
+                },
+                {
+                    "Staging Equipment",
+                    new List<string>
+                    {
+                        "Portable Stage",
+                        "Stage Riser",
+                        "Stage Skirt",
+                        "Podium",
+                        "Stage Barrier",
+                    }
+                },
+                {
+                    "Communication Equipment",
+                    new List<string>
+                    {
+                        "Two-way Radio",
+                        "Intercom System",
+                        "Paging System",
+                        "Walkie-talkie",
+                        "Headset",
+                    }
+                },
+                {
+                    "Power Equipment",
+                    new List<string>
+                    {
+                        "Generator",
+                        "Extension Cord",
+                        "Power Strip",
+                        "Power Conditioner",
+                        "UPS",
+                    }
+                },
+                {
+                    "Seating and Furniture",
+                    new List<string>
+                    {
+                        "Folding Chair",
+                        "Banquet Table",
+                        "Sofa",
+                        "Bar Stool",
+                        "Lectern",
+                    }
+                },
+                {
+                    "Tents and Canopies",
+                    new List<string> { "Pop-up Tent", "Canopy", "Marquee", "Gazebo", "Sidewall" }
+                },
+                {
+                    "Decoration Equipment",
+                    new List<string>
+                    {
+                        "Banner",
+                        "Balloon",
+                        "Flower Arrangement",
+                        "Centerpiece",
+                        "Tablecloth",
+                    }
+                },
+                {
+                    "Catering Equipment",
+                    new List<string>
+                    {
+                        "Chafing Dish",
+                        "Beverage Dispenser",
+                        "Cooler",
+                        "Serving Tray",
+                        "Tableware",
+                    }
+                },
+                {
+                    "Safety and Security Equipment",
+                    new List<string>
+                    {
+                        "Fire Extinguisher",
+                        "First Aid Kit",
+                        "Barrier",
+                        "Security Camera",
+                        "Emergency Exit Sign",
+                    }
+                },
+                {
+                    "Miscellaneous",
+                    new List<string>
+                    {
+                        "Signage",
+                        "Registration Desk",
+                        "Coat Rack",
+                        "Trash Bin",
+                        "Hand Sanitizing Station",
+                    }
+                },
+            };
 
             foreach (var equipmentType in equipmentTypes)
             {
@@ -864,8 +1019,8 @@ namespace OOP_EventsManagementSystem.Database
                         var equipmentName = new EquipmentName
                         {
                             EquipName = equipName,
-                            EquipCost = faker.Finance.Amount(100, 10000), // Random cost between 100 and 10,000
-                            EquipTypeId = equipmentType.EquipTypeId
+                            EquipCost = faker.Random.Int(100, 10000), // Random cost between 100 and 10,000
+                            EquipTypeId = equipmentType.EquipTypeId,
                         };
 
                         equipmentNames.Add(equipmentName);
@@ -890,7 +1045,9 @@ namespace OOP_EventsManagementSystem.Database
             var equipmentNames = context.EquipmentNames.ToList();
             if (!events.Any() || !equipmentNames.Any())
             {
-                Console.WriteLine("No events or equipment names found. Please seed these tables first.");
+                Console.WriteLine(
+                    "No events or equipment names found. Please seed these tables first."
+                );
                 return;
             }
 
@@ -901,13 +1058,13 @@ namespace OOP_EventsManagementSystem.Database
             {
                 foreach (var equipName in equipmentNames)
                 {
-                    var quantity = faker.Random.Int(0, 10); // Quantity can be between 0 and 10
+                    var quantity = faker.Random.Int(2, 10); // Quantity can be between 0 and 10
 
                     var required = new Required
                     {
                         Quantity = quantity,
                         EventId = @event.EventId,
-                        EquipNameId = equipName.EquipNameId
+                        EquipNameId = equipName.EquipNameId,
                     };
 
                     requireds.Add(required);
@@ -937,7 +1094,15 @@ namespace OOP_EventsManagementSystem.Database
             var faker = new Bogus.Faker();
             var equipments = new List<Equipment>();
 
-            var conditions = new List<string> { "Good", "Broken", "Missing", "Needs Repair", "Excellent", "Poor" };
+            var conditions = new List<string>
+            {
+                "Good",
+                "Broken",
+                "Missing",
+                "Needs Repair",
+                "Excellent",
+                "Poor",
+            };
 
             foreach (var required in requiredEquipments)
             {
@@ -946,7 +1111,7 @@ namespace OOP_EventsManagementSystem.Database
                     var equipment = new Equipment
                     {
                         EquipNameId = required.EquipNameId,
-                        Condition = conditions[faker.Random.Int(0, conditions.Count - 1)]
+                        Condition = conditions[faker.Random.Int(0, conditions.Count - 1)],
                     };
 
                     equipments.Add(equipment);
@@ -957,7 +1122,6 @@ namespace OOP_EventsManagementSystem.Database
             context.SaveChanges();
             Console.WriteLine("Seeded Equipment data successfully.");
         }
-
 
         private static void SeedEngagedData(EventManagementDbContext context)
         {
@@ -973,7 +1137,9 @@ namespace OOP_EventsManagementSystem.Database
 
             if (!accounts.Any() || !events.Any() || !needs.Any())
             {
-                Console.WriteLine("No accounts, events, or needs found. Please seed these tables first.");
+                Console.WriteLine(
+                    "No accounts, events, or needs found. Please seed these tables first."
+                );
                 return;
             }
 
@@ -983,28 +1149,34 @@ namespace OOP_EventsManagementSystem.Database
             foreach (var need in needs)
             {
                 var requiredQuantity = need.Quantity;
-                var assignedCount = context.Engageds.Count(e => e.EventId == need.EventId && e.Account.Employee.RoleId == need.RoleId);
+                var assignedCount = context.Engageds.Count(e =>
+                    e.EventId == need.EventId && e.Account.Employee.RoleId == need.RoleId
+                );
 
                 if (assignedCount >= requiredQuantity)
                 {
                     continue;
                 }
 
-                var availableAccounts = accounts.Where(a => a.Employee.RoleId == need.RoleId).ToList();
+                var availableAccounts = accounts
+                    .Where(a => a.Employee.RoleId == need.RoleId)
+                    .ToList();
 
                 for (int i = assignedCount; i < requiredQuantity; i++)
                 {
                     if (availableAccounts.Any())
                     {
-                        var account = availableAccounts[faker.Random.Int(0, availableAccounts.Count - 1)];
+                        var account = availableAccounts[
+                            faker.Random.Int(0, availableAccounts.Count - 1)
+                        ];
                         var engaged = new Engaged
                         {
                             AccountId = account.AccountId,
-                            EventId = need.EventId
+                            EventId = need.EventId,
                         };
 
                         engageds.Add(engaged);
-                        availableAccounts.Remove(account); // Remove to prevent duplicate assignments
+                        availableAccounts.Remove(account);
                     }
                 }
             }
@@ -1013,6 +1185,5 @@ namespace OOP_EventsManagementSystem.Database
             context.SaveChanges();
             Console.WriteLine("Seeded Engaged data successfully.");
         }
-
     }
 }

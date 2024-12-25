@@ -1,1035 +1,256 @@
-﻿<UserControl x:Class="OOP_EventsManagementSystem.View.Show"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:OOP_EventsManagementSystem.View"
-             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
-           xmlns:styles="clr-namespace:OOP_EventsManagementSystem.Styles"
-             mc:Ignorable="d" 
-             Height="555" Width="850"
-             Background="#EFE9E4">
-    <UserControl.Resources>
-        <Storyboard x:Key="ShowBoard">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ellipse" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="-210"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ellipse" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="-4.8"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ellipse1" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="-210"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ellipse1" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="-4.8"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ellipse2" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="-210"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ellipse2" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="-4.8"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ellipse3" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="-210"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ellipse3" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="-4.8"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ellipse4" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="-210"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ellipse4" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="-4.8"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="border1" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="-339.6"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="border1" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="4.8"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="polygon" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="-436"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="polygon" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="-19.2"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ellipse5" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="-6.055"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="-442.055"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ellipse5" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="30.919"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="11.719"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="line" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="17.416"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="-418.584"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="line" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="20.493"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="1.293"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ellipse6" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="7.928"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="-428.072"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ellipse6" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="24.962"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="5.762"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="border" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="-640"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="border" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="-22.4"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="image1" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="-739.2"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="image1" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="-3.2"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="border2" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="2.574"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="border2" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="-145.6"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="border2" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="1.379"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="border2" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="-71.8"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="textBlock3" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="65.6"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="textBlock3" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="-142.933"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="btn_show" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.1000000" Value="0.96"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.4000000" Value="0.84"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="0.6"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="btn_show" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.1000000" Value="-3.618"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.4000000" Value="-14.473"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.5000000" Value="-18.091"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="-26.901"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="btn_show" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.1000000" Value="0.865"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.4000000" Value="0.63"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.5000000" Value="0.557"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="0.344"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="btn_show" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.1000000" Value="12.373"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.4000000" Value="34.195"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.5000000" Value="40.952"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="68.765"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="textBlock5" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="0.383"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="textBlock5" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="26.004"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="textBlock6" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="0.383"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="textBlock6" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="26.418"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="textBlock5" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="-132.124"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="textBlock6" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="-134.735"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="textBlock5" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="0.879"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="textBlock6" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="0.879"/>
-            </DoubleAnimationUsingKeyFrames>
-            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="dataGrid" Storyboard.TargetProperty="(UIElement.Visibility)">
-                <DiscreteObjectKeyFrame KeyTime="00:00:00" Value="{x:Static Visibility.Collapsed}"/>
-                <DiscreteObjectKeyFrame KeyTime="00:00:01" Value="{x:Static Visibility.Visible}"/>
-            </ObjectAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="btn_show" Storyboard.TargetProperty="(FrameworkElement.Width)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="180"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.1000000" Value="170"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.4000000" Value="160"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.5000000" Value="155"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="140"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="btn_show" Storyboard.TargetProperty="(FrameworkElement.Height)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="180"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.1000000" Value="170"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.4000000" Value="160"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:00.5000000" Value="155"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="140"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="dataGrid" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="1.082"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="dataGrid" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="-13.8"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="image" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)">
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="0.95"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="image" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="2.71"/>
-            </DoubleAnimationUsingKeyFrames>
-            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="searchBar" Storyboard.TargetProperty="(UIElement.Visibility)">
-                <DiscreteObjectKeyFrame KeyTime="00:00:00" Value="{x:Static Visibility.Collapsed}"/>
-                <DiscreteObjectKeyFrame KeyTime="00:00:01" Value="{x:Static Visibility.Visible}"/>
-            </ObjectAnimationUsingKeyFrames>
-        </Storyboard>
-        <Storyboard x:Key="PerformerBoard">
-            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="stackPanel4" Storyboard.TargetProperty="(UIElement.Visibility)">
-                <DiscreteObjectKeyFrame KeyTime="00:00:00" Value="{x:Static Visibility.Visible}"/>
-            </ObjectAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="textBlock8" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="40.8"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="textBlock8" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="-261.6"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="textBlock7" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="-24.497"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="textBlock7" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="-95.457"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="border3" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="1.77"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="border3" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="71.2"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="border3" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="1.704"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="border3" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="106.575"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="btn_performer" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="0.367"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="btn_performer" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="0.372"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="btn_performer" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="-62.825"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="btn_performer" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="-179.064"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="textBlock7" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="0.429"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="textBlock7" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="0.478"/>
-            </DoubleAnimationUsingKeyFrames>
-            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="dataGrid1" Storyboard.TargetProperty="(UIElement.Visibility)">
-                <DiscreteObjectKeyFrame KeyTime="00:00:00" Value="{x:Static Visibility.Collapsed}"/>
-                <DiscreteObjectKeyFrame KeyTime="00:00:01" Value="{x:Static Visibility.Visible}"/>
-            </ObjectAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="border4" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="45.2"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="border4" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="358.4"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="image2" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="36.8"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="image2" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="362.4"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="btn_performer" Storyboard.TargetProperty="(FrameworkElement.Width)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="180"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="140"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="btn_performer" Storyboard.TargetProperty="(FrameworkElement.Height)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="180"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="140"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="rectangle" Storyboard.TargetProperty="(FrameworkElement.Width)">
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="110"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="rectangle" Storyboard.TargetProperty="(FrameworkElement.Height)">
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="110"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="dataGrid1" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="0.928"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="dataGrid1" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="-26"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="stackPanel5" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="1.6"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="stackPanel5" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
-                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="36.8"/>
-            </DoubleAnimationUsingKeyFrames>
-        </Storyboard>
-        <Storyboard x:Key="rvs">
-            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="stackPanel4" Storyboard.TargetProperty="(UIElement.Visibility)">
-                <DiscreteObjectKeyFrame KeyTime="00:00:01" Value="{x:Static Visibility.Visible}"/>
-            </ObjectAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="textBlock8" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="40.8"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="textBlock8" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="-261.6"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="textBlock7" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="-24.497"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="textBlock7" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="-95.457"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="border3" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="1.77"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="1"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="border3" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="71.2"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="border3" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="1.704"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="1"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="border3" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="106.575"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="btn_performer" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="0.367"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="1"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="btn_performer" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="0.372"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="1"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="btn_performer" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="-62.825"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="btn_performer" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="-179.064"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="textBlock7" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="0.429"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="1"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="textBlock7" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="0.478"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="1"/>
-            </DoubleAnimationUsingKeyFrames>
-            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="dataGrid1" Storyboard.TargetProperty="(UIElement.Visibility)">
-                <DiscreteObjectKeyFrame KeyTime="00:00:00" Value="{x:Static Visibility.Visible}"/>
-                <DiscreteObjectKeyFrame KeyTime="00:00:00.1000000" Value="{x:Static Visibility.Collapsed}"/>
-                <DiscreteObjectKeyFrame KeyTime="00:00:01" Value="{x:Static Visibility.Collapsed}"/>
-            </ObjectAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="border4" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="45.2"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="border4" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="358.4"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="image2" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="36.8"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="image2" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="362.4"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="btn_performer" Storyboard.TargetProperty="(FrameworkElement.Width)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="140"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="180"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="btn_performer" Storyboard.TargetProperty="(FrameworkElement.Height)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="140"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="180"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="rectangle" Storyboard.TargetProperty="(FrameworkElement.Width)">
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="150"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="rectangle" Storyboard.TargetProperty="(FrameworkElement.Height)">
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="150"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="dataGrid1" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="0.928"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="1"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="dataGrid1" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="-26"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="stackPanel5" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="1.6"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="stackPanel5" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="36.8"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-        </Storyboard>
-        <Storyboard x:Key="Rvs_Show">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ellipse" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="-210"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ellipse" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="-4.8"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ellipse1" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="-210"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ellipse1" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="-4.8"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ellipse2" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="-210"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ellipse2" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="-4.8"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ellipse3" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="-210"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ellipse3" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="-4.8"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ellipse4" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="-210"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ellipse4" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="-4.8"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="border1" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="-339.6"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="border1" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="4.8"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="polygon" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="-436"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="polygon" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="-19.2"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ellipse5" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="-442.055"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="-6.055"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ellipse5" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="11.719"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="30.919"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="line" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="-418.584"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="17.416"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="line" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="1.293"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="20.493"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ellipse6" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="-428.072"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="7.928"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ellipse6" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="5.762"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="24.962"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="border" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="-640"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="border" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="-22.4"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="image1" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="-739.2"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="image1" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="-3.2"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="border2" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="2.574"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="1"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="border2" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="-145.6"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="border2" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="1.379"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="1"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="border2" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="-71.8"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="textBlock3" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="65.6"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="textBlock3" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="-142.933"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="btn_show" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="0.6"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:00.6000000" Value="0.84"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:00.9000000" Value="0.96"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="1"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="btn_show" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="-26.901"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:00.5000000" Value="-18.091"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:00.6000000" Value="-14.473"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:00.9000000" Value="-3.618"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="btn_show" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="0.344"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:00.5000000" Value="0.557"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:00.6000000" Value="0.63"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:00.9000000" Value="0.865"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="1"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="btn_show" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="68.765"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:00.5000000" Value="40.952"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:00.6000000" Value="34.195"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:00.9000000" Value="12.373"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="textBlock5" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="0.383"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="1"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="textBlock5" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="26.004"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="textBlock6" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="0.383"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="1"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="textBlock6" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="26.418"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="textBlock5" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="-132.124"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="textBlock6" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="-134.735"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="textBlock5" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="0.879"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="1"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="textBlock6" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="0.879"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="1"/>
-            </DoubleAnimationUsingKeyFrames>
-            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="dataGrid" Storyboard.TargetProperty="(UIElement.Visibility)">
-                <DiscreteObjectKeyFrame KeyTime="00:00:00" Value="{x:Static Visibility.Visible}"/>
-                <DiscreteObjectKeyFrame KeyTime="00:00:01" Value="{x:Static Visibility.Collapsed}"/>
-            </ObjectAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="btn_show" Storyboard.TargetProperty="(FrameworkElement.Width)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="140"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:00.5000000" Value="155"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:00.6000000" Value="160"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:00.9000000" Value="170"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="180"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="btn_show" Storyboard.TargetProperty="(FrameworkElement.Height)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="140"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:00.5000000" Value="155"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:00.6000000" Value="160"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:00.9000000" Value="170"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="180"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="dataGrid" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="1.082"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="1"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="dataGrid" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="-13.8"/>
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="image" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)">
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="1"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="image" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="searchBar" Storyboard.TargetProperty="(UIElement.Visibility)">
-                <DiscreteObjectKeyFrame KeyTime="00:00:00" Value="{x:Static Visibility.Visible}"/>
-                <DiscreteObjectKeyFrame KeyTime="00:00:01" Value="{x:Static Visibility.Collapsed}"/>
-            </ObjectAnimationUsingKeyFrames>
-        </Storyboard>
-
-
-    </UserControl.Resources>
-    <UserControl.Triggers>
-        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="btn_show">
-            <BeginStoryboard Storyboard="{StaticResource ShowBoard}" />
-        </EventTrigger>
-        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="btn_performer">
-            <BeginStoryboard Storyboard="{StaticResource PerformerBoard}" />
-        </EventTrigger>
-        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="btn_back">
-            <BeginStoryboard Storyboard="{StaticResource Rvs_Show}" />
-        </EventTrigger>
-        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="btn_back">
-            <BeginStoryboard Storyboard="{StaticResource rvs}" />
-        </EventTrigger>
-    </UserControl.Triggers>
-    <Grid >
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="6*"/>
-            <ColumnDefinition Width="4*"/>
-        </Grid.ColumnDefinitions>
-        <Polygon x:Name="polygon" Points="75,10 0,150 150,150" Width="150"
-            Fill="#C6C3F2"  Margin="114,35,246,415" RenderTransformOrigin="0.5,0.5"
->
-            <Polygon.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="-89.748"/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </Polygon.RenderTransform>
-        </Polygon>
-        <Ellipse x:Name="ellipse" Width="106" Fill="#D96073" HorizontalAlignment="Left" Margin="18,124,0,330" RenderTransformOrigin="0.5,0.5" >
-            <Ellipse.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </Ellipse.RenderTransform>
-        </Ellipse>
-        <Grid x:Name="grid">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-            </Grid.RowDefinitions>
-            <TextBlock x:Name="textBlock" Text="Show and Performer" FontFamily="Bahnschrift SemiBold" FontSize="22" Margin="15,15,15,0"  />
-            <Border x:Name="border" Grid.Row="1" Background="White" CornerRadius="16" Height="105" Width="288" HorizontalAlignment="Right" Margin="15" RenderTransformOrigin="0.5,0.5">
-                <Border.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform/>
-                        <RotateTransform/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </Border.RenderTransform>
-                <StackPanel x:Name="stackPanel">
-                    <TextBlock x:Name="textBlock1" TextWrapping="Wrap" FontFamily="Bahnschrift SemiLight" FontSize="18" Margin="10,12,55,5"><Run Text="Participate in more than"/><Run Text=" "/><Run Text="100 events" Foreground="#FFBEC658" /><Run Text=" "/><Run Text="this year"/></TextBlock>
-                    <TextBlock x:Name="textBlock2" TextWrapping="Wrap" FontFamily="Bahnschrift SemiLight" FontSize="18" Margin="10,5,10,5"><Run Text="Play in about" /><Run Text=" "/><Run Text="200 hour" Foreground="#FFBEC658"/><Run Text=" "/><Run Text="per month" /></TextBlock>
-                </StackPanel>
-            </Border>
-            <StackPanel x:Name="stackPanel1" Grid.Row="2">
-                <TextBlock x:Name="textBlock3" FontFamily="Bahnschrift SemiBold" FontSize="18" Margin="10,5,95,5" HorizontalAlignment="Right" RenderTransformOrigin="0.5,0.5">
-                    <TextBlock.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform/>
-                            <SkewTransform/>
-                            <RotateTransform/>
-                            <TranslateTransform/>
-                        </TransformGroup>
-                    </TextBlock.RenderTransform><Run Text="Top " /><Run Text="1" FontSize="24" /><Run Text=" Show" /></TextBlock>
-
-                <Grid x:Name="grid1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="36*"/>
-                        <ColumnDefinition Width="169*"/>
-                    </Grid.ColumnDefinitions>
-                    <Border x:Name="border1" Background="White" CornerRadius="16" Height="320" Width="280" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,0,0,0" RenderTransformOrigin="0.5,0.5">
-                        <Border.RenderTransform>
-                            <TransformGroup>
-                                <ScaleTransform/>
-                                <SkewTransform/>
-                                <RotateTransform/>
-                                <TranslateTransform/>
-                            </TransformGroup>
-                        </Border.RenderTransform>
-                        <Grid x:Name="grid2">
-                            <TextBlock x:Name="textBlock4" Text="Genre" FontFamily="Bahnschrift SemiBold" FontSize="18" Margin="10,5,15,290" HorizontalAlignment="Left" />
-
-                            <lvc:CartesianChart x:Name="cartesianChart" Margin="15,25,15,0">
-
-                                <lvc:CartesianChart.AxisX>
-                                    <lvc:Axis x:Name="axis" Title="Tháng" Labels="{Binding Labels}" />
-                                </lvc:CartesianChart.AxisX>
-                                <lvc:CartesianChart.AxisY>
-                                    <lvc:Axis x:Name="axis1" Title="Tần suất" />
-                                </lvc:CartesianChart.AxisY>
-                            </lvc:CartesianChart>
-                        </Grid>
-
-                    </Border>
-                    <Border x:Name="border2" Grid.Column="1" Background="White" CornerRadius="16" Height="380" Width="185" HorizontalAlignment="Right" Margin="0,0,15,15" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="2">
-                        <Border.RenderTransform>
-                            <TransformGroup>
-                                <ScaleTransform/>
-                                <SkewTransform/>
-                                <RotateTransform/>
-                                <TranslateTransform/>
-                            </TransformGroup>
-                        </Border.RenderTransform>
-                        <StackPanel x:Name="stackPanel2">
-
-                            <Button x:Name="btn_show" Height="180" Width="180" Background="Transparent" BorderBrush="Transparent" RenderTransformOrigin="0.5,0.5">
-                                <Button.RenderTransform>
-                                    <TransformGroup>
-                                        <ScaleTransform/>
-                                        <SkewTransform/>
-                                        <RotateTransform/>
-                                        <TranslateTransform/>
-                                    </TransformGroup>
-                                </Button.RenderTransform>
-                                <Image x:Name="image" Source="pack://application:,,,/Resources/Images/diewasmile.jpg" RenderTransformOrigin="0.5,0.5"   >
-                                    <Image.RenderTransform>
-                                        <TransformGroup>
-                                            <ScaleTransform/>
-                                            <SkewTransform/>
-                                            <RotateTransform/>
-                                            <TranslateTransform/>
-                                        </TransformGroup>
-                                    </Image.RenderTransform>
-                                </Image>
-                            </Button>
-
-                            <TextBlock x:Name="textBlock5" Text="Die with a smile" FontFamily="Bahnschrift SemiBold" FontSize="18" Margin="10,5,15,0" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0.5" >
-                                <TextBlock.RenderTransform>
-                                    <TransformGroup>
-                                        <ScaleTransform/>
-                                        <SkewTransform/>
-                                        <RotateTransform/>
-                                        <TranslateTransform/>
-                                    </TransformGroup>
-                                </TextBlock.RenderTransform>
-                            </TextBlock>
-                            <TextBlock x:Name="textBlock6" Text="-Bruno Mars-" FontFamily="Bahnschrift Light Condensed" FontSize="18" Margin="10,0,15,5" HorizontalAlignment="Center" Foreground="#FF5C5656" RenderTransformOrigin="0.5,0.5" >
-                                <TextBlock.RenderTransform>
-                                    <TransformGroup>
-                                        <ScaleTransform/>
-                                        <SkewTransform/>
-                                        <RotateTransform/>
-                                        <TranslateTransform/>
-                                    </TransformGroup>
-                                </TextBlock.RenderTransform>
-                            </TextBlock>
+﻿<UserControl
+    x:Class="OOP_EventsManagementSystem.View.Show"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:OOP_EventsManagementSystem.View"
+    xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:styles="clr-namespace:OOP_EventsManagementSystem.Styles"
+    Width="850"
+    Height="555"
+    Background="#EFE9E4"
+    mc:Ignorable="d">
+    <Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+            <StackPanel>
+                <TextBlock
+                    Margin="15,15,0,0"
+                    Style="{StaticResource txt_header}"
+                    Text="Show and Performer" />
+                <Border
+                    Margin="15,10"
+                    Background="White"
+                    CornerRadius="16">
+                    <Grid>
+                        <!--  Top 1 performer  -->
+                        <StackPanel
+                            Margin="10"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Top"
+                            Orientation="Horizontal">
+                            <StackPanel>
+                                <TextBlock
+                                    Margin="10,0"
+                                    FontSize="18"
+                                    Style="{StaticResource txt}">
+                                    <Run Text="Top" />
+                                    <Run FontSize="25" Text="1" />
+                                    <Run Text="Performer" />
+                                </TextBlock>
+                                <TextBlock
+                                    Margin="10,5"
+                                    HorizontalAlignment="Right"
+                                    Style="{StaticResource txt_header}"
+                                    Text="{Binding TopPerformerName}" />
+                            </StackPanel>
+                            <Image
+                                Width="100"
+                                Height="100"
+                                Source="pack://application:,,,/Resources/Images/adele.jpg"
+                                Stretch="UniformToFill" />
                         </StackPanel>
+                        <!--  Search  -->
+                        <TextBlock
+                            Margin="15,85,0,10"
+                            FontSize="17"
+                            Style="{StaticResource txt_header}"
+                            Text="List Performers" />
+                        <!--  DataGrid Performer  -->
+                        <DataGrid
+                            Name="PerformerDataGrid"
+                            Width="410"
+                            Height="365"
+                            Margin="15,110,15,15"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            AutoGenerateColumns="False"
+                            Background="White"
+                            IsReadOnly="True"
+                            ItemsSource="{Binding Performers}"
+                            SelectedItem="{Binding SelectedPerformer}"
+                            SelectionChanged="PerformerDataGrid_SelectionChanged"
+                            SelectionMode="Extended">
 
-                    </Border>
-                </Grid>
+                            <!--  Cột cho PerformerId  -->
+                            <DataGrid.Columns>
+                                <DataGridTextColumn
+                                    Width="Auto"
+                                    Binding="{Binding PerformerId}"
+                                    Header="ID" />
+
+                                <!--  Cột cho FullName  -->
+                                <DataGridTextColumn
+                                    Width="Auto"
+                                    Binding="{Binding FullName}"
+                                    Header="Name" />
+
+                                <!--  Cột cho ContactDetail  -->
+                                <DataGridTextColumn
+                                    Width="Auto"
+                                    Binding="{Binding ContactDetail}"
+                                    Header="Contact" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+                    </Grid>
+                </Border>
 
             </StackPanel>
 
-        </Grid>
-        <Ellipse x:Name="ellipse1" Width="20" Fill="#FFFBF8" HorizontalAlignment="Left" Margin="51,164,0,371" RenderTransformOrigin="0.5,0.5" >
-            <Ellipse.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform ScaleX="-1"/>
-                    <SkewTransform/>
-                    <RotateTransform/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </Ellipse.RenderTransform>
-        </Ellipse>
-        <Ellipse x:Name="ellipse2" Width="20" Fill="#FFFBF8" HorizontalAlignment="Left" Margin="88,144,0,391" RenderTransformOrigin="0.5,0.5" >
-            <Ellipse.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform ScaleX="-1"/>
-                    <SkewTransform/>
-                    <RotateTransform/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </Ellipse.RenderTransform>
-        </Ellipse>
-        <Ellipse x:Name="ellipse3" Width="5" Fill="#262628" HorizontalAlignment="Left" Margin="98,148,0,401" RenderTransformOrigin="0.5,0.5" >
-            <Ellipse.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </Ellipse.RenderTransform>
-        </Ellipse>
-        <Ellipse x:Name="ellipse4" Width="5" Fill="#262628" HorizontalAlignment="Left" Margin="61,168,0,381" RenderTransformOrigin="0.5,0.5" >
-            <Ellipse.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </Ellipse.RenderTransform>
-        </Ellipse>
-        <Ellipse x:Name="ellipse5" Width="33" Fill="#FFFBF8" HorizontalAlignment="Left" Margin="143,76,0,445" RenderTransformOrigin="0.5,0.5" >
-            <Ellipse.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform ScaleX="-1"/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="-89.748"/>
-                    <TranslateTransform X="-6.055" Y="30.919"/>
-                </TransformGroup>
-            </Ellipse.RenderTransform>
-        </Ellipse>
-        <Line x:Name="line" X1="0" Y1="0" X2="23" Y2="0" Stroke="Black" StrokeThickness="2"
-            RenderTransformOrigin="0,0" HorizontalAlignment="Left" Height="7" VerticalAlignment="Top" Margin="159,92,0,0" Width="23">
-            <Line.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="-89.748" />
-                    <TranslateTransform X="17.416" Y="20.493"/>
-                </TransformGroup>
-            </Line.RenderTransform>
-        </Line>
-        <Ellipse x:Name="ellipse6" Width="8" Fill="#262628" HorizontalAlignment="Left" Margin="153,98,0,450" RenderTransformOrigin="0.5,0.5" >
-            <Ellipse.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="90"/>
-                    <TranslateTransform X="7.928" Y="24.962"/>
-                </TransformGroup>
-            </Ellipse.RenderTransform>
-        </Ellipse>
-        <Image x:Name="image1" Source="pack://application:,,,/Resources/Images/party-popper.png" Margin="433,65,32,444" RenderTransformOrigin="0.5,0.5">
-            <Image.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </Image.RenderTransform>
-        </Image>
-        <styles:SearchBar x:Name="searchBar" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="25,150,0,0" Visibility="Collapsed"/>
-        <DataGrid x:Name="dataGrid" d:ItemsSource="{d:SampleData ItemCount=100}" Background="Transparent" Margin="20,220,15,10" Visibility="Collapsed" RenderTransformOrigin="0.5,0.5">
-            <DataGrid.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </DataGrid.RenderTransform>
-        </DataGrid>
-        <Grid x:Name="grid3" Grid.Column="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
+            <StackPanel Grid.Column="1">
+                <!--  Show  -->
+                <Border
+                    Margin="5,10"
+                    Background="White"
+                    CornerRadius="16">
+                    <Grid>
+                        <!--  Top 1 Show  -->
+                        <StackPanel
+                            Margin="10"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Orientation="Horizontal">
 
-            </Grid.RowDefinitions>
-            <Border x:Name="border3" Background="White" Height="278" Width="185" CornerRadius="16" HorizontalAlignment="Left" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Center" >
-                <Border.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform/>
-                        <RotateTransform/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </Border.RenderTransform>
-                <StackPanel x:Name="stackPanel3" VerticalAlignment="Bottom">
+                            <Image
+                                Width="80"
+                                Height="80"
+                                Source="pack://application:,,,/Resources/Images/diewasmile.jpg"
+                                Stretch="UniformToFill" />
+                            <StackPanel>
+                                <TextBlock
+                                    Margin="10,0"
+                                    FontSize="18"
+                                    Style="{StaticResource txt}">
+                                    <Run Text="Top" />
+                                    <Run FontSize="25" Text="1" />
+                                    <Run Text="Show" />
+                                </TextBlock>
+                                <!--  Bind Tên Show  -->
+                                <TextBlock
+                                    Margin="10,0"
+                                    HorizontalAlignment="Left"
+                                    Style="{StaticResource txt_header}"
+                                    Text="{Binding TopShowName}" />
+                                <!--  Bind Tên Performer  -->
+                                <TextBlock
+                                    Margin="10,-5"
+                                    HorizontalAlignment="Left"
+                                    Style="{StaticResource txt}"
+                                    Text="{Binding PerformerName}" />
+                            </StackPanel>
+                        </StackPanel>
+                        <TextBlock
+                            Margin="15,85,15,0"
+                            HorizontalAlignment="Right"
+                            Style="{StaticResource txt_header}"
+                            Text="List Show" />
+                        <DataGrid
+                            Name="ShowDataGrid"
+                            Width="340"
+                            Height="250"
+                            Margin="15,110,15,10"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Stretch"
+                            AutoGenerateColumns="False"
+                            Background="White"
+                            BeginningEdit="ShowDataGrid_BeginningEdit"
+                            IsReadOnly="True"
+                            ItemsSource="{Binding SelectedPerformerShows}"
+                            SelectionChanged="ShowDataGrid_SelectionChanged">
 
-                    <TextBlock x:Name="textBlock7" Text="Adele" FontFamily="Bahnschrift SemiBold" FontSize="18" Margin="10,5,15,0" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0.5" >
-                        <TextBlock.RenderTransform>
-                            <TransformGroup>
-                                <ScaleTransform/>
-                                <SkewTransform/>
-                                <RotateTransform/>
-                                <TranslateTransform/>
-                            </TransformGroup>
-                        </TextBlock.RenderTransform>
-                    </TextBlock>
-                    <Button x:Name="btn_performer" Width="180" Height="180" Background="Transparent" BorderBrush="Transparent" RenderTransformOrigin="0.5,0.5">
-                        <Button.RenderTransform>
-                            <TransformGroup>
-                                <ScaleTransform/>
-                                <SkewTransform/>
-                                <RotateTransform/>
-                                <TranslateTransform/>
-                            </TransformGroup>
-                        </Button.RenderTransform>
-                        <Rectangle x:Name="rectangle" Width="150" Height="150" >
-                            <Rectangle.Fill>
-                                <ImageBrush ImageSource="pack://application:,,,/Resources/Images/diewasmile.jpg" Stretch="UniformToFill" />
-                            </Rectangle.Fill>
-                        </Rectangle>
+                            <DataGrid.Columns>
+                                <DataGridTextColumn
+                                    Width="Auto"
+                                    Binding="{Binding ShowId}"
+                                    Header="Show ID" />
+                                <DataGridTextColumn
+                                    Width="*"
+                                    Binding="{Binding ShowName}"
+                                    Header="Name" />
+                                <DataGridTextColumn
+                                    Width="Auto"
+                                    Binding="{Binding Cost}"
+                                    Header="Cost" />
+                                <DataGridTemplateColumn Width="100" Header="Genre">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <!--  Hiển thị giá trị đã chọn trong chế độ đọc  -->
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Genre.Genre1}" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                    <DataGridTemplateColumn.CellEditingTemplate>
+                                        <!--  Hiển thị ComboBox trong chế độ chỉnh sửa  -->
+                                        <DataTemplate>
+                                            <ComboBox
+                                                DisplayMemberPath="Genre1"
+                                                ItemsSource="{Binding DataContext.Genres, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                                SelectedValue="{Binding Genre, Mode=TwoWay}"
+                                                SelectedValuePath="." />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellEditingTemplate>
+                                </DataGridTemplateColumn>
+
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </Border>
+
+                <!--  Button  -->
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+
+                    <Button
+                        Width="100"
+                        Height="45"
+                        Margin="5"
+                        Click="AddButton_Click"
+                        Content="Add"
+                        Style="{StaticResource GreenButton}">
+                        <Button.ContextMenu>
+                            <ContextMenu x:Name="Choose">
+                                <MenuItem Click="Add_Show" Header="Add New Show" />
+                                <MenuItem Click="Add_Performer" Header="Add New Performer" />
+                            </ContextMenu>
+                        </Button.ContextMenu>
                     </Button>
-                </StackPanel>
-            </Border>
-            <TextBlock x:Name="textBlock8" Grid.Row="1" FontFamily="Bahnschrift SemiBold" FontSize="18" Margin="55,5,85,5" HorizontalAlignment="Left" RenderTransformOrigin="0.5,0.5">
-                <TextBlock.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform/>
-                        <RotateTransform/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </TextBlock.RenderTransform><Run Text="Top " /><Run Text="1" FontSize="24" /><Run Text=" Performer" /></TextBlock>
-            <Border x:Name="border4" Grid.Row="2" Background="White" CornerRadius="16" Height="105" Width="320" HorizontalAlignment="Left"  Margin="0,15,10,10" RenderTransformOrigin="0.5,0.5">
-                <Border.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform/>
-                        <RotateTransform/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </Border.RenderTransform>
-                <StackPanel x:Name="stackPanel4">
-                    <TextBlock x:Name="textBlock9" TextWrapping="Wrap" FontFamily="Bahnschrift SemiLight" FontSize="18" Margin="10,12,55,5"><Run Text="Participate in more than"/><Run Text=" "/><Run Text="100 events" Foreground="#FFBEC658" /><Run Text=" "/><Run Text="this year"/></TextBlock>
-                    <TextBlock x:Name="textBlock10" TextWrapping="Wrap" FontFamily="Bahnschrift SemiLight" FontSize="18" Margin="10,5,10,5"><Run Text="Her song in" /><Run Text=" "/><Run Text="Top 10" Foreground="#FFBEC658"/><Run Text=" "/><Run Text="song of the month" /></TextBlock>
-                </StackPanel>
-            </Border>
-            <StackPanel x:Name="stackPanel5" Grid.Row="3" Orientation="Horizontal" Margin="0,15,0,0" RenderTransformOrigin="0.5,0.5">
-                <StackPanel.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform/>
-                        <RotateTransform/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </StackPanel.RenderTransform>
+                    <Button
+                        Width="100"
+                        Height="45"
+                        Margin="5"
+                        Click="DeleteButton_Click"
+                        Content="Delete"
+                        Style="{StaticResource PinkButton}" />
 
-                <Button x:Name="btn_add" Content="Add" Style="{StaticResource PinkButton}" Width="100" Height="50" Click="btn_add_Click" IsEnabled="True"/>
-                <Button x:Name="btn_edit" Content="Edit" Command="{Binding EditCommand}" IsEnabled="{Binding IsButtonEnabled}" Style="{StaticResource PurpleButton}" Width="100" Height="50"/>
-                <Button x:Name="btn_delete" Content="Delete" Command="{Binding DeleteCommand}" IsEnabled="{Binding IsButtonEnabled}" Style="{StaticResource GreenButton}" Width="100" Height="50"/>
+                    <Button
+                        x:Name="EditButton"
+                        Width="100"
+                        Height="45"
+                        Margin="5"
+                        Click="EditButton_Click"
+                        Content="Edit"
+                        Style="{StaticResource PurpleButton}"
+                        Visibility="Visible" />
+                    <Button
+                        x:Name="ConfirmButton"
+                        Width="100"
+                        Height="45"
+                        Margin="5"
+                        Background="#FF576DDC"
+                        Click="ConfirmButton_Click"
+                        Content="Comfirm"
+                        Style="{StaticResource PinkButton}"
+                        Visibility="Collapsed" />
+
+                </StackPanel>
+
+
             </StackPanel>
         </Grid>
-        <Button x:Name="btn_back" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Top" Content="Back" Background="Transparent" BorderBrush="{x:Null}" Foreground="#DD000000" FontFamily="Bahnschrift SemiBold" FontSize="20" FontWeight="Normal" />
-        <DataGrid x:Name="dataGrid1" Grid.Column="1" d:ItemsSource="{d:SampleData ItemCount=100}" Background="Transparent" Margin="5,120,15,45" Visibility="Collapsed" RenderTransformOrigin="0.5,0.5">
-            <DataGrid.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </DataGrid.RenderTransform>
-        </DataGrid>
-        <Image x:Name="image2" Source="pack://application:,,,/Resources/Images/party-popper.png" Margin="259,341,36,168" Grid.Column="1" RenderTransformOrigin="0.5,0.5" >
-            <Image.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </Image.RenderTransform>
-        </Image>
 
     </Grid>
+
 </UserControl>
