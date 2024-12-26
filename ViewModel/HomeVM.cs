@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Windows.Media;
 using LiveCharts;
 using LiveCharts.Wpf;
 using OOP_EventsManagementSystem.Model;
@@ -228,6 +229,9 @@ namespace OOP_EventsManagementSystem.ViewModel
                 OnPropertyChanged(nameof(VenueCapacityDistribution));
             }
         }
+
+        // Labels for the X-axis
+        public string[] VenueCapacityLabels { get; set; }
 
         //--------------------------------------------------------------------------------------------------------------
         //--------------------------------------------------------------------------------------------------------------
@@ -514,6 +518,11 @@ namespace OOP_EventsManagementSystem.ViewModel
                 .OrderBy(d => d.Capacity)
                 .ToList();
 
+            // Assign labels for the X-axis (Capacity values)
+            VenueCapacityLabels = venueCapacityDistributionData
+                .Select(d => d.Capacity.ToString())
+                .ToArray();
+
             VenueCapacityDistribution = new SeriesCollection
             {
                 new ColumnSeries
@@ -522,6 +531,10 @@ namespace OOP_EventsManagementSystem.ViewModel
                     Values = new ChartValues<int>(
                         venueCapacityDistributionData.Select(d => d.VenueCount)
                     ),
+                    DataLabels = true, // Display data labels on bars
+                    Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 123, 255)), // Custom color
+                    Stroke = new SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 82, 170)), // Bar border color
+                    StrokeThickness = 1,
                 },
             };
         }

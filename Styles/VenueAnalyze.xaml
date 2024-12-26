@@ -74,12 +74,19 @@
                                 LegendLocation="Right"
                                 Series="{Binding VenueCapacityDistribution}">
                                 <lvc:CartesianChart.AxisX>
-                                    <lvc:Axis Title="Capacity" Foreground="Black" />
+                                    <lvc:Axis
+                                        Title="Capacity"
+                                        Foreground="Black"
+                                        Labels="{Binding VenueCapacityLabels}" />
                                 </lvc:CartesianChart.AxisX>
                                 <lvc:CartesianChart.AxisY>
                                     <lvc:Axis Title="Number of Venues" Foreground="Black" />
                                 </lvc:CartesianChart.AxisY>
+                                <lvc:CartesianChart.ChartLegend>
+                                    <lvc:DefaultLegend Foreground="Black" />
+                                </lvc:CartesianChart.ChartLegend>
                             </lvc:CartesianChart>
+
                         </Grid>
                     </Border>
                     <!--<Border
