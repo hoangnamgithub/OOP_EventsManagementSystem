@@ -1,5 +1,4 @@
-﻿using OOP_EventsManagementSystem.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,8 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using OOP_EventsManagementSystem.Model;
 using OOP_EventsManagementSystem.ViewModel;
-
 
 namespace OOP_EventsManagementSystem.Styles
 {
@@ -23,18 +22,21 @@ namespace OOP_EventsManagementSystem.Styles
     public partial class ShowDescription : Window
     {
         private ShowVM _showVM;
+
         public ShowDescription()
         {
             InitializeComponent();
             _showVM = new ShowVM(); // Khởi tạo ShowViewModel
-            
+
             LoadGenres();
         }
+
         private void ShowVM_RefreshShows()
         {
             // Gọi lại phương thức LoadShowsForSelectedPerformer từ ShowViewModel
             _showVM.LoadShowsForSelectedPerformer();
         }
+
         private void LoadGenres()
         {
             try
@@ -59,8 +61,8 @@ namespace OOP_EventsManagementSystem.Styles
         public void SetPerformerDetails(string name, string contact)
         {
             txtPerformerName.Text = name;
-           
         }
+
         private void btn_comfirm_Click(object sender, RoutedEventArgs e)
         {
             // Kiểm tra dữ liệu nhập vào
@@ -70,16 +72,31 @@ namespace OOP_EventsManagementSystem.Styles
             string cost = txtCost.Text; // TextBox cho chi phí Show
 
             // Kiểm tra nếu bất kỳ trường nào bị bỏ trống
-            if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(performerName) || selectedGenre == null || string.IsNullOrWhiteSpace(cost))
+            if (
+                string.IsNullOrWhiteSpace(name)
+                || string.IsNullOrWhiteSpace(performerName)
+                || selectedGenre == null
+                || string.IsNullOrWhiteSpace(cost)
+            )
             {
-                MessageBox.Show("Please fill in all the required fields.", "Incomplete Data", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(
+                    "Please fill in all the required fields.",
+                    "Incomplete Data",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning
+                );
                 return;
             }
 
             // Kiểm tra định dạng số cho chi phí
             if (!decimal.TryParse(cost, out decimal parsedCost))
             {
-                MessageBox.Show("Cost must be a valid number.", "Invalid Input", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(
+                    "Cost must be a valid number.",
+                    "Invalid Input",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
                 return;
             }
 
@@ -88,14 +105,16 @@ namespace OOP_EventsManagementSystem.Styles
                 using (var context = new EventManagementDbContext())
                 {
                     // Kiểm tra xem performer đã tồn tại trong database chưa
-                    var performer = context.Performers.FirstOrDefault(p => p.FullName == performerName);
+                    var performer = context.Performers.FirstOrDefault(p =>
+                        p.FullName == performerName
+                    );
                     if (performer == null)
                     {
                         // Nếu performer chưa tồn tại, thêm mới
                         performer = new Performer
                         {
                             FullName = performerName,
-                            ContactDetail = "N/A" // Nếu cần thêm thông tin liên hệ, có thể cập nhật ở đây
+                            ContactDetail = "N/A", // Nếu cần thêm thông tin liên hệ, có thể cập nhật ở đây
                         };
                         context.Performers.Add(performer);
                         context.SaveChanges();
@@ -107,21 +126,31 @@ namespace OOP_EventsManagementSystem.Styles
                         ShowName = name,
                         PerformerId = performer.PerformerId, // ID performer vừa nhập
                         GenreId = (int)selectedGenre, // ID genre đã chọn
-                        Cost = parsedCost
+                        Cost = parsedCost,
                     };
 
                     // Thêm và lưu vào database
                     context.Shows.Add(newShow);
                     context.SaveChanges();
 
-                    MessageBox.Show("New show added successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show(
+                        "New show added successfully!",
+                        "Success",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Information
+                    );
 
                     this.Close(); // Đóng cửa sổ sau khi lưu
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"An error occurred while saving the show: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(
+                    $"An error occurred while saving the show: {ex.Message}",
+                    "Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
             }
         }
 
@@ -129,8 +158,13 @@ namespace OOP_EventsManagementSystem.Styles
         {
             this.Close();
         }
-        private void MouseLeftButtonDown(object sender, MouseButtonEventArgs e) { if (e.ButtonState == MouseButtonState.Pressed) { this.DragMove(); } }
 
-        
+        private void MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ButtonState == MouseButtonState.Pressed)
+            {
+                this.DragMove();
+            }
+        }
     }
 }
