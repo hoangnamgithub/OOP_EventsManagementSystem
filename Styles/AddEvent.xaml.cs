@@ -43,7 +43,17 @@ namespace OOP_EventsManagementSystem.Styles
 
         private void btn_close_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            if (
+                MessageBox.Show(
+                    "Are you sure you want to close?",
+                    "Confirmation",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question
+                ) == MessageBoxResult.Yes
+            )
+            {
+                this.Close();
+            }
         }
     }
 }
