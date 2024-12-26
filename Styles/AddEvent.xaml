@@ -433,7 +433,7 @@
                                                     ItemsSource="{Binding EmployeeRoles}">
                                                     <DataGrid.Columns>
                                                         <DataGridTextColumn
-                                                            Width="70*"
+                                                            Width="50*"
                                                             Binding="{Binding RoleName}"
                                                             Header="Role"
                                                             IsReadOnly="True" />
@@ -441,6 +441,11 @@
                                                             Width="30*"
                                                             Binding="{Binding Quantity}"
                                                             Header="Quantity" />
+                                                        <DataGridTextColumn
+                                                            Width="20*"
+                                                            Binding="{Binding EmpCost}"
+                                                            Header="Cost/Role"
+                                                            IsReadOnly="True" />
                                                     </DataGrid.Columns>
                                                 </DataGrid>
                                             </Border>
@@ -480,7 +485,7 @@
                                                             Header="ID"
                                                             IsReadOnly="True" />
                                                         <DataGridTextColumn
-                                                            Width="30*"
+                                                            Width="20*"
                                                             Binding="{Binding EquipName}"
                                                             Header="Name"
                                                             IsReadOnly="True" />

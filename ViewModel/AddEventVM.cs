@@ -34,6 +34,7 @@ namespace OOP_EventsManagementSystem.ViewModel
             {
                 _shows = value;
                 OnPropertyChanged(nameof(Shows));
+                RecalculateTotalCost();
             }
         }
 
@@ -50,10 +51,26 @@ namespace OOP_EventsManagementSystem.ViewModel
                         PerformerName = s.Performer.FullName,
                         GenreName = s.Genre.Genre1,
                         Cost = s.Cost,
-                        IsChecked = false,
+                        IsChecked = false, // Initial state
                     })
                     .ToList()
             );
+
+            foreach (var show in Shows)
+            {
+                show.PropertyChanged += (sender, args) =>
+                {
+                    if (args.PropertyName == nameof(show.IsChecked))
+                    {
+                        RecalculateTotalCost();
+                    }
+                };
+            }
+        }
+
+        private void RecalculateTotalCost()
+        {
+            TotalShowCost = Shows.Where(s => s.IsChecked).Sum(s => s.Cost);
         }
 
         private ObservableCollection<SponsorWrapper> _sponsors;
@@ -100,10 +117,27 @@ namespace OOP_EventsManagementSystem.ViewModel
                     .EmployeeRoles.Select(er => new EmployeeRoleWrapper
                     {
                         RoleName = er.RoleName,
-                        Quantity = null, // Assuming Quantity is the number of employees in that role
+                        Quantity = 0, // Initial quantity
+                        EmpCost = er.Salary, // Assuming EmpCost is the salary for that role
                     })
                     .ToList()
             );
+
+            foreach (var role in EmployeeRoles)
+            {
+                role.PropertyChanged += (sender, args) =>
+                {
+                    if (args.PropertyName == nameof(role.Quantity))
+                    {
+                        RecalculateTotalEmployeeCost();
+                    }
+                };
+            }
+        }
+
+        private void RecalculateTotalEmployeeCost()
+        {
+            TotalEmployeeCost = EmployeeRoles.Sum(er => er.Quantity * er.EmpCost);
         }
 
         private ObservableCollection<EmployeeRoleWrapper> _employeeRoles;
@@ -120,13 +154,6 @@ namespace OOP_EventsManagementSystem.ViewModel
         private void LoadSponsorTiers()
         {
             SponsorTiers = new ObservableCollection<SponsorTier>(_context.SponsorTiers.ToList());
-        }
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        protected void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         private ObservableCollection<EquipmentWrapper> _equipments;
@@ -151,7 +178,7 @@ namespace OOP_EventsManagementSystem.ViewModel
                         EquipName = en.EquipName,
                         TypeName = en.EquipType.TypeName,
                         EquipCost = en.EquipCost,
-                        Quantity = null, // Assuming Quantity is the sum of all required quantities
+                        Quantity = 0, // Assuming Quantity is the sum of all required quantities
                     })
                     .ToList()
             );
@@ -188,16 +215,66 @@ namespace OOP_EventsManagementSystem.ViewModel
         {
             EventTypes = new ObservableCollection<EventType>(_context.EventTypes.ToList());
         }
+
+        private decimal _totalShowCost;
+        public decimal TotalShowCost
+        {
+            get => _totalShowCost;
+            set
+            {
+                _totalShowCost = value;
+                OnPropertyChanged(nameof(TotalShowCost));
+            }
+        }
+
+        private decimal _totalEmployeeCost;
+        public decimal TotalEmployeeCost
+        {
+            get => _totalEmployeeCost;
+            set
+            {
+                _totalEmployeeCost = value;
+                OnPropertyChanged(nameof(TotalEmployeeCost));
+            }
+        }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 
-    public class ShowWrapper
+    public class ShowWrapper : INotifyPropertyChanged
     {
+        private bool _isChecked;
+
         public int ShowId { get; set; }
         public string ShowName { get; set; }
         public string PerformerName { get; set; }
         public string GenreName { get; set; }
         public decimal Cost { get; set; }
-        public bool IsChecked { get; set; }
+
+        public bool IsChecked
+        {
+            get => _isChecked;
+            set
+            {
+                if (_isChecked != value)
+                {
+                    _isChecked = value;
+                    OnPropertyChanged(nameof(IsChecked));
+                }
+            }
+        }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 
     public class SponsorWrapper
@@ -208,18 +285,59 @@ namespace OOP_EventsManagementSystem.ViewModel
         public bool IsChecked { get; set; }
     }
 
-    public class EmployeeRoleWrapper
+    public class EmployeeRoleWrapper : INotifyPropertyChanged
     {
+        private int _quantity;
+
         public string RoleName { get; set; }
-        public int? Quantity { get; set; }
+        public int Quantity
+        {
+            get => _quantity;
+            set
+            {
+                if (_quantity != value)
+                {
+                    _quantity = value;
+                    OnPropertyChanged(nameof(Quantity));
+                }
+            }
+        }
+        public decimal EmpCost { get; set; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 
-    public class EquipmentWrapper
+    public class EquipmentWrapper : INotifyPropertyChanged
     {
+        private int _quantity;
+
         public int EquipNameId { get; set; }
         public string EquipName { get; set; }
         public string TypeName { get; set; }
         public decimal EquipCost { get; set; }
-        public int? Quantity { get; set; }
+        public int Quantity
+        {
+            get => _quantity;
+            set
+            {
+                if (_quantity != value)
+                {
+                    _quantity = value;
+                    OnPropertyChanged(nameof(Quantity));
+                }
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }
