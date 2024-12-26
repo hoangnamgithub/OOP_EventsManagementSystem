@@ -216,9 +216,10 @@
                             Height="45"
                             Margin="10,0,0,0"
                             Command="{Binding ConfirmAddEmployeeCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"
                             Content="Comfirm"
                             Style="{StaticResource PinkButton}" />
-                        <Button
+                        <!--<Button
                             Name="btn_cancelAddEmp"
                             Grid.Row="1"
                             Grid.Column="1"
@@ -226,7 +227,7 @@
                             Height="45"
                             Margin="0,0,10,0"
                             Content="Cancel"
-                            Style="{StaticResource PurpleButton}" />
+                            Style="{StaticResource PurpleButton}" />-->
                     </Grid>
                 </StackPanel>
                 <StackPanel
