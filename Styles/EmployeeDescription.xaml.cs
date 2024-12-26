@@ -36,5 +36,13 @@ namespace OOP_EventsManagementSystem.Styles
         {
             if (e.ButtonState == MouseButtonState.Pressed) { this.DragMove(); }
         }
+
+        private void txtbox_empName_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (DataContext is EmployeeVM viewModel && viewModel.GeneratePasswordCommand.CanExecute(null))
+            {
+                viewModel.GeneratePasswordCommand.Execute(null);
+            }
+        }
     }
 }

@@ -2,6 +2,8 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Text;
+using System.Windows;
 using System.Windows.Input;
 using Microsoft.EntityFrameworkCore;
 using OOP_EventsManagementSystem.Model;
@@ -15,10 +17,14 @@ namespace OOP_EventsManagementSystem.ViewModel
 
         private ObservableCollection<Event> _todayEvents;
         private ObservableCollection<Employee> _engagedEmployees;
-        private ObservableCollection<Employee> _employees;  // New collection for all employees
-        private ObservableCollection<EmployeeRole> _employeeRoles; // New collection for employee roles
+        private ObservableCollection<Employee> _employees;
+        private ObservableCollection<EmployeeRole> _employeeRoles;
         private Event _selectedEvent;
-        private EmployeeRole _selectedEmployeeRole; // New property for selected employee role
+        private EmployeeRole _selectedEmployeeRole;
+        private string _employeeName;
+        private string _employeeContact;
+        private string _employeeAccount;
+        private string _employeePassword;
 
         public ObservableCollection<Event> TodayEvents
         {
@@ -40,7 +46,7 @@ namespace OOP_EventsManagementSystem.ViewModel
             }
         }
 
-        public ObservableCollection<Employee> Employees  // New property for all employees
+        public ObservableCollection<Employee> Employees
         {
             get => _employees;
             set
@@ -50,7 +56,7 @@ namespace OOP_EventsManagementSystem.ViewModel
             }
         }
 
-        public ObservableCollection<EmployeeRole> EmployeeRoles // New property for employee roles
+        public ObservableCollection<EmployeeRole> EmployeeRoles
         {
             get => _employeeRoles;
             set
@@ -60,13 +66,54 @@ namespace OOP_EventsManagementSystem.ViewModel
             }
         }
 
-        public EmployeeRole SelectedEmployeeRole // New property for selected employee role
+        public EmployeeRole SelectedEmployeeRole
         {
             get => _selectedEmployeeRole;
             set
             {
                 _selectedEmployeeRole = value;
                 OnPropertyChanged(nameof(SelectedEmployeeRole));
+            }
+        }
+
+        public string EmployeeName
+        {
+            get => _employeeName;
+            set
+            {
+                _employeeName = value;
+                OnPropertyChanged(nameof(EmployeeName));
+                EmployeeAccount = $"{_employeeName}@easys.com";
+            }
+        }
+
+        public string EmployeeContact
+        {
+            get => _employeeContact;
+            set
+            {
+                _employeeContact = value;
+                OnPropertyChanged(nameof(EmployeeContact));
+            }
+        }
+
+        public string EmployeeAccount
+        {
+            get => _employeeAccount;
+            set
+            {
+                _employeeAccount = value;
+                OnPropertyChanged(nameof(EmployeeAccount));
+            }
+        }
+
+        public string EmployeePassword
+        {
+            get => _employeePassword;
+            set
+            {
+                _employeePassword = value;
+                OnPropertyChanged(nameof(EmployeePassword));
             }
         }
 
@@ -77,7 +124,7 @@ namespace OOP_EventsManagementSystem.ViewModel
             {
                 _selectedEvent = value;
                 OnPropertyChanged(nameof(SelectedEvent));
-                LoadEngagedEmployees(); // Update the second DataGrid
+                LoadEngagedEmployees();
             }
         }
 
@@ -91,7 +138,7 @@ namespace OOP_EventsManagementSystem.ViewModel
                 {
                     _searchText = value;
                     OnPropertyChanged(nameof(SearchText));
-                    LoadEngagedEmployees(); // Re-filter when search text changes
+                    LoadEngagedEmployees();
                 }
             }
         }
@@ -99,6 +146,8 @@ namespace OOP_EventsManagementSystem.ViewModel
         public ICommand AddCommand { get; }
         public ICommand EditCommand { get; }
         public ICommand DeleteCommand { get; }
+        public ICommand GeneratePasswordCommand { get; }
+        public ICommand ConfirmAddEmployeeCommand { get; }
 
         public EmployeeVM(EventManagementDbContext context)
         {
@@ -106,10 +155,12 @@ namespace OOP_EventsManagementSystem.ViewModel
             AddCommand = new RelayCommand(AddNewEmployee);
             EditCommand = new RelayCommand(EditEmployee);
             DeleteCommand = new RelayCommand(DeleteEmployee);
+            GeneratePasswordCommand = new RelayCommand(GeneratePassword);
+            ConfirmAddEmployeeCommand = new RelayCommand(ConfirmAddEmployee);
 
             LoadTodayEvents();
-            LoadAllEmployees(); // Load all employees initially
-            LoadEmployeeRoles(); // Load employee roles
+            LoadAllEmployees();
+            LoadEmployeeRoles();
             EngagedEmployees = new ObservableCollection<Employee>();
         }
 
@@ -143,14 +194,12 @@ namespace OOP_EventsManagementSystem.ViewModel
 
         private void LoadAllEmployees()
         {
-            // Fetch all employees from the database
             var employees = _context.Employees.ToList();
             Employees = new ObservableCollection<Employee>(employees);
         }
 
         private void LoadEmployeeRoles()
         {
-            // Fetch all employee roles from the database
             var roles = _context.EmployeeRoles.ToList();
             EmployeeRoles = new ObservableCollection<EmployeeRole>(roles);
         }
@@ -159,7 +208,6 @@ namespace OOP_EventsManagementSystem.ViewModel
         {
             if (SelectedEvent == null)
             {
-                // If no event is selected, load all employees engaged in today's events
                 var today = DateOnly.FromDateTime(DateTime.Today);
 
                 var engagedEmployees = _context.Engageds
@@ -167,10 +215,9 @@ namespace OOP_EventsManagementSystem.ViewModel
                     .ThenInclude(a => a.Employee)
                     .Where(e => e.Event.StartDate <= today && e.Event.EndDate >= today)
                     .Select(e => e.Account.Employee)
-                    .Distinct() // Ensure no duplicates
+                    .Distinct()
                     .ToList();
 
-                // Apply filtering based on SearchText
                 if (!string.IsNullOrEmpty(SearchText))
                 {
                     engagedEmployees = engagedEmployees
@@ -183,7 +230,6 @@ namespace OOP_EventsManagementSystem.ViewModel
             }
             else
             {
-                // Load employees engaged in the selected event
                 var employees = _context.Engageds
                     .Include(e => e.Account)
                     .ThenInclude(a => a.Employee)
@@ -191,7 +237,6 @@ namespace OOP_EventsManagementSystem.ViewModel
                     .Select(e => e.Account.Employee)
                     .ToList();
 
-                // Apply filtering based on SearchText
                 if (!string.IsNullOrEmpty(SearchText))
                 {
                     employees = employees
@@ -204,7 +249,54 @@ namespace OOP_EventsManagementSystem.ViewModel
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        private void GeneratePassword(object parameter)
+        {
+            EmployeePassword = GenerateRandomPassword();
+        }
+
+        private string GenerateRandomPassword()
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            var random = new Random();
+            var password = new StringBuilder();
+            for (int i = 0; i < 8; i++)
+            {
+                password.Append(chars[random.Next(chars.Length)]);
+            }
+            return password.ToString();
+        }
+
+        private void ConfirmAddEmployee(object parameter)
+        {
+            MessageBoxResult result = MessageBox.Show("Do you want to confirm adding this employee?", "Confirmation", MessageBoxButton.YesNo);
+            if (result == MessageBoxResult.Yes)
+            {
+                var newEmployee = new Employee
+                {
+                    FullName = EmployeeName,
+                    Contact = EmployeeContact,
+                    RoleId = SelectedEmployeeRole.RoleId,
+                };
+
+                _context.Employees.Add(newEmployee);
+                _context.SaveChanges();
+
+                var newAccount = new Account
+                {
+                    Email = EmployeeAccount,
+                    Password = EmployeePassword,
+                    PermissionId = 3,
+                    EmployeeId = newEmployee.EmployeeId,
+                };
+
+                _context.Accounts.Add(newAccount);
+                _context.SaveChanges();
+
+                MessageBox.Show("Employee added successfully!");
+            }
+        }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         protected virtual void OnPropertyChanged(string propertyName)
         {

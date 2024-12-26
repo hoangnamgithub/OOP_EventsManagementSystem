@@ -81,9 +81,10 @@
                                 CaretBrush="{x:Null}"
                                 FontFamily="Bahnschrift SemiLight"
                                 FontSize="16"
+                                LostFocus="txtbox_empName_LostFocus"
                                 SelectionBrush="{x:Null}"
                                 SelectionTextBrush="{x:Null}"
-                                Text="" />
+                                Text="{Binding EmployeeName, UpdateSourceTrigger=PropertyChanged}" />
                         </Border>
                     </Grid>
                     <Grid>
@@ -104,6 +105,7 @@
                             Background="#FFDCDCE6"
                             CornerRadius="16">
                             <TextBox
+                                Name="txtbox_empContact"
                                 Margin="10,5,10,5"
                                 Background="{x:Null}"
                                 BorderBrush="{x:Null}"
@@ -112,7 +114,7 @@
                                 FontSize="16"
                                 SelectionBrush="{x:Null}"
                                 SelectionTextBrush="{x:Null}"
-                                Text="" />
+                                Text="{Binding EmployeeContact}" />
                         </Border>
                     </Grid>
                     <Grid>
@@ -168,7 +170,7 @@
                                 IsReadOnly="True"
                                 SelectionBrush="{x:Null}"
                                 SelectionTextBrush="{x:Null}"
-                                Text="" />
+                                Text="{Binding EmployeeAccount}" />
                         </Border>
                     </Grid>
                     <Grid>
@@ -199,7 +201,7 @@
                                 IsReadOnly="True"
                                 SelectionBrush="{x:Null}"
                                 SelectionTextBrush="{x:Null}"
-                                Text="" />
+                                Text="{Binding EmployeePassword}" />
                         </Border>
                     </Grid>
                     <Grid Margin="0,5,0,0">
@@ -208,13 +210,16 @@
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
                         <Button
+                            Name="btn_cfAddEmp"
                             Grid.Row="1"
                             Width="120"
                             Height="45"
                             Margin="10,0,0,0"
+                            Command="{Binding ConfirmAddEmployeeCommand}"
                             Content="Comfirm"
                             Style="{StaticResource PinkButton}" />
                         <Button
+                            Name="btn_cancelAddEmp"
                             Grid.Row="1"
                             Grid.Column="1"
                             Width="120"
@@ -253,3 +258,4 @@
 
     </Border>
 </Window>
+
