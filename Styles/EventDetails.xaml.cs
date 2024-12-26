@@ -8,6 +8,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using OOP_EventsManagementSystem.Model;
+using OOP_EventsManagementSystem.Utilities;
 using OOP_EventsManagementSystem.ViewModel;
 using OOP_EventsManagementSystem.ViewModel;
 
@@ -152,30 +153,72 @@ namespace OOP_EventsManagementSystem.Styles
             viewModel.SelectedSponsors = new ObservableCollection<FilteredSponsor>(selectedItems);
         }
 
-        private void SearchBox_show_TextChanged(object sender, TextChangedEventArgs e)
+        private void SearchShows(object sender, RoutedEventArgs e)
         {
-            var eventVM = DataContext as EventVM; // Access the ViewModel (EventVM)
+            var eventVM = DataContext as EventVM;
 
             if (eventVM != null)
             {
-                string searchText = SearchBox_show.Text.ToLower();
+                string searchText = SearchBox_show.Text.ToLower(); // Lấy văn bản tìm kiếm từ TextBox
 
-                // Lọc dữ liệu trong PagedCollection dựa trên ShowName, Cost, Performer, Genre
-                var filteredShows = eventVM.ShowsPagination.PagedCollection
+                var filteredShows = eventVM.AllShows
                     .Where(show => show.ShowName.ToLower().Contains(searchText) ||
                                    show.Cost.ToString().ToLower().Contains(searchText) ||
                                    show.Performer.FullName.ToLower().Contains(searchText) ||
                                    show.Genre.Genre1.ToLower().Contains(searchText))
                     .ToList();
 
-                // Cập nhật lại nguồn dữ liệu cho DataGrid bằng ObservableCollection
-                eventVM.ShowsPagination.PagedCollection = new ObservableCollection<Model.Show>(filteredShows);
+                if (filteredShows.Count == 0)
+                {
+                    MessageBox.Show("No shows found matching the search criteria.");
+                }
 
-                // Cập nhật lại thông tin để DataGrid hiển thị dữ liệu đã lọc
+                // Cập nhật lại PagedCollection cho Shows
+                eventVM.ShowsPagination.PagedCollection.Clear();
+                foreach (var show in filteredShows)
+                {
+                    eventVM.ShowsPagination.PagedCollection.Add(show);
+                }
+
                 eventVM.OnPropertyChanged(nameof(eventVM.ShowsPagination.PagedCollection));
             }
         }
 
+        private void SearchSponsors(object sender, RoutedEventArgs e)
+        {
+            var eventVM = DataContext as EventVM;
+
+            if (eventVM != null)
+            {
+                string searchText = SearchBox_sponsor.Text.ToLower(); // Lấy văn bản tìm kiếm từ TextBox
+
+                var filteredSponsors = eventVM.SponsorsPagination.PagedCollection
+                    .Where(sponsor => sponsor.SponsorName.ToLower().Contains(searchText) ||
+                                      sponsor.TierName.ToLower().Contains(searchText))
+                    .ToList();
+
+                // Kiểm tra tính toàn vẹn của dữ liệu sau khi lọc
+                MessageBox.Show($"Filtered sponsors count: {filteredSponsors.Count}");
+
+                if (filteredSponsors.Count == 0)
+                {
+                    MessageBox.Show("No sponsors found matching the search criteria.");
+                }
+
+                // Cập nhật lại PagedCollection với dữ liệu đã lọc
+                eventVM.SponsorsPagination.PagedCollection.Clear(); // Xóa các phần tử cũ
+                foreach (var sponsor in filteredSponsors)
+                {
+                    eventVM.SponsorsPagination.PagedCollection.Add(sponsor); // Thêm các phần tử đã lọc vào
+                }
+
+                // Nếu cần, cập nhật lại PaginationHelper để tái phân trang
+                eventVM.SponsorsPagination = new PaginationHelper<FilteredSponsor>(filteredSponsors, 9);
+
+                // Thông báo cho giao diện biết rằng dữ liệu đã thay đổi
+                eventVM.OnPropertyChanged(nameof(eventVM.SponsorsPagination.PagedCollection));
+            }
+        }
 
     }
 }

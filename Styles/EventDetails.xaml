@@ -218,20 +218,32 @@
                                                         HorizontalAlignment="Left"
                                                         Background="#FFDCDCE6"
                                                         CornerRadius="16">
-                                                        <TextBox
-                                                            x:Name="SearchBox_show"
-                                                            Margin="30,0,30,0"
-                                                            VerticalAlignment="Center"
-                                                            materialDesign:HintAssist.Hint="Search"
-                                                            Background="{x:Null}"
-                                                            BorderBrush="{x:Null}"
-                                                            CaretBrush="{x:Null}"
-                                                            FontFamily="Bahnschrift SemiLight"
-                                                            FontSize="14"
-                                                            Foreground="Gray"
-                                                            SelectionBrush="{x:Null}"
-                                                            SelectionTextBrush="{x:Null}"
-                                                            TextChanged="SearchBox_show_TextChanged"/>
+                                                        <Grid>
+                                                            <TextBox
+                                                                x:Name="SearchBox_show"
+                                                                Margin="30,0,30,0"
+                                                                VerticalAlignment="Center"
+                                                                materialDesign:HintAssist.Hint="Search"
+                                                                Background="{x:Null}"
+                                                                BorderBrush="{x:Null}"
+                                                                CaretBrush="{x:Null}"
+                                                                FontFamily="Bahnschrift SemiLight"
+                                                                FontSize="14"
+                                                                Foreground="Gray"
+                                                                SelectionBrush="{x:Null}"
+                                                                SelectionTextBrush="{x:Null}" />
+
+                                                            <Button
+                                                                x:Name="btn_search_shows"
+                                                                Width="90"
+                                                                Height="45"
+                                                                Margin="0,0,-5,0"
+                                                                HorizontalAlignment="Right"
+                                                                VerticalAlignment="Center"
+                                                                Click="SearchShows"
+                                                                Content="Search"
+                                                                Style="{StaticResource PinkButton}" />
+                                                        </Grid>
                                                     </Border>
                                                 </Grid>
                                                 <Border
@@ -353,19 +365,31 @@
                                                         HorizontalAlignment="Left"
                                                         Background="#FFDCDCE6"
                                                         CornerRadius="16">
-                                                        <TextBox
-                                                            x:Name="SearchBox_sponsor"
-                                                            Margin="30,0,30,0"
-                                                            VerticalAlignment="Center"
-                                                            materialDesign:HintAssist.Hint="Search"
-                                                            Background="{x:Null}"
-                                                            BorderBrush="{x:Null}"
-                                                            CaretBrush="{x:Null}"
-                                                            FontFamily="Bahnschrift SemiLight"
-                                                            FontSize="14"
-                                                            Foreground="Gray"
-                                                            SelectionBrush="{x:Null}"
-                                                            SelectionTextBrush="{x:Null}" />
+                                                        <Grid>
+                                                            <TextBox
+                                                                x:Name="SearchBox_sponsor"
+                                                                Margin="30,0,30,0"
+                                                                VerticalAlignment="Center"
+                                                                materialDesign:HintAssist.Hint="Search"
+                                                                Background="{x:Null}"
+                                                                BorderBrush="{x:Null}"
+                                                                CaretBrush="{x:Null}"
+                                                                FontFamily="Bahnschrift SemiLight"
+                                                                FontSize="14"
+                                                                Foreground="Gray"
+                                                                SelectionBrush="{x:Null}"
+                                                                SelectionTextBrush="{x:Null}" />
+                                                            <Button
+                                                                x:Name="btn_search_sponsors"
+                                                                Width="90"
+                                                                Height="45"
+                                                                Margin="0,0,-5,0"
+                                                                HorizontalAlignment="Right"
+                                                                VerticalAlignment="Center"
+                                                                Click="SearchSponsors"
+                                                                Content="Search"
+                                                                Style="{StaticResource PurpleButton}" />
+                                                        </Grid>
                                                     </Border>
                                                 </Grid>
                                                 <Border
@@ -449,7 +473,6 @@
                                                     VirtualizingStackPanel.IsVirtualizing="True"
                                                     VirtualizingStackPanel.VirtualizationMode="Recycling">
                                                     <DataGrid.Columns>
-
                                                         <DataGridTextColumn
                                                             Width="10*"
                                                             Binding="{Binding SponsorId}"
@@ -465,7 +488,6 @@
                                                             Binding="{Binding TierName}"
                                                             Header="Sponsor Tier"
                                                             IsReadOnly="True" />
-
                                                     </DataGrid.Columns>
                                                 </DataGrid>
 

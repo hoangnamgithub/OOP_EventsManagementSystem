@@ -27,8 +27,6 @@
                    Foreground="#262628" HorizontalAlignment="Right" Margin="0,124,53,435" />
 
             <!-- Please Enter Your Details -->
-            <TextBlock Text="Please enter your details" FontSize="12" FontFamily="Bahnschrift" FontWeight="Light"
-                   Foreground="#262628" HorizontalAlignment="Right" Margin="0,172,101,402" />
 
             <!-- Email -->
             <TextBlock Text="Id" FontSize="18" FontFamily="Bahnschrift" FontWeight="Normal"
