@@ -6,8 +6,12 @@
     xmlns:local="clr-namespace:OOP_EventsManagementSystem.Styles"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="585"
-    d:DesignWidth="885"
+    Width="850"
+    Height="600"
+    AllowsTransparency="True"
+    Background="Transparent"
+    WindowStartupLocation="CenterScreen"
+    WindowStyle="None"
     mc:Ignorable="d">
     <Border
         Margin="10"
@@ -81,7 +85,11 @@
                                     Name="cmbbox_venue"
                                     Width="155"
                                     Margin="10,0,5,5"
-                                    materialDesign:HintAssist.Hint="choosing..." />
+                                    materialDesign:HintAssist.Hint="choosing..."
+                                    DisplayMemberPath="VenueName"
+                                    ItemsSource="{Binding Venues}"
+                                    SelectedValue="{Binding SelectedVenueId, Mode=TwoWay}"
+                                    SelectedValuePath="VenueId" />
                                 <TextBlock
                                     Margin="15,5,15,0"
                                     FontFamily="Bahnschrift SemiBold"
@@ -93,7 +101,10 @@
                                     Margin="8,0,12,5"
                                     HorizontalAlignment="Stretch"
                                     materialDesign:HintAssist.Hint="choosing..."
-                                    DisplayMemberPath="TypeName" />
+                                    DisplayMemberPath="TypeName"
+                                    ItemsSource="{Binding EventTypes}"
+                                    SelectedValue="{Binding SelectedEventTypeId, Mode=TwoWay}"
+                                    SelectedValuePath="EventTypeId" />
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <!--  Description  -->
@@ -247,13 +258,13 @@
                                                         <DataGridTemplateColumn Header="">
                                                             <DataGridTemplateColumn.CellTemplate>
                                                                 <DataTemplate>
-                                                                    <CheckBox />
+                                                                    <CheckBox IsChecked="{Binding IsChecked, Mode=TwoWay}" />
                                                                 </DataTemplate>
                                                             </DataGridTemplateColumn.CellTemplate>
                                                         </DataGridTemplateColumn>
                                                         <DataGridTextColumn Binding="{Binding ShowName}" Header="Show Name" />
-                                                        <DataGridTextColumn Binding="{Binding Performer.FullName}" Header="Performer" />
-                                                        <DataGridTextColumn Binding="{Binding Genre.Genre1}" Header="Genre" />
+                                                        <DataGridTextColumn Binding="{Binding PerformerName}" Header="Performer" />
+                                                        <DataGridTextColumn Binding="{Binding GenreName}" Header="Genre" />
                                                         <DataGridTextColumn Binding="{Binding Cost}" Header="Cost" />
                                                     </DataGrid.Columns>
                                                 </DataGrid>
@@ -347,7 +358,8 @@
                                                     HorizontalAlignment="Stretch"
                                                     VerticalAlignment="Stretch"
                                                     AutoGenerateColumns="False"
-                                                    Background="Transparent">
+                                                    Background="Transparent"
+                                                    ItemsSource="{Binding Sponsors}">
                                                     <DataGrid.Columns>
                                                         <DataGridTemplateColumn Header="Check">
                                                             <DataGridTemplateColumn.CellTemplate>
@@ -356,9 +368,36 @@
                                                                 </DataTemplate>
                                                             </DataGridTemplateColumn.CellTemplate>
                                                         </DataGridTemplateColumn>
-                                                        <DataGridTextColumn Binding="{Binding SponsorId}" Header="Genre" />
-                                                        <DataGridTextColumn Binding="{Binding SponsorName}" Header="Sponsor" />
-                                                        <DataGridTextColumn Binding="{Binding TierName}" Header="Tier" />
+                                                        <DataGridTextColumn
+                                                            Binding="{Binding SponsorId}"
+                                                            Header="ID"
+                                                            IsReadOnly="True" />
+                                                        <DataGridTextColumn
+                                                            Binding="{Binding SponsorName}"
+                                                            Header="Sponsor"
+                                                            IsReadOnly="True" />
+                                                        <DataGridTemplateColumn Header="Tier">
+                                                            <DataGridTemplateColumn.CellTemplate>
+                                                                <DataTemplate>
+                                                                    <ComboBox
+                                                                        DisplayMemberPath="TierName"
+                                                                        ItemsSource="{Binding DataContext.SponsorTiers, RelativeSource={RelativeSource AncestorType=Window}}"
+                                                                        SelectedValue="{Binding SponsorTierId, Mode=TwoWay}"
+                                                                        SelectedValuePath="SponsorTierId">
+                                                                        <ComboBox.Style>
+                                                                            <Style TargetType="ComboBox">
+                                                                                <Setter Property="IsEnabled" Value="False" />
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding IsChecked}" Value="True">
+                                                                                        <Setter Property="IsEnabled" Value="True" />
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </ComboBox.Style>
+                                                                    </ComboBox>
+                                                                </DataTemplate>
+                                                            </DataGridTemplateColumn.CellTemplate>
+                                                        </DataGridTemplateColumn>
                                                     </DataGrid.Columns>
                                                 </DataGrid>
                                             </Border>
@@ -391,15 +430,16 @@
                                                     VerticalAlignment="Stretch"
                                                     AutoGenerateColumns="False"
                                                     Background="Transparent"
-                                                    ItemsSource="{Binding FilteredEmployeeRoles}">
+                                                    ItemsSource="{Binding EmployeeRoles}">
                                                     <DataGrid.Columns>
                                                         <DataGridTextColumn
                                                             Width="70*"
-                                                            Binding="{Binding SponsorName}"
-                                                            Header="Role" />
+                                                            Binding="{Binding RoleName}"
+                                                            Header="Role"
+                                                            IsReadOnly="True" />
                                                         <DataGridTextColumn
                                                             Width="30*"
-                                                            Binding="{Binding TierName}"
+                                                            Binding="{Binding Quantity}"
                                                             Header="Quantity" />
                                                     </DataGrid.Columns>
                                                 </DataGrid>
@@ -431,7 +471,8 @@
                                                     HorizontalAlignment="Stretch"
                                                     VerticalAlignment="Stretch"
                                                     AutoGenerateColumns="False"
-                                                    Background="Transparent">
+                                                    Background="Transparent"
+                                                    ItemsSource="{Binding Equipments}">
                                                     <DataGrid.Columns>
                                                         <DataGridTextColumn
                                                             Width="10*"
@@ -456,8 +497,7 @@
                                                         <DataGridTextColumn
                                                             Width="20*"
                                                             Binding="{Binding Quantity}"
-                                                            Header="Quantity"
-                                                            IsReadOnly="True" />
+                                                            Header="Quantity" />
                                                     </DataGrid.Columns>
                                                 </DataGrid>
                                             </Border>
@@ -521,7 +561,7 @@
                                     VerticalAlignment="Center"
                                     FontFamily="Bahnschrift SemiLight"
                                     FontSize="16"
-                                    Text="Location" />
+                                    Text="Venue" />
                                 <TextBlock
                                     Margin="0,0,0,10"
                                     VerticalAlignment="Center"
