@@ -1,7 +1,7 @@
-﻿using OOP_EventsManagementSystem.Database;
-using System.Configuration;
+﻿using System.Configuration;
 using System.Data;
 using System.Windows;
+using OOP_EventsManagementSystem.Database;
 
 namespace OOP_EventsManagementSystem
 {
@@ -19,5 +19,4 @@ namespace OOP_EventsManagementSystem
             DataSeeder.SeedData();
         }
     }
-
 }

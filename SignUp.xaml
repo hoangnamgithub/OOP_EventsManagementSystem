@@ -13,7 +13,10 @@
     WindowStartupLocation="CenterScreen"
     WindowStyle="None"
     mc:Ignorable="d">
-    <Border Background="#EFE9E4" CornerRadius="12">
+    <Border
+        Background="#EFE9E4"
+        CornerRadius="12"
+        MouseLeftButtonDown="EventDescription_MouseLeftButtonDown">
         <Grid>
             <Button
                 Width="18"

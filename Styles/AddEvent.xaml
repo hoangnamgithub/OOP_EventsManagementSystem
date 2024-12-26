@@ -108,24 +108,43 @@
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <!--  Description  -->
-                                <Border
-                                    Margin="5,15,10,0"
-                                    Background="White"
-                                    CornerRadius="16">
-                                    <TextBox
-                                        x:Name="des_txtbo"
-                                        Width="235"
-                                        Margin="5"
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Stretch"
-                                        BorderThickness="0"
-                                        FontFamily="Bahnschrift SemiLight"
-                                        FontSize="14"
-                                        Foreground="Black"
-                                        IsEnabled="{Binding IsEditing}"
-                                        TextWrapping="Wrap"
-                                        VerticalScrollBarVisibility="Hidden" />
-                                </Border>
+                                <StackPanel Height="auto">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock
+                                            Margin="5"
+                                            VerticalAlignment="Center"
+                                            FontFamily="Bahnschrift SemiBold"
+                                            FontSize="16"
+                                            Text="Capacity" />
+                                        <TextBox
+                                            x:Name="txtbox_capacity"
+                                            Width="154"
+                                            Margin="20,0,0,0"
+                                            materialDesign:HintAssist.Hint="Number only..."
+                                            FontFamily="Bahnschrift SemiLight"
+                                            FontSize="14"
+                                            IsReadOnly="True" />
+                                    </StackPanel>
+
+                                    <Border
+                                        Margin="5,15,10,0"
+                                        Background="White"
+                                        CornerRadius="16">
+                                        <TextBox
+                                            x:Name="des_txtbo"
+                                            Width="235"
+                                            Margin="5"
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Stretch"
+                                            BorderThickness="0"
+                                            FontFamily="Bahnschrift SemiLight"
+                                            FontSize="14"
+                                            Foreground="Black"
+                                            IsEnabled="{Binding IsEditing}"
+                                            TextWrapping="Wrap"
+                                            VerticalScrollBarVisibility="Hidden" />
+                                    </Border>
+                                </StackPanel>
                                 <!--  Date  -->
                                 <StackPanel Margin="20,5,0,0" Orientation="Vertical">
                                     <StackPanel Orientation="Horizontal">

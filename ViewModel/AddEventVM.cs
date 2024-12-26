@@ -167,6 +167,17 @@ namespace OOP_EventsManagementSystem.ViewModel
             }
         }
 
+        private decimal _totalEquipmentCost;
+        public decimal TotalEquipmentCost
+        {
+            get => _totalEquipmentCost;
+            set
+            {
+                _totalEquipmentCost = value;
+                OnPropertyChanged(nameof(TotalEquipmentCost));
+            }
+        }
+
         private void LoadEquipments()
         {
             Equipments = new ObservableCollection<EquipmentWrapper>(
@@ -178,10 +189,26 @@ namespace OOP_EventsManagementSystem.ViewModel
                         EquipName = en.EquipName,
                         TypeName = en.EquipType.TypeName,
                         EquipCost = en.EquipCost,
-                        Quantity = 0, // Assuming Quantity is the sum of all required quantities
+                        Quantity = 0, // Initial quantity
                     })
                     .ToList()
             );
+
+            foreach (var equipment in Equipments)
+            {
+                equipment.PropertyChanged += (sender, args) =>
+                {
+                    if (args.PropertyName == nameof(equipment.Quantity))
+                    {
+                        RecalculateTotalEquipmentCost();
+                    }
+                };
+            }
+        }
+
+        private void RecalculateTotalEquipmentCost()
+        {
+            TotalEquipmentCost = Equipments.Sum(eq => eq.Quantity * eq.EquipCost);
         }
 
         private ObservableCollection<Venue> _venues;

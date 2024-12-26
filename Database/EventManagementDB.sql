@@ -16,7 +16,7 @@ USE EventManagementDB;
 -- Kiểm tra xem PermissionId = 1 đã tồn tại
 -- Thêm tài khoản mới
 INSERT INTO Accounts.account (Email, Password, permission_id, employee_id)
-VALUES ('admin@easys.com', '123456', 1, NULL);
+VALUES ('admin', 'admin', 1, 2);
 
 SELECT * FROM Accounts.account
 UPDATE Accounts.account
