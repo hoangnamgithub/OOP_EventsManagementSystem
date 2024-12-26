@@ -34,7 +34,7 @@ namespace OOP_EventsManagementSystem.ViewModel
             {
                 _shows = value;
                 OnPropertyChanged(nameof(Shows));
-                RecalculateTotalCost();
+                RecalculateTotalShowCost();
             }
         }
 
@@ -62,13 +62,13 @@ namespace OOP_EventsManagementSystem.ViewModel
                 {
                     if (args.PropertyName == nameof(show.IsChecked))
                     {
-                        RecalculateTotalCost();
+                        RecalculateTotalShowCost();
                     }
                 };
             }
         }
 
-        private void RecalculateTotalCost()
+        private void RecalculateTotalShowCost()
         {
             TotalShowCost = Shows.Where(s => s.IsChecked).Sum(s => s.Cost);
         }
@@ -175,6 +175,8 @@ namespace OOP_EventsManagementSystem.ViewModel
             {
                 _totalEquipmentCost = value;
                 OnPropertyChanged(nameof(TotalEquipmentCost));
+                RecalculateServiceCost();
+                RecalculateTotalCost();
             }
         }
 
@@ -222,6 +224,19 @@ namespace OOP_EventsManagementSystem.ViewModel
             }
         }
 
+        private decimal _totalLocationCost;
+        public decimal TotalLocationCost
+        {
+            get => _totalLocationCost;
+            set
+            {
+                _totalLocationCost = value;
+                OnPropertyChanged(nameof(TotalLocationCost));
+                RecalculateServiceCost();
+                RecalculateTotalCost();
+            }
+        }
+
         private ObservableCollection<EventType> _eventTypes;
         public ObservableCollection<EventType> EventTypes
         {
@@ -231,6 +246,39 @@ namespace OOP_EventsManagementSystem.ViewModel
                 _eventTypes = value;
                 OnPropertyChanged(nameof(EventTypes));
             }
+        }
+
+        private int _venueCapacity;
+        public int VenueCapacity
+        {
+            get => _venueCapacity;
+            set
+            {
+                _venueCapacity = value;
+                OnPropertyChanged(nameof(VenueCapacity));
+            }
+        }
+
+        private int _selectedVenueId;
+        public int SelectedVenueId
+        {
+            get => _selectedVenueId;
+            set
+            {
+                if (_selectedVenueId != value)
+                {
+                    _selectedVenueId = value;
+                    OnPropertyChanged(nameof(SelectedVenueId));
+                    UpdateTotalLocationCost();
+                }
+            }
+        }
+
+        private void UpdateTotalLocationCost()
+        {
+            var selectedVenue = Venues.FirstOrDefault(v => v.VenueId == SelectedVenueId);
+            TotalLocationCost = selectedVenue?.Cost ?? 0;
+            VenueCapacity = selectedVenue?.Capacity ?? 0;
         }
 
         private void LoadVenues()
@@ -251,6 +299,8 @@ namespace OOP_EventsManagementSystem.ViewModel
             {
                 _totalShowCost = value;
                 OnPropertyChanged(nameof(TotalShowCost));
+                RecalculateServiceCost();
+                RecalculateTotalCost();
             }
         }
 
@@ -262,7 +312,48 @@ namespace OOP_EventsManagementSystem.ViewModel
             {
                 _totalEmployeeCost = value;
                 OnPropertyChanged(nameof(TotalEmployeeCost));
+                RecalculateServiceCost();
+                RecalculateTotalCost();
             }
+        }
+
+        private decimal _serviceCost;
+        public decimal ServiceCost
+        {
+            get => _serviceCost;
+            set
+            {
+                _serviceCost = value;
+                OnPropertyChanged(nameof(ServiceCost));
+            }
+        }
+
+        private void RecalculateServiceCost()
+        {
+            var totalCost =
+                TotalEmployeeCost + TotalEquipmentCost + TotalLocationCost + TotalShowCost;
+            ServiceCost = totalCost * 0.15m;
+        }
+
+        private decimal _totalCost;
+        public decimal TotalCost
+        {
+            get => _totalCost;
+            set
+            {
+                _totalCost = value;
+                OnPropertyChanged(nameof(TotalCost));
+            }
+        }
+
+        private void RecalculateTotalCost()
+        {
+            TotalCost =
+                TotalEmployeeCost
+                + TotalEquipmentCost
+                + TotalLocationCost
+                + TotalShowCost
+                + ServiceCost;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -273,6 +364,11 @@ namespace OOP_EventsManagementSystem.ViewModel
         }
     }
 
+    //---------------------------------------------------------------------------------
+    //---------------------------------------------------------------------------------
+    //---------------------------------------------------------------------------------
+    //---------------------------------------------------------------------------------
+    //---------------------------------------------------------------------------------
     public class ShowWrapper : INotifyPropertyChanged
     {
         private bool _isChecked;
