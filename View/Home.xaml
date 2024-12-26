@@ -7,7 +7,7 @@
     xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:styles="clr-namespace:OOP_EventsManagementSystem.Styles"
-    d:DesignHeight="440"
+    d:DesignHeight="950"
     d:DesignWidth="800"
     mc:Ignorable="d">
     <Grid Background="AliceBlue">
@@ -73,6 +73,18 @@
                     Foreground="White"
                     Header="Venue">
                     <styles:VenueAnalyze />
+                </Expander>
+                <Expander
+                    Name="Show_section"
+                    Margin="10,0,10,10"
+                    HorizontalAlignment="Stretch"
+                    Background="Pink"
+                    Expanded="Expander_Expanded"
+                    FontFamily="Bahnschrift SemiBold"
+                    FontSize="18"
+                    Foreground="White"
+                    Header="Show">
+                    <styles:ShowAnalyze />
                 </Expander>
             </StackPanel>
         </ScrollViewer>

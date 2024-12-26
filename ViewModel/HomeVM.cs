@@ -233,6 +233,50 @@ namespace OOP_EventsManagementSystem.ViewModel
         // Labels for the X-axis
         public string[] VenueCapacityLabels { get; set; }
 
+        private SeriesCollection _showsByGenre;
+        public SeriesCollection ShowsByGenre
+        {
+            get => _showsByGenre;
+            set
+            {
+                _showsByGenre = value;
+                OnPropertyChanged(nameof(ShowsByGenre));
+            }
+        }
+
+        private List<string> _genreLabels;
+        public List<string> GenreLabels
+        {
+            get => _genreLabels;
+            set
+            {
+                _genreLabels = value;
+                OnPropertyChanged(nameof(GenreLabels));
+            }
+        }
+
+        private SeriesCollection _performerCostContribution;
+        public SeriesCollection PerformerCostContribution
+        {
+            get => _performerCostContribution;
+            set
+            {
+                _performerCostContribution = value;
+                OnPropertyChanged(nameof(PerformerCostContribution));
+            }
+        }
+
+        private List<string> _performerLabels;
+        public List<string> PerformerLabels
+        {
+            get => _performerLabels;
+            set
+            {
+                _performerLabels = value;
+                OnPropertyChanged(nameof(PerformerLabels));
+            }
+        }
+
         //--------------------------------------------------------------------------------------------------------------
         //--------------------------------------------------------------------------------------------------------------
         //--------------------------------------------------------------------------------------------------------------
@@ -535,6 +579,36 @@ namespace OOP_EventsManagementSystem.ViewModel
                     Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 123, 255)), // Custom color
                     Stroke = new SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 82, 170)), // Bar border color
                     StrokeThickness = 1,
+                },
+            };
+
+            var showsByGenreData = _context
+                .Genres.Select(g => new { g.Genre1, ShowCount = g.Shows.Count })
+                .ToList();
+
+            GenreLabels = showsByGenreData.Select(d => d.Genre1).ToList();
+            ShowsByGenre = new SeriesCollection
+            {
+                new ColumnSeries
+                {
+                    Title = "Number of Shows",
+                    Values = new ChartValues<int>(showsByGenreData.Select(d => d.ShowCount)),
+                },
+            };
+
+            var performerCostContributionData = _context
+                .Performers.Select(p => new { p.FullName, TotalCost = p.Shows.Sum(s => s.Cost) })
+                .ToList();
+
+            PerformerLabels = performerCostContributionData.Select(d => d.FullName).ToList();
+            PerformerCostContribution = new SeriesCollection
+            {
+                new ColumnSeries
+                {
+                    Title = "Total Cost",
+                    Values = new ChartValues<decimal>(
+                        performerCostContributionData.Select(d => d.TotalCost)
+                    ),
                 },
             };
         }
