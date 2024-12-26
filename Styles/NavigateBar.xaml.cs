@@ -36,9 +36,27 @@ namespace OOP_EventsManagementSystem.Styles
 
         private void ViewAccount_Click(object sender, RoutedEventArgs e)
         {
-            // Xử lý logic khi người dùng chọn "Xem thông tin tài khoản"
-            MessageBox.Show("Xem thông tin tài khoản");
+            // Tạo thông tin tài khoản từ UserAccount (giả sử bạn đã có UserAccount)
+            string email = UserAccount.Email;
+            string password = UserAccount.Password;
+            string permission = UserAccount.Permission1; // Lấy Permission1
+
+            // Tạo instance của Account UserControl
+            Account accountControl = new Account();
+
+            // Truyền thông tin tài khoản vào UserControl
+            accountControl.SetAccountInfo(email, password, permission);
+
+            // Hiển thị UserControl trong một cửa sổ mới, ví dụ:
+            Window accountWindow = new Window
+            {
+                Content = accountControl,
+                Title = "Account Details",
+                SizeToContent = SizeToContent.WidthAndHeight
+            };
+            accountWindow.Show();
         }
+
 
         private void EditAccount_Click(object sender, RoutedEventArgs e)
         {
@@ -65,6 +83,8 @@ namespace OOP_EventsManagementSystem.Styles
 
                 // Đóng cửa sổ chính sau cùng
                 Window.GetWindow(this).Close();
+                SignUp signupWindow = new SignUp();  // Đảm bảo rằng Signup là lớp của cửa sổ Signup.xaml
+                signupWindow.Show(); // Hiển thị cửa sổ Signup
             }
         }
 
@@ -86,5 +106,7 @@ namespace OOP_EventsManagementSystem.Styles
             }
         }
     }
+    
+
 }
 
