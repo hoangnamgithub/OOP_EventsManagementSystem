@@ -50,7 +50,7 @@
                             FontSize="18"
                             Foreground="White"
                             Header="Event">
-                            <styles:EventAnalyze />
+                            <!-- <styles:EventAnalyze />-->
                         </Expander>
                         <!--  Sponsor Section  -->
                         <Expander
@@ -63,7 +63,7 @@
                             FontSize="18"
                             Foreground="White"
                             Header="Equipment">
-                            <styles:EquipmentAnalyze />
+                            <!--<styles:EquipmentAnalyze /> -->
                         </Expander>
                         <!--  Add more sections as needed  -->
                         <Expander
@@ -76,7 +76,7 @@
                             FontSize="18"
                             Foreground="White"
                             Header="Sponsor">
-                            <styles:SponsorAnalyze />
+                            <!--<styles:SponsorAnalyze /> -->
                         </Expander>
                         <Expander
                             Name="equipment_requirements_section"
@@ -88,7 +88,7 @@
                             FontSize="18"
                             Foreground="White"
                             Header="Venue">
-                            <styles:VenueAnalyze />
+                            <!-- <styles:VenueAnalyze />-->
                         </Expander>
                         <Expander
                             Name="Show_section"
@@ -100,7 +100,7 @@
                             FontSize="18"
                             Foreground="White"
                             Header="Show">
-                            <styles:ShowAnalyze />
+                            <!-- <styles:ShowAnalyze /> -->
                         </Expander>
                     </StackPanel>
                 </ScrollViewer>

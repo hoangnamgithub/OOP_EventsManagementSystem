@@ -1,4 +1,4 @@
-
+﻿
 
 CREATE DATABASE EventManagementDB;
 
@@ -12,6 +12,16 @@ ALTER DATABASE EventManagementDB SET MULTI_USER;
 
 USE master
 USE EventManagementDB;
+
+-- Kiểm tra xem PermissionId = 1 đã tồn tại
+-- Thêm tài khoản mới
+INSERT INTO Accounts.account (Email, Password, permission_id, employee_id)
+VALUES ('admin@easys.com', '123456', 1, NULL);
+
+SELECT * FROM Accounts.account
+UPDATE Accounts.account
+SET Password = 'admin123'
+WHERE Email = 'newuser@example.com';
 
 -- Create Schemas
 go

@@ -142,7 +142,7 @@ CREATE TABLE Accounts.account (
     email NVARCHAR(100) NOT NULL,
     password NVARCHAR(100) NOT NULL,
     permission_id INT NOT NULL,
-    employee_id INT NOT NULL,
+    employee_id INT ,
     FOREIGN KEY (permission_id) REFERENCES Accounts.permission(permission_id) ON DELETE CASCADE,
     FOREIGN KEY (employee_id) REFERENCES Employees.employee(employee_id) ON DELETE CASCADE
 );
