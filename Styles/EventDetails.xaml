@@ -230,10 +230,30 @@
                                                             FontSize="14"
                                                             Foreground="Gray"
                                                             SelectionBrush="{x:Null}"
-                                                            SelectionTextBrush="{x:Null}" />
+                                                            SelectionTextBrush="{x:Null}"
+                                                            TextChanged="SearchBox_show_TextChanged"/>
                                                     </Border>
                                                 </Grid>
-
+                                                <Border
+                                                    Width="30"
+                                                    Height="30"
+                                                    Margin="5"
+                                                    Background="#FFDCDCE6"
+                                                    CornerRadius="16">
+                                                    <Grid>
+                                                        <Image
+                                                            Width="20"
+                                                            Height="20"
+                                                            Source="pack://application:,,,/Resources/Images/plus.png" />
+                                                        <Button
+                                                            x:Name="btn_addShow"
+                                                            Width="20"
+                                                            Height="20"
+                                                            Background="{x:Null}"
+                                                            BorderBrush="{x:Null}"
+                                                            Click="btn_addShow_Click" />
+                                                    </Grid>
+                                                </Border>
                                                 <Border
                                                     Width="30"
                                                     Height="30"
@@ -348,8 +368,27 @@
                                                             SelectionTextBrush="{x:Null}" />
                                                     </Border>
                                                 </Grid>
-
-                                                <!--<Border
+                                                <Border
+                                                    Width="30"
+                                                    Height="30"
+                                                    Margin="5"
+                                                    Background="#FFDCDCE6"
+                                                    CornerRadius="16">
+                                                    <Grid>
+                                                        <Image
+                                                            Width="20"
+                                                            Height="20"
+                                                            Source="pack://application:,,,/Resources/Images/plus.png" />
+                                                        <Button
+                                                            x:Name="btn_addSponsor"
+                                                            Width="20"
+                                                            Height="20"
+                                                            Background="{x:Null}"
+                                                            BorderBrush="{x:Null}"
+                                                            Click="btn_addSponsor_Click" />
+                                                    </Grid>
+                                                </Border>
+                                                <Border
                                                     Width="30"
                                                     Height="30"
                                                     Margin="5"
@@ -358,13 +397,14 @@
                                                     <Grid>
                                                         <Image Margin="6" Source="pack://application:,,,/Resources/Images/delete-outline.png" />
                                                         <Button
-                                                            x:Name="btn_deleteSponsor"
+                                                            Name="btn_delete"
                                                             Width="20"
                                                             Height="20"
                                                             Background="{x:Null}"
-                                                            BorderBrush="{x:Null}" />
+                                                            BorderBrush="{x:Null}"
+                                                            Command="{Binding DeleteSponsorCommand}" />
                                                     </Grid>
-                                                </Border>-->
+                                                </Border>
                                                 <!--<local:SearchBar Margin="10,0,0,0" />-->
                                                 <StackPanel Orientation="Horizontal">
                                                     <Button
@@ -398,7 +438,16 @@
                                                     VerticalAlignment="Stretch"
                                                     AutoGenerateColumns="False"
                                                     Background="Transparent"
-                                                    ItemsSource="{Binding SponsorsPagination.PagedCollection}">
+                                                    EnableColumnVirtualization="True"
+                                                    EnableRowVirtualization="True"
+                                                    IsReadOnly="True"
+                                                    ItemsSource="{Binding SponsorsPagination.PagedCollection}"
+                                                    ScrollViewer.CanContentScroll="True"
+                                                    SelectionChanged="DataGrid_SelectionChanged"
+                                                    SelectionMode="Extended"
+                                                    SelectionUnit="FullRow"
+                                                    VirtualizingStackPanel.IsVirtualizing="True"
+                                                    VirtualizingStackPanel.VirtualizationMode="Recycling">
                                                     <DataGrid.Columns>
 
                                                         <DataGridTextColumn
@@ -409,25 +458,17 @@
                                                         <DataGridTextColumn
                                                             Width="40*"
                                                             Binding="{Binding SponsorName}"
-                                                            Header="Sponsor Name" />
-                                                        <DataGridTemplateColumn Width="40*" Header="Tier">
-                                                            <DataGridTemplateColumn.CellTemplate>
-                                                                <DataTemplate>
-                                                                    <TextBlock Text="{Binding TierName}" />
-                                                                </DataTemplate>
-                                                            </DataGridTemplateColumn.CellTemplate>
-                                                            <DataGridTemplateColumn.CellEditingTemplate>
-                                                                <DataTemplate>
-                                                                    <ComboBox
-                                                                        DisplayMemberPath="TierName"
-                                                                        ItemsSource="{Binding DataContext.SponsorTiers, RelativeSource={RelativeSource AncestorType=Window}}"
-                                                                        SelectedValue="{Binding TierName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                                        SelectedValuePath="TierName" />
-                                                                </DataTemplate>
-                                                            </DataGridTemplateColumn.CellEditingTemplate>
-                                                        </DataGridTemplateColumn>
+                                                            Header="Sponsor Name"
+                                                            IsReadOnly="True" />
+                                                        <DataGridTextColumn
+                                                            Width="40*"
+                                                            Binding="{Binding TierName}"
+                                                            Header="Sponsor Tier"
+                                                            IsReadOnly="True" />
+
                                                     </DataGrid.Columns>
                                                 </DataGrid>
+
                                             </Border>
                                         </StackPanel>
                                     </Grid>

@@ -25,6 +25,7 @@ namespace OOP_EventsManagementSystem.ViewModel
         public ICommand PreviousPageCommand { get; }
 
         public ICommand DeleteShowCommand { get; }
+        public ICommand DeleteSponsorCommand { get; }
 
         private readonly EventManagementDbContext _context;
 
@@ -39,7 +40,8 @@ namespace OOP_EventsManagementSystem.ViewModel
         public ObservableCollection<Model.EventType> EventTypes { get; set; }
         public ObservableCollection<Model.Venue> Venues { get; set; }
         public ObservableCollection<Model.Show> Shows { get; set; }
-        public ObservableCollection<Model.Sponsor> Sponsors { get; set; }
+        public ObservableCollection<FilteredSponsor> Sponsors { get; set; }
+        public ObservableCollection<Model.SponsorTier> SponsorTiers { get; set; }
         public ObservableCollection<Model.Employee> Employees { get; set; }
         public ObservableCollection<Model.EmployeeRole> EmployeeRoles { get; set; }
         public ObservableCollection<Model.EquipmentName> EquipmentNames { get; set; }
@@ -67,7 +69,7 @@ namespace OOP_EventsManagementSystem.ViewModel
                 OnPropertyChanged(nameof(ShowsPagination));
             }
         }
-
+     
         private ObservableCollection<FilteredEmployeeRole> _filteredEmployeeRoles;
         public ObservableCollection<FilteredEmployeeRole> FilteredEmployeeRoles
         {
@@ -307,6 +309,17 @@ namespace OOP_EventsManagementSystem.ViewModel
                 }
             }
         }
+        private ObservableCollection<FilteredSponsor> _selectedSponsors;
+
+        public ObservableCollection<FilteredSponsor> SelectedSponsors
+        {
+            get => _selectedSponsors;
+            set
+            {
+                _selectedSponsors = value;
+                OnPropertyChanged(nameof(SelectedSponsors));
+            }
+        }
 
         // constructor ----------------------------------------------
         public EventVM()
@@ -316,7 +329,7 @@ namespace OOP_EventsManagementSystem.ViewModel
             EditCommand = new RelayCommand(_ => ToggleEditing());
             SaveCommand = new RelayCommand(_ => SaveChanges());
             DeleteShowCommand = new RelayCommand(ExecuteDeleteShowCommand);
-
+            DeleteSponsorCommand = new RelayCommand(ExecuteDeleteSponsorCommand);
             // Initialize commands
             LoadData();
             NextPageCommand = new RelayCommand(ExecuteNextPage);
@@ -328,7 +341,7 @@ namespace OOP_EventsManagementSystem.ViewModel
         {
             // Show a confirmation message box
             MessageBoxResult result = MessageBox.Show(
-                "Are you sure you want to delete the selected shows?",
+                "Are you sure you want to delete the selected shows and sponsors?",
                 "Confirm Delete",
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Warning
@@ -337,6 +350,7 @@ namespace OOP_EventsManagementSystem.ViewModel
             // If the user clicks 'Yes', proceed with the deletion
             if (result == MessageBoxResult.Yes)
             {
+                // Handle deleting selected shows
                 var showsToDelete = ShowsPagination
                     .PagedCollection.Where(show => show.IsChecked)
                     .ToList();
@@ -354,8 +368,11 @@ namespace OOP_EventsManagementSystem.ViewModel
                     // Remove the Show itself
                     _context.Shows.Remove(show);
                 }
-
+               
+                // Save changes to the database
                 _context.SaveChanges();
+
+                // Reload data for shows
                 LoadData();
 
                 // Reapply filtering logic for the selected event's shows
@@ -370,28 +387,51 @@ namespace OOP_EventsManagementSystem.ViewModel
                     .Where(s => showIds.Contains(s.ShowId))
                     .ToList();
 
-                ShowsPagination = new PaginationHelper<Model.Show>(filteredShows, 9); // Set the number of items per page
+                ShowsPagination = new PaginationHelper<Model.Show>(filteredShows, 9); // Set the number of items per page                
 
-                // Reapply filtering logic for the selected event's sponsors
-                var filteredSponsors = _context
-    .IsSponsors
-    .Include(isSponsor => isSponsor.Sponsor)          // Bao gồm dữ liệu từ bảng Sponsor
-    .Include(isSponsor => isSponsor.SponsorTier)      // Bao gồm dữ liệu từ bảng SponsorTier
-    .Where(isSponsor => isSponsor.EventId == SelectedEventId)
-    .Select(isSponsor => new FilteredSponsor
-    {
-        SponsorId = isSponsor.Sponsor.SponsorId,     // Lấy thông tin từ Sponsor
-        SponsorName = isSponsor.Sponsor.SponsorName, // Lấy tên của sponsor
-        TierName = isSponsor.SponsorTier.TierName    // Lấy tên của sponsor tier
-    })
-    .ToList();
-
-
-
-                SponsorsPagination = new PaginationHelper<FilteredSponsor>(filteredSponsors, 8); // Set the number of items per page
-
+                // Trigger UI update
                 OnPropertyChanged(nameof(ShowsPagination));
-                OnPropertyChanged(nameof(SponsorsPagination));
+               
+            }
+        }
+
+        private void ExecuteDeleteSponsorCommand(object obj)
+        {
+            try
+            {
+                if (SelectedSponsors == null || !SelectedSponsors.Any())
+                {
+                    MessageBox.Show("No sponsors selected for deletion.");
+                    return;
+                }
+
+                // Lấy danh sách SponsorId từ các hàng được chọn
+                var sponsorsToDelete = SelectedSponsors
+                    .Select(sponsor => sponsor.SponsorId)
+                    .ToList();
+
+                // Xóa các sponsor trong bảng IsSponsor liên quan đến sự kiện hiện tại
+                var isSponsorRecords = _context.IsSponsors
+                    .Where(isSponsor => sponsorsToDelete.Contains(isSponsor.SponsorId) && isSponsor.EventId == SelectedEventId)
+                    .ToList();
+
+                if (isSponsorRecords.Any())
+                {
+                    _context.IsSponsors.RemoveRange(isSponsorRecords);
+                }
+
+                // Lưu thay đổi vào database
+                _context.SaveChanges();
+
+                // Cập nhật lại danh sách SponsorsPagination sau khi xóa
+                LoadSponsorsForEvent(SelectedEventId);
+
+                // Hiển thị thông báo thành công
+                MessageBox.Show("Selected sponsors have been successfully deleted.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while deleting sponsors: {ex.Message}");
             }
         }
 
@@ -651,6 +691,9 @@ namespace OOP_EventsManagementSystem.ViewModel
         {
             if (obj is Model.Event selectedEvent)
             {
+                // Lấy tất cả SponsorTier từ cơ sở dữ liệu
+                SponsorTiers = new ObservableCollection<Model.SponsorTier>();
+
                 // Set properties based on the selected event
                 EventName = selectedEvent.EventName;
                 ExpectedAttendee = selectedEvent.ExptedAttendee;
@@ -735,7 +778,7 @@ namespace OOP_EventsManagementSystem.ViewModel
                     .ToList();
 
                 SponsorsPagination = new PaginationHelper<FilteredSponsor>(filteredSponsors, 8); // Set the number of items per page
-
+                
                 // Open the EventDetails window
                 var eventDetailsWindow = new EventDetails
                 {
@@ -746,7 +789,7 @@ namespace OOP_EventsManagementSystem.ViewModel
         }
 
         // method -------------------------------------
-        private void LoadData()
+        public void LoadData()
         {
             var allEvents = _context.Events.Include(e => e.Venue).ToList();
 
@@ -774,19 +817,17 @@ namespace OOP_EventsManagementSystem.ViewModel
 
             // Convert Sponsors to FilteredSponsor before passing to PaginationHelper
             var filteredSponsors = _context
-    .IsSponsors
-    .Include(isSponsor => isSponsor.Sponsor)          // Bao gồm dữ liệu từ bảng Sponsor
-    .Include(isSponsor => isSponsor.SponsorTier)      // Bao gồm dữ liệu từ bảng SponsorTier
-    .Where(isSponsor => isSponsor.EventId == SelectedEventId)
-    .Select(isSponsor => new FilteredSponsor
-    {
-        SponsorId = isSponsor.Sponsor.SponsorId,     // Lấy thông tin từ Sponsor
-        SponsorName = isSponsor.Sponsor.SponsorName, // Lấy tên của sponsor
-        TierName = isSponsor.SponsorTier.TierName    // Lấy tên của sponsor tier
-    })
-    .ToList();
-
-
+                .IsSponsors
+                .Include(isSponsor => isSponsor.Sponsor)          // Bao gồm dữ liệu từ bảng Sponsor
+                .Include(isSponsor => isSponsor.SponsorTier)      // Bao gồm dữ liệu từ bảng SponsorTier
+                .Where(isSponsor => isSponsor.EventId == SelectedEventId)
+                .Select(isSponsor => new FilteredSponsor
+                {
+                    SponsorId = isSponsor.Sponsor.SponsorId,     // Lấy thông tin từ Sponsor
+                    SponsorName = isSponsor.Sponsor.SponsorName, // Lấy tên của sponsor
+                    TierName = isSponsor.SponsorTier.TierName    // Lấy tên của sponsor tier
+                })
+                .ToList();
 
             SponsorsPagination = new PaginationHelper<FilteredSponsor>(filteredSponsors, 9); // Set the number of items per page
 
@@ -814,7 +855,9 @@ namespace OOP_EventsManagementSystem.ViewModel
             EventTypes = new ObservableCollection<Model.EventType>(_context.EventTypes.ToList());
             Venues = new ObservableCollection<Model.Venue>(_context.Venues.ToList());
             Shows = new ObservableCollection<Model.Show>(shows);
-            Sponsors = new ObservableCollection<Sponsor>(_context.Sponsors.ToList());
+
+            // Remove the redundant filteredSponsors variable here
+            Sponsors = new ObservableCollection<FilteredSponsor>(filteredSponsors); // Use the already defined filteredSponsors
             Employees = new ObservableCollection<Model.Employee>(
                 _context.Employees.Include(e => e.Role).ToList()
             );
@@ -837,6 +880,94 @@ namespace OOP_EventsManagementSystem.ViewModel
             OnPropertyChanged(nameof(EquipmentNames));
         }
 
+        public void LoadShowsForEvent(int selectedEventId)
+        {
+            try
+            {
+                // Lọc các show cho sự kiện cụ thể
+                var showIds = _context
+                    .ShowSchedules
+                    .Where(ss => ss.EventId == selectedEventId)
+                    .Select(ss => ss.ShowId)
+                    .ToList();
+
+                var filteredShows = _context
+                    .Shows
+                    .Include(s => s.Performer)
+                    .Include(s => s.Genre)
+                    .Where(s => showIds.Contains(s.ShowId))
+                    .ToList();
+
+                ShowsPagination = new PaginationHelper<Model.Show>(filteredShows, 9); // Phân trang cho danh sách show
+
+                Shows = new ObservableCollection<Model.Show>(filteredShows); // Cập nhật lại danh sách shows
+
+                OnPropertyChanged(nameof(ShowsPagination)); // Cập nhật thông tin về ShowsPagination
+                OnPropertyChanged(nameof(Shows)); // Cập nhật thông tin về Shows
+            }
+            catch (Exception ex)
+            {
+                // Xử lý lỗi nếu có
+                MessageBox.Show($"Error loading shows for event: {ex.Message}");
+            }
+        }
+        public void LoadSponsorsForEvent(int selectedEventId)
+        {
+            try
+            {
+                // Lọc các sponsorId và sponsorTierId cho sự kiện cụ thể từ bảng IsSponsor
+                var sponsorsWithTierIds = _context
+                    .IsSponsors
+                    .Where(isSponsor => isSponsor.EventId == selectedEventId)
+                    .Select(isSponsor => new
+                    {
+                        isSponsor.SponsorId,
+                        isSponsor.SponsorTierId
+                    })
+                    .ToList(); // Execute the query and bring the results into memory
+
+                // Lọc các sponsor từ bảng Sponsor theo sponsorId đã chọn
+                var filteredSponsors = _context
+                    .Sponsors
+                    .Where(s => sponsorsWithTierIds.Select(x => x.SponsorId).Contains(s.SponsorId))
+                    .ToList(); // Load the filtered Sponsors into memory
+
+                // Lọc các SponsorTier từ bảng SponsorTier theo sponsorTierId đã chọn
+                var sponsorTiers = _context
+                    .SponsorTiers
+                    .Where(st => sponsorsWithTierIds.Select(x => x.SponsorTierId).Contains(st.SponsorTierId))
+                    .ToList(); // Load the SponsorTiers into memory
+
+                // Kết hợp thông tin từ Sponsor và SponsorTier để tạo thành FilteredSponsor
+                var filteredSponsorList = filteredSponsors
+                    .Join(sponsorTiers,
+                          sponsor => sponsorsWithTierIds.FirstOrDefault(x => x.SponsorId == sponsor.SponsorId)?.SponsorTierId,
+                          sponsorTier => sponsorTier.SponsorTierId,
+                          (sponsor, sponsorTier) => new FilteredSponsor
+                          {
+                              SponsorId = sponsor.SponsorId,
+                              SponsorName = sponsor.SponsorName,
+                              TierName = sponsorTier.TierName, // Get TierName from SponsorTier
+                                                               // Add any other properties you want to copy here
+                          })
+                    .ToList();
+
+                // Giả sử bạn có một ObservableCollection để hiển thị danh sách sponsors
+                Sponsors = new ObservableCollection<FilteredSponsor>(filteredSponsorList);
+
+                // Phân trang cho danh sách Sponsors (nếu cần)
+                SponsorsPagination = new PaginationHelper<FilteredSponsor>(filteredSponsorList, 8);
+
+                // Cập nhật lại thông tin về Sponsors
+                OnPropertyChanged(nameof(Sponsors));
+                OnPropertyChanged(nameof(SponsorsPagination));
+            }
+            catch (Exception ex)
+            {
+                // Xử lý lỗi nếu có
+                MessageBox.Show($"Error loading sponsors for event: {ex.Message}");
+            }
+        }
 
         private void ExecuteNextPage(object parameter)
         {
@@ -866,10 +997,11 @@ namespace OOP_EventsManagementSystem.ViewModel
                 SponsorsPagination.PreviousPage();
         }
 
+        
         // Implementation of INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected virtual void OnPropertyChanged(string propertyName)
+        public void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
@@ -893,6 +1025,7 @@ namespace OOP_EventsManagementSystem.ViewModel
         public int SponsorId { get; set; }
         public string SponsorName { get; set; }
         public string TierName { get; set; }
+
     }
 
 

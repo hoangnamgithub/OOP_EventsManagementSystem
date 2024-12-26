@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
@@ -6,6 +7,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using OOP_EventsManagementSystem.Model;
 using OOP_EventsManagementSystem.ViewModel;
 using OOP_EventsManagementSystem.ViewModel;
 
@@ -16,6 +18,8 @@ namespace OOP_EventsManagementSystem.Styles
     /// </summary>
     public partial class EventDetails : Window
     {
+        public int SelectedEventId { get; set; }  // Thuộc tính để lưu EventId đã chọn
+
         public EventDetails()
         {
             InitializeComponent();
@@ -115,5 +119,63 @@ namespace OOP_EventsManagementSystem.Styles
                 this.DragMove();
             }
         }
+
+        private void btn_addShow_Click(object sender, RoutedEventArgs e)
+        {
+            var eventViewModel = DataContext as EventVM;
+            if (eventViewModel != null)
+            {
+                var addShow = new addShow4Event(eventViewModel.SelectedEventId);
+                addShow.ShowDialog();
+            }
+        }
+
+        private void btn_addSponsor_Click(object sender, RoutedEventArgs e)
+        {
+            var eventViewModel = DataContext as EventVM;
+            if (eventViewModel != null)
+            {
+                var addSponsor = new PartnerDescription(eventViewModel.SelectedEventId);
+                addSponsor.Show();
+            }
+        }
+
+        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // Lấy ViewModel từ DataContext
+            var viewModel = (EventVM)this.DataContext;
+
+            // Truy cập SelectedItems của DataGrid
+            var selectedItems = (sender as DataGrid).SelectedItems.Cast<FilteredSponsor>().ToList();
+
+            // Cập nhật danh sách SelectedSponsors trong ViewModel thông qua DataContext
+            viewModel.SelectedSponsors = new ObservableCollection<FilteredSponsor>(selectedItems);
+        }
+
+        private void SearchBox_show_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var eventVM = DataContext as EventVM; // Access the ViewModel (EventVM)
+
+            if (eventVM != null)
+            {
+                string searchText = SearchBox_show.Text.ToLower();
+
+                // Lọc dữ liệu trong PagedCollection dựa trên ShowName, Cost, Performer, Genre
+                var filteredShows = eventVM.ShowsPagination.PagedCollection
+                    .Where(show => show.ShowName.ToLower().Contains(searchText) ||
+                                   show.Cost.ToString().ToLower().Contains(searchText) ||
+                                   show.Performer.FullName.ToLower().Contains(searchText) ||
+                                   show.Genre.Genre1.ToLower().Contains(searchText))
+                    .ToList();
+
+                // Cập nhật lại nguồn dữ liệu cho DataGrid bằng ObservableCollection
+                eventVM.ShowsPagination.PagedCollection = new ObservableCollection<Model.Show>(filteredShows);
+
+                // Cập nhật lại thông tin để DataGrid hiển thị dữ liệu đã lọc
+                eventVM.OnPropertyChanged(nameof(eventVM.ShowsPagination.PagedCollection));
+            }
+        }
+
+
     }
 }
