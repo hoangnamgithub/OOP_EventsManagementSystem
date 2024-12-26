@@ -487,7 +487,7 @@ namespace OOP_EventsManagementSystem.Database
             var today = DateTime.Today;
             var currentYear = today.Year;
 
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 50; i++)
             {
                 var eventType = eventTypes[faker.Random.Int(0, eventTypes.Count - 1)];
                 var venue = venues[faker.Random.Int(0, venues.Count - 1)];

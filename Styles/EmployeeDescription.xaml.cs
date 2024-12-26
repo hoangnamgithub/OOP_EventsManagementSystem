@@ -1,4 +1,6 @@
-﻿using System;
+﻿using OOP_EventsManagementSystem.Model;
+using OOP_EventsManagementSystem.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,7 +24,7 @@ namespace OOP_EventsManagementSystem.Styles
         public EmployeeDescription()
         {
             InitializeComponent();
-            this.DataContext = this;
+            DataContext = new EmployeeVM(new EventManagementDbContext());
         }
 
         private void btn_close_Click(object sender, RoutedEventArgs e)

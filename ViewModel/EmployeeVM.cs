@@ -16,7 +16,9 @@ namespace OOP_EventsManagementSystem.ViewModel
         private ObservableCollection<Event> _todayEvents;
         private ObservableCollection<Employee> _engagedEmployees;
         private ObservableCollection<Employee> _employees;  // New collection for all employees
+        private ObservableCollection<EmployeeRole> _employeeRoles; // New collection for employee roles
         private Event _selectedEvent;
+        private EmployeeRole _selectedEmployeeRole; // New property for selected employee role
 
         public ObservableCollection<Event> TodayEvents
         {
@@ -44,7 +46,27 @@ namespace OOP_EventsManagementSystem.ViewModel
             set
             {
                 _employees = value;
-                OnPropertyChanged(nameof(Employee));
+                OnPropertyChanged(nameof(Employees));
+            }
+        }
+
+        public ObservableCollection<EmployeeRole> EmployeeRoles // New property for employee roles
+        {
+            get => _employeeRoles;
+            set
+            {
+                _employeeRoles = value;
+                OnPropertyChanged(nameof(EmployeeRoles));
+            }
+        }
+
+        public EmployeeRole SelectedEmployeeRole // New property for selected employee role
+        {
+            get => _selectedEmployeeRole;
+            set
+            {
+                _selectedEmployeeRole = value;
+                OnPropertyChanged(nameof(SelectedEmployeeRole));
             }
         }
 
@@ -87,6 +109,7 @@ namespace OOP_EventsManagementSystem.ViewModel
 
             LoadTodayEvents();
             LoadAllEmployees(); // Load all employees initially
+            LoadEmployeeRoles(); // Load employee roles
             EngagedEmployees = new ObservableCollection<Employee>();
         }
 
@@ -123,6 +146,13 @@ namespace OOP_EventsManagementSystem.ViewModel
             // Fetch all employees from the database
             var employees = _context.Employees.ToList();
             Employees = new ObservableCollection<Employee>(employees);
+        }
+
+        private void LoadEmployeeRoles()
+        {
+            // Fetch all employee roles from the database
+            var roles = _context.EmployeeRoles.ToList();
+            EmployeeRoles = new ObservableCollection<EmployeeRole>(roles);
         }
 
         private void LoadEngagedEmployees()
