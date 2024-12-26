@@ -34,7 +34,7 @@ namespace OOP_EventsManagementSystem.View
         {
             AddButton.IsEnabled = false;
 
-            var eventDescriptionWindow = new EventDetails();
+            var eventDescriptionWindow = new AddEvent();
 
             eventDescriptionWindow.Closed += EventDescriptionWindow_Closed;
 
