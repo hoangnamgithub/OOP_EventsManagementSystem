@@ -1,21 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Win32;
 using OOP_EventsManagementSystem.Model;
+using OOP_EventsManagementSystem.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using static MaterialDesignThemes.Wpf.Theme;
 
 namespace OOP_EventsManagementSystem.View
 {
@@ -25,59 +18,57 @@ namespace OOP_EventsManagementSystem.View
     public partial class Account : Window
     {
         private EventManagementDbContext _context;
+        public ObservableCollection<EmployeeRole> EmployeeRoles { get; set; }
+
         public Account()
         {
             InitializeComponent();
             _context = new EventManagementDbContext();
             LoadAccountData();
+            LoadEmployeeRoles();
         }
 
         private void LoadAccountData()
         {
-            // Check if the PermissionId of the logged-in user is 1
-            if (UserAccount.PermissionId == 1)
-            {
-                var accounts = _context.Accounts
-                    .Include(a => a.Employee) // Include Employee to get FullName and Role
-                    .Include(a => a.Permission) // Include Permission to get Permission Name
-                    .Where(a => a.PermissionId ==3) // Filter by PermissionId = 1
-                    .Select(a => new
-                    {
-                        a.Employee.FullName,
-                        a.Permission.Permission1, // Assuming 'Permission1' is the field for the Permission name
-                        a.Email,
-                        a.Password,
-                        a.Employee.EmployeeId,
-                        a.Employee.Role.RoleName
-                    })
-                    .ToList();
+            // Lấy danh sách Account và hiển thị
+            var accounts = _context.Accounts
+                .Include(a => a.Employee)
+                .Include(a => a.Permission)
+                .Include(a => a.Employee.Role) // Bao gồm Role để lấy RoleName
+                .Where(a => a.PermissionId == 3)
+                .Select(a => new AccountViewModel
+                {
+                    FullName = a.Employee.FullName,
+                    Email = a.Email,
+                    Password = a.Password,
+                    RoleName = a.Employee.Role.RoleName, // Gán RoleName từ Employee.Role
+                    Contact = a.Employee.Contact // Lấy Contact từ bảng Employee
+                })
+                .ToList();
 
-                // Set the DataGrid's items source to the query result
-                dataGrid.ItemsSource = accounts;
-            }
-            
+            dataGrid.ItemsSource = accounts;
+        }
+
+        private void LoadEmployeeRoles()
+        {
+            // Khởi tạo ObservableCollection với dữ liệu từ bảng EmployeeRole
+            EmployeeRoles = new ObservableCollection<EmployeeRole>(_context.EmployeeRoles.ToList());
+            DataContext = this; // Đặt DataContext để sử dụng trong XAML
         }
 
         private void BtnEdit_Click(object sender, RoutedEventArgs e)
         {
-            // Mở hộp thoại OpenFileDialog để chọn ảnh
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Image Files (*.jpg;*.png)|*.jpg;*.png"; // Chỉ chấp nhận file .jpg và .png
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                Filter = "Image Files (*.jpg;*.png)|*.jpg;*.png" // Chỉ chấp nhận file .jpg và .png
+            };
 
             if (openFileDialog.ShowDialog() == true)
             {
-                // Lấy đường dẫn file ảnh đã chọn
                 string selectedFilePath = openFileDialog.FileName;
-
                 try
                 {
-                    // Cập nhật nguồn hình ảnh cho imgEvent
                     imgEvent.Source = new BitmapImage(new Uri(selectedFilePath));
-
-                    // Lưu đường dẫn ảnh vào UserAccount (chỉ cần lưu đường dẫn tạm thời trong bộ nhớ)
-                    User.AvatarPath = selectedFilePath;
-
-                    // Cập nhật hình ảnh ở NavigateBar.xaml
                     UpdateNavigateBarAvatar(selectedFilePath);
                 }
                 catch (Exception ex)
@@ -86,10 +77,9 @@ namespace OOP_EventsManagementSystem.View
                 }
             }
         }
+
         private void UpdateNavigateBarAvatar(string avatarPath)
         {
-            // Cập nhật hình ảnh ở NavigateBar.xaml
-            // Giả sử bạn đã có đối tượng Image tên là imgNavigateBar trong NavigateBar.xaml
             var navigateBar = Application.Current.Windows.OfType<MainWindow>().FirstOrDefault();
             if (navigateBar != null)
             {
@@ -100,129 +90,65 @@ namespace OOP_EventsManagementSystem.View
                 }
             }
         }
-        public void SetAccountInfo(string fullName, int? employeeId, string roleName, string email, string password, string permission)
-        {
-            txtfull_name.Text = fullName;
-            txtemployee_id.Text = employeeId.ToString();
-            txtRole.Text = roleName;
-            txtEmail.Text = email;
-            txtPassword.Text = password;
-            txtPermission.Text = permission;
-           
-        }
 
-        private void btnEdit_Click(object sender, RoutedEventArgs e)
+        private void BtnEditAccount_Click(object sender, RoutedEventArgs e)
         {
-            // Ẩn nút "Edit", hiển thị nút "Confirm"
             btn_Edit.Visibility = Visibility.Collapsed;
             btnConfirm.Visibility = Visibility.Visible;
-
-            // Kích hoạt các TextBox để người dùng có thể chỉnh sửa
-            txtfull_name.IsEnabled = true;
-            txtEmail.IsEnabled = true;
-            txtPassword.IsEnabled = true;
+            dataGrid.IsReadOnly = false;
+            dataGrid.SelectionMode = DataGridSelectionMode.Single;
         }
 
-        private void btnConfirm_Click(object sender, RoutedEventArgs e)
+        private void BtnConfirm_Click(object sender, RoutedEventArgs e)
         {
-            // Lấy dữ liệu từ các TextBox
-            string fullName = txtfull_name.Text;
-            string email = txtEmail.Text;
-            string password = txtPassword.Text;
-
-            // Kiểm tra định dạng email
-            if (!IsValidEmail(email))
-            {
-                MessageBox.Show("Email must have the domain .easys.com", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-
-            // Kiểm tra xem các trường có hợp lệ không
-            if (string.IsNullOrEmpty(fullName) || string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
-            {
-                MessageBox.Show("Please fill in all fields before confirming.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-
-            // Lấy EmployeeId từ TextBox
-            if (!int.TryParse(txtemployee_id.Text, out int employeeId))
-            {
-                MessageBox.Show("Invalid Employee ID.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-
             try
             {
-                // Tìm kiếm Account dựa trên EmployeeId
-                var account = _context.Accounts
-                    .Include(a => a.Employee) // Bao gồm thông tin Employee để cập nhật FullName
-                    .FirstOrDefault(a => a.EmployeeId == employeeId); // Tìm kiếm bằng EmployeeId
+                var updatedAccounts = dataGrid.ItemsSource.Cast<AccountViewModel>().ToList();
 
-                if (account != null)
+                foreach (var updatedAccount in updatedAccounts)
                 {
-                    // Cập nhật thông tin vào Account
-                    account.Password = password; // Lưu mật khẩu đã mã hóa vào
-                    account.Email = email;
-                    account.Employee.FullName = fullName;
-                    // Cập nhật thông tin vào Employee nếu có
-                    if (account.Employee != null)
+                    var account = _context.Accounts
+                        .Include(a => a.Employee)
+                        .Include(a => a.Employee.Role)
+                        .FirstOrDefault(a => a.Employee.FullName == updatedAccount.FullName);
+
+                    if (account != null)
                     {
-                        account.Employee.FullName = fullName; // Cập nhật FullName của Employee
+                        account.Email = updatedAccount.Email;
+                        account.Password = updatedAccount.Password;
+
+                        if (account.Employee != null)
+                        {
+                            account.Employee.FullName = updatedAccount.FullName;
+                            account.Employee.Contact = updatedAccount.Contact;
+
+                            var selectedRole = _context.EmployeeRoles
+                                .FirstOrDefault(r => r.RoleName == updatedAccount.RoleName);
+
+                            if (selectedRole != null)
+                            {
+                                account.Employee.RoleId = selectedRole.RoleId;
+                            }
+                        }
                     }
-                    else
-                    {
-                        // Nếu không có Employee, có thể tạo một Employee mới hoặc thông báo lỗi
-                        MessageBox.Show("Employee not found.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                        return;
-                    }
-
-                    // Lưu thay đổi vào cơ sở dữ liệu
-                    _context.SaveChanges();
-
-                    // Cập nhật lại các TextBox trên giao diện
-                    txtfull_name.Text = account.Employee.FullName; // Hiển thị lại FullName
-                    txtEmail.Text = account.Email; // Hiển thị lại Email
-                    txtPassword.Text = account.Password; // Hiển thị lại Password (có thể mã hóa lại nếu cần)
-
-                    // Cập nhật lại UserAccount với các giá trị mới
-                    UserAccount.Email = account.Email;
-                    UserAccount.Password = account.Password;
-                    UserAccount.FullName = account.Employee.FullName;
-                    
-
-                    // Hiển thị thông báo thành công
-                    MessageBox.Show("Your account information has been updated successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
-                else
-                {
-                    MessageBox.Show("User not found.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+
+                _context.SaveChanges();
+                MessageBox.Show("All changes have been saved successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {
-                // Hiển thị lỗi nếu có
-                MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"An error occurred while saving changes: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
-            // Ẩn nút "Confirm", hiển thị lại nút "Edit"
             btnConfirm.Visibility = Visibility.Collapsed;
             btn_Edit.Visibility = Visibility.Visible;
-
-            // Vô hiệu hóa các TextBox khi người dùng đã chỉnh sửa xong
-            txtfull_name.IsEnabled = false;
-            txtEmail.IsEnabled = false;
-            txtPassword.IsEnabled = false;
+            dataGrid.IsReadOnly = true;
         }
 
-        // Kiểm tra định dạng email có đuôi ".easys.com"
-        private bool IsValidEmail(string email)
-        {
-            return email.EndsWith("@easys.com", StringComparison.OrdinalIgnoreCase);
-        }
         private void BtnDelete_Click(object sender, RoutedEventArgs e)
         {
-            // Lấy danh sách các tài khoản đã chọn từ DataGrid
-            var selectedAccounts = dataGrid.SelectedItems.Cast<dynamic>().ToList();
+            var selectedAccounts = dataGrid.SelectedItems.Cast<AccountViewModel>().ToList();
 
             if (selectedAccounts.Any())
             {
@@ -230,32 +156,21 @@ namespace OOP_EventsManagementSystem.View
                 {
                     foreach (var account in selectedAccounts)
                     {
-                        // Lấy EmployeeId từ tài khoản
-                        int employeeId = account.EmployeeId;
-
-                        // Tìm kiếm tài khoản trong cơ sở dữ liệu
                         var accountToDelete = _context.Accounts
-                            .FirstOrDefault(a => a.EmployeeId == employeeId);
+                            .FirstOrDefault(a => a.Employee.FullName == account.FullName);
 
                         if (accountToDelete != null)
                         {
-                            // Xóa Account (cascade delete sẽ xóa cả Employee liên quan)
                             _context.Accounts.Remove(accountToDelete);
                         }
                     }
 
-                    // Lưu thay đổi vào cơ sở dữ liệu
                     _context.SaveChanges();
-
-                    // Tải lại dữ liệu để cập nhật DataGrid
                     LoadAccountData();
-
-                    // Thông báo thành công
                     MessageBox.Show("Selected accounts and related data have been deleted successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 catch (Exception ex)
                 {
-                    // Hiển thị lỗi nếu có
                     MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
@@ -265,20 +180,26 @@ namespace OOP_EventsManagementSystem.View
             }
         }
 
-        private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void Border_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            if (e.ButtonState == MouseButtonState.Pressed) { this.DragMove(); }
+            if (e.ButtonState == System.Windows.Input.MouseButtonState.Pressed)
+            {
+                DragMove();
+            }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Close_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
+        }
+
+        public class AccountViewModel
+        {
+            public string FullName { get; set; }
+            public string Email { get; set; }
+            public string Password { get; set; }
+            public string RoleName { get; set; }
+            public string Contact { get; set; }
         }
     }
-    // Trong code-behind của cả Account.xaml.cs và NavigateBar.xaml.cs
-    public static class User
-{
-    public static string AvatarPath { get; set; } = string.Empty; // Đường dẫn tạm thời cho avatar
-}
-
 }

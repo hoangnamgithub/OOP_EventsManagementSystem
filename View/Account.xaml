@@ -18,166 +18,178 @@
         Background="#EFE9E4"
         CornerRadius="16"
         MouseLeftButtonDown="Border_MouseLeftButtonDown">
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto" />
-                <ColumnDefinition Width="auto" />
-            </Grid.ColumnDefinitions>
-
-            <StackPanel>
+        <ScrollViewer>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
                 <TextBlock
                     Margin="25,15"
                     Style="{StaticResource txt_header}"
                     Text="Account Details" />
-                <Border
-                    Width="450"
-                    Height="120"
-                    Margin="25,0"
-                    Background="White"
-                    CornerRadius="16">
-                    <Grid>
-                        <Image
-                            Name="imgEvent"
-                            Width="100"
-                            Height="100"
-                            Margin="10"
-                            HorizontalAlignment="Left"
-                            Source="pack://application:,,,/Resources/Images/event2.jpg"
-                            Stretch="UniformToFill">
-                            <Image.Clip>
-                                <EllipseGeometry
-                                    Center="50,50"
-                                    RadiusX="50"
-                                    RadiusY="50" />
-                            </Image.Clip>
-                        </Image>
-                        <Button
-                            Name="btnEdit"
-                            Width="50"
-                            Height="50"
-                            Margin="120,0"
-                            HorizontalAlignment="Left"
-                            Click="BtnEdit_Click"
-                            Content="Sửa"
-                            FontSize="14"
-                            Style="{StaticResource PinkButton}" />
-                    </Grid>
+                <StackPanel Orientation="Horizontal">
+
+                    <Border
+                        Width="200"
+                        Height="120"
+                        Margin="25,50,0,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Background="White"
+                        CornerRadius="16">
+                        <Grid>
+                            <Image
+                                Name="imgEvent"
+                                Width="100"
+                                Height="100"
+                                Margin="10"
+                                HorizontalAlignment="Left"
+                                Source="pack://application:,,,/Resources/Images/event2.jpg"
+                                Stretch="UniformToFill">
+                                <Image.Clip>
+                                    <EllipseGeometry
+                                        Center="50,50"
+                                        RadiusX="50"
+                                        RadiusY="50" />
+                                </Image.Clip>
+                            </Image>
+                            <Button
+                                Name="btnEdit"
+                                Width="50"
+                                Height="50"
+                                Margin="120,0,0,0"
+                                HorizontalAlignment="Left"
+                                Click="BtnEdit_Click"
+                                Content="Sửa"
+                                FontSize="14"
+                                Style="{StaticResource PinkButton}" />
+                        </Grid>
 
 
-                </Border>
-                <Border
-                    Width="450"
-                    Height="280"
-                    Margin="25,25,25,10"
-                    Background="White"
-                    CornerRadius="16">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto" />
-                            <ColumnDefinition Width="auto" />
-                        </Grid.ColumnDefinitions>
-                        <StackPanel>
-                            <TextBlock
-                                Margin="10,10,10,5"
-                                Style="{StaticResource txt_header}"
-                                Text="Full Name" />
-                            <Border
-                                Width="200"
-                                Height="45"
-                                Margin="10,5"
-                                Background="#D9D9D9"
-                                CornerRadius="16">
-                                <TextBox
-                                    x:Name="txtfull_name"
-                                    Margin="5"
-                                    IsEnabled="False" />
-                            </Border>
-                            <TextBlock
-                                Margin="10,5,10,5"
-                                Style="{StaticResource txt_header}"
-                                Text="Email" />
-                            <Border
-                                Width="200"
-                                Height="45"
-                                Margin="10,5"
-                                Background="#D9D9D9"
-                                CornerRadius="16">
-                                <TextBox
-                                    x:Name="txtEmail"
-                                    Margin="5"
-                                    IsEnabled="False" />
-                            </Border>
-                            <TextBlock
-                                Margin="10,5,10,5"
-                                Style="{StaticResource txt_header}"
-                                Text="Employee Id" />
-                            <Border
-                                Width="200"
-                                Height="45"
-                                Margin="10,5"
-                                Background="#D9D9D9"
-                                CornerRadius="16">
-                                <TextBox
-                                    x:Name="txtemployee_id"
-                                    Margin="5"
-                                    IsEnabled="False" />
-                            </Border>
-                        </StackPanel>
-                        <StackPanel Grid.Column="1">
-                            <TextBlock
-                                Margin="10,10,10,5"
-                                Style="{StaticResource txt_header}"
-                                Text="Permission" />
-                            <Border
-                                Width="200"
-                                Height="45"
-                                Margin="10,5"
-                                Background="#D9D9D9"
-                                CornerRadius="16">
-                                <TextBox
-                                    x:Name="txtPermission"
-                                    Margin="5"
-                                    IsEnabled="False" />
-                            </Border>
-                            <TextBlock
-                                Margin="10,5,10,5"
-                                Style="{StaticResource txt_header}"
-                                Text="Password" />
-                            <Border
-                                Width="200"
-                                Height="45"
-                                Margin="10,5"
-                                Background="#D9D9D9"
-                                CornerRadius="16">
-                                <TextBox
-                                    x:Name="txtPassword"
-                                    Margin="5"
-                                    IsEnabled="False" />
-                            </Border>
-                            <TextBlock
-                                Margin="10,5,10,5"
-                                Style="{StaticResource txt_header}"
-                                Text="Role" />
-                            <Border
-                                Width="200"
-                                Height="45"
-                                Margin="10,5"
-                                Background="#D9D9D9"
-                                CornerRadius="16">
-                                <TextBox
-                                    x:Name="txtRole"
-                                    Margin="5"
-                                    IsEnabled="False" />
-                            </Border>
-                        </StackPanel>
+                    </Border>
+                    <Border
+                        Width="550"
+                        Height="240"
+                        Margin="25,50,25,10"
+                        Background="White"
+                        CornerRadius="16">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                            </Grid.ColumnDefinitions>
+                            <StackPanel>
+                                <TextBlock
+                                    Margin="10,10,10,0"
+                                    Style="{StaticResource txt_header}"
+                                    Text="Full Name" />
+                                <Border
+                                    Width="230"
+                                    Height="35"
+                                    Margin="10,5"
+                                    Background="#D9D9D9"
+                                    CornerRadius="16">
+                                    <TextBox
+                                        x:Name="txtfull_name"
+                                        Margin="5"
+                                        IsEnabled="False"
+                                        Text="{Binding FullName}" />
+                                </Border>
+                                <TextBlock
+                                    Margin="10,5,10,0"
+                                    Style="{StaticResource txt_header}"
+                                    Text="Email" />
+                                <Border
+                                    Width="230"
+                                    Height="35"
+                                    Margin="10,5"
+                                    Background="#D9D9D9"
+                                    CornerRadius="16">
+                                    <TextBox
+                                        x:Name="txtEmail"
+                                        Margin="5"
+                                        IsEnabled="False"
+                                        Text="{Binding Email}" />
+                                </Border>
+                                <TextBlock
+                                    Margin="10,5,10,0"
+                                    Style="{StaticResource txt_header}"
+                                    Text="Permission" />
+                                <Border
+                                    Width="230"
+                                    Height="35"
+                                    Margin="10,5"
+                                    Background="#D9D9D9"
+                                    CornerRadius="16">
+                                    <TextBox
+                                        x:Name="txtPermission"
+                                        Margin="5"
+                                        IsEnabled="False"
+                                        Text="{Binding Permission}" />
+                                </Border>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1">
+                                <TextBlock
+                                    Margin="10,10,10,0"
+                                    Style="{StaticResource txt_header}"
+                                    Text="Contact" />
+                                <Border
+                                    Width="230"
+                                    Height="35"
+                                    Margin="10,5"
+                                    Background="#D9D9D9"
+                                    CornerRadius="16">
+                                    <TextBox
+                                        x:Name="txtContact"
+                                        Margin="5"
+                                        IsEnabled="False"
+                                        Text="{Binding Contact}" />
+                                </Border>
+                                <TextBlock
+                                    Margin="10,5,10,0"
+                                    Style="{StaticResource txt_header}"
+                                    Text="Password" />
+                                <Border
+                                    Width="230"
+                                    Height="35"
+                                    Margin="10,5"
+                                    Background="#D9D9D9"
+                                    CornerRadius="16">
+                                    <TextBox
+                                        x:Name="txtPassword"
+                                        Margin="5"
+                                        IsEnabled="False"
+                                        Text="{Binding Password}" />
+                                </Border>
+                                <TextBlock
+                                    Margin="10,5,10,0"
+                                    Style="{StaticResource txt_header}"
+                                    Text="Role" />
+                                <Border
+                                    Width="230"
+                                    Height="35"
+                                    Margin="10,5"
+                                    Background="#D9D9D9"
+                                    CornerRadius="16">
+                                    <TextBox
+                                        x:Name="txtRole"
+                                        Margin="5"
+                                        IsEnabled="False"
+                                        Text="{Binding RoleName}" />
+                                </Border>
+                            </StackPanel>
 
 
 
-                    </Grid>
-                </Border>
+                        </Grid>
+                    </Border>
+
+                </StackPanel>
                 <StackPanel
-                    Margin="25,0,0,0"
+                    Margin="25,190,0,0"
                     HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
                     Orientation="Horizontal">
                     <Button
                         x:Name="btn_Edit"
@@ -197,113 +209,116 @@
                         Visibility="Collapsed" />
 
                 </StackPanel>
-            </StackPanel>
-
-            <Border
-                Grid.Column="1"
-                Width="320"
-                Height="475"
-                Margin="0,55,25,25"
-                Background="White"
-                CornerRadius="16">
-                <Grid>
-                    <TextBlock
-                        Margin="5,-25,0,0"
-                        Style="{StaticResource txt_header}"
-                        Text="List Accounts" />
-                    <StackPanel
-                        Margin="5,5"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Top"
-                        Orientation="Horizontal">
-                        <Border
-                            Width="200"
-                            Height="30"
+                <Border
+                    Grid.Row="1"
+                    Width="775"
+                    Height="475"
+                    Margin="25,10,25,25"
+                    HorizontalAlignment="Left"
+                    Background="White"
+                    CornerRadius="16">
+                    <Grid>
+                        <TextBlock
+                            Margin="5,-25,0,0"
+                            Style="{StaticResource txt_header}"
+                            Text="List Accounts" />
+                        <StackPanel
+                            Margin="10,5"
                             HorizontalAlignment="Left"
-                            Background="#FFDCDCE6"
-                            CornerRadius="16">
-                            <Grid>
-                                <TextBox
-                                    x:Name="SearchBox_show"
-                                    Margin="10,0,30,0"
-                                    VerticalAlignment="Center"
-                                    materialDesign:HintAssist.Hint="Search"
-                                    Background="{x:Null}"
-                                    BorderBrush="{x:Null}"
-                                    CaretBrush="{x:Null}"
-                                    FontFamily="Bahnschrift SemiLight"
-                                    FontSize="14"
-                                    Foreground="Gray"
-                                    SelectionBrush="{x:Null}"
-                                    SelectionTextBrush="{x:Null}" />
+                            VerticalAlignment="Top"
+                            Orientation="Horizontal">
+                            <Border
+                                Width="200"
+                                Height="30"
+                                HorizontalAlignment="Left"
+                                Background="#FFDCDCE6"
+                                CornerRadius="16">
+                                <Grid>
+                                    <TextBox
+                                        x:Name="SearchBox_show"
+                                        Margin="10,0,30,0"
+                                        VerticalAlignment="Center"
+                                        materialDesign:HintAssist.Hint="Search"
+                                        Background="{x:Null}"
+                                        BorderBrush="{x:Null}"
+                                        CaretBrush="{x:Null}"
+                                        FontFamily="Bahnschrift SemiLight"
+                                        FontSize="14"
+                                        Foreground="Gray"
+                                        SelectionBrush="{x:Null}"
+                                        SelectionTextBrush="{x:Null}" />
 
-                            </Grid>
-                        </Border>
-                        <Border
-                            Width="30"
-                            Height="30"
-                            Margin="5,0"
-                            Background="#FFDCDCE6"
-                            CornerRadius="16">
-                            <Grid>
-                                <Image
-                                    Width="20"
-                                    Height="20"
-                                    Source="pack://application:,,,/Resources/Images/plus.png" />
-                                <Button
-                                    x:Name="btn_addShow"
-                                    Width="20"
-                                    Height="20"
-                                    Background="{x:Null}"
-                                    BorderBrush="{x:Null}" />
-                            </Grid>
-                        </Border>
-                        <Border
-                            Width="30"
-                            Height="30"
-                            Margin="5"
-                            Background="#FFDCDCE6"
-                            CornerRadius="16">
-                            <Grid>
-                                <Image Margin="6" Source="pack://application:,,,/Resources/Images/delete-outline.png" />
-                                <Button
-                                    x:Name="btn_deleteShow"
-                                    Width="20"
-                                    Height="20"
-                                    Background="{x:Null}"
-                                    BorderBrush="{x:Null}"
-                                    Click="BtnDelete_Click" />
-                            </Grid>
-                        </Border>
+                                </Grid>
+                            </Border>
 
-                    </StackPanel>
-                    <DataGrid
-                        x:Name="dataGrid"
-                        Margin="5,45,5,5"
-                        Background="Transparent"
-                        IsReadOnly="True"
-                        SelectionMode="Extended">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Binding="{Binding FullName}" Header="Full Name" />
-                            <DataGridTextColumn Binding="{Binding Email}" Header="Email" />
-                            <DataGridTextColumn Binding="{Binding Password}" Header="Password" />
-                            <DataGridTextColumn Binding="{Binding RoleName}" Header="Role" />
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </Grid>
-            </Border>
-            <Button
-                Grid.Column="1"
-                Width="40"
-                Height="40"
-                Margin="0"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Top"
-                Background="Transparent"
-                BorderBrush="Transparent"
-                Click="Button_Click"
-                Content="X"
-                Foreground="Black" />
-        </Grid>
+                            <Border
+                                Width="30"
+                                Height="30"
+                                Margin="5"
+                                Background="#FFDCDCE6"
+                                CornerRadius="16">
+                                <Grid>
+                                    <Image Margin="6" Source="pack://application:,,,/Resources/Images/delete-outline.png" />
+                                    <Button
+                                        x:Name="btn_deleteShow"
+                                        Width="20"
+                                        Height="20"
+                                        Background="{x:Null}"
+                                        BorderBrush="{x:Null}"
+                                        Click="BtnDelete_Click" />
+                                </Grid>
+                            </Border>
+
+                        </StackPanel>
+                        <DataGrid
+                            x:Name="dataGrid"
+                            Margin="5,45,5,5"
+                            AutoGenerateColumns="False"
+                            Background="Transparent"
+                            IsReadOnly="True"
+                            SelectionMode="Extended">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Binding="{Binding FullName}" Header="Full Name" />
+                                <DataGridTextColumn Binding="{Binding Email}" Header="Email" />
+                                <DataGridTextColumn Binding="{Binding Password}" Header="Password" />
+                                <!--  ComboBox column for RoleName  -->
+                                <DataGridTemplateColumn Header="Role">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <!--  Hiển thị RoleName khi không chỉnh sửa  -->
+                                            <TextBlock Text="{Binding RoleName}" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                    <DataGridTemplateColumn.CellEditingTemplate>
+                                        <DataTemplate>
+                                            <!--  ComboBox hiển thị danh sách RoleName khi chỉnh sửa  -->
+                                            <ComboBox
+                                                DisplayMemberPath="RoleName"
+                                                ItemsSource="{Binding DataContext.EmployeeRoles, RelativeSource={RelativeSource AncestorType=Window}}"
+                                                SelectedValue="{Binding RoleName}"
+                                                SelectedValuePath="RoleName" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellEditingTemplate>
+                                </DataGridTemplateColumn>
+
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </Border>
+                <Button
+                    Grid.Column="1"
+                    Width="40"
+                    Height="40"
+                    Margin="0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    Background="Transparent"
+                    BorderBrush="Transparent"
+                    Click="Button_Click"
+                    Content="X"
+                    Foreground="Black" />
+            </Grid>
+        </ScrollViewer>
+
     </Border>
 </Window>
