@@ -6,7 +6,10 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
 using OOP_EventsManagementSystem.Model;
+using OOP_EventsManagementSystem.Utilities;
 
 namespace OOP_EventsManagementSystem.ViewModel
 {
@@ -17,6 +20,7 @@ namespace OOP_EventsManagementSystem.ViewModel
         public AddEventVM()
         {
             _context = new EventManagementDbContext();
+            ConfirmCommand = new RelayCommand<Window>(SaveData); // Update this line
             LoadShows();
             LoadSponsors();
             LoadSponsorTiers();
@@ -24,6 +28,115 @@ namespace OOP_EventsManagementSystem.ViewModel
             LoadEquipments();
             LoadVenues();
             LoadEventTypes();
+        }
+
+        public ICommand ConfirmCommand { get; }
+
+        public string EventName { get; set; }
+        public string EventDescription { get; set; }
+        public int ExpectedAttendee { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+
+        private void SaveData(Window window)
+        {
+            if (!ValidateInput())
+            {
+                return;
+            }
+
+            var newEvent = new Event
+            {
+                EventName = EventName,
+                EventDescription = EventDescription,
+                ExptedAttendee = ExpectedAttendee,
+                StartDate = DateOnly.FromDateTime(StartDate),
+                EndDate = DateOnly.FromDateTime(EndDate),
+                EventTypeId = SelectedEventTypeId,
+                VenueId = SelectedVenueId,
+            };
+
+            _context.Events.Add(newEvent);
+            _context.SaveChanges();
+
+            // Display success message
+            MessageBox.Show(
+                "Event added successfully!",
+                "Success",
+                MessageBoxButton.OK,
+                MessageBoxImage.Information
+            );
+
+            // Close the window
+            window?.Close();
+        }
+
+        private bool ValidateInput()
+        {
+            if (
+                string.IsNullOrWhiteSpace(EventName)
+                || string.IsNullOrWhiteSpace(EventDescription)
+                || ExpectedAttendee <= 0
+                || SelectedVenueId <= 0
+                || SelectedEventTypeId <= 0
+                || StartDate == default
+                || EndDate == default
+            )
+            {
+                MessageBox.Show(
+                    "Please fill in all fields.",
+                    "Validation Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning
+                );
+                return false;
+            }
+
+            if (StartDate < DateTime.Today)
+            {
+                MessageBox.Show(
+                    "Start date must be from the current date onward.",
+                    "Validation Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning
+                );
+                return false;
+            }
+
+            if (EndDate <= StartDate)
+            {
+                MessageBox.Show(
+                    "End date must be after the start date.",
+                    "Validation Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning
+                );
+                return false;
+            }
+
+            return true;
+        }
+
+        public class RelayCommand<T> : ICommand
+        {
+            private readonly Action<T> _execute;
+            private readonly Func<bool> _canExecute;
+
+            public RelayCommand(Action<T> execute, Func<bool> canExecute = null)
+            {
+                _execute = execute;
+                _canExecute = canExecute;
+            }
+
+            public bool CanExecute(object parameter) => _canExecute == null || _canExecute();
+
+            public void Execute(object parameter) => _execute((T)parameter);
+
+            public event EventHandler CanExecuteChanged
+            {
+                add { CommandManager.RequerySuggested += value; }
+                remove { CommandManager.RequerySuggested -= value; }
+            }
         }
 
         private ObservableCollection<ShowWrapper> _shows;
@@ -103,8 +216,8 @@ namespace OOP_EventsManagementSystem.ViewModel
                     {
                         SponsorId = s.SponsorId,
                         SponsorName = s.SponsorName,
-                        SponsorTierId = null, // Initially no tier selected
-                        IsChecked = false, // Initially unchecked
+                        SponsorTierId = null,
+                        IsChecked = false,
                     })
                     .ToList()
             );
@@ -117,8 +230,8 @@ namespace OOP_EventsManagementSystem.ViewModel
                     .EmployeeRoles.Select(er => new EmployeeRoleWrapper
                     {
                         RoleName = er.RoleName,
-                        Quantity = 0, // Initial quantity
-                        EmpCost = er.Salary, // Assuming EmpCost is the salary for that role
+                        Quantity = 0,
+                        EmpCost = er.Salary,
                     })
                     .ToList()
             );
@@ -256,6 +369,20 @@ namespace OOP_EventsManagementSystem.ViewModel
             {
                 _venueCapacity = value;
                 OnPropertyChanged(nameof(VenueCapacity));
+            }
+        }
+
+        private int _selectedEventTypeId;
+        public int SelectedEventTypeId
+        {
+            get => _selectedEventTypeId;
+            set
+            {
+                if (_selectedEventTypeId != value)
+                {
+                    _selectedEventTypeId = value;
+                    OnPropertyChanged(nameof(SelectedEventTypeId));
+                }
             }
         }
 
