@@ -18,14 +18,14 @@
         Background="#EFE9E4"
         CornerRadius="16"
         MouseLeftButtonDown="Border_MouseLeftButtonDown">
-        <ScrollViewer>
+        <ScrollViewer Margin="0,20,0,0">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
                 <TextBlock
-                    Margin="25,15"
+                    Margin="25,0"
                     Style="{StaticResource txt_header}"
                     Text="Account Details" />
                 <StackPanel Orientation="Horizontal">
@@ -33,7 +33,7 @@
                     <Border
                         Width="200"
                         Height="120"
-                        Margin="25,50,0,0"
+                        Margin="25,35,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         Background="White"
@@ -70,8 +70,8 @@
                     </Border>
                     <Border
                         Width="550"
-                        Height="240"
-                        Margin="25,50,25,10"
+                        Height="280"
+                        Margin="25,35,25,10"
                         Background="White"
                         CornerRadius="16">
                         <Grid>
@@ -79,14 +79,14 @@
                                 <ColumnDefinition Width="1*" />
                                 <ColumnDefinition Width="1*" />
                             </Grid.ColumnDefinitions>
-                            <StackPanel>
+                            <StackPanel Margin="5,5">
                                 <TextBlock
                                     Margin="10,10,10,0"
                                     Style="{StaticResource txt_header}"
                                     Text="Full Name" />
                                 <Border
                                     Width="230"
-                                    Height="35"
+                                    Height="45"
                                     Margin="10,5"
                                     Background="#D9D9D9"
                                     CornerRadius="16">
@@ -101,7 +101,7 @@
                                     Text="Email" />
                                 <Border
                                     Width="230"
-                                    Height="35"
+                                    Height="45"
                                     Margin="10,5"
                                     Background="#D9D9D9"
                                     CornerRadius="16">
@@ -116,7 +116,7 @@
                                     Text="Permission" />
                                 <Border
                                     Width="230"
-                                    Height="35"
+                                    Height="45"
                                     Margin="10,5"
                                     Background="#D9D9D9"
                                     CornerRadius="16">
@@ -126,20 +126,20 @@
                                         IsEnabled="False" />
                                 </Border>
                             </StackPanel>
-                            <StackPanel Grid.Column="1">
+                            <StackPanel Grid.Column="1" Margin="0,5">
                                 <TextBlock
                                     Margin="10,10,10,0"
                                     Style="{StaticResource txt_header}"
                                     Text="Contact" />
                                 <Border
                                     Width="230"
-                                    Height="35"
+                                    Height="45"
                                     Margin="10,5"
                                     Background="#D9D9D9"
                                     CornerRadius="16">
                                     <TextBox
                                         x:Name="txtContact"
-                                        
+                                        Margin="5"
                                         IsEnabled="False" />
                                 </Border>
                                 <TextBlock
@@ -148,13 +148,13 @@
                                     Text="Password" />
                                 <Border
                                     Width="230"
-                                    Height="35"
+                                    Height="45"
                                     Margin="10,5"
                                     Background="#D9D9D9"
                                     CornerRadius="16">
                                     <TextBox
                                         x:Name="txtPassword"
-                                        
+                                        Margin="5"
                                         IsEnabled="False" />
                                 </Border>
                                 <TextBlock
@@ -163,13 +163,13 @@
                                     Text="Role" />
                                 <Border
                                     Width="230"
-                                    Height="35"
+                                    Height="45"
                                     Margin="10,5"
                                     Background="#D9D9D9"
                                     CornerRadius="16">
                                     <TextBox
                                         x:Name="txtRole"
-                                        
+                                        Margin="5"
                                         IsEnabled="False" />
                                 </Border>
                             </StackPanel>
@@ -246,11 +246,13 @@
                             </Border>
 
                             <Border
+                                x:Name="delete"
                                 Width="30"
                                 Height="30"
                                 Margin="5"
                                 Background="#FFDCDCE6"
-                                CornerRadius="16">
+                                CornerRadius="16"
+                                Visibility="Collapsed">
                                 <Grid>
                                     <Image Margin="6" Source="pack://application:,,,/Resources/Images/delete-outline.png" />
                                     <Button
@@ -273,14 +275,24 @@
                             SelectionMode="Extended">
                             <DataGrid.Columns>
                                 <DataGridTextColumn
+                                    Width="auto"
                                     Binding="{Binding FullName}"
                                     Header="Full Name"
                                     IsReadOnly="True" />
-                                <DataGridTextColumn Binding="{Binding Contact}" Header="Contact" />
-                                <DataGridTextColumn Binding="{Binding Email}" Header="Email" />
-                                <DataGridTextColumn Binding="{Binding Password}" Header="Password" />
+                                <DataGridTextColumn
+                                    Width="auto"
+                                    Binding="{Binding Contact}"
+                                    Header="Contact" />
+                                <DataGridTextColumn
+                                    Width="180"
+                                    Binding="{Binding Email}"
+                                    Header="Email" />
+                                <DataGridTextColumn
+                                    Width="auto"
+                                    Binding="{Binding Password}"
+                                    Header="Password" />
                                 <!--  ComboBox column for RoleName  -->
-                                <DataGridTemplateColumn Header="Role">
+                                <DataGridTemplateColumn Width="190" Header="Role">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <!--  Hiển thị RoleName khi không chỉnh sửa  -->
