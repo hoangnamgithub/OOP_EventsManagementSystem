@@ -328,23 +328,23 @@ namespace OOP_EventsManagementSystem.Database
             }
 
             var roles = new List<EmployeeRole>
-    {
-        new EmployeeRole { RoleName = "PlanningAndCoordination", Salary = 4000.00M },
-        new EmployeeRole { RoleName = "Logistics", Salary = 3500.00M },
-        new EmployeeRole { RoleName = "TechnicalSupport", Salary = 3500.00M },
-        new EmployeeRole { RoleName = "MarketingAndPromotions", Salary = 4000.00M },
-        new EmployeeRole { RoleName = "SalesAndTicketing", Salary = 3500.00M },
-        new EmployeeRole { RoleName = "Catering", Salary = 4000.00M },
-        new EmployeeRole { RoleName = "Security", Salary = 3000.00M },
-        new EmployeeRole { RoleName = "FinanceAndBudgeting", Salary = 4500.00M },
-        new EmployeeRole { RoleName = "CustomerService", Salary = 3500.00M },
-        new EmployeeRole { RoleName = "DesignAndDecor", Salary = 4000.00M },
-        new EmployeeRole { RoleName = "EntertainmentAndProgramming", Salary = 4500.00M },
-        new EmployeeRole { RoleName = "VenueManagement", Salary = 3500.00M },
-        new EmployeeRole { RoleName = "PublicRelations", Salary = 4000.00M },
-        new EmployeeRole { RoleName = "Coordinator", Salary = 6000.00M },
-        new EmployeeRole { RoleName = "CEO", Salary = 10000.00M } // Adding the CEO role
-    };
+            {
+                new EmployeeRole { RoleName = "PlanningAndCoordination", Salary = 4000.00M },
+                new EmployeeRole { RoleName = "Logistics", Salary = 3500.00M },
+                new EmployeeRole { RoleName = "TechnicalSupport", Salary = 3500.00M },
+                new EmployeeRole { RoleName = "MarketingAndPromotions", Salary = 4000.00M },
+                new EmployeeRole { RoleName = "SalesAndTicketing", Salary = 3500.00M },
+                new EmployeeRole { RoleName = "Catering", Salary = 4000.00M },
+                new EmployeeRole { RoleName = "Security", Salary = 3000.00M },
+                new EmployeeRole { RoleName = "FinanceAndBudgeting", Salary = 4500.00M },
+                new EmployeeRole { RoleName = "CustomerService", Salary = 3500.00M },
+                new EmployeeRole { RoleName = "DesignAndDecor", Salary = 4000.00M },
+                new EmployeeRole { RoleName = "EntertainmentAndProgramming", Salary = 4500.00M },
+                new EmployeeRole { RoleName = "VenueManagement", Salary = 3500.00M },
+                new EmployeeRole { RoleName = "PublicRelations", Salary = 4000.00M },
+                new EmployeeRole { RoleName = "Coordinator", Salary = 6000.00M },
+                new EmployeeRole { RoleName = "CEO", Salary = 10000.00M }, // Adding the CEO role
+            };
 
             context.EmployeeRoles.AddRange(roles);
             context.SaveChanges();
@@ -496,7 +496,9 @@ namespace OOP_EventsManagementSystem.Database
                 bool isManager = roles.Any(r => r.ManagerId == employee.EmployeeId);
                 if (isManager)
                 {
-                    permissionId = permissions.FirstOrDefault(p => p.Permission1 == "Manager")?.PermissionId ?? 0;
+                    permissionId =
+                        permissions.FirstOrDefault(p => p.Permission1 == "Manager")?.PermissionId
+                        ?? 0;
                 }
 
                 if (permissionId == 0)
@@ -603,7 +605,10 @@ namespace OOP_EventsManagementSystem.Database
                 }
                 else // Approximately one sixth in the near future
                 {
-                    startDate = faker.Date.Between(new DateTime(2025, 1, 1), new DateTime(2025, 3, 31)); // Future within the first few months of 2025
+                    startDate = faker.Date.Between(
+                        new DateTime(2025, 1, 1),
+                        new DateTime(2025, 3, 31)
+                    ); // Future within the first few months of 2025
                 }
 
                 var endDate = startDate.AddDays(faker.Random.Int(1, 5)); // Ensuring end date is after start date
@@ -674,7 +679,6 @@ namespace OOP_EventsManagementSystem.Database
             Console.WriteLine("Seeded need data successfully.");
         }
 
-
         private static void SeedIsSponsorData(EventManagementDbContext context)
         {
             if (context.IsSponsors.Any())
@@ -717,7 +721,6 @@ namespace OOP_EventsManagementSystem.Database
                 int numSponsors = Math.Min(faker.Random.Int(9, 20), sponsors.Count); // Limit to a maximum of 20 sponsors
 
                 bool titleSponsorAssigned = false;
-
 
                 for (int i = 0; i < numSponsors; i++)
                 {

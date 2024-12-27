@@ -24,6 +24,7 @@ namespace OOP_EventsManagementSystem.View
     public partial class Show : UserControl
     {
         private readonly ShowVM _viewModel;
+
         public Show()
         {
             InitializeComponent();
@@ -32,7 +33,10 @@ namespace OOP_EventsManagementSystem.View
             _viewModel.LoadPerformers();
         }
 
-        private void PerformerDataGrid_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        private void PerformerDataGrid_SelectionChanged(
+            object sender,
+            System.Windows.Controls.SelectionChangedEventArgs e
+        )
         {
             var selectedPerformer = ((DataGrid)sender).SelectedItem as Performer;
 
@@ -41,9 +45,7 @@ namespace OOP_EventsManagementSystem.View
                 _viewModel.SelectedPerformerId = selectedPerformer.PerformerId;
                 _viewModel.LoadShowsForSelectedPerformer();
             }
-            
         }
-
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
@@ -61,14 +63,15 @@ namespace OOP_EventsManagementSystem.View
             // Nếu có performer được chọn, truyền dữ liệu trực tiếp
             if (selectedPerformer != null)
             {
-                showDes.SetPerformerDetails(selectedPerformer.FullName, selectedPerformer.ContactDetail);
+                showDes.SetPerformerDetails(
+                    selectedPerformer.FullName,
+                    selectedPerformer.ContactDetail
+                );
             }
 
             // Hiển thị cửa sổ
             showDes.Show();
         }
-
-        
 
         private void ReloadShows()
         {
@@ -84,13 +87,17 @@ namespace OOP_EventsManagementSystem.View
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
             // Kiểm tra xem có show nào được chọn trong DataGrid Show không
-            var selectedShows = ShowDataGrid.SelectedItems.Cast<OOP_EventsManagementSystem.Model.Show>().ToList();
+            var selectedShows = ShowDataGrid
+                .SelectedItems.Cast<OOP_EventsManagementSystem.Model.Show>()
+                .ToList();
             if (selectedShows.Any())
             {
                 // Xác nhận xóa nhiều show
-                var result = MessageBox.Show($"Are you sure you want to delete {selectedShows.Count} show(s)?",
-                                              "Confirm Delete",
-                                              MessageBoxButton.YesNo);
+                var result = MessageBox.Show(
+                    $"Are you sure you want to delete {selectedShows.Count} show(s)?",
+                    "Confirm Delete",
+                    MessageBoxButton.YesNo
+                );
 
                 if (result == MessageBoxResult.Yes)
                 {
@@ -104,13 +111,17 @@ namespace OOP_EventsManagementSystem.View
             else
             {
                 // Nếu không có show, kiểm tra Performer
-                var selectedPerformers = PerformerDataGrid.SelectedItems.Cast<OOP_EventsManagementSystem.Model.Performer>().ToList();
+                var selectedPerformers = PerformerDataGrid
+                    .SelectedItems.Cast<OOP_EventsManagementSystem.Model.Performer>()
+                    .ToList();
                 if (selectedPerformers.Any())
                 {
                     // Xác nhận xóa nhiều performer
-                    var result = MessageBox.Show($"Are you sure you want to delete {selectedPerformers.Count} performer(s)?",
-                                                  "Confirm Delete",
-                                                  MessageBoxButton.YesNo);
+                    var result = MessageBox.Show(
+                        $"Are you sure you want to delete {selectedPerformers.Count} performer(s)?",
+                        "Confirm Delete",
+                        MessageBoxButton.YesNo
+                    );
 
                     if (result == MessageBoxResult.Yes)
                     {
@@ -128,10 +139,10 @@ namespace OOP_EventsManagementSystem.View
             }
         }
 
-
         private bool isEditing = false; // Flag to track editing state
         private object currentSelectedItem = null; // The item currently being edited
         private bool isSelectionChangeAllowed = true; // Flag to control selection change
+
         private void EditButton_Click(object sender, RoutedEventArgs e)
         {
             if (ShowDataGrid.SelectedItem != null) // Nếu bảng Show có show được chọn
@@ -182,7 +193,8 @@ namespace OOP_EventsManagementSystem.View
                     {
                         // Dùng DataGridTemplateColumn để chỉ cho phép chỉnh sửa trên hàng được chọn
                         int rowIndex = PerformerDataGrid.Items.IndexOf(row);
-                        DataGridRow dataGridRow = (DataGridRow)PerformerDataGrid.ItemContainerGenerator.ContainerFromIndex(rowIndex);
+                        DataGridRow dataGridRow = (DataGridRow)
+                            PerformerDataGrid.ItemContainerGenerator.ContainerFromIndex(rowIndex);
                         if (dataGridRow != null)
                         {
                             dataGridRow.IsEnabled = false; // Vô hiệu hóa các hàng không phải hàng được chọn
@@ -214,7 +226,10 @@ namespace OOP_EventsManagementSystem.View
                         // Sau khi lưu, khóa bảng và đặt lại trạng thái UI
                         LockEditingStateForShow();
                     }
-                    else if (currentSelectedItem is OOP_EventsManagementSystem.Model.Performer performerToSave)
+                    else if (
+                        currentSelectedItem
+                        is OOP_EventsManagementSystem.Model.Performer performerToSave
+                    )
                     {
                         var showVM = (ShowVM)DataContext;
                         showVM.SaveChangesForPerformer(performerToSave); // Lưu thay đổi cho performer
@@ -280,7 +295,14 @@ namespace OOP_EventsManagementSystem.View
         // Selection changed event để ngăn chọn hàng khác khi đang chỉnh sửa
         private void ShowDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (!isSelectionChangeAllowed || (isEditing && currentSelectedItem != null && ShowDataGrid.SelectedItem != currentSelectedItem))
+            if (
+                !isSelectionChangeAllowed
+                || (
+                    isEditing
+                    && currentSelectedItem != null
+                    && ShowDataGrid.SelectedItem != currentSelectedItem
+                )
+            )
             {
                 ShowDataGrid.SelectedItem = currentSelectedItem; // Reset lại hàng được chọn
             }
@@ -295,24 +317,15 @@ namespace OOP_EventsManagementSystem.View
             }
         }
 
-        private void ConfirmAddButton_Click(object sender, RoutedEventArgs e)
-        {
+        private void ConfirmAddButton_Click(object sender, RoutedEventArgs e) { }
 
-        }
+        private void CancelButton_Click(object sender, RoutedEventArgs e) { }
 
-        private void CancelButton_Click(object sender, RoutedEventArgs e)
-        {
+        private void SponsorNameComboBox_SelectionChanged(
+            object sender,
+            SelectionChangedEventArgs e
+        ) { }
 
-        }
-
-        private void SponsorNameComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void ConfirmAddExistButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+        private void ConfirmAddExistButton_Click(object sender, RoutedEventArgs e) { }
     }
 }
