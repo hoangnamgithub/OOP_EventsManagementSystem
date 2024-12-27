@@ -73,7 +73,12 @@ namespace OOP_EventsManagementSystem.View
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Không thể tải ảnh: {ex.Message}", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(
+                        $"Không thể tải ảnh: {ex.Message}",
+                        "Lỗi",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Error
+                    );
                 }
             }
         }
@@ -152,9 +157,17 @@ namespace OOP_EventsManagementSystem.View
 
             if (selectedAccounts.Any())
             {
-                try
+                // Hiển thị hộp thoại xác nhận
+                var result = MessageBox.Show(
+                    "Are you sure you want to delete the selected accounts and their related data?",
+                    "Confirm Deletion",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question
+                );
+
+                if (result == MessageBoxResult.Yes)
                 {
-                    foreach (var account in selectedAccounts)
+                    try
                     {
                         var accountToDelete = _context.Accounts
                             .FirstOrDefault(a => a.Employee.FullName == account.FullName);
@@ -163,6 +176,30 @@ namespace OOP_EventsManagementSystem.View
                         {
                             _context.Accounts.Remove(accountToDelete);
                         }
+
+                        // Lưu thay đổi vào cơ sở dữ liệu
+                        _context.SaveChanges();
+
+                        // Tải lại dữ liệu để cập nhật DataGrid
+                        LoadAccountData();
+
+                        // Thông báo thành công
+                        MessageBox.Show(
+                            "Selected accounts and related data have been deleted successfully.",
+                            "Success",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Information
+                        );
+                    }
+                    catch (Exception ex)
+                    {
+                        // Hiển thị lỗi nếu có
+                        MessageBox.Show(
+                            $"An error occurred: {ex.Message}",
+                            "Error",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Error
+                        );
                     }
 
                     _context.SaveChanges();
@@ -176,7 +213,12 @@ namespace OOP_EventsManagementSystem.View
             }
             else
             {
-                MessageBox.Show("No accounts selected to delete.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(
+                    "No accounts selected to delete.",
+                    "Warning",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning
+                );
             }
         }
 
