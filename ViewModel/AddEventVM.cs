@@ -59,6 +59,55 @@ namespace OOP_EventsManagementSystem.ViewModel
             _context.Events.Add(newEvent);
             _context.SaveChanges();
 
+            // Save checked sponsors
+            foreach (var sponsor in Sponsors.Where(s => s.IsChecked))
+            {
+                var isSponsor = new IsSponsor
+                {
+                    EventId = newEvent.EventId,
+                    SponsorId = sponsor.SponsorId,
+                    SponsorTierId = sponsor.SponsorTierId ?? 0,
+                };
+                _context.IsSponsors.Add(isSponsor);
+            }
+
+            // Save checked shows
+            foreach (var show in Shows.Where(s => s.IsChecked))
+            {
+                var showSchedule = new ShowSchedule
+                {
+                    EventId = newEvent.EventId,
+                    ShowId = show.ShowId,
+                };
+                _context.ShowSchedules.Add(showSchedule);
+            }
+
+            // Save employee roles with quantities (including 0)
+            foreach (var role in EmployeeRoles)
+            {
+                var need = new Need
+                {
+                    EventId = newEvent.EventId,
+                    RoleId = role.RoleId,
+                    Quantity = role.Quantity,
+                };
+                _context.Needs.Add(need);
+            }
+
+            // Save equipment with quantities (including 0)
+            foreach (var equipment in Equipments)
+            {
+                var required = new Required
+                {
+                    EventId = newEvent.EventId,
+                    EquipNameId = equipment.EquipNameId,
+                    Quantity = equipment.Quantity,
+                };
+                _context.Requireds.Add(required);
+            }
+
+            _context.SaveChanges();
+
             // Display success message
             MessageBox.Show(
                 "Event added successfully!",
@@ -197,8 +246,8 @@ namespace OOP_EventsManagementSystem.ViewModel
             }
         }
 
-        private ObservableCollection<SponsorTier> _sponsorTiers;
-        public ObservableCollection<SponsorTier> SponsorTiers
+        private ObservableCollection<SponsorTierWrapper> _sponsorTiers;
+        public ObservableCollection<SponsorTierWrapper> SponsorTiers
         {
             get => _sponsorTiers;
             set
@@ -206,6 +255,19 @@ namespace OOP_EventsManagementSystem.ViewModel
                 _sponsorTiers = value;
                 OnPropertyChanged(nameof(SponsorTiers));
             }
+        }
+
+        private void LoadSponsorTiers()
+        {
+            SponsorTiers = new ObservableCollection<SponsorTierWrapper>(
+                _context
+                    .SponsorTiers.Select(st => new SponsorTierWrapper
+                    {
+                        SponsorTierId = st.SponsorTierId,
+                        TierName = st.TierName,
+                    })
+                    .ToList()
+            );
         }
 
         private void LoadSponsors()
@@ -229,9 +291,10 @@ namespace OOP_EventsManagementSystem.ViewModel
                 _context
                     .EmployeeRoles.Select(er => new EmployeeRoleWrapper
                     {
+                        RoleId = er.RoleId,
                         RoleName = er.RoleName,
-                        Quantity = 0,
                         EmpCost = er.Salary,
+                        Quantity = 0,
                     })
                     .ToList()
             );
@@ -264,11 +327,6 @@ namespace OOP_EventsManagementSystem.ViewModel
             }
         }
 
-        private void LoadSponsorTiers()
-        {
-            SponsorTiers = new ObservableCollection<SponsorTier>(_context.SponsorTiers.ToList());
-        }
-
         private ObservableCollection<EquipmentWrapper> _equipments;
         public ObservableCollection<EquipmentWrapper> Equipments
         {
@@ -297,14 +355,13 @@ namespace OOP_EventsManagementSystem.ViewModel
         {
             Equipments = new ObservableCollection<EquipmentWrapper>(
                 _context
-                    .EquipmentNames.Include(en => en.EquipType)
-                    .Select(en => new EquipmentWrapper
+                    .EquipmentNames.Select(e => new EquipmentWrapper
                     {
-                        EquipNameId = en.EquipNameId,
-                        EquipName = en.EquipName,
-                        TypeName = en.EquipType.TypeName,
-                        EquipCost = en.EquipCost,
-                        Quantity = 0, // Initial quantity
+                        EquipNameId = e.EquipNameId,
+                        EquipName = e.EquipName,
+                        TypeName = e.EquipType.TypeName,
+                        EquipCost = e.EquipCost,
+                        Quantity = 0,
                     })
                     .ToList()
             );
@@ -527,19 +584,56 @@ namespace OOP_EventsManagementSystem.ViewModel
         }
     }
 
-    public class SponsorWrapper
+    public class SponsorWrapper : INotifyPropertyChanged
     {
+        private bool _isChecked;
+        private int? _sponsorTierId;
+
         public int SponsorId { get; set; }
         public string SponsorName { get; set; }
-        public int? SponsorTierId { get; set; }
-        public bool IsChecked { get; set; }
+        public bool IsChecked
+        {
+            get => _isChecked;
+            set
+            {
+                if (_isChecked != value)
+                {
+                    _isChecked = value;
+                    OnPropertyChanged(nameof(IsChecked));
+                }
+            }
+        }
+
+        public int? SponsorTierId
+        {
+            get => _sponsorTierId;
+            set
+            {
+                if (_sponsorTierId != value)
+                {
+                    _sponsorTierId = value;
+                    OnPropertyChanged(nameof(SponsorTierId));
+                }
+            }
+        }
+
+        public string TierName { get; set; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 
     public class EmployeeRoleWrapper : INotifyPropertyChanged
     {
         private int _quantity;
 
+        public int RoleId { get; set; }
         public string RoleName { get; set; }
+        public decimal EmpCost { get; set; }
         public int Quantity
         {
             get => _quantity;
@@ -552,7 +646,45 @@ namespace OOP_EventsManagementSystem.ViewModel
                 }
             }
         }
-        public decimal EmpCost { get; set; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+    }
+
+    public class SponsorTierWrapper : INotifyPropertyChanged
+    {
+        private int _sponsorTierId;
+        private string _tierName;
+
+        public int SponsorTierId
+        {
+            get => _sponsorTierId;
+            set
+            {
+                if (_sponsorTierId != value)
+                {
+                    _sponsorTierId = value;
+                    OnPropertyChanged(nameof(SponsorTierId));
+                }
+            }
+        }
+
+        public string TierName
+        {
+            get => _tierName;
+            set
+            {
+                if (_tierName != value)
+                {
+                    _tierName = value;
+                    OnPropertyChanged(nameof(TierName));
+                }
+            }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
