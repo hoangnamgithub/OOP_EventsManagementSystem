@@ -409,7 +409,7 @@
                                                                         SelectedValuePath="SponsorTierId">
                                                                         <ComboBox.Style>
                                                                             <Style TargetType="ComboBox">
-                                                                                <Setter Property="IsEnabled" Value="False" />
+                                                                                <Setter Property="IsEnabled" Value="True" />
                                                                                 <Style.Triggers>
                                                                                     <DataTrigger Binding="{Binding IsChecked}" Value="True">
                                                                                         <Setter Property="IsEnabled" Value="True" />

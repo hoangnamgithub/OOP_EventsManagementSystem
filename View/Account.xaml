@@ -240,8 +240,8 @@
                                         FontSize="14"
                                         Foreground="Gray"
                                         SelectionBrush="{x:Null}"
-                                        SelectionTextBrush="{x:Null}" />
-
+                                        SelectionTextBrush="{x:Null}"
+                                        TextChanged="SearchBox_show_TextChanged" />
                                 </Grid>
                             </Border>
 

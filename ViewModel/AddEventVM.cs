@@ -219,28 +219,30 @@ namespace OOP_EventsManagementSystem.ViewModel
             }
         }
 
-        private ObservableCollection<SponsorTierWrapper> _sponsorTiers;
-        public ObservableCollection<SponsorTierWrapper> SponsorTiers
+        private ObservableCollection<SponsorTier> _sponsorTiers;
+
+        public ObservableCollection<SponsorTier> SponsorTiers
         {
             get => _sponsorTiers;
             set
             {
-                _sponsorTiers = value;
-                OnPropertyChanged(nameof(SponsorTiers));
+                if (_sponsorTiers != value)
+                {
+                    _sponsorTiers = value;
+                    OnPropertyChanged(nameof(SponsorTiers));
+                }
             }
         }
 
+        // Hàm LoadSponsorTiers để lấy dữ liệu từ cơ sở dữ liệu
         private void LoadSponsorTiers()
         {
-            SponsorTiers = new ObservableCollection<SponsorTierWrapper>(
-                _context
-                    .SponsorTiers.Select(st => new SponsorTierWrapper
-                    {
-                        SponsorTierId = st.SponsorTierId,
-                        TierName = st.TierName,
-                    })
-                    .ToList()
-            );
+            using (var context = new EventManagementDbContext()) // Sử dụng context của bạn để truy vấn cơ sở dữ liệu
+            {
+                SponsorTiers = new ObservableCollection<SponsorTier>(
+                    context.SponsorTiers.ToList()
+                );
+            }
         }
 
         private void LoadSponsors()
