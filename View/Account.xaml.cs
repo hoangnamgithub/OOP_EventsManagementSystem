@@ -145,6 +145,7 @@ namespace OOP_EventsManagementSystem.View
             string email = txtEmail.Text.Trim();
             string contact = txtContact.Text.Trim();
             string password = txtPassword.Text.Trim();
+            int? employeeId = UserAccount.EmployeeId;
 
             // Kiểm tra định dạng email
             if (!IsValidEmail(email))
@@ -162,11 +163,11 @@ namespace OOP_EventsManagementSystem.View
 
             try
             {
-                // Tìm kiếm tài khoản dựa trên Email (giả sử Email là duy nhất)
+                // Tìm kiếm tài khoản dựa trên EmployeeId
                 var account = _context.Accounts
                     .Include(a => a.Employee) // Bao gồm thông tin Employee
                     .Include(a => a.Employee.Role) // Bao gồm Role
-                    .FirstOrDefault(a => a.Email == email);
+                    .FirstOrDefault(a => a.Employee.EmployeeId == employeeId); // Tìm kiếm theo EmployeeId
 
                 if (account != null)
                 {

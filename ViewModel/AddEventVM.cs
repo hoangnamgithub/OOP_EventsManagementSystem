@@ -59,17 +59,35 @@ namespace OOP_EventsManagementSystem.ViewModel
             _context.Events.Add(newEvent);
             _context.SaveChanges();
 
-            // Save checked sponsors
-            foreach (var sponsor in Sponsors.Where(s => s.IsChecked))
+
+            // Lưu các sponsor đã chọn vào database
+            foreach (var sponsorWrapper in Sponsors)
             {
-                var isSponsor = new IsSponsor
+                // Kiểm tra xem SponsorTierId có giá trị hợp lệ
+                if (sponsorWrapper.SponsorTierId.HasValue)
                 {
-                    EventId = newEvent.EventId,
-                    SponsorId = sponsor.SponsorId,
-                    SponsorTierId = sponsor.SponsorTierId ?? 0,
-                };
-                _context.IsSponsors.Add(isSponsor);
+                    // Lấy Sponsor từ SponsorWrapper
+                    var sponsor = new Sponsor
+                    {
+                        SponsorId = sponsorWrapper.SponsorId,
+                        SponsorName = sponsorWrapper.SponsorName,
+                        // Cập nhật các thuộc tính cần thiết từ SponsorWrapper nếu cần thiết
+                    };
+
+                    var isSponsor = new IsSponsor
+                    {
+                        EventId = newEvent.EventId,
+                        SponsorId = sponsor.SponsorId,
+                        SponsorTierId = sponsorWrapper.SponsorTierId.Value,  // Đảm bảo SponsorTierId không null
+                        Event = newEvent,  // Liên kết với bảng Event
+                        Sponsor = sponsor, // Liên kết với bảng Sponsor
+                        SponsorTier = _context.SponsorTiers.FirstOrDefault(st => st.SponsorTierId == sponsorWrapper.SponsorTierId) // Liên kết với bảng SponsorTier
+                    };
+
+                    _context.IsSponsors.Add(isSponsor);
+                }
             }
+
 
             // Save checked shows
             foreach (var show in Shows.Where(s => s.IsChecked))
@@ -254,7 +272,7 @@ namespace OOP_EventsManagementSystem.ViewModel
                         SponsorId = s.SponsorId,
                         SponsorName = s.SponsorName,
                         SponsorTierId = null,
-                        IsChecked = false,
+                       
                     })
                     .ToList()
             );
@@ -589,23 +607,12 @@ namespace OOP_EventsManagementSystem.ViewModel
 
     public class SponsorWrapper : INotifyPropertyChanged
     {
-        private bool _isChecked;
         private int? _sponsorTierId;
 
         public int SponsorId { get; set; }
         public string SponsorName { get; set; }
-        public bool IsChecked
-        {
-            get => _isChecked;
-            set
-            {
-                if (_isChecked != value)
-                {
-                    _isChecked = value;
-                    OnPropertyChanged(nameof(IsChecked));
-                }
-            }
-        }
+
+        // Removed IsChecked property
 
         public int? SponsorTierId
         {

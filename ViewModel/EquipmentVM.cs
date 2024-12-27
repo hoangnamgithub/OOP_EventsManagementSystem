@@ -23,4 +23,5 @@ namespace OOP_EventsManagementSystem.ViewModel
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
+}
 
