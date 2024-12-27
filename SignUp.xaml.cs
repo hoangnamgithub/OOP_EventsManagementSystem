@@ -47,8 +47,8 @@ namespace OOP_EventsManagementSystem
 
             try
             {
-                var account = _context.Accounts
-                    .Include(a => a.Permission)
+                var account = _context
+                    .Accounts.Include(a => a.Permission)
                     .Include(a => a.Employee)
                     .ThenInclude(e => e.Role)
                     .Include(a => a.Engageds)
@@ -88,13 +88,8 @@ namespace OOP_EventsManagementSystem
                     UserAccount.RoleName = "Admin";
                 }
 
-                var engagedEventNames = account.Engageds
-                    .Select(e => e.Event.EventName)
-                    .ToList();
+                var engagedEventNames = account.Engageds.Select(e => e.Event.EventName).ToList();
                 UserAccount.EngagedEvent = string.Join(", ", engagedEventNames);
-
-                // Kiểm tra PermissionId của tài khoản
-                MessageBox.Show($"PermissionId: {account.PermissionId}", "Thông báo PermissionId", MessageBoxButton.OK, MessageBoxImage.Information);
 
                 // Truyền PermissionId vào MainWindowVM khi mở cửa sổ MainWindow
                 MainWindow mainWindow = new MainWindow(new MainWindowVM(account.PermissionId)); // Truyền PermissionId vào constructor của MainWindowVM
@@ -183,6 +178,5 @@ namespace OOP_EventsManagementSystem
         public static string Contact { get; set; } // Tên đầy đủ
         public static string RoleName { get; set; } // Vai trò
         public static string EngagedEvent { get; set; } // Sự kiện tham gia
-        
     }
 }

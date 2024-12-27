@@ -1,14 +1,14 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Win32;
-using OOP_EventsManagementSystem.Model;
-using OOP_EventsManagementSystem.ViewModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Win32;
+using OOP_EventsManagementSystem.Model;
+using OOP_EventsManagementSystem.ViewModel;
 
 namespace OOP_EventsManagementSystem.View
 {
@@ -22,8 +22,8 @@ namespace OOP_EventsManagementSystem.View
 
         public Account()
         {
-            InitializeComponent();
             _context = new EventManagementDbContext();
+            InitializeComponent();
             LoadAccountData();
             LoadEmployeeRoles();
         }
@@ -31,8 +31,8 @@ namespace OOP_EventsManagementSystem.View
         private void LoadAccountData()
         {
             // Lấy danh sách Account và hiển thị
-            var accounts = _context.Accounts
-                .Include(a => a.Employee)
+            var accounts = _context
+                .Accounts.Include(a => a.Employee)
                 .Include(a => a.Permission)
                 .Include(a => a.Employee.Role) // Bao gồm Role để lấy RoleName
                 .Where(a => a.PermissionId == 3)
@@ -61,7 +61,7 @@ namespace OOP_EventsManagementSystem.View
         {
             OpenFileDialog openFileDialog = new OpenFileDialog
             {
-                Filter = "Image Files (*.jpg;*.png)|*.jpg;*.png" // Chỉ chấp nhận file .jpg và .png
+                Filter = "Image Files (*.jpg;*.png)|*.jpg;*.png", // Chỉ chấp nhận file .jpg và .png
             };
 
             if (openFileDialog.ShowDialog() == true)
@@ -113,8 +113,8 @@ namespace OOP_EventsManagementSystem.View
 
                 foreach (var updatedAccount in updatedAccounts)
                 {
-                    var account = _context.Accounts
-                        .Include(a => a.Employee)
+                    var account = _context
+                        .Accounts.Include(a => a.Employee)
                         .Include(a => a.Employee.Role)
                         .FirstOrDefault(a => a.Employee.FullName == updatedAccount.FullName);
 
@@ -128,8 +128,9 @@ namespace OOP_EventsManagementSystem.View
                             account.Employee.FullName = updatedAccount.FullName;
                             account.Employee.Contact = updatedAccount.Contact;
 
-                            var selectedRole = _context.EmployeeRoles
-                                .FirstOrDefault(r => r.RoleName == updatedAccount.RoleName);
+                            var selectedRole = _context.EmployeeRoles.FirstOrDefault(r =>
+                                r.RoleName == updatedAccount.RoleName
+                            );
 
                             if (selectedRole != null)
                             {
@@ -140,11 +141,21 @@ namespace OOP_EventsManagementSystem.View
                 }
 
                 _context.SaveChanges();
-                MessageBox.Show("All changes have been saved successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show(
+                    "All changes have been saved successfully.",
+                    "Success",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information
+                );
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"An error occurred while saving changes: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(
+                    $"An error occurred while saving changes: {ex.Message}",
+                    "Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
             }
 
             btnConfirm.Visibility = Visibility.Collapsed;
@@ -168,7 +179,11 @@ namespace OOP_EventsManagementSystem.View
 
                 if (result == MessageBoxResult.Yes)
                 {
-                    try
+                    var accountToDelete = _context.Accounts.FirstOrDefault(a =>
+                        a.Employee.FullName == account.FullName
+                    );
+
+                    if (accountToDelete != null)
                     {
                         foreach (var selectedAccount in selectedAccounts)
                         {
@@ -231,7 +246,11 @@ namespace OOP_EventsManagementSystem.View
             txtPermission.Text = permission;
 
         }
-        private void Border_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        
+        private void Border_MouseLeftButtonDown(
+            object sender,
+            System.Windows.Input.MouseButtonEventArgs e
+        )
         {
             if (e.ButtonState == System.Windows.Input.MouseButtonState.Pressed)
             {
