@@ -11,7 +11,10 @@
     d:DesignWidth="850"
     mc:Ignorable="d">
     <ScrollViewer>
-        <Grid Height="900" Background="#EFE9E4">
+        <Grid
+            Height="900"
+            Margin="10"
+            Background="#EFE9E4">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
                 <RowDefinition />
@@ -143,13 +146,13 @@
                                 ButtonBackground="#D6DC82"
                                 ButtonCommand="{Binding AddCommand}"
                                 ButtonText="Add" />
-                            <styles:Button
+                            <!--<styles:Button
                                 x:Name="btn_edit"
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Center"
                                 ButtonBackground="#c6c3f2"
                                 ButtonCommand="{Binding EditCommand}"
-                                ButtonText="Edit" />
+                                ButtonText="Edit" />-->
 
                         </StackPanel>
                     </Grid>
@@ -174,6 +177,7 @@
                                 VerticalAlignment="Stretch"
                                 AutoGenerateColumns="False"
                                 Background="Transparent"
+                                IsReadOnly="True"
                                 ItemsSource="{Binding Employees}"
                                 SelectedItem="{Binding SelectedEmployee}">
                                 <DataGrid.Columns>

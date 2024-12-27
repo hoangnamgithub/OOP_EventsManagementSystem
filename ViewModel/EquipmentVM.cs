@@ -1,6 +1,8 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using LiveCharts;
+using LiveCharts.Wpf;
 using Microsoft.EntityFrameworkCore;
 using OOP_EventsManagementSystem.Model;
 
@@ -50,6 +52,17 @@ namespace OOP_EventsManagementSystem.ViewModel
             }
         }
 
+        private SeriesCollection _equipmentSeries;
+        public SeriesCollection EquipmentSeries
+        {
+            get => _equipmentSeries;
+            set
+            {
+                _equipmentSeries = value;
+                OnPropertyChanged(nameof(EquipmentSeries));
+            }
+        }
+
         private void LoadEvents()
         {
             Events = new ObservableCollection<Event>(_context.Events.ToList());
@@ -67,10 +80,41 @@ namespace OOP_EventsManagementSystem.ViewModel
                     {
                         EquipNameId = r.EquipName.EquipNameId,
                         EquipName = r.EquipName.EquipName,
+                        TypeName = r.EquipName.EquipType.TypeName, // Add type name
                         Quantity = r.Quantity,
                     })
                     .ToList()
             );
+
+            UpdatePieChart();
+        }
+
+        private void UpdatePieChart()
+        {
+            if (Equipments == null || !Equipments.Any())
+                return;
+
+            var groupedByType = Equipments
+                .GroupBy(e => e.TypeName) // Group by type name
+                .Select(g => new
+                {
+                    TypeName = g.Key, // Change to Key, which is the type name
+                    Quantity = g.Sum(e => e.Quantity),
+                })
+                .ToList();
+
+            EquipmentSeries = new SeriesCollection();
+
+            foreach (var type in groupedByType)
+            {
+                EquipmentSeries.Add(
+                    new PieSeries
+                    {
+                        Title = type.TypeName,
+                        Values = new ChartValues<int> { type.Quantity },
+                    }
+                );
+            }
         }
 
         // Implementation of INotifyPropertyChanged
