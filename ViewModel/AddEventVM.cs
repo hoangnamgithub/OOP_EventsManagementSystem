@@ -166,28 +166,6 @@ namespace OOP_EventsManagementSystem.ViewModel
             return true;
         }
 
-        public class RelayCommand<T> : ICommand
-        {
-            private readonly Action<T> _execute;
-            private readonly Func<bool> _canExecute;
-
-            public RelayCommand(Action<T> execute, Func<bool> canExecute = null)
-            {
-                _execute = execute;
-                _canExecute = canExecute;
-            }
-
-            public bool CanExecute(object parameter) => _canExecute == null || _canExecute();
-
-            public void Execute(object parameter) => _execute((T)parameter);
-
-            public event EventHandler CanExecuteChanged
-            {
-                add { CommandManager.RequerySuggested += value; }
-                remove { CommandManager.RequerySuggested -= value; }
-            }
-        }
-
         private ObservableCollection<ShowWrapper> _shows;
         public ObservableCollection<ShowWrapper> Shows
         {
@@ -228,11 +206,6 @@ namespace OOP_EventsManagementSystem.ViewModel
                     }
                 };
             }
-        }
-
-        private void RecalculateTotalShowCost()
-        {
-            TotalShowCost = Shows.Where(s => s.IsChecked).Sum(s => s.Cost);
         }
 
         private ObservableCollection<SponsorWrapper> _sponsors;
@@ -311,11 +284,6 @@ namespace OOP_EventsManagementSystem.ViewModel
             }
         }
 
-        private void RecalculateTotalEmployeeCost()
-        {
-            TotalEmployeeCost = EmployeeRoles.Sum(er => er.Quantity * er.EmpCost);
-        }
-
         private ObservableCollection<EmployeeRoleWrapper> _employeeRoles;
         public ObservableCollection<EmployeeRoleWrapper> EmployeeRoles
         {
@@ -335,19 +303,6 @@ namespace OOP_EventsManagementSystem.ViewModel
             {
                 _equipments = value;
                 OnPropertyChanged(nameof(Equipments));
-            }
-        }
-
-        private decimal _totalEquipmentCost;
-        public decimal TotalEquipmentCost
-        {
-            get => _totalEquipmentCost;
-            set
-            {
-                _totalEquipmentCost = value;
-                OnPropertyChanged(nameof(TotalEquipmentCost));
-                RecalculateServiceCost();
-                RecalculateTotalCost();
             }
         }
 
@@ -375,22 +330,6 @@ namespace OOP_EventsManagementSystem.ViewModel
                         RecalculateTotalEquipmentCost();
                     }
                 };
-            }
-        }
-
-        private void RecalculateTotalEquipmentCost()
-        {
-            TotalEquipmentCost = Equipments.Sum(eq => eq.Quantity * eq.EquipCost);
-        }
-
-        private ObservableCollection<Venue> _venues;
-        public ObservableCollection<Venue> Venues
-        {
-            get => _venues;
-            set
-            {
-                _venues = value;
-                OnPropertyChanged(nameof(Venues));
             }
         }
 
@@ -458,6 +397,17 @@ namespace OOP_EventsManagementSystem.ViewModel
             }
         }
 
+        private ObservableCollection<Venue> _venues;
+        public ObservableCollection<Venue> Venues
+        {
+            get => _venues;
+            set
+            {
+                _venues = value;
+                OnPropertyChanged(nameof(Venues));
+            }
+        }
+
         private void UpdateTotalLocationCost()
         {
             var selectedVenue = Venues.FirstOrDefault(v => v.VenueId == SelectedVenueId);
@@ -488,6 +438,11 @@ namespace OOP_EventsManagementSystem.ViewModel
             }
         }
 
+        private void RecalculateTotalShowCost()
+        {
+            TotalShowCost = Shows.Where(s => s.IsChecked).Sum(s => s.Cost);
+        }
+
         private decimal _totalEmployeeCost;
         public decimal TotalEmployeeCost
         {
@@ -499,6 +454,29 @@ namespace OOP_EventsManagementSystem.ViewModel
                 RecalculateServiceCost();
                 RecalculateTotalCost();
             }
+        }
+
+        private void RecalculateTotalEmployeeCost()
+        {
+            TotalEmployeeCost = EmployeeRoles.Sum(er => er.Quantity * er.EmpCost);
+        }
+
+        private decimal _totalEquipmentCost;
+        public decimal TotalEquipmentCost
+        {
+            get => _totalEquipmentCost;
+            set
+            {
+                _totalEquipmentCost = value;
+                OnPropertyChanged(nameof(TotalEquipmentCost));
+                RecalculateServiceCost();
+                RecalculateTotalCost();
+            }
+        }
+
+        private void RecalculateTotalEquipmentCost()
+        {
+            TotalEquipmentCost = Equipments.Sum(eq => eq.Quantity * eq.EquipCost);
         }
 
         private decimal _serviceCost;
@@ -540,6 +518,28 @@ namespace OOP_EventsManagementSystem.ViewModel
                 + ServiceCost;
         }
 
+        public class RelayCommand<T> : ICommand
+        {
+            private readonly Action<T> _execute;
+            private readonly Func<bool> _canExecute;
+
+            public RelayCommand(Action<T> execute, Func<bool> canExecute = null)
+            {
+                _execute = execute;
+                _canExecute = canExecute;
+            }
+
+            public bool CanExecute(object parameter) => _canExecute == null || _canExecute();
+
+            public void Execute(object parameter) => _execute((T)parameter);
+
+            public event EventHandler CanExecuteChanged
+            {
+                add { CommandManager.RequerySuggested += value; }
+                remove { CommandManager.RequerySuggested -= value; }
+            }
+        }
+
         public event PropertyChangedEventHandler? PropertyChanged;
 
         protected void OnPropertyChanged(string propertyName)
@@ -548,8 +548,6 @@ namespace OOP_EventsManagementSystem.ViewModel
         }
     }
 
-    //---------------------------------------------------------------------------------
-    //---------------------------------------------------------------------------------
     //---------------------------------------------------------------------------------
     //---------------------------------------------------------------------------------
     //---------------------------------------------------------------------------------
