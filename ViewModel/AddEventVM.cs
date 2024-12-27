@@ -425,6 +425,9 @@ namespace OOP_EventsManagementSystem.ViewModel
             EventTypes = new ObservableCollection<EventType>(_context.EventTypes.ToList());
         }
 
+        //---------------------------------------------------------------------------------
+        //---------------------------------------------------------------------------------
+        //---------------------------------------------------------------------------------
         private decimal _totalShowCost;
         public decimal TotalShowCost
         {
