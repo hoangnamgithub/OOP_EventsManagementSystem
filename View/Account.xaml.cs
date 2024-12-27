@@ -1,7 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Win32;
-using OOP_EventsManagementSystem.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Win32;
+using OOP_EventsManagementSystem.Model;
 using static MaterialDesignThemes.Wpf.Theme;
 
 namespace OOP_EventsManagementSystem.View
@@ -25,6 +25,7 @@ namespace OOP_EventsManagementSystem.View
     public partial class Account : Window
     {
         private EventManagementDbContext _context;
+
         public Account()
         {
             InitializeComponent();
@@ -37,10 +38,10 @@ namespace OOP_EventsManagementSystem.View
             // Check if the PermissionId of the logged-in user is 1
             if (UserAccount.PermissionId == 1)
             {
-                var accounts = _context.Accounts
-                    .Include(a => a.Employee) // Include Employee to get FullName and Role
+                var accounts = _context
+                    .Accounts.Include(a => a.Employee) // Include Employee to get FullName and Role
                     .Include(a => a.Permission) // Include Permission to get Permission Name
-                    .Where(a => a.PermissionId ==3) // Filter by PermissionId = 1
+                    .Where(a => a.PermissionId == 3) // Filter by PermissionId = 1
                     .Select(a => new
                     {
                         a.Employee.FullName,
@@ -48,14 +49,13 @@ namespace OOP_EventsManagementSystem.View
                         a.Email,
                         a.Password,
                         a.Employee.EmployeeId,
-                        a.Employee.Role.RoleName
+                        a.Employee.Role.RoleName,
                     })
                     .ToList();
 
                 // Set the DataGrid's items source to the query result
                 dataGrid.ItemsSource = accounts;
             }
-            
         }
 
         private void BtnEdit_Click(object sender, RoutedEventArgs e)
@@ -82,10 +82,16 @@ namespace OOP_EventsManagementSystem.View
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Không thể tải ảnh: {ex.Message}", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(
+                        $"Không thể tải ảnh: {ex.Message}",
+                        "Lỗi",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Error
+                    );
                 }
             }
         }
+
         private void UpdateNavigateBarAvatar(string avatarPath)
         {
             // Cập nhật hình ảnh ở NavigateBar.xaml
@@ -100,7 +106,15 @@ namespace OOP_EventsManagementSystem.View
                 }
             }
         }
-        public void SetAccountInfo(string fullName, int? employeeId, string roleName, string email, string password, string permission)
+
+        public void SetAccountInfo(
+            string fullName,
+            int? employeeId,
+            string roleName,
+            string email,
+            string password,
+            string permission
+        )
         {
             txtfull_name.Text = fullName;
             txtemployee_id.Text = employeeId.ToString();
@@ -108,7 +122,6 @@ namespace OOP_EventsManagementSystem.View
             txtEmail.Text = email;
             txtPassword.Text = password;
             txtPermission.Text = permission;
-           
         }
 
         private void btnEdit_Click(object sender, RoutedEventArgs e)
@@ -133,29 +146,48 @@ namespace OOP_EventsManagementSystem.View
             // Kiểm tra định dạng email
             if (!IsValidEmail(email))
             {
-                MessageBox.Show("Email must have the domain .easys.com", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(
+                    "Email must have the domain .easys.com",
+                    "Validation Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
                 return;
             }
 
             // Kiểm tra xem các trường có hợp lệ không
-            if (string.IsNullOrEmpty(fullName) || string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
+            if (
+                string.IsNullOrEmpty(fullName)
+                || string.IsNullOrEmpty(email)
+                || string.IsNullOrEmpty(password)
+            )
             {
-                MessageBox.Show("Please fill in all fields before confirming.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(
+                    "Please fill in all fields before confirming.",
+                    "Validation Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
                 return;
             }
 
             // Lấy EmployeeId từ TextBox
             if (!int.TryParse(txtemployee_id.Text, out int employeeId))
             {
-                MessageBox.Show("Invalid Employee ID.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(
+                    "Invalid Employee ID.",
+                    "Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
                 return;
             }
 
             try
             {
                 // Tìm kiếm Account dựa trên EmployeeId
-                var account = _context.Accounts
-                    .Include(a => a.Employee) // Bao gồm thông tin Employee để cập nhật FullName
+                var account = _context
+                    .Accounts.Include(a => a.Employee) // Bao gồm thông tin Employee để cập nhật FullName
                     .FirstOrDefault(a => a.EmployeeId == employeeId); // Tìm kiếm bằng EmployeeId
 
                 if (account != null)
@@ -172,7 +204,12 @@ namespace OOP_EventsManagementSystem.View
                     else
                     {
                         // Nếu không có Employee, có thể tạo một Employee mới hoặc thông báo lỗi
-                        MessageBox.Show("Employee not found.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show(
+                            "Employee not found.",
+                            "Error",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Error
+                        );
                         return;
                     }
 
@@ -188,20 +225,34 @@ namespace OOP_EventsManagementSystem.View
                     UserAccount.Email = account.Email;
                     UserAccount.Password = account.Password;
                     UserAccount.FullName = account.Employee.FullName;
-                    
 
                     // Hiển thị thông báo thành công
-                    MessageBox.Show("Your account information has been updated successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show(
+                        "Your account information has been updated successfully.",
+                        "Success",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Information
+                    );
                 }
                 else
                 {
-                    MessageBox.Show("User not found.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(
+                        "User not found.",
+                        "Error",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Error
+                    );
                 }
             }
             catch (Exception ex)
             {
                 // Hiển thị lỗi nếu có
-                MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(
+                    $"An error occurred: {ex.Message}",
+                    "Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
             }
 
             // Ẩn nút "Confirm", hiển thị lại nút "Edit"
@@ -219,6 +270,7 @@ namespace OOP_EventsManagementSystem.View
         {
             return email.EndsWith("@easys.com", StringComparison.OrdinalIgnoreCase);
         }
+
         private void BtnDelete_Click(object sender, RoutedEventArgs e)
         {
             // Lấy danh sách các tài khoản đã chọn từ DataGrid
@@ -226,48 +278,78 @@ namespace OOP_EventsManagementSystem.View
 
             if (selectedAccounts.Any())
             {
-                try
+                // Hiển thị hộp thoại xác nhận
+                var result = MessageBox.Show(
+                    "Are you sure you want to delete the selected accounts and their related data?",
+                    "Confirm Deletion",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question
+                );
+
+                if (result == MessageBoxResult.Yes)
                 {
-                    foreach (var account in selectedAccounts)
+                    try
                     {
-                        // Lấy EmployeeId từ tài khoản
-                        int employeeId = account.EmployeeId;
-
-                        // Tìm kiếm tài khoản trong cơ sở dữ liệu
-                        var accountToDelete = _context.Accounts
-                            .FirstOrDefault(a => a.EmployeeId == employeeId);
-
-                        if (accountToDelete != null)
+                        foreach (var account in selectedAccounts)
                         {
-                            // Xóa Account (cascade delete sẽ xóa cả Employee liên quan)
-                            _context.Accounts.Remove(accountToDelete);
+                            // Lấy EmployeeId từ tài khoản
+                            int employeeId = account.EmployeeId;
+
+                            // Tìm kiếm tài khoản trong cơ sở dữ liệu
+                            var accountToDelete = _context.Accounts.FirstOrDefault(a =>
+                                a.EmployeeId == employeeId
+                            );
+
+                            if (accountToDelete != null)
+                            {
+                                // Xóa Account (cascade delete sẽ xóa cả Employee liên quan)
+                                _context.Accounts.Remove(accountToDelete);
+                            }
                         }
+
+                        // Lưu thay đổi vào cơ sở dữ liệu
+                        _context.SaveChanges();
+
+                        // Tải lại dữ liệu để cập nhật DataGrid
+                        LoadAccountData();
+
+                        // Thông báo thành công
+                        MessageBox.Show(
+                            "Selected accounts and related data have been deleted successfully.",
+                            "Success",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Information
+                        );
                     }
-
-                    // Lưu thay đổi vào cơ sở dữ liệu
-                    _context.SaveChanges();
-
-                    // Tải lại dữ liệu để cập nhật DataGrid
-                    LoadAccountData();
-
-                    // Thông báo thành công
-                    MessageBox.Show("Selected accounts and related data have been deleted successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-                catch (Exception ex)
-                {
-                    // Hiển thị lỗi nếu có
-                    MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    catch (Exception ex)
+                    {
+                        // Hiển thị lỗi nếu có
+                        MessageBox.Show(
+                            $"An error occurred: {ex.Message}",
+                            "Error",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Error
+                        );
+                    }
                 }
             }
             else
             {
-                MessageBox.Show("No accounts selected to delete.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(
+                    "No accounts selected to delete.",
+                    "Warning",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning
+                );
             }
         }
 
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if (e.ButtonState == MouseButtonState.Pressed) { this.DragMove(); }
+            if (e.ButtonState == MouseButtonState.Pressed)
+            {
+                this.DragMove();
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -275,10 +357,10 @@ namespace OOP_EventsManagementSystem.View
             this.Close();
         }
     }
+
     // Trong code-behind của cả Account.xaml.cs và NavigateBar.xaml.cs
     public static class User
-{
-    public static string AvatarPath { get; set; } = string.Empty; // Đường dẫn tạm thời cho avatar
-}
-
+    {
+        public static string AvatarPath { get; set; } = string.Empty; // Đường dẫn tạm thời cho avatar
+    }
 }
