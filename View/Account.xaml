@@ -139,7 +139,7 @@
                                     CornerRadius="16">
                                     <TextBox
                                         x:Name="txtContact"
-                                        Margin="5"
+                                        
                                         IsEnabled="False" />
                                 </Border>
                                 <TextBlock
@@ -154,7 +154,7 @@
                                     CornerRadius="16">
                                     <TextBox
                                         x:Name="txtPassword"
-                                        Margin="5"
+                                        
                                         IsEnabled="False" />
                                 </Border>
                                 <TextBlock
@@ -169,7 +169,7 @@
                                     CornerRadius="16">
                                     <TextBox
                                         x:Name="txtRole"
-                                        Margin="5"
+                                        
                                         IsEnabled="False" />
                                 </Border>
                             </StackPanel>

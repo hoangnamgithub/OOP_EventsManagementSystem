@@ -179,11 +179,7 @@ namespace OOP_EventsManagementSystem.View
 
                 if (result == MessageBoxResult.Yes)
                 {
-                    var accountToDelete = _context.Accounts.FirstOrDefault(a =>
-                        a.Employee.FullName == account.FullName
-                    );
-
-                    if (accountToDelete != null)
+                    try
                     {
                         foreach (var selectedAccount in selectedAccounts)
                         {
