@@ -1,8 +1,8 @@
-﻿using OOP_EventsManagementSystem.ViewModel;
-using System;
+﻿using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
+using OOP_EventsManagementSystem.ViewModel;
 
 namespace OOP_EventsManagementSystem.View
 {
@@ -10,12 +10,11 @@ namespace OOP_EventsManagementSystem.View
     /// Interaction logic for Equipment.xaml
     /// </summary>
     public partial class Equipment : UserControl
-    {     
+    {
         public Equipment()
         {
             InitializeComponent();
-            //DataContext = new EquipmentVM();
+            DataContext = new EquipmentVM();
         }
-
     }
 }
