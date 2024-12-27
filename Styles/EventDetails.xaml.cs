@@ -101,8 +101,29 @@ namespace OOP_EventsManagementSystem.Styles
         // Xử lý đóng cửa sổ
         private void btn_close_Click(object sender, RoutedEventArgs e)
         {
+            // Check if IsEditing is true
+            if (DataContext is EventVM eventVM && eventVM.IsEditing)
+            {
+                // Ask the user if they want to discard their changes
+                var result = MessageBox.Show(
+                    "You have unsaved changes. Are you sure you want to close without confirming?",
+                    "Unsaved Changes",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Warning);
+                eventVM.IsEditing = false; // Ensure the window remains in edit mode
+
+                // If the user clicks "No", switch back to edit mode
+                if (result == MessageBoxResult.No)
+                {
+                    
+                    return; // This prevents the close action from happening
+                }
+            }
+
+            // If user clicks Yes or IsEditing is false, proceed to close the window
             this.Close();
         }
+
 
         // Xử lý tìm kiếm
         private void btn_search_Click(object sender, RoutedEventArgs e)

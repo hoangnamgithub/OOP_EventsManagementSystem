@@ -14,6 +14,7 @@
             <ColumnDefinition Width="80*" />
             <ColumnDefinition Width="10*" />
         </Grid.ColumnDefinitions>
+
         <TextBlock
             Grid.Column="0"
             HorizontalAlignment="Center"
@@ -132,10 +133,11 @@
                     FontFamily="Bahnschrift SemiLight"
                     FontSize="14"
                     Foreground="#FFFFF6EF"
-                    Text="Location" />
+                    Text="Venue" />
             </Button>
         </StackPanel>
         <Button
+            x:Name="AccountButton"
             Grid.Column="2"
             Height="45"
             VerticalAlignment="Center"
@@ -143,9 +145,10 @@
             BorderBrush="{x:Null}"
             Click="AccountButton_Click">
             <Image
+                x:Name="imgNavigateBar"
                 Width="30"
                 Height="30"
-                Source="pack://application:,,,/Resources/Images/event2.jpg"
+                Source="pack://application:,,,/Resources/Images/adele.jpg"
                 Stretch="UniformToFill">
                 <Image.Clip>
                     <EllipseGeometry

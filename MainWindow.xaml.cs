@@ -1,15 +1,7 @@
-﻿using OOP_EventsManagementSystem.View;
-using OOP_EventsManagementSystem.ViewModel;
-using System.Text;
+﻿using OOP_EventsManagementSystem.ViewModel;
+using OOP_EventsManagementSystem.Model;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.Windows.Input;  // Make sure this namespace includes your DbContext
 
 namespace OOP_EventsManagementSystem
 {
@@ -18,16 +10,19 @@ namespace OOP_EventsManagementSystem
     /// </summary>
     public partial class MainWindow : Window
     {
-        
+        private MainWindowVM _viewModel;
 
-        public MainWindow()
+        // Add a constructor that accepts MainWindowVM
+        public MainWindow(MainWindowVM viewModel)
         {
             InitializeComponent();
-            DataContext = new MainWindowVM();
-           
+            _viewModel = viewModel;
+            this.DataContext = _viewModel; // Set the DataContext to the viewModel
         }
 
+
         private void NavigateBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) { if (e.ButtonState == MouseButtonState.Pressed) { this.DragMove(); } }
+
 
     }
 }

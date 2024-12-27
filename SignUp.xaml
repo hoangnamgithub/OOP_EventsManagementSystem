@@ -16,12 +16,14 @@
     <Border Background="#EFE9E4" CornerRadius="12">
         <Grid>
             <Button
-                Width="18"
-                Height="18"
-                Margin="10,566,816,10"
+                Width="50"
+                Height="50"
                 Background="{x:Null}"
                 BorderBrush="{x:Null}"
                 Click="PowerOff_Click"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"
+                
                 Foreground="{x:Null}">
                 <Image Source="pack://application:,,,/Resources/Images/powerofff.png" />
             </Button>

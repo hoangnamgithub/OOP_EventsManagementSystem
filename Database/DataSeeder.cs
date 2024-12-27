@@ -328,22 +328,23 @@ namespace OOP_EventsManagementSystem.Database
             }
 
             var roles = new List<EmployeeRole>
-            {
-                new EmployeeRole { RoleName = "PlanningAndCoordination", Salary = 4000.00M },
-                new EmployeeRole { RoleName = "Logistics", Salary = 3500.00M },
-                new EmployeeRole { RoleName = "TechnicalSupport", Salary = 3500.00M },
-                new EmployeeRole { RoleName = "MarketingAndPromotions", Salary = 4000.00M },
-                new EmployeeRole { RoleName = "SalesAndTicketing", Salary = 3500.00M },
-                new EmployeeRole { RoleName = "Catering", Salary = 4000.00M },
-                new EmployeeRole { RoleName = "Security", Salary = 3000.00M },
-                new EmployeeRole { RoleName = "FinanceAndBudgeting", Salary = 4500.00M },
-                new EmployeeRole { RoleName = "CustomerService", Salary = 3500.00M },
-                new EmployeeRole { RoleName = "DesignAndDecor", Salary = 4000.00M },
-                new EmployeeRole { RoleName = "EntertainmentAndProgramming", Salary = 4500.00M },
-                new EmployeeRole { RoleName = "VenueManagement", Salary = 3500.00M },
-                new EmployeeRole { RoleName = "PublicRelations", Salary = 4000.00M },
-                new EmployeeRole { RoleName = "Coordinator", Salary = 6000.00M },
-            };
+    {
+        new EmployeeRole { RoleName = "PlanningAndCoordination", Salary = 4000.00M },
+        new EmployeeRole { RoleName = "Logistics", Salary = 3500.00M },
+        new EmployeeRole { RoleName = "TechnicalSupport", Salary = 3500.00M },
+        new EmployeeRole { RoleName = "MarketingAndPromotions", Salary = 4000.00M },
+        new EmployeeRole { RoleName = "SalesAndTicketing", Salary = 3500.00M },
+        new EmployeeRole { RoleName = "Catering", Salary = 4000.00M },
+        new EmployeeRole { RoleName = "Security", Salary = 3000.00M },
+        new EmployeeRole { RoleName = "FinanceAndBudgeting", Salary = 4500.00M },
+        new EmployeeRole { RoleName = "CustomerService", Salary = 3500.00M },
+        new EmployeeRole { RoleName = "DesignAndDecor", Salary = 4000.00M },
+        new EmployeeRole { RoleName = "EntertainmentAndProgramming", Salary = 4500.00M },
+        new EmployeeRole { RoleName = "VenueManagement", Salary = 3500.00M },
+        new EmployeeRole { RoleName = "PublicRelations", Salary = 4000.00M },
+        new EmployeeRole { RoleName = "Coordinator", Salary = 6000.00M },
+        new EmployeeRole { RoleName = "CEO", Salary = 10000.00M } // Adding the CEO role
+    };
 
             context.EmployeeRoles.AddRange(roles);
             context.SaveChanges();
@@ -372,22 +373,41 @@ namespace OOP_EventsManagementSystem.Database
             {
                 try
                 {
-                    // Step 1: Create employees for each role
+                    // Create employees for each role
                     foreach (var role in roles)
                     {
-                        for (int i = 0; i < 50; i++) // Create 100 employees per role as an example
+                        if (role.RoleName == "CEO") // Special case for CEO
                         {
-                            var employee = new Employee
+                            // Create 2 CEO employees
+                            for (int i = 0; i < 2; i++) // Create 2 employees for CEO role
                             {
-                                FullName = faker.Name.FullName(),
-                                Contact = faker.Phone.PhoneNumber("(###)###-####"),
-                                RoleId = role.RoleId,
-                            };
+                                var employee = new Employee
+                                {
+                                    FullName = faker.Name.FullName(),
+                                    Contact = faker.Phone.PhoneNumber("(###)###-####"),
+                                    RoleId = role.RoleId,
+                                };
 
-                            context.Employees.Add(employee);
+                                employees.Add(employee);
+                            }
+                        }
+                        else
+                        {
+                            for (int i = 0; i < 50; i++) // Create 50 employees per other role
+                            {
+                                var employee = new Employee
+                                {
+                                    FullName = faker.Name.FullName(),
+                                    Contact = faker.Phone.PhoneNumber("(###)###-####"),
+                                    RoleId = role.RoleId,
+                                };
+
+                                employees.Add(employee);
+                            }
                         }
                     }
 
+                    context.Employees.AddRange(employees);
                     context.SaveChanges();
                     transaction.Commit();
                     Console.WriteLine("Employees added successfully.");
@@ -466,13 +486,17 @@ namespace OOP_EventsManagementSystem.Database
                 int permissionId =
                     permissions.FirstOrDefault(p => p.Permission1 == "Employee")?.PermissionId ?? 0;
 
-                // Check if the employee is a manager by checking if their EmployeeId exists in EmployeeRole.ManagerId
+                // Special case for CEO, permission = 1
+                if (employee.Role.RoleName == "CEO")
+                {
+                    permissionId = 1; // Set permission to 1 for CEOs
+                }
+
+                // Check if the employee is a manager
                 bool isManager = roles.Any(r => r.ManagerId == employee.EmployeeId);
                 if (isManager)
                 {
-                    permissionId =
-                        permissions.FirstOrDefault(p => p.Permission1 == "Manager")?.PermissionId
-                        ?? 0;
+                    permissionId = permissions.FirstOrDefault(p => p.Permission1 == "Manager")?.PermissionId ?? 0;
                 }
 
                 if (permissionId == 0)
@@ -625,7 +649,13 @@ namespace OOP_EventsManagementSystem.Database
             {
                 foreach (var role in roles)
                 {
-                    var quantity = faker.Random.Int(1, 10); // Quantity can be between 0 and 10
+                    // Skip adding the 'CEO' role
+                    if (role.RoleName == "CEO")
+                    {
+                        continue;
+                    }
+
+                    var quantity = faker.Random.Int(1, 10); // Quantity can be between 1 and 10
 
                     var need = new Need
                     {
@@ -642,6 +672,7 @@ namespace OOP_EventsManagementSystem.Database
             context.SaveChanges();
             Console.WriteLine("Seeded need data successfully.");
         }
+
 
         private static void SeedIsSponsorData(EventManagementDbContext context)
         {

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OOP_EventsManagementSystem.Model;
+using OOP_EventsManagementSystem.Styles;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,7 +35,6 @@ namespace OOP_EventsManagementSystem
             string email = txt_box_email.Text;
             string password = txt_box_password.Password;
 
-            // Kiểm tra nếu email và password không rỗng hoặc null
             if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
             {
                 MessageBox.Show("Email và mật khẩu không thể để trống.", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -43,37 +43,53 @@ namespace OOP_EventsManagementSystem
 
             try
             {
-                // Kiểm tra thông tin trong cơ sở dữ liệu và lấy thông tin Permission từ bảng Permission
                 var account = _context.Accounts
-                    .Include(a => a.Permission) // Bao gồm bảng Permission để lấy Permission1
+                    .Include(a => a.Permission)
+                    .Include(a => a.Employee)
+                    .ThenInclude(e => e.Role)
+                    .Include(a => a.Engageds)
+                    .ThenInclude(e => e.Event)
                     .FirstOrDefault(a => a.Email == email && a.Password == password);
 
-                // Kiểm tra nếu không tìm thấy tài khoản
                 if (account == null)
                 {
                     MessageBox.Show("Email hoặc mật khẩu không đúng.", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 
-                // Lưu thông tin tài khoản và Permission vào lớp UserAccount
+                // Lưu thông tin tài khoản vào lớp UserAccount
                 UserAccount.Email = account.Email;
                 UserAccount.Password = account.Password;
                 UserAccount.PermissionId = account.PermissionId;
-                UserAccount.Permission1 = account.Permission.Permission1; // Lưu Permission1
+                UserAccount.Permission1 = account.Permission.Permission1;
 
-                // Kiểm tra PermissionId
-                if (account.PermissionId == 1)
+                if (account.Employee != null)
                 {
-                    // Nếu quyền là 1, mở MainWindow
-                    MainWindow mainWindow = new MainWindow();
-                    mainWindow.Show();
-                    this.Close(); // Đóng cửa sổ đăng nhập
+                    UserAccount.EmployeeId = account.Employee.EmployeeId;
+                    UserAccount.FullName = account.Employee.FullName;
+                    UserAccount.RoleName = account.Employee.Role?.RoleName;
                 }
                 else
                 {
-                    // Nếu không có quyền, hiển thị thông báo
-                    MessageBox.Show("Bạn không có quyền truy cập.", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    UserAccount.EmployeeId = null;
+                    UserAccount.FullName = "Admin";
+                    UserAccount.RoleName = "Admin";
                 }
+
+                var engagedEventNames = account.Engageds
+                    .Select(e => e.Event.EventName)
+                    .ToList();
+                UserAccount.EngagedEvent = string.Join(", ", engagedEventNames);
+
+                // Kiểm tra PermissionId của tài khoản
+                MessageBox.Show($"PermissionId: {account.PermissionId}", "Thông báo PermissionId", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                // Truyền PermissionId vào MainWindowVM khi mở cửa sổ MainWindow
+                MainWindow mainWindow = new MainWindow(new MainWindowVM(account.PermissionId)); // Truyền PermissionId vào constructor của MainWindowVM
+                mainWindow.Show();
+
+                // Đóng cửa sổ SignUp sau khi đăng nhập
+                this.Close();
             }
             catch (Exception ex)
             {
@@ -132,8 +148,15 @@ namespace OOP_EventsManagementSystem
         public static string Email { get; set; }
         public static string Password { get; set; }
         public static int PermissionId { get; set; }
-        public static string Permission1 { get; set; } // Thêm Permission1 vào UserAccount
+        public static string Permission1 { get; set; } // Quyền
+        public static int? EmployeeId { get; set; } // Mã nhân viên
+        public static string FullName { get; set; } // Tên đầy đủ
+        public static string RoleName { get; set; } // Vai trò
+        public static string EngagedEvent { get; set; } // Sự kiện tham gia
+        
     }
+
+
 
 
 }

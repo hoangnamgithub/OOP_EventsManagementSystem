@@ -221,7 +221,7 @@
                                                         <Grid>
                                                             <TextBox
                                                                 x:Name="SearchBox_show"
-                                                                Margin="30,0,30,0"
+                                                                Margin="10,0,30,0"
                                                                 VerticalAlignment="Center"
                                                                 materialDesign:HintAssist.Hint="Search"
                                                                 Background="{x:Null}"
@@ -251,7 +251,8 @@
                                                     Height="30"
                                                     Margin="5"
                                                     Background="#FFDCDCE6"
-                                                    CornerRadius="16">
+                                                    CornerRadius="16"
+                                                    Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}}">
                                                     <Grid>
                                                         <Image
                                                             Width="20"
@@ -271,7 +272,8 @@
                                                     Height="30"
                                                     Margin="5"
                                                     Background="#FFDCDCE6"
-                                                    CornerRadius="16">
+                                                    CornerRadius="16"
+                                                    Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}}">
                                                     <Grid>
                                                         <Image Margin="6" Source="pack://application:,,,/Resources/Images/delete-outline.png" />
                                                         <Button
@@ -368,7 +370,7 @@
                                                         <Grid>
                                                             <TextBox
                                                                 x:Name="SearchBox_sponsor"
-                                                                Margin="30,0,30,0"
+                                                                Margin="10,0,30,0"
                                                                 VerticalAlignment="Center"
                                                                 materialDesign:HintAssist.Hint="Search"
                                                                 Background="{x:Null}"
@@ -397,7 +399,8 @@
                                                     Height="30"
                                                     Margin="5"
                                                     Background="#FFDCDCE6"
-                                                    CornerRadius="16">
+                                                    CornerRadius="16"
+                                                    Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}}">
                                                     <Grid>
                                                         <Image
                                                             Width="20"
@@ -417,7 +420,8 @@
                                                     Height="30"
                                                     Margin="5"
                                                     Background="#FFDCDCE6"
-                                                    CornerRadius="16">
+                                                    CornerRadius="16"
+                                                    Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}}">
                                                     <Grid>
                                                         <Image Margin="6" Source="pack://application:,,,/Resources/Images/delete-outline.png" />
                                                         <Button

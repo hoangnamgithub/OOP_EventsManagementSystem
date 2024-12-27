@@ -20,4 +20,6 @@ public partial class Account
     public virtual ICollection<Engaged> Engageds { get; set; } = new List<Engaged>();
 
     public virtual Permission Permission { get; set; } = null!;
+
+    
 }

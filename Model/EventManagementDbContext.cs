@@ -76,7 +76,7 @@ public partial class EventManagementDbContext : DbContext
                 .HasOne(d => d.Employee)
                 .WithMany(p => p.Accounts)
                 .HasForeignKey(d => d.EmployeeId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK__account__employe__3F466844");
 
             entity

@@ -18,6 +18,7 @@ namespace OOP_EventsManagementSystem
             DatabaseHelper.InitializeDatabase();
             DataSeeder.SeedData();
         }
+
     }
 
 }

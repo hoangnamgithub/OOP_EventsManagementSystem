@@ -1,85 +1,120 @@
-﻿using System.ComponentModel;
-using System.Windows.Input;
+﻿using OOP_EventsManagementSystem.Model;
 using OOP_EventsManagementSystem.View;
-using OOP_EventsManagementSystem.Utilities;
+using System.ComponentModel;
+using System.Windows.Input;
 
-namespace OOP_EventsManagementSystem
+public class MainWindowVM : INotifyPropertyChanged
 {
-    public class MainWindowVM : INotifyPropertyChanged
+    private object _currentView;
+    private int _permissionId; // Thêm thuộc tính PermissionId
+    private readonly EventManagementDbContext _context; // Khai báo DbContext
+
+    public object CurrentView
     {
-        private object _currentView;
-
-        public object CurrentView
+        get => _currentView;
+        set
         {
-            get => _currentView;
-            set
-            {
-                _currentView = value;
-                OnPropertyChanged(nameof(CurrentView));
-            }
+            _currentView = value;
+            OnPropertyChanged(nameof(CurrentView));
         }
+    }
 
-        public ICommand HomeCommand { get; }
-        public ICommand EventCommand { get; }
-        public ICommand ShowCommand { get; }
-        public ICommand PartnerCommand { get; }
-        public ICommand EmployeeCommand { get; }
-        public ICommand EquipmentCommand { get; }
-        public ICommand LocationCommand { get; }
-
-        public MainWindowVM()
+    public int PermissionId
+    {
+        get => _permissionId;
+        set
         {
-            HomeCommand = new RelayCommand(ExecuteHomeCommand);
-            EventCommand = new RelayCommand(ExecuteEventCommand);
-            ShowCommand = new RelayCommand(ExecuteShowCommand);
-            PartnerCommand = new RelayCommand(ExecutePartnerCommand);
-            EmployeeCommand = new RelayCommand(ExecuteEmployeeCommand);
-            EquipmentCommand = new RelayCommand(ExecuteEquipmentCommand);
-            LocationCommand = new RelayCommand(ExecuteLocationCommand);
-
-            // Đặt view mặc định là Event
-            CurrentView = new Home();
+            _permissionId = value;
+            OnPropertyChanged(nameof(PermissionId));
+            UpdateCommandsAvailability(); // Cập nhật quyền truy cập cho các lệnh khi PermissionId thay đổi
         }
+    }
 
-        private void ExecuteHomeCommand(object parameter)
-        {
-            CurrentView = new Home();
-        }
+    public ICommand HomeCommand { get; }
+    public ICommand EventCommand { get; }
+    public ICommand ShowCommand { get; }
+    public ICommand PartnerCommand { get; }
+    public ICommand EmployeeCommand { get; }
+    public ICommand EquipmentCommand { get; }
+    public ICommand LocationCommand { get; }
 
-        private void ExecuteEventCommand(object parameter)
-        {
-            CurrentView = new Event();
-        }
+    // Constructor nhận PermissionId
+    public MainWindowVM(int permissionId) // Thêm tham số PermissionId vào constructor
+    {
+        _permissionId = permissionId;
 
-        private void ExecuteShowCommand(object parameter)
-        {
-            CurrentView = new Show();
-        }
+        HomeCommand = new RelayCommand(ExecuteHomeCommand, CanExecuteHomeCommand);
+        EventCommand = new RelayCommand(ExecuteEventCommand, CanExecuteEventCommand);
+        ShowCommand = new RelayCommand(ExecuteShowCommand, CanExecuteShowCommand);
+        PartnerCommand = new RelayCommand(ExecutePartnerCommand, CanExecutePartnerCommand);
+        EmployeeCommand = new RelayCommand(ExecuteEmployeeCommand, CanExecuteEmployeeCommand);
+        EquipmentCommand = new RelayCommand(ExecuteEquipmentCommand, CanExecuteEquipmentCommand);
+        LocationCommand = new RelayCommand(ExecuteLocationCommand, CanExecuteLocationCommand);
 
-        private void ExecutePartnerCommand(object parameter)
-        {
-            CurrentView = new Partner();
-        }
+        // Đặt view mặc định là Home
+        CurrentView = new Home();
+    }
 
-        private void ExecuteEmployeeCommand(object parameter)
-        {
-            CurrentView = new Employee();
-        }
+    private void ExecuteHomeCommand(object parameter)
+    {
+        CurrentView = new Home();
+    }
 
-        private void ExecuteEquipmentCommand(object parameter)
-        {
-            CurrentView = new Equipment();
-        }
+    private void ExecuteEventCommand(object parameter)
+    {
+        CurrentView = new OOP_EventsManagementSystem.View.Event();
+    }
 
-        private void ExecuteLocationCommand(object parameter)
-        {
-            CurrentView = new Location();
-        }
+    private void ExecuteShowCommand(object parameter)
+    {
+        CurrentView = new OOP_EventsManagementSystem.View.Show();
+    }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+    private void ExecutePartnerCommand(object parameter)
+    {
+        CurrentView = new Partner();
+    }
+
+    private void ExecuteEmployeeCommand(object parameter)
+    {
+        CurrentView = new OOP_EventsManagementSystem.View.Employee();
+    }
+
+    private void ExecuteEquipmentCommand(object parameter)
+    {
+        CurrentView = new OOP_EventsManagementSystem.View.Equipment();
+    }
+
+    private void ExecuteLocationCommand(object parameter)
+    {
+        CurrentView = new Location();
+    }
+
+    // Các phương thức CanExecute kiểm tra quyền của người dùng dựa trên PermissionId
+    private bool CanExecuteHomeCommand(object parameter) => true; // Nút Home luôn có thể thực thi
+    private bool CanExecuteEventCommand(object parameter) => true; // Nút Event luôn có thể thực thi
+
+    // Các nút khác chỉ có thể thực thi nếu PermissionId khác 3
+    private bool CanExecuteShowCommand(object parameter) => PermissionId != 3;
+    private bool CanExecutePartnerCommand(object parameter) => PermissionId != 3;
+    private bool CanExecuteEmployeeCommand(object parameter) => PermissionId != 3;
+    private bool CanExecuteEquipmentCommand(object parameter) => PermissionId != 3;
+    private bool CanExecuteLocationCommand(object parameter) => PermissionId != 3;
+
+    // Cập nhật quyền truy cập của các lệnh khi PermissionId thay đổi
+    private void UpdateCommandsAvailability()
+    {
+        // Nếu PermissionId = 3, vô hiệu hóa các lệnh ngoài Home và Event
+        ((RelayCommand)ShowCommand).RaiseCanExecuteChanged();
+        ((RelayCommand)PartnerCommand).RaiseCanExecuteChanged();
+        ((RelayCommand)EmployeeCommand).RaiseCanExecuteChanged();
+        ((RelayCommand)EquipmentCommand).RaiseCanExecuteChanged();
+        ((RelayCommand)LocationCommand).RaiseCanExecuteChanged();
+    }
+
+    public event PropertyChangedEventHandler PropertyChanged;
+    protected virtual void OnPropertyChanged(string propertyName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

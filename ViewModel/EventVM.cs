@@ -521,6 +521,15 @@ namespace OOP_EventsManagementSystem.ViewModel
 
         private void ToggleEditing()
         {
+            // Check if the PermissionId is 3 (or any other value you want to block)
+            if (UserAccount.PermissionId == 3)
+            {
+                // Show a message saying the user doesn't have permission
+                MessageBox.Show("Bạn không có quyền để thực hiện hành động này.", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return; // Do not proceed with toggling the editing state
+            }
+
+            // If the user has permission, toggle the editing state
             IsEditing = !IsEditing;
             OnPropertyChanged(nameof(IsEditing));
         }
@@ -875,24 +884,44 @@ namespace OOP_EventsManagementSystem.ViewModel
         public void LoadData()
         {
             var allEvents = _context.Events.Include(e => e.Venue).ToList();
+            IEnumerable<Model.Event> engagedEvents = Enumerable.Empty<Model.Event>();
 
+            // Use UserAccount.PermissionId instead of PermissionId
+            if (UserAccount.PermissionId == 3) // Only show events the employee is engaged in
+            {
+                var engagedEventIds = _context.Engageds
+                    .Where(e => e.Account.EmployeeId == UserAccount.EmployeeId) // Filter by logged-in employee's ID
+                    .Select(e => e.EventId)
+                    .ToList();
+
+                engagedEvents = allEvents.Where(e => engagedEventIds.Contains(e.EventId));
+            }
+            else
+            {
+                engagedEvents = allEvents; // Show all events if not PermissionId == 3
+            }
+
+            // Filter upcoming events
             UpcomingPagination = new PaginationHelper<Model.Event>(
-                allEvents.Where(e => e.StartDate.ToDateTime(TimeOnly.MinValue) > DateTime.Now),
+                engagedEvents.Where(e => e.StartDate.ToDateTime(TimeOnly.MinValue) > DateTime.Now),
                 9
             );
 
+            // Filter happening events
             HappeningPagination = new PaginationHelper<Model.Event>(
-                allEvents.Where(e =>
+                engagedEvents.Where(e =>
                     e.StartDate.ToDateTime(TimeOnly.MinValue) <= DateTime.Now
                     && e.EndDate.ToDateTime(TimeOnly.MinValue) >= DateTime.Now
                 ),
                 9
             );
 
+            // Filter completed events
             CompletedPagination = new PaginationHelper<Model.Event>(
-                allEvents.Where(e => e.EndDate.ToDateTime(TimeOnly.MinValue) < DateTime.Now),
+                engagedEvents.Where(e => e.EndDate.ToDateTime(TimeOnly.MinValue) < DateTime.Now),
                 9
             );
+
 
             // Load shows và lưu vào AllShows
             var shows = _context.Shows.Include(s => s.Performer).Include(s => s.Genre).ToList();

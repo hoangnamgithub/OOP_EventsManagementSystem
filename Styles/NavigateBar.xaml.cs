@@ -27,8 +27,9 @@ namespace OOP_EventsManagementSystem.Styles
         {
             InitializeComponent();
             this.DataContext = this;
+            
         }
-
+        
         private void AccountButton_Click(object sender, RoutedEventArgs e)
         {
             AccountContextMenu.IsOpen = true;
@@ -36,24 +37,22 @@ namespace OOP_EventsManagementSystem.Styles
 
         private void ViewAccount_Click(object sender, RoutedEventArgs e)
         {
-            // Tạo thông tin tài khoản từ UserAccount (giả sử bạn đã có UserAccount)
+            // Tạo thông tin tài khoản từ UserAccount
+            string fullName = UserAccount.FullName;
+            int? employeeId = UserAccount.EmployeeId;
+            string roleName = UserAccount.RoleName;
             string email = UserAccount.Email;
             string password = UserAccount.Password;
-            string permission = UserAccount.Permission1; // Lấy Permission1
+            string permission = UserAccount.Permission1;
+            string engagedEvents = UserAccount.EngagedEvent;
 
-            // Tạo instance của Account UserControl
-            Account accountControl = new Account();
+            // Tạo instance của Account Window
+            Account accountWindow = new Account();
 
-            // Truyền thông tin tài khoản vào UserControl
-            accountControl.SetAccountInfo(email, password, permission);
+            // Truyền thông tin tài khoản vào Account Window
+            accountWindow.SetAccountInfo(fullName, employeeId, roleName, email, password, permission);
 
-            // Hiển thị UserControl trong một cửa sổ mới, ví dụ:
-            Window accountWindow = new Window
-            {
-                Content = accountControl,
-                Title = "Account Details",
-                SizeToContent = SizeToContent.WidthAndHeight
-            };
+            // Hiển thị cửa sổ Account
             accountWindow.Show();
         }
 
@@ -72,21 +71,25 @@ namespace OOP_EventsManagementSystem.Styles
             // Nếu người dùng chọn Yes, thực hiện đăng xuất
             if (result == MessageBoxResult.Yes)
             {
-                // Đóng toàn bộ cửa sổ đang mở
+                // Đóng tất cả các cửa sổ hiện tại đang mở
                 foreach (Window window in Application.Current.Windows)
                 {
+                    // Kiểm tra để không đóng cửa sổ đăng xuất hiện tại
                     if (window != Window.GetWindow(this))
                     {
                         window.Close();
                     }
                 }
 
-                // Đóng cửa sổ chính sau cùng
+                // Sau khi đóng các cửa sổ, mở cửa sổ đăng ký (SignUp)
+                SignUp signupWindow = new SignUp();  // Đảm bảo rằng SignUp là lớp của cửa sổ Signup.xaml
+                signupWindow.Show(); // Hiển thị cửa sổ SignUp
+
+                // Đóng cửa sổ hiện tại (cửa sổ đang thực thi đăng xuất)
                 Window.GetWindow(this).Close();
-                SignUp signupWindow = new SignUp();  // Đảm bảo rằng Signup là lớp của cửa sổ Signup.xaml
-                signupWindow.Show(); // Hiển thị cửa sổ Signup
             }
         }
+
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -106,7 +109,13 @@ namespace OOP_EventsManagementSystem.Styles
             }
         }
     }
-    
+    // Trong code-behind của cả Account.xaml.cs và NavigateBar.xaml.cs
+
+    public static class User
+    {
+        public static string AvatarPath { get; set; } = string.Empty; // Đường dẫn tạm thời cho avatar
+    }
+
 
 }
 
