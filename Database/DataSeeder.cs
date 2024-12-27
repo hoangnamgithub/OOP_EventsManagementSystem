@@ -47,8 +47,6 @@ namespace OOP_EventsManagementSystem.Database
 
                 SeedRequiredData(context); //19
 
-                SeedEquipmentData(context); //20
-
                 SeedEngagedData(context);
             }
         }
@@ -1108,53 +1106,6 @@ namespace OOP_EventsManagementSystem.Database
             context.Requireds.AddRange(requireds);
             context.SaveChanges();
             Console.WriteLine("Seeded Required data successfully.");
-        }
-
-        private static void SeedEquipmentData(EventManagementDbContext context)
-        {
-            if (context.Equipment.Any())
-            {
-                Console.WriteLine("Equipment data already seeded.");
-                return;
-            }
-
-            var requiredEquipments = context.Requireds.ToList();
-            if (!requiredEquipments.Any())
-            {
-                Console.WriteLine("No required equipment found. Please seed these tables first.");
-                return;
-            }
-
-            var faker = new Bogus.Faker();
-            var equipments = new List<Equipment>();
-
-            var conditions = new List<string>
-            {
-                "Good",
-                "Broken",
-                "Missing",
-                "Needs Repair",
-                "Excellent",
-                "Poor",
-            };
-
-            foreach (var required in requiredEquipments)
-            {
-                for (int i = 0; i < required.Quantity; i++)
-                {
-                    var equipment = new Equipment
-                    {
-                        EquipNameId = required.EquipNameId,
-                        Condition = conditions[faker.Random.Int(0, conditions.Count - 1)],
-                    };
-
-                    equipments.Add(equipment);
-                }
-            }
-
-            context.Equipment.AddRange(equipments);
-            context.SaveChanges();
-            Console.WriteLine("Seeded Equipment data successfully.");
         }
 
         private static void SeedEngagedData(EventManagementDbContext context)

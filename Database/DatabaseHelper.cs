@@ -263,14 +263,6 @@ CREATE TABLE Equipments.equipment_name (
     FOREIGN KEY (equip_type_id) REFERENCES Equipments.equipment_type(equip_type_id) ON DELETE CASCADE
 );
 
-IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='equipment' AND xtype='U')
-CREATE TABLE Equipments.equipment (
-    equipment_id INT PRIMARY KEY IDENTITY(1,1),
-    equip_name_id INT NOT NULL,
-    condition NVARCHAR(100),
-    FOREIGN KEY (equip_name_id) REFERENCES Equipments.equipment_name(equip_name_id) ON DELETE CASCADE
-);
-
 IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='required' AND xtype='U')
 CREATE TABLE Equipments.required (
     required_id INT PRIMARY KEY IDENTITY(1,1),
