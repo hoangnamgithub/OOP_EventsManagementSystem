@@ -101,66 +101,124 @@ namespace OOP_EventsManagementSystem.View
         {
             btn_Edit.Visibility = Visibility.Collapsed;
             btnConfirm.Visibility = Visibility.Visible;
+
+            // Cho phép chỉnh sửa các trường cần thiết
+            txtfull_name.IsEnabled = true;
+            txtEmail.IsEnabled = true;
+            txtContact.IsEnabled = true;
+            txtPassword.IsEnabled = true;
+
+            // Không cho phép chỉnh sửa các trường khác
+            txtPermission.IsEnabled = false;
+            txtRole.IsEnabled = false;
+
+            // Bật chỉnh sửa trong DataGrid
             dataGrid.IsReadOnly = false;
             dataGrid.SelectionMode = DataGridSelectionMode.Single;
+
+            delete.Visibility = Visibility.Visible;
         }
 
         private void btnConfirm_Click(object sender, RoutedEventArgs e)
         {
+            // Lấy dữ liệu từ các TextBox
+            string fullName = txtfull_name.Text.Trim();
+            string email = txtEmail.Text.Trim();
+            string contact = txtContact.Text.Trim();
+            string password = txtPassword.Text.Trim();
+
+            // Kiểm tra định dạng email
+            if (!IsValidEmail(email))
+            {
+                MessageBox.Show("Email must have the domain .easys.com", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            // Kiểm tra các trường không được để trống
+            if (string.IsNullOrEmpty(fullName) || string.IsNullOrEmpty(email) || string.IsNullOrEmpty(contact) || string.IsNullOrEmpty(password))
+            {
+                MessageBox.Show("Please fill in all fields before confirming.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
             try
             {
-                var updatedAccounts = dataGrid.ItemsSource.Cast<AccountViewModel>().ToList();
+                // Tìm kiếm tài khoản dựa trên Email (giả sử Email là duy nhất)
+                var account = _context.Accounts
+                    .Include(a => a.Employee) // Bao gồm thông tin Employee
+                    .Include(a => a.Employee.Role) // Bao gồm Role
+                    .FirstOrDefault(a => a.Email == email);
 
-                foreach (var updatedAccount in updatedAccounts)
+                if (account != null)
                 {
-                    var account = _context
-                        .Accounts.Include(a => a.Employee)
-                        .Include(a => a.Employee.Role)
-                        .FirstOrDefault(a => a.Employee.FullName == updatedAccount.FullName);
+                    // Cập nhật thông tin tài khoản
+                    account.Email = email;
+                    account.Password = password;
 
-                    if (account != null)
+                    if (account.Employee != null)
                     {
-                        account.Email = updatedAccount.Email;
-                        account.Password = updatedAccount.Password;
+                        // Cập nhật thông tin Employee
+                        account.Employee.FullName = fullName;
+                        account.Employee.Contact = contact;
 
-                        if (account.Employee != null)
+                        // Cập nhật Role nếu cần thiết
+                        var selectedRole = _context.EmployeeRoles
+                            .FirstOrDefault(r => r.RoleName == txtRole.Text.Trim());
+
+                        if (selectedRole != null)
                         {
-                            account.Employee.FullName = updatedAccount.FullName;
-                            account.Employee.Contact = updatedAccount.Contact;
-
-                            var selectedRole = _context.EmployeeRoles.FirstOrDefault(r =>
-                                r.RoleName == updatedAccount.RoleName
-                            );
-
-                            if (selectedRole != null)
-                            {
-                                account.Employee.RoleId = selectedRole.RoleId;
-                            }
+                            account.Employee.RoleId = selectedRole.RoleId;
                         }
                     }
-                }
+                    else
+                    {
+                        MessageBox.Show("Employee record not found.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
 
-                _context.SaveChanges();
-                MessageBox.Show(
-                    "All changes have been saved successfully.",
-                    "Success",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Information
-                );
+                    // Lưu thay đổi vào cơ sở dữ liệu
+                    _context.SaveChanges();
+
+                    // Hiển thị thông báo thành công
+                    MessageBox.Show("Your account information has been updated successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    // Cập nhật lại giao diện
+                    txtfull_name.Text = account.Employee.FullName;
+                    txtEmail.Text = account.Email;
+                    txtContact.Text = account.Employee.Contact;
+                    txtPassword.Text = account.Password;
+
+                    // Cập nhật UserAccount
+                    UserAccount.Email = account.Email;
+                    UserAccount.Password = account.Password;
+                    UserAccount.FullName = account.Employee.FullName;
+                    UserAccount.Contact = account.Employee.Contact;
+                }
+                else
+                {
+                    MessageBox.Show("Account not found.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    $"An error occurred while saving changes: {ex.Message}",
-                    "Error",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Error
-                );
+                // Hiển thị thông báo lỗi
+                MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
+            // Vô hiệu hóa các TextBox và hiển thị lại nút "Edit"
+            txtfull_name.IsEnabled = false;
+            txtEmail.IsEnabled = false;
+            txtContact.IsEnabled = false;
+            txtPassword.IsEnabled = false;
             btnConfirm.Visibility = Visibility.Collapsed;
             btn_Edit.Visibility = Visibility.Visible;
             dataGrid.IsReadOnly = true;
+        }
+
+        // Kiểm tra định dạng email có đuôi ".easys.com"
+        private bool IsValidEmail(string email)
+        {
+            return email.EndsWith("@easys.com", StringComparison.OrdinalIgnoreCase);
         }
 
         private void BtnDelete_Click(object sender, RoutedEventArgs e)
