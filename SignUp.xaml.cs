@@ -1,7 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using OOP_EventsManagementSystem.Model;
-using OOP_EventsManagementSystem.Styles;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Microsoft.EntityFrameworkCore;
+using OOP_EventsManagementSystem.Model;
 
 namespace OOP_EventsManagementSystem
 {
@@ -21,14 +20,14 @@ namespace OOP_EventsManagementSystem
     /// Interaction logic for SignUp.xaml
     /// </summary>
     public partial class SignUp : Window
-    {              
-            private readonly EventManagementDbContext _context;
+    {
+        private readonly EventManagementDbContext _context;
 
-            public SignUp()
-            {
-                InitializeComponent();
-                _context = new EventManagementDbContext(); // Kết nối tới DbContext
-            }
+        public SignUp()
+        {
+            InitializeComponent();
+            _context = new EventManagementDbContext(); // Kết nối tới DbContext
+        }
 
         private void btn_login_Click(object sender, RoutedEventArgs e)
         {
@@ -37,7 +36,12 @@ namespace OOP_EventsManagementSystem
 
             if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
             {
-                MessageBox.Show("Email và mật khẩu không thể để trống.", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(
+                    "Email và mật khẩu không thể để trống.",
+                    "Thông báo",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning
+                );
                 return;
             }
 
@@ -53,7 +57,12 @@ namespace OOP_EventsManagementSystem
 
                 if (account == null)
                 {
-                    MessageBox.Show("Email hoặc mật khẩu không đúng.", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(
+                        "Email hoặc mật khẩu không đúng.",
+                        "Thông báo",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Error
+                    );
                     return;
                 }
 
@@ -93,7 +102,12 @@ namespace OOP_EventsManagementSystem
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Đã xảy ra lỗi: {ex.Message}", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(
+                    $"Đã xảy ra lỗi: {ex.Message}",
+                    "Lỗi",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
             }
         }
 
@@ -115,7 +129,9 @@ namespace OOP_EventsManagementSystem
                 // Đổi hình ảnh của nút (nếu cần)
                 btn_toggle_password.Content = new Image
                 {
-                    Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/eye_on.png"))
+                    Source = new BitmapImage(
+                        new Uri("pack://application:,,,/Resources/Images/eye_on.png")
+                    ),
                 };
             }
             else
@@ -128,7 +144,9 @@ namespace OOP_EventsManagementSystem
                 // Đổi hình ảnh của nút (nếu cần)
                 btn_toggle_password.Content = new Image
                 {
-                    Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/eye_off.png"))
+                    Source = new BitmapImage(
+                        new Uri("pack://application:,,,/Resources/Images/eye_off.png")
+                    ),
                 };
             }
         }
@@ -142,7 +160,15 @@ namespace OOP_EventsManagementSystem
             }
         }
 
+        private void EventDescription_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ButtonState == MouseButtonState.Pressed)
+            {
+                this.DragMove();
+            }
+        }
     }
+
     public static class UserAccount
     {
         public static string Email { get; set; }
@@ -155,9 +181,4 @@ namespace OOP_EventsManagementSystem
         public static string EngagedEvent { get; set; } // Sự kiện tham gia
         
     }
-
-
-
-
 }
-
