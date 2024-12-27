@@ -72,16 +72,19 @@ namespace OOP_EventsManagementSystem
                 UserAccount.PermissionId = account.PermissionId;
                 UserAccount.Permission1 = account.Permission.Permission1;
 
+
                 if (account.Employee != null)
                 {
                     UserAccount.EmployeeId = account.Employee.EmployeeId;
                     UserAccount.FullName = account.Employee.FullName;
+                    UserAccount.Contact = account.Employee.Contact;
                     UserAccount.RoleName = account.Employee.Role?.RoleName;
                 }
                 else
                 {
                     UserAccount.EmployeeId = null;
                     UserAccount.FullName = "Admin";
+                    UserAccount.Contact = "(000)-111-111";
                     UserAccount.RoleName = "Admin";
                 }
 
@@ -177,6 +180,7 @@ namespace OOP_EventsManagementSystem
         public static string Permission1 { get; set; } // Quyền
         public static int? EmployeeId { get; set; } // Mã nhân viên
         public static string FullName { get; set; } // Tên đầy đủ
+        public static string Contact { get; set; } // Tên đầy đủ
         public static string RoleName { get; set; } // Vai trò
         public static string EngagedEvent { get; set; } // Sự kiện tham gia
         

@@ -93,8 +93,7 @@
                                     <TextBox
                                         x:Name="txtfull_name"
                                         Margin="5"
-                                        IsEnabled="False"
-                                        Text="{Binding FullName}" />
+                                        IsEnabled="False" />
                                 </Border>
                                 <TextBlock
                                     Margin="10,5,10,0"
@@ -109,8 +108,7 @@
                                     <TextBox
                                         x:Name="txtEmail"
                                         Margin="5"
-                                        IsEnabled="False"
-                                        Text="{Binding Email}" />
+                                        IsEnabled="False" />
                                 </Border>
                                 <TextBlock
                                     Margin="10,5,10,0"
@@ -125,8 +123,7 @@
                                     <TextBox
                                         x:Name="txtPermission"
                                         Margin="5"
-                                        IsEnabled="False"
-                                        Text="{Binding Permission}" />
+                                        IsEnabled="False" />
                                 </Border>
                             </StackPanel>
                             <StackPanel Grid.Column="1">
@@ -143,8 +140,7 @@
                                     <TextBox
                                         x:Name="txtContact"
                                         Margin="5"
-                                        IsEnabled="False"
-                                        Text="{Binding Contact}" />
+                                        IsEnabled="False" />
                                 </Border>
                                 <TextBlock
                                     Margin="10,5,10,0"
@@ -159,8 +155,7 @@
                                     <TextBox
                                         x:Name="txtPassword"
                                         Margin="5"
-                                        IsEnabled="False"
-                                        Text="{Binding Password}" />
+                                        IsEnabled="False" />
                                 </Border>
                                 <TextBlock
                                     Margin="10,5,10,0"
@@ -175,8 +170,7 @@
                                     <TextBox
                                         x:Name="txtRole"
                                         Margin="5"
-                                        IsEnabled="False"
-                                        Text="{Binding RoleName}" />
+                                        IsEnabled="False" />
                                 </Border>
                             </StackPanel>
 
@@ -278,7 +272,11 @@
                             IsReadOnly="True"
                             SelectionMode="Extended">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Binding="{Binding FullName}" Header="Full Name" />
+                                <DataGridTextColumn
+                                    Binding="{Binding FullName}"
+                                    Header="Full Name"
+                                    IsReadOnly="True" />
+                                <DataGridTextColumn Binding="{Binding Contact}" Header="Contact" />
                                 <DataGridTextColumn Binding="{Binding Email}" Header="Email" />
                                 <DataGridTextColumn Binding="{Binding Password}" Header="Password" />
                                 <!--  ComboBox column for RoleName  -->

@@ -39,6 +39,7 @@ namespace OOP_EventsManagementSystem.Styles
         {
             // Tạo thông tin tài khoản từ UserAccount
             string fullName = UserAccount.FullName;
+            string contact = UserAccount.Contact;
             int? employeeId = UserAccount.EmployeeId;
             string roleName = UserAccount.RoleName;
             string email = UserAccount.Email;
@@ -50,7 +51,7 @@ namespace OOP_EventsManagementSystem.Styles
             Account accountWindow = new Account();
 
             // Truyền thông tin tài khoản vào Account Window
-            accountWindow.SetAccountInfo(fullName, employeeId, roleName, email, password, permission);
+            accountWindow.SetAccountInfo(fullName,contact, employeeId, roleName, email, password, permission);
 
             // Hiển thị cửa sổ Account
             accountWindow.Show();

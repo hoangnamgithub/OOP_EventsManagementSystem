@@ -42,7 +42,8 @@ namespace OOP_EventsManagementSystem.View
                     Email = a.Email,
                     Password = a.Password,
                     RoleName = a.Employee.Role.RoleName, // Gán RoleName từ Employee.Role
-                    Contact = a.Employee.Contact // Lấy Contact từ bảng Employee
+                    Contact = a.Employee.Contact, // Lấy Contact từ bảng Employee
+                    Permission = a.Permission.Permission1 // Thêm Permission1 từ bảng Permission
                 })
                 .ToList();
 
@@ -96,7 +97,7 @@ namespace OOP_EventsManagementSystem.View
             }
         }
 
-        private void BtnEditAccount_Click(object sender, RoutedEventArgs e)
+        private void btnEdit_Click(object sender, RoutedEventArgs e)
         {
             btn_Edit.Visibility = Visibility.Collapsed;
             btnConfirm.Visibility = Visibility.Visible;
@@ -104,7 +105,7 @@ namespace OOP_EventsManagementSystem.View
             dataGrid.SelectionMode = DataGridSelectionMode.Single;
         }
 
-        private void BtnConfirm_Click(object sender, RoutedEventArgs e)
+        private void btnConfirm_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -169,12 +170,18 @@ namespace OOP_EventsManagementSystem.View
                 {
                     try
                     {
-                        var accountToDelete = _context.Accounts
-                            .FirstOrDefault(a => a.Employee.FullName == account.FullName);
-
-                        if (accountToDelete != null)
+                        foreach (var selectedAccount in selectedAccounts)
                         {
-                            _context.Accounts.Remove(accountToDelete);
+                            // Tìm tài khoản trong cơ sở dữ liệu bằng Email hoặc FullName
+                            var accountToDelete = _context.Accounts
+                                .Include(a => a.Employee)
+                                .FirstOrDefault(a => a.Email == selectedAccount.Email);
+
+                            if (accountToDelete != null)
+                            {
+                                // Xóa tài khoản
+                                _context.Accounts.Remove(accountToDelete);
+                            }
                         }
 
                         // Lưu thay đổi vào cơ sở dữ liệu
@@ -201,14 +208,6 @@ namespace OOP_EventsManagementSystem.View
                             MessageBoxImage.Error
                         );
                     }
-
-                    _context.SaveChanges();
-                    LoadAccountData();
-                    MessageBox.Show("Selected accounts and related data have been deleted successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             else
@@ -222,6 +221,16 @@ namespace OOP_EventsManagementSystem.View
             }
         }
 
+        public void SetAccountInfo(string fullName,string contact, int? employeeId, string roleName, string email, string password, string permission)
+        {
+            txtfull_name.Text = fullName;
+            txtContact.Text = contact;
+            txtRole.Text = roleName;
+            txtEmail.Text = email;
+            txtPassword.Text = password;
+            txtPermission.Text = permission;
+
+        }
         private void Border_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             if (e.ButtonState == System.Windows.Input.MouseButtonState.Pressed)
@@ -230,7 +239,7 @@ namespace OOP_EventsManagementSystem.View
             }
         }
 
-        private void Button_Close_Click(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
@@ -242,6 +251,8 @@ namespace OOP_EventsManagementSystem.View
             public string Password { get; set; }
             public string RoleName { get; set; }
             public string Contact { get; set; }
+            public string Permission { get; set; } // Thêm thuộc tính Permission
         }
+
     }
 }
