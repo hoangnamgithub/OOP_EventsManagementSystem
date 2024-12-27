@@ -239,8 +239,8 @@ CREATE TABLE Shows.show (
 IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='show_schedule' AND xtype='U')
 CREATE TABLE Shows.show_schedule (
     show_time_id INT PRIMARY KEY IDENTITY(1,1),
-    start_date DATE NOT NULL,
-    est_duration INT NOT NULL,
+    start_date DATE,
+    est_duration INT ,
     show_id INT NOT NULL,
     event_id INT NOT NULL,
     FOREIGN KEY (show_id) REFERENCES Shows.show(show_id) ON DELETE CASCADE,
