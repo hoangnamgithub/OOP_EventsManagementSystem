@@ -59,33 +59,47 @@ namespace OOP_EventsManagementSystem.ViewModel
             _context.Events.Add(newEvent);
             _context.SaveChanges();
 
+            // Hiển thị thông báo về việc đã có Event
+            MessageBox.Show("Event created successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
 
             // Lưu các sponsor đã chọn vào database
             foreach (var sponsorWrapper in Sponsors)
             {
-                // Kiểm tra xem SponsorTierId có giá trị hợp lệ
-                if (sponsorWrapper.SponsorTierId.HasValue)
+                // Kiểm tra xem SponsorTierId có giá trị hợp lệ không (không phải null)
+                if (!sponsorWrapper.SponsorTierId.HasValue)
                 {
-                    // Lấy Sponsor từ SponsorWrapper
-                    var sponsor = new Sponsor
-                    {
-                        SponsorId = sponsorWrapper.SponsorId,
-                        SponsorName = sponsorWrapper.SponsorName,
-                        // Cập nhật các thuộc tính cần thiết từ SponsorWrapper nếu cần thiết
-                    };
-
-                    var isSponsor = new IsSponsor
-                    {
-                        EventId = newEvent.EventId,
-                        SponsorId = sponsor.SponsorId,
-                        SponsorTierId = sponsorWrapper.SponsorTierId.Value,  // Đảm bảo SponsorTierId không null
-                        Event = newEvent,  // Liên kết với bảng Event
-                        Sponsor = sponsor, // Liên kết với bảng Sponsor
-                        SponsorTier = _context.SponsorTiers.FirstOrDefault(st => st.SponsorTierId == sponsorWrapper.SponsorTierId) // Liên kết với bảng SponsorTier
-                    };
-
-                    _context.IsSponsors.Add(isSponsor);
+                    // Hiển thị thông báo lỗi nếu SponsorTierId không có giá trị
+                    MessageBox.Show($"Sponsor {sponsorWrapper.SponsorName} is missing a valid SponsorTierId", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return; // Dừng lại nếu không có giá trị hợp lệ
                 }
+
+                // Lấy Sponsor từ SponsorWrapper
+                var sponsor = new Sponsor
+                {
+                    SponsorId = sponsorWrapper.SponsorId,
+                    SponsorName = sponsorWrapper.SponsorName,
+                };
+
+                // Lưu IsSponsor vào database
+                var isSponsor = new IsSponsor
+                {
+                    EventId = newEvent.EventId,
+                    SponsorId = sponsor.SponsorId,
+                    SponsorTierId = sponsorWrapper.SponsorTierId.Value,
+                    Event = newEvent,  // Liên kết với Event
+                    Sponsor = sponsor, // Liên kết với Sponsor
+                    SponsorTier = _context.SponsorTiers.FirstOrDefault(st => st.SponsorTierId == sponsorWrapper.SponsorTierId)
+                };
+
+                // Kiểm tra xem SponsorTier có tồn tại trong cơ sở dữ liệu không
+                if (isSponsor.SponsorTier == null)
+                {
+                    MessageBox.Show($"Sponsor Tier not found for {sponsorWrapper.SponsorName}", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return; // Dừng lại nếu không tìm thấy SponsorTier
+                }
+
+                // Thêm IsSponsor vào cơ sở dữ liệu
+                _context.IsSponsors.Add(isSponsor);
             }
 
 
@@ -126,13 +140,11 @@ namespace OOP_EventsManagementSystem.ViewModel
 
             _context.SaveChanges();
 
-            // Display success message
-            MessageBox.Show(
-                "Event added successfully!",
-                "Success",
-                MessageBoxButton.OK,
-                MessageBoxImage.Information
-            );
+            // Hiển thị thông báo đã lưu thành công các sponsor
+            MessageBox.Show("Sponsors saved successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
+            // Hiển thị thông báo thành công sau khi tất cả đã được lưu
+            MessageBox.Show("Event and related data have been saved successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
 
             // Close the window
             window?.Close();
@@ -277,6 +289,8 @@ namespace OOP_EventsManagementSystem.ViewModel
                     .ToList()
             );
         }
+
+
 
         private void LoadEmployeeRoles()
         {

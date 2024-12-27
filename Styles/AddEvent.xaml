@@ -399,25 +399,15 @@
                                                             Binding="{Binding SponsorName}"
                                                             Header="Sponsor"
                                                             IsReadOnly="True" />
-                                                        <DataGridTemplateColumn Header="Tier">
+                                                        <DataGridTemplateColumn Header="Tier" IsReadOnly="False">
                                                             <DataGridTemplateColumn.CellTemplate>
                                                                 <DataTemplate>
                                                                     <ComboBox
                                                                         DisplayMemberPath="TierName"
                                                                         ItemsSource="{Binding DataContext.SponsorTiers, RelativeSource={RelativeSource AncestorType=Window}}"
                                                                         SelectedValue="{Binding SponsorTierId, Mode=TwoWay}"
-                                                                        SelectedValuePath="SponsorTierId">
-                                                                        <ComboBox.Style>
-                                                                            <Style TargetType="ComboBox">
-                                                                                <Setter Property="IsEnabled" Value="True" />
-                                                                                <Style.Triggers>
-                                                                                    <DataTrigger Binding="{Binding IsChecked}" Value="True">
-                                                                                        <Setter Property="IsEnabled" Value="True" />
-                                                                                    </DataTrigger>
-                                                                                </Style.Triggers>
-                                                                            </Style>
-                                                                        </ComboBox.Style>
-                                                                    </ComboBox>
+                                                                        SelectedValuePath="SponsorTierId" />
+
                                                                 </DataTemplate>
                                                             </DataGridTemplateColumn.CellTemplate>
                                                         </DataGridTemplateColumn>

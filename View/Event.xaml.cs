@@ -32,15 +32,26 @@ namespace OOP_EventsManagementSystem.View
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            AddButton.IsEnabled = false;
+            // Kiểm tra PermissionId của UserAccount
+            if (UserAccount.PermissionId == 1)
+            {
+                // Nếu PermissionId = 1, thực hiện các bước tiếp theo
+                AddButton.IsEnabled = false;
 
-            var eventDescriptionWindow = new AddEvent();
+                var eventDescriptionWindow = new AddEvent();
 
-            eventDescriptionWindow.Closed += EventDescriptionWindow_Closed;
+                eventDescriptionWindow.Closed += EventDescriptionWindow_Closed;
 
-            // Hiển thị cửa sổ
-            eventDescriptionWindow.Show();
+                // Hiển thị cửa sổ
+                eventDescriptionWindow.Show();
+            }
+            else
+            {
+                // Nếu PermissionId không phải 1, thông báo lỗi hoặc không làm gì
+                MessageBox.Show("You do not have the required permissions to add an event.", "Permission Denied", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
+
 
         private void EventDescriptionWindow_Closed(object? sender, EventArgs e)
         {

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Media.Imaging;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Win32;
@@ -20,14 +22,25 @@ namespace OOP_EventsManagementSystem.View
         private EventManagementDbContext _context;
         public ObservableCollection<EmployeeRole> EmployeeRoles { get; set; }
         private List<AccountViewModel> allAccounts;
-
+        public bool IsVisible { get; set; }
         public Account()
         {
             _context = new EventManagementDbContext();
             InitializeComponent();
             LoadAccountData();
             LoadEmployeeRoles();
-            
+            // Kiểm tra PermissionId và thiết lập IsVisible
+            if (UserAccount.PermissionId == 1)
+            {
+                dtgr.Visibility = Visibility.Visible; // Nếu PermissionId = 1, hiển thị phần tử
+                border.Height = 750 ;
+            }
+            else
+            {
+                dtgr.Visibility = Visibility.Collapsed;
+                border.Height = 410;// Nếu PermissionId khác 1, ẩn phần tử
+            }
+
         }
         // Sự kiện TextChanged của TextBox tìm kiếm
         private void SearchBox_show_TextChanged(object sender, TextChangedEventArgs e)
@@ -118,6 +131,7 @@ namespace OOP_EventsManagementSystem.View
 
         private void btnEdit_Click(object sender, RoutedEventArgs e)
         {
+
             btn_Edit.Visibility = Visibility.Collapsed;
             btnConfirm.Visibility = Visibility.Visible;
 
@@ -345,7 +359,7 @@ namespace OOP_EventsManagementSystem.View
             public string RoleName { get; set; }
             public string Contact { get; set; }
             public string Permission { get; set; } // Thêm thuộc tính Permission
-        }
+        }       
 
     }
 }

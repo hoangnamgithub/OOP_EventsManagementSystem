@@ -6,6 +6,7 @@
     xmlns:local="clr-namespace:OOP_EventsManagementSystem.View"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:utlt="clr-namespace:OOP_EventsManagementSystem.Utilities"
     d:DesignHeight="1135"
     d:DesignWidth="850"
     AllowsTransparency="True"
@@ -13,19 +14,33 @@
     WindowStartupLocation="CenterScreen"
     WindowStyle="None"
     mc:Ignorable="d">
+    <Window.Resources>
+        <utlt:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+    </Window.Resources>
+
     <Border
+        x:Name="border"
         Width="850"
+        Height="410"
         Background="#EFE9E4"
         CornerRadius="16"
         MouseLeftButtonDown="Border_MouseLeftButtonDown">
         <ScrollViewer Margin="0,20,0,0">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                </Grid.RowDefinitions>
+            <StackPanel>
+                <Button
+    Grid.Column="1"
+    Width="40"
+    Height="40"
+    Margin="0"
+    HorizontalAlignment="Right"
+    VerticalAlignment="Top"
+    Background="Transparent"
+    BorderBrush="Transparent"
+    Click="Button_Click"
+    Content="X"
+    Foreground="Black" />
                 <TextBlock
-                    Margin="25,0"
+                    Margin="25,-30"
                     Style="{StaticResource txt_header}"
                     Text="Account Details" />
                 <StackPanel Orientation="Horizontal">
@@ -64,9 +79,30 @@
                                 Content="Sửa"
                                 FontSize="14"
                                 Style="{StaticResource PinkButton}" />
+                            <StackPanel
+                                Margin="0,0,0,-60"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Bottom"
+                                Orientation="Horizontal">
+                                <Button
+                                    x:Name="btn_Edit"
+                                    Width="100"
+                                    Height="50"
+                                    Margin="0,0,15,0"
+                                    Click="btnEdit_Click"
+                                    Content="Edit"
+                                    Style="{StaticResource PurpleButton}" />
+                                <Button
+                                    x:Name="btnConfirm"
+                                    Width="100"
+                                    Height="50"
+                                    Click="btnConfirm_Click"
+                                    Content="Confirm"
+                                    Style="{StaticResource GreenButton}"
+                                    Visibility="Collapsed" />
+
+                            </StackPanel>
                         </Grid>
-
-
                     </Border>
                     <Border
                         Width="550"
@@ -178,39 +214,17 @@
 
                         </Grid>
                     </Border>
-
-                </StackPanel>
-                <StackPanel
-                    Margin="25,190,0,0"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    Orientation="Horizontal">
-                    <Button
-                        x:Name="btn_Edit"
-                        Width="100"
-                        Height="50"
-                        Margin="0,0,15,0"
-                        Click="btnEdit_Click"
-                        Content="Edit"
-                        Style="{StaticResource PurpleButton}" />
-                    <Button
-                        x:Name="btnConfirm"
-                        Width="100"
-                        Height="50"
-                        Click="btnConfirm_Click"
-                        Content="Confirm"
-                        Style="{StaticResource GreenButton}"
-                        Visibility="Collapsed" />
-
                 </StackPanel>
                 <Border
+                    x:Name="dtgr"
                     Grid.Row="1"
                     Width="775"
                     Height="475"
                     Margin="25,10,25,25"
                     HorizontalAlignment="Left"
                     Background="White"
-                    CornerRadius="16">
+                    CornerRadius="16"
+                    Visibility="Collapsed">
                     <Grid>
                         <TextBlock
                             Margin="5,-25,0,0"
@@ -315,19 +329,8 @@
                         </DataGrid>
                     </Grid>
                 </Border>
-                <Button
-                    Grid.Column="1"
-                    Width="40"
-                    Height="40"
-                    Margin="0"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Top"
-                    Background="Transparent"
-                    BorderBrush="Transparent"
-                    Click="Button_Click"
-                    Content="X"
-                    Foreground="Black" />
-            </Grid>
+                
+            </StackPanel>
         </ScrollViewer>
 
     </Border>
