@@ -36,19 +36,18 @@ namespace OOP_EventsManagementSystem.Styles
             {
                 using (var context = new EventManagementDbContext())
                 {
-                    // Lấy dữ liệu từ database
+                    // Lấy dữ liệu từ database và trả về danh sách các đối tượng Event
                     var events = context.Events
-    .Select(e => new
-    {
-        e.EventId, // Đảm bảo EventId có trong dữ liệu
-        e.EventName,
-        StartDate = e.StartDate.ToDateTime(TimeOnly.MinValue).ToString("yyyy-MM-dd"),
-        EndDate = e.EndDate.ToDateTime(TimeOnly.MinValue).ToString("yyyy-MM-dd")
-    })
-    .ToList();
+                        .Select(e => new Event
+                        {
+                            EventId = e.EventId,
+                            EventName = e.EventName,
+                            StartDate = e.StartDate,
+                            EndDate = e.EndDate
+                        })
+                        .ToList();
 
-
-                    // Gán dữ liệu cho DataGrid
+                    // Gán dữ liệu vào DataGrid
                     EventDataGrid.ItemsSource = events;
                 }
             }
@@ -57,6 +56,7 @@ namespace OOP_EventsManagementSystem.Styles
                 MessageBox.Show($"Error loading events: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
         private void EventDataGrid_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             if (EventDataGrid.SelectedItem is null) return;
@@ -74,16 +74,23 @@ namespace OOP_EventsManagementSystem.Styles
             {
                 using (var context = new EventManagementDbContext())
                 {
-                    // Lấy danh sách Needs liên quan đến EventId
+                    // Lấy danh sách Needs liên quan đến EventId và chuyển đổi sang kiểu NeedViewModel
                     var needs = context.Needs
                         .Where(n => n.EventId == eventId)
-                        .Select(n => new
+                        .Select(n => new NeedViewModel
                         {
-                            n.Role.RoleName,
-                            n.Quantity
+                            RoleName = n.Role.RoleName,
+                            Quantity = n.Quantity
                         })
                         .ToList();
 
+                    // Kiểm tra xem có bất kỳ Need nào được tải không
+                    if (needs.Count == 0)
+                    {
+                        MessageBox.Show("No needs found for the selected event.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+
+                    // Gán dữ liệu vào DataGrid
                     NeedDataGrid.ItemsSource = needs;
                 }
             }
@@ -95,13 +102,23 @@ namespace OOP_EventsManagementSystem.Styles
 
         private void NeedDataGrid_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            if (NeedDataGrid.SelectedItem == null) return;
+            if (NeedDataGrid.SelectedItem == null)
+            {
+                
+                return;
+            }
 
-            // Lấy RoleName từ hàng được chọn
+            // Kiểm tra kiểu dữ liệu của selected item
             dynamic selectedNeed = NeedDataGrid.SelectedItem;
+            if (selectedNeed is not NeedViewModel)
+            {
+                MessageBox.Show("Selected item is not of type NeedViewModel.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
             string selectedRoleName = selectedNeed.RoleName;
 
-            // Lấy RoleName của UserAccount
+            // Kiểm tra RoleName của UserAccount
             string userRoleName = UserAccount.RoleName; // Phương thức này trả về RoleName của UserAccount
 
             // Kiểm tra RoleName có trùng với RoleName của UserAccount không
@@ -120,7 +137,7 @@ namespace OOP_EventsManagementSystem.Styles
             LoadEmployees(eventId, selectedRoleName);
         }
 
-        private void LoadEmployees(int eventId, string roleName)
+        public void LoadEmployees(int eventId, string roleName)
         {
             try
             {
@@ -278,6 +295,58 @@ namespace OOP_EventsManagementSystem.Styles
             }
         }
 
+        private void AddButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Kiểm tra người dùng có chọn mục trong EventDataGrid hay không
+            if (EventDataGrid.SelectedItem is null)
+            {
+                MessageBox.Show("Please select an event from the Event List.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            // Kiểm tra mục đã chọn có phải kiểu Event không
+            if (EventDataGrid.SelectedItem is not Event selectedEvent)
+            {
+                MessageBox.Show("Invalid event selected.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            // Kiểm tra người dùng có chọn mục trong NeedDataGrid hay không
+            if (NeedDataGrid.SelectedItem is null)
+            {
+                MessageBox.Show("Please select a need from the Needs List.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            if (NeedDataGrid.SelectedItem is not NeedViewModel selectedNeed)
+            {
+                MessageBox.Show("Invalid need selected.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            // Lấy số lượng nhân viên hiện tại trong EmployeeDataGrid
+            int currentEmployeeCount = EmployeeDataGrid.Items.Count;
+
+            // Kiểm tra nếu số lượng nhân viên đã đủ
+            if (currentEmployeeCount >= selectedNeed.Quantity)
+            {
+                MessageBox.Show("The required number of employees has already been reached.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            // Lấy RoleName từ Need.Role
+            string roleName = selectedNeed.RoleName;
+
+            // Mở cửa sổ AddEmployeeForMana, truyền RoleName, EventId và tham chiếu đến employeeFormanager
+            var addEmployeeWindow = new AddEmployeeForMana(roleName, this)
+            {
+                DataContext = selectedEvent.EventId // Truyền EventId qua DataContext
+            };
+
+            // Hiển thị cửa sổ
+            addEmployeeWindow.ShowDialog();
+        }
+
     }
     public class EmployeeViewModel
     {
@@ -286,5 +355,11 @@ namespace OOP_EventsManagementSystem.Styles
         public string? Contact { get; set; }
         public decimal Salary { get; set; }
     }
+    public class NeedViewModel
+    {
+        public string RoleName { get; set; }
+        public int Quantity { get; set; }
+    }
+
 
 }

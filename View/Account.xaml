@@ -18,7 +18,7 @@
     <Border
         x:Name="border"
         Width="850"
-        Height="500"
+        Height="550"
         Background="#EFE9E4"
         BorderBrush="LightCoral"
         BorderThickness="8"
@@ -301,7 +301,7 @@
                                         Header="Contact" />
                                     <DataGridTextColumn
                                         Width="180"
-                                        Binding="{Binding PermissionID}"
+                                        Binding="{Binding Permission}"
                                         Header="Permission" />
                                     <DataGridTextColumn
                                         Width="180"

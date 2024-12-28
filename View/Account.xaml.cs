@@ -33,7 +33,7 @@ namespace OOP_EventsManagementSystem.View
             if (UserAccount.PermissionId == 1)
             {
                 dtgr.Visibility = Visibility.Visible; // Nếu PermissionId = 1, hiển thị phần tử
-                border.Height = 750 ;
+                border.Height = 850 ;
             }
             else
             {
@@ -53,6 +53,7 @@ namespace OOP_EventsManagementSystem.View
                     account.Contact.ToLower().Contains(searchTerm) ||
                     account.Email.ToLower().Contains(searchTerm) ||
                     account.Password.ToLower().Contains(searchTerm) ||
+                    account.Permission.ToLower().Contains(searchTerm) ||
                     account.RoleName.ToLower().Contains(searchTerm)
                 )
                 .ToList();

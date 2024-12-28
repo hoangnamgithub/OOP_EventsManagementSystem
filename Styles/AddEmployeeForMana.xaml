@@ -1,0 +1,87 @@
+﻿<Window
+    x:Class="OOP_EventsManagementSystem.Styles.AddEmployeeForMana"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:OOP_EventsManagementSystem.Styles"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="AddEmployeeForMana"
+    Width="300"
+    Height="500"
+    AllowsTransparency="True"
+    Background="Transparent"
+    WindowStartupLocation="CenterScreen"
+    WindowStyle="None"
+    mc:Ignorable="d">
+    <Border
+        Background="White"
+        BorderBrush="#D6DC82"
+        BorderThickness="10"
+        CornerRadius="16"
+        MouseLeftButtonDown="Border_MouseLeftButtonDown">
+        <StackPanel>
+            <TextBlock
+                Margin="15,10"
+                Style="{StaticResource txt_header}"
+                Text="Employee ID" />
+            <Border
+                Width="250"
+                Height="40"
+                Margin="15,5"
+                HorizontalAlignment="Left"
+                Background="#FFDCDCE6"
+                CornerRadius="16">
+                <TextBlock x:Name="EmployeeIDTextBlock" Margin="5" />
+            </Border>
+            <TextBlock
+                Margin="15,10"
+                Style="{StaticResource txt_header}"
+                Text="Full Name" />
+            <Border
+                Width="250"
+                Height="40"
+                Margin="15,5"
+                HorizontalAlignment="Left"
+                Background="#FFDCDCE6"
+                CornerRadius="16">
+                <ComboBox
+                    x:Name="FullNameComboBox"
+                    Margin="5"
+                    DisplayMemberPath="FullName"
+                    SelectedValuePath="EmployeeId"
+                    SelectionChanged="FullNameComboBox_SelectionChanged" />
+            </Border>
+            <TextBlock
+                Margin="15,10"
+                Style="{StaticResource txt_header}"
+                Text="Contact" />
+            <Border
+                Width="250"
+                Height="40"
+                Margin="15,5"
+                HorizontalAlignment="Left"
+                Background="#FFDCDCE6"
+                CornerRadius="16">
+                <TextBlock x:Name="ContactTextBlock" Margin="5" />
+            </Border>
+            <StackPanel
+                Margin="15,10"
+                HorizontalAlignment="Center"
+                Orientation="Horizontal">
+                <Button
+                    Width="100"
+                    Height="45"
+                    Click="ConfirmButton_Click"
+                    Content="Comfirm"
+                    Style="{StaticResource GreenButton}" />
+                <Button
+                    Width="100"
+                    Height="45"
+                    Click="CancelButton_Click"
+                    Content="Cancel"
+                    Style="{StaticResource PinkButton}" />
+            </StackPanel>
+        </StackPanel>
+    </Border>
+</Window>
