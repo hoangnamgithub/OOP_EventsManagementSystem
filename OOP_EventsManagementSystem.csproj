@@ -7,6 +7,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
     <PackageIcon>fish_830484.png</PackageIcon>
+    <ApplicationIcon>Resources\favicon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -83,6 +84,10 @@
     <None Remove="Resources\Location\Factors-to-Consider-in-Choosing-an-Event-Venue.png" />
     <None Remove="Resources\Location\images.png" />
     <None Remove="Resources\Location\IMG_2663.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\favicon.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -254,13 +259,6 @@
 
   <ItemGroup>
     <Folder Include="Model\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="..\..\..\Images\topic6\fish_830484.png">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
   </ItemGroup>
 
   <ItemGroup>
