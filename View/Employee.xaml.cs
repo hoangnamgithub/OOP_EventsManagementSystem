@@ -26,6 +26,17 @@ namespace OOP_EventsManagementSystem.View
         {
             InitializeComponent();
             DataContext = new EmployeeVM(new EventManagementDbContext());
+            if (UserAccount.PermissionId == 1 )
+            {
+                permission1.Visibility = Visibility.Visible;
+                permission2.Visibility = Visibility.Collapsed;
+            }
+            else if (UserAccount.PermissionId == 2 )
+            { 
+                permission2.Visibility = Visibility.Visible;
+            permission1.Visibility = Visibility.Collapsed;
+            }
+
         }
         private void Dtgrd_TodayEvent_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {

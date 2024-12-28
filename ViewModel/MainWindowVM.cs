@@ -50,9 +50,21 @@ public class MainWindowVM : INotifyPropertyChanged
         EmployeeCommand = new RelayCommand(ExecuteEmployeeCommand, CanExecuteEmployeeCommand);
         EquipmentCommand = new RelayCommand(ExecuteEquipmentCommand, CanExecuteEquipmentCommand);
         LocationCommand = new RelayCommand(ExecuteLocationCommand, CanExecuteLocationCommand);
+        if (permissionId == 1)
+        {
+            CurrentView = new Home();
+        }
+        else if ( permissionId ==2)
+        {
+            CurrentView = new OOP_EventsManagementSystem.View.Employee();
+        }
+        else if (permissionId == 3)
+        {
+            CurrentView = new OOP_EventsManagementSystem.View.Event();
+        }
 
-        // Đặt view mặc định là Home
-        CurrentView = new Home();
+
+
     }
 
     private void ExecuteHomeCommand(object parameter)
@@ -91,15 +103,15 @@ public class MainWindowVM : INotifyPropertyChanged
     }
 
     // Các phương thức CanExecute kiểm tra quyền của người dùng dựa trên PermissionId
-    private bool CanExecuteHomeCommand(object parameter) => true; // Nút Home luôn có thể thực thi
-    private bool CanExecuteEventCommand(object parameter) => true; // Nút Event luôn có thể thực thi
+    private bool CanExecuteHomeCommand(object parameter) => PermissionId == 1; // Nút Home luôn có thể thực thi
+    private bool CanExecuteEventCommand(object parameter) => PermissionId != 2; // Nút Event luôn có thể thực thi
 
     // Các nút khác chỉ có thể thực thi nếu PermissionId khác 3
-    private bool CanExecuteShowCommand(object parameter) => PermissionId != 3;
-    private bool CanExecutePartnerCommand(object parameter) => PermissionId != 3;
+    private bool CanExecuteShowCommand(object parameter) => PermissionId == 1;
+    private bool CanExecutePartnerCommand(object parameter) => PermissionId == 1;
     private bool CanExecuteEmployeeCommand(object parameter) => PermissionId != 3;
-    private bool CanExecuteEquipmentCommand(object parameter) => PermissionId != 3;
-    private bool CanExecuteLocationCommand(object parameter) => PermissionId != 3;
+    private bool CanExecuteEquipmentCommand(object parameter) => PermissionId == 1;
+    private bool CanExecuteLocationCommand(object parameter) => PermissionId == 1;
 
     // Cập nhật quyền truy cập của các lệnh khi PermissionId thay đổi
     private void UpdateCommandsAvailability()
