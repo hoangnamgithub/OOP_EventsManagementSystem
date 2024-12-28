@@ -768,6 +768,7 @@
                     </Grid.ColumnDefinitions>
                     <Button
                         Name="btn_startEdit"
+                        Grid.Column="1"
                         Width="100"
                         Height="50"
                         Margin="15,10,0,10"
@@ -785,6 +786,15 @@
                         Content="Confirm"
                         Style="{StaticResource PinkButton}"
                         Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                    <Button
+                        Name="btn_deleteEvent"
+                        Grid.Column="0"
+                        Width="100"
+                        Height="50"
+                        Margin="15,10,0,10"
+                        Command="{Binding DelCommand}"
+                        Content="Delete"
+                        Style="{StaticResource PinkButton}" />
 
                 </Grid>
             </StackPanel>
