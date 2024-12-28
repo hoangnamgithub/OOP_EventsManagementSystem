@@ -36,16 +36,20 @@ namespace OOP_EventsManagementSystem.Styles
         {
             using (var context = new EventManagementDbContext())
             {
+                // Lọc Employee theo RoleName
                 FullNameComboBox.ItemsSource = context.Employees
-    .Select(emp => new Employeevm
-    {
-        EmployeeId = emp.EmployeeId,
-        FullName = emp.FullName,
-        Contact = emp.Contact
-    })
-    .ToList();
+                    .Where(emp => emp.Role.RoleName == RoleName) // Lọc theo RoleName
+                    .Select(emp => new Employeevm
+                    {
+                        EmployeeId = emp.EmployeeId,
+                        FullName = emp.FullName,
+                        Contact = emp.Contact
+                    })
+                    .ToList();
             }
         }
+
+
 
         private void FullNameComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

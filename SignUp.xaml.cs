@@ -71,6 +71,7 @@ namespace OOP_EventsManagementSystem
                 UserAccount.Password = account.Password;
                 UserAccount.PermissionId = account.PermissionId;
                 UserAccount.Permission1 = account.Permission.Permission1;
+                UserAccount.RoleId = account.Employee.RoleId;
 
 
                 if (account.Employee != null)
@@ -177,6 +178,7 @@ namespace OOP_EventsManagementSystem
         public static string FullName { get; set; } // Tên đầy đủ
         public static string Contact { get; set; } // Tên đầy đủ
         public static string RoleName { get; set; } // Vai trò
+        public static int RoleId { get; set; }
         public static string EngagedEvent { get; set; } // Sự kiện tham gia
     }
 }
