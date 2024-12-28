@@ -60,9 +60,9 @@ public class MainWindowVM : INotifyPropertyChanged
         if (permissionId == 1)
         {
             // Đặt view mặc định là Home
-        CurrentView = _homeView.Value;
+            CurrentView = new Home();
         }
-        else if ( permissionId ==2)
+        else if (permissionId == 2)
         {
             CurrentView = new OOP_EventsManagementSystem.View.Employee();
         }
@@ -70,8 +70,6 @@ public class MainWindowVM : INotifyPropertyChanged
         {
             CurrentView = new OOP_EventsManagementSystem.View.Event();
         }
-
-
 
         _homeView = new Lazy<Home>(() => new Home());
         _eventView = new Lazy<OOP_EventsManagementSystem.View.Event>(
@@ -88,7 +86,6 @@ public class MainWindowVM : INotifyPropertyChanged
             () => new OOP_EventsManagementSystem.View.Equipment()
         );
         _locationView = new Lazy<Location>(() => new Location());
-        
     }
 
     private void ExecuteHomeCommand(object parameter)
@@ -128,13 +125,18 @@ public class MainWindowVM : INotifyPropertyChanged
 
     // Các phương thức CanExecute kiểm tra quyền của người dùng dựa trên PermissionId
     private bool CanExecuteHomeCommand(object parameter) => PermissionId == 1; // Nút Home luôn có thể thực thi
+
     private bool CanExecuteEventCommand(object parameter) => PermissionId != 2; // Nút Event luôn có thể thực thi
 
     // Các nút khác chỉ có thể thực thi nếu PermissionId khác 3
     private bool CanExecuteShowCommand(object parameter) => PermissionId == 1;
+
     private bool CanExecutePartnerCommand(object parameter) => PermissionId == 1;
+
     private bool CanExecuteEmployeeCommand(object parameter) => PermissionId != 3;
+
     private bool CanExecuteEquipmentCommand(object parameter) => PermissionId == 1;
+
     private bool CanExecuteLocationCommand(object parameter) => PermissionId == 1;
 
     // Cập nhật quyền truy cập của các lệnh khi PermissionId thay đổi
