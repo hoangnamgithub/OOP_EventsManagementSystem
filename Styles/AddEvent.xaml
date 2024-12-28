@@ -382,7 +382,9 @@
                                                     VerticalAlignment="Stretch"
                                                     AutoGenerateColumns="False"
                                                     Background="Transparent"
-                                                    ItemsSource="{Binding Sponsors}">
+                                                    ItemsSource="{Binding Sponsors}"
+                                                    VirtualizingStackPanel.IsVirtualizing="True"
+                                                    VirtualizingStackPanel.VirtualizationMode="Recycling">
                                                     <DataGrid.Columns>
                                                         <DataGridTemplateColumn Header="Check">
                                                             <DataGridTemplateColumn.CellTemplate>
@@ -444,7 +446,9 @@
                                                     VerticalAlignment="Stretch"
                                                     AutoGenerateColumns="False"
                                                     Background="Transparent"
-                                                    ItemsSource="{Binding EmployeeRoles}">
+                                                    ItemsSource="{Binding EmployeeRoles}"
+                                                    VirtualizingStackPanel.IsVirtualizing="True"
+                                                    VirtualizingStackPanel.VirtualizationMode="Recycling">
                                                     <DataGrid.Columns>
                                                         <DataGridTextColumn
                                                             Width="50*"
@@ -492,7 +496,9 @@
                                                     VerticalAlignment="Stretch"
                                                     AutoGenerateColumns="False"
                                                     Background="Transparent"
-                                                    ItemsSource="{Binding Equipments}">
+                                                    ItemsSource="{Binding Equipments}"
+                                                    VirtualizingStackPanel.IsVirtualizing="True"
+                                                    VirtualizingStackPanel.VirtualizationMode="Recycling">
                                                     <DataGrid.Columns>
                                                         <DataGridTextColumn
                                                             Width="10*"

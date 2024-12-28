@@ -19,7 +19,10 @@
                 <TabItem Name="upComingEvent" Header="Up Coming">
                     <Grid>
                         <ScrollViewer x:Name="EventList" Margin="10,55,0,10">
-                            <ItemsControl ItemsSource="{Binding UpcomingPagination.PagedCollection}">
+                            <ItemsControl
+                                ItemsSource="{Binding UpcomingPagination.PagedCollection}"
+                                VirtualizingStackPanel.IsVirtualizing="True"
+                                VirtualizingStackPanel.VirtualizationMode="Recycling">
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <WrapPanel Orientation="Horizontal" />
@@ -128,7 +131,10 @@
                 <TabItem Name="happeningEvent" Header="Happening">
                     <Grid>
                         <ScrollViewer Margin="10,55,0,10">
-                            <ItemsControl ItemsSource="{Binding HappeningPagination.PagedCollection}">
+                            <ItemsControl
+                                ItemsSource="{Binding HappeningPagination.PagedCollection}"
+                                VirtualizingStackPanel.IsVirtualizing="True"
+                                VirtualizingStackPanel.VirtualizationMode="Recycling">
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <WrapPanel Orientation="Horizontal" />
@@ -237,7 +243,10 @@
                 <TabItem Name="completedEvent" Header="Completed">
                     <Grid>
                         <ScrollViewer Margin="10,55,0,10">
-                            <ItemsControl ItemsSource="{Binding CompletedPagination.PagedCollection}">
+                            <ItemsControl
+                                ItemsSource="{Binding CompletedPagination.PagedCollection}"
+                                VirtualizingStackPanel.IsVirtualizing="True"
+                                VirtualizingStackPanel.VirtualizationMode="Recycling">
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <WrapPanel Orientation="Horizontal" />

@@ -1,12 +1,25 @@
 ﻿using System;
 using System.Data.SqlClient;
+using System.IO;
+using Microsoft.Extensions.Configuration;
 
 namespace OOP_EventsManagementSystem.Database
 {
     public class DatabaseHelper
     {
-        private const string ConnectionString = "Server=.\\sqlexpress;Integrated Security=true;";
-        private const string DatabaseName = "EventManagementDB";
+        private static readonly string ConnectionString;
+
+        static DatabaseHelper()
+        {
+            var configuration = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json")
+                .Build();
+
+            ConnectionString = configuration.GetConnectionString("DefaultConnection");
+        }
+
+        private const string DatabaseName = "eventmanadb";
 
         public static void InitializeDatabase()
         {
@@ -261,14 +274,6 @@ CREATE TABLE Equipments.equipment_name (
     equip_cost DECIMAL(10, 2) NOT NULL,
     equip_type_id INT NOT NULL,
     FOREIGN KEY (equip_type_id) REFERENCES Equipments.equipment_type(equip_type_id) ON DELETE CASCADE
-);
-
-IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='equipment' AND xtype='U')
-CREATE TABLE Equipments.equipment (
-    equipment_id INT PRIMARY KEY IDENTITY(1,1),
-    equip_name_id INT NOT NULL,
-    condition NVARCHAR(100),
-    FOREIGN KEY (equip_name_id) REFERENCES Equipments.equipment_name(equip_name_id) ON DELETE CASCADE
 );
 
 IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='required' AND xtype='U')

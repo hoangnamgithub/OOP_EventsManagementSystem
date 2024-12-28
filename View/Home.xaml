@@ -49,7 +49,9 @@
                             FontFamily="Bahnschrift SemiBold"
                             FontSize="18"
                             Foreground="White"
-                            Header="Event">
+                            Header="Event"
+                            VirtualizingStackPanel.IsVirtualizing="True"
+                            VirtualizingStackPanel.VirtualizationMode="Recycling">
                             <!-- <styles:EventAnalyze />-->
                         </Expander>
                         <!--  Sponsor Section  -->

@@ -47,8 +47,6 @@ namespace OOP_EventsManagementSystem.Database
 
                 SeedRequiredData(context); //19
 
-                SeedEquipmentData(context); //20
-
                 SeedEngagedData(context);
             }
         }
@@ -343,7 +341,7 @@ namespace OOP_EventsManagementSystem.Database
                 new EmployeeRole { RoleName = "VenueManagement", Salary = 3500.00M },
                 new EmployeeRole { RoleName = "PublicRelations", Salary = 4000.00M },
                 new EmployeeRole { RoleName = "Coordinator", Salary = 6000.00M },
-                new EmployeeRole { RoleName = "CEO", Salary = 10000.00M }, // Adding the CEO role
+                new EmployeeRole { RoleName = "Admin", Salary = 10000.00M }, // Adding the Admin role
             };
 
             context.EmployeeRoles.AddRange(roles);
@@ -376,10 +374,10 @@ namespace OOP_EventsManagementSystem.Database
                     // Create employees for each role
                     foreach (var role in roles)
                     {
-                        if (role.RoleName == "CEO") // Special case for CEO
+                        if (role.RoleName == "Admin") // Special case for Admin
                         {
-                            // Create 2 CEO employees
-                            for (int i = 0; i < 2; i++) // Create 2 employees for CEO role
+                            // Create 2 Admin employees
+                            for (int i = 0; i < 2; i++) // Create 2 employees for Admin role
                             {
                                 var employee = new Employee
                                 {
@@ -486,8 +484,8 @@ namespace OOP_EventsManagementSystem.Database
                 int permissionId =
                     permissions.FirstOrDefault(p => p.Permission1 == "Employee")?.PermissionId ?? 0;
 
-                // Special case for CEO, permission = 1
-                if (employee.Role.RoleName == "CEO")
+                // Special case for Admin, permission = 1
+                if (employee.Role.RoleName == "Admin")
                 {
                     permissionId = 1; // Set permission to 1 for CEOs
                 }
@@ -611,7 +609,7 @@ namespace OOP_EventsManagementSystem.Database
                     ); // Future within the first few months of 2025
                 }
 
-                var endDate = startDate.AddDays(faker.Random.Int(1, 5)); // Ensuring end date is after start date
+                var endDate = startDate.AddDays(faker.Random.Int(1, 7)); // Ensuring end date is after start date
 
                 var @event = new Event
                 {
@@ -655,8 +653,8 @@ namespace OOP_EventsManagementSystem.Database
             {
                 foreach (var role in roles)
                 {
-                    // Skip adding the 'CEO' role
-                    if (role.RoleName == "CEO")
+                    // Skip adding the 'Admin' role
+                    if (role.RoleName == "Admin")
                     {
                         continue;
                     }
@@ -703,7 +701,7 @@ namespace OOP_EventsManagementSystem.Database
             var isSponsors = new List<IsSponsor>();
 
             // Set a maximum number of sponsors per event
-            int maxSponsorsPerEvent = 15;
+            int maxSponsorsPerEvent = 20;
 
             // Get the Title Sponsor tier
             var titleSponsorTier = sponsorTiers.FirstOrDefault(t => t.TierName == "Title Sponsor");
@@ -718,7 +716,7 @@ namespace OOP_EventsManagementSystem.Database
                 // Shuffle sponsors for more variety
                 var shuffledSponsors = sponsors.OrderBy(_ => faker.Random.Int()).ToList();
 
-                int numSponsors = Math.Min(faker.Random.Int(9, 20), sponsors.Count); // Limit to a maximum of 20 sponsors
+                int numSponsors = Math.Min(faker.Random.Int(10, 20), sponsors.Count); // Limit to a maximum of 20 sponsors
 
                 bool titleSponsorAssigned = false;
 
@@ -792,7 +790,7 @@ namespace OOP_EventsManagementSystem.Database
             foreach (var performer in performers)
             {
                 // Each performer can have multiple shows
-                int numShows = faker.Random.Int(1, 10);
+                int numShows = faker.Random.Int(3, 10);
 
                 for (int i = 0; i < numShows; i++)
                 {
@@ -1092,7 +1090,7 @@ namespace OOP_EventsManagementSystem.Database
             {
                 foreach (var equipName in equipmentNames)
                 {
-                    var quantity = faker.Random.Int(2, 10); // Quantity can be between 0 and 10
+                    var quantity = faker.Random.Int(3, 15); // Quantity can be between 0 and 10
 
                     var required = new Required
                     {
@@ -1108,53 +1106,6 @@ namespace OOP_EventsManagementSystem.Database
             context.Requireds.AddRange(requireds);
             context.SaveChanges();
             Console.WriteLine("Seeded Required data successfully.");
-        }
-
-        private static void SeedEquipmentData(EventManagementDbContext context)
-        {
-            if (context.Equipment.Any())
-            {
-                Console.WriteLine("Equipment data already seeded.");
-                return;
-            }
-
-            var requiredEquipments = context.Requireds.ToList();
-            if (!requiredEquipments.Any())
-            {
-                Console.WriteLine("No required equipment found. Please seed these tables first.");
-                return;
-            }
-
-            var faker = new Bogus.Faker();
-            var equipments = new List<Equipment>();
-
-            var conditions = new List<string>
-            {
-                "Good",
-                "Broken",
-                "Missing",
-                "Needs Repair",
-                "Excellent",
-                "Poor",
-            };
-
-            foreach (var required in requiredEquipments)
-            {
-                for (int i = 0; i < required.Quantity; i++)
-                {
-                    var equipment = new Equipment
-                    {
-                        EquipNameId = required.EquipNameId,
-                        Condition = conditions[faker.Random.Int(0, conditions.Count - 1)],
-                    };
-
-                    equipments.Add(equipment);
-                }
-            }
-
-            context.Equipment.AddRange(equipments);
-            context.SaveChanges();
-            Console.WriteLine("Seeded Equipment data successfully.");
         }
 
         private static void SeedEngagedData(EventManagementDbContext context)
