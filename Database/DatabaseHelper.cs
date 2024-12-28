@@ -1,12 +1,25 @@
 ﻿using System;
 using System.Data.SqlClient;
+using System.IO;
+using Microsoft.Extensions.Configuration;
 
 namespace OOP_EventsManagementSystem.Database
 {
     public class DatabaseHelper
     {
-        private const string ConnectionString = "Server=.\\sqlexpress;Integrated Security=true;";
-        private const string DatabaseName = "EventManagementDB";
+        private static readonly string ConnectionString;
+
+        static DatabaseHelper()
+        {
+            var configuration = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json")
+                .Build();
+
+            ConnectionString = configuration.GetConnectionString("DefaultConnection");
+        }
+
+        private const string DatabaseName = "eventmanadb";
 
         public static void InitializeDatabase()
         {
