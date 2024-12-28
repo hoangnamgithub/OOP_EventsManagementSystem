@@ -52,7 +52,7 @@
                             Header="Event"
                             VirtualizingStackPanel.IsVirtualizing="True"
                             VirtualizingStackPanel.VirtualizationMode="Recycling">
-                            <!-- <styles:EventAnalyze />-->
+                            <styles:EventAnalyze />
                         </Expander>
                         <!--  Sponsor Section  -->
                         <Expander
@@ -65,7 +65,7 @@
                             FontSize="18"
                             Foreground="White"
                             Header="Equipment">
-                            <!--<styles:EquipmentAnalyze /> -->
+                            <styles:EquipmentAnalyze />
                         </Expander>
                         <!--  Add more sections as needed  -->
                         <Expander
@@ -78,7 +78,7 @@
                             FontSize="18"
                             Foreground="White"
                             Header="Sponsor">
-                            <!--<styles:SponsorAnalyze /> -->
+                            <styles:SponsorAnalyze />
                         </Expander>
                         <Expander
                             Name="equipment_requirements_section"
@@ -90,7 +90,7 @@
                             FontSize="18"
                             Foreground="White"
                             Header="Venue">
-                            <!-- <styles:VenueAnalyze />-->
+                            <styles:VenueAnalyze />
                         </Expander>
                         <Expander
                             Name="Show_section"
@@ -102,7 +102,19 @@
                             FontSize="18"
                             Foreground="White"
                             Header="Show">
-                            <!-- <styles:ShowAnalyze /> -->
+                            <styles:ShowAnalyze />
+                        </Expander>
+                        <Expander
+                            Name="employee_section"
+                            Margin="10,0,10,10"
+                            HorizontalAlignment="Stretch"
+                            Background="CadetBlue"
+                            Expanded="Expander_Expanded"
+                            FontFamily="Bahnschrift SemiBold"
+                            FontSize="18"
+                            Foreground="White"
+                            Header="Employee">
+                            <styles:EmpAnalyze />
                         </Expander>
                     </StackPanel>
                 </ScrollViewer>

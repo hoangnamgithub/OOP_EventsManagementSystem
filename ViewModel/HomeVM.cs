@@ -18,6 +18,28 @@ namespace OOP_EventsManagementSystem.ViewModel
             LoadChartData();
         }
 
+        private SeriesCollection _roleSalaries;
+        public SeriesCollection RoleSalaries
+        {
+            get => _roleSalaries;
+            set
+            {
+                _roleSalaries = value;
+                OnPropertyChanged(nameof(RoleSalaries));
+            }
+        }
+
+        private List<string> _roleLabels;
+        public List<string> RoleLabels
+        {
+            get => _roleLabels;
+            set
+            {
+                _roleLabels = value;
+                OnPropertyChanged(nameof(RoleLabels));
+            }
+        }
+
         private SeriesCollection _equipmentQuantityByEvent;
         public SeriesCollection EquipmentQuantityByEvent
         {
@@ -609,6 +631,21 @@ namespace OOP_EventsManagementSystem.ViewModel
                     Values = new ChartValues<decimal>(
                         performerCostContributionData.Select(d => d.TotalCost)
                     ),
+                },
+            };
+
+            var roleSalariesData = _context
+                .EmployeeRoles.Select(er => new { er.RoleName, er.Salary })
+                .ToList();
+
+            RoleLabels = roleSalariesData.Select(d => d.RoleName).ToList();
+            RoleSalaries = new SeriesCollection
+            {
+                new ColumnSeries
+                {
+                    Title = "Salaries",
+                    Values = new ChartValues<decimal>(roleSalariesData.Select(d => d.Salary)),
+                    DataLabels = true,
                 },
             };
         }
