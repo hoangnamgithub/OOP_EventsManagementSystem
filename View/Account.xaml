@@ -14,9 +14,6 @@
     WindowStartupLocation="CenterScreen"
     WindowStyle="None"
     mc:Ignorable="d">
-    <Window.Resources>
-        <utlt:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
-    </Window.Resources>
 
     <Border
         x:Name="border"
@@ -28,17 +25,17 @@
         <ScrollViewer Margin="0,20,0,0">
             <StackPanel>
                 <Button
-    Grid.Column="1"
-    Width="40"
-    Height="40"
-    Margin="0"
-    HorizontalAlignment="Right"
-    VerticalAlignment="Top"
-    Background="Transparent"
-    BorderBrush="Transparent"
-    Click="Button_Click"
-    Content="X"
-    Foreground="Black" />
+                    Grid.Column="1"
+                    Width="40"
+                    Height="40"
+                    Margin="0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    Background="Transparent"
+                    BorderBrush="Transparent"
+                    Click="Button_Click"
+                    Content="X"
+                    Foreground="Black" />
                 <TextBlock
                     Margin="25,-30"
                     Style="{StaticResource txt_header}"
@@ -329,7 +326,7 @@
                         </DataGrid>
                     </Grid>
                 </Border>
-                
+
             </StackPanel>
         </ScrollViewer>
 
