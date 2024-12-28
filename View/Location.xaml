@@ -36,7 +36,9 @@
             <ItemsControl
                 x:Name="ItemsControl"
                 ItemsSource="{Binding Venues}"
-                ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                VirtualizingStackPanel.IsVirtualizing="True"
+                VirtualizingStackPanel.VirtualizationMode="Recycling">
                 <ItemsControl.ItemsPanel>
                     <!--  Sử dụng ItemsPanelTemplate để bố trí các mục theo hàng ngang  -->
                     <ItemsPanelTemplate>

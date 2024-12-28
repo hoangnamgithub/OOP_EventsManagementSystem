@@ -33,7 +33,9 @@
                     Background="White"
                     IsReadOnly="True"
                     ItemsSource="{Binding Events}"
-                    SelectionChanged="DataGrid_SelectionChanged">
+                    SelectionChanged="DataGrid_SelectionChanged"
+                    VirtualizingStackPanel.IsVirtualizing="True"
+                    VirtualizingStackPanel.VirtualizationMode="Recycling">
                     <DataGrid.Columns>
                         <DataGridTextColumn
                             Width="60"
@@ -109,7 +111,9 @@
                         BeginningEdit="SponsorDataGrid_BeginningEdit"
                         IsReadOnly="True"
                         ItemsSource="{Binding Sponsors}"
-                        SelectionChanged="SponsorDataGrid_SelectionChanged">
+                        SelectionChanged="SponsorDataGrid_SelectionChanged"
+                        VirtualizingStackPanel.IsVirtualizing="True"
+                        VirtualizingStackPanel.VirtualizationMode="Recycling">
                         <DataGrid.Columns>
                             <DataGridTextColumn
                                 Width="60"

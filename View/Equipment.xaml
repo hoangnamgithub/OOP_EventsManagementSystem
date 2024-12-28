@@ -34,7 +34,9 @@
                         IsReadOnly="True"
                         ItemsSource="{Binding Events}"
                         SelectedItem="{Binding SelectedEvent, Mode=TwoWay}"
-                        SelectionMode="Single">
+                        SelectionMode="Single"
+                        VirtualizingStackPanel.IsVirtualizing="True"
+                        VirtualizingStackPanel.VirtualizationMode="Recycling">
                         <DataGrid.Columns>
                             <DataGridTextColumn
                                 Width="60"
@@ -73,7 +75,9 @@
                             AutoGenerateColumns="False"
                             Background="White"
                             IsReadOnly="True"
-                            ItemsSource="{Binding Equipments}">
+                            ItemsSource="{Binding Equipments}"
+                            VirtualizingStackPanel.IsVirtualizing="True"
+                            VirtualizingStackPanel.VirtualizationMode="Recycling">
                             <DataGrid.Columns>
                                 <DataGridTextColumn
                                     Width="*"

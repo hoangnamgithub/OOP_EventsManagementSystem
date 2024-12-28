@@ -40,7 +40,7 @@
                         <Grid>
                             <DataGrid
                                 Name="dtgrd_todayEvent"
-                                Margin="0,45,0,0"
+                                Margin="0,0,0,0"
                                 AutoGenerateColumns="False"
                                 Background="Transparent"
                                 CanUserAddRows="False"
@@ -48,7 +48,9 @@
                                 IsReadOnly="True"
                                 ItemsSource="{Binding TodayEvents}"
                                 PreviewMouseLeftButtonDown="Dtgrd_TodayEvent_PreviewMouseLeftButtonDown"
-                                SelectedItem="{Binding SelectedEvent}">
+                                SelectedItem="{Binding SelectedEvent}"
+                                VirtualizingStackPanel.IsVirtualizing="True"
+                                VirtualizingStackPanel.VirtualizationMode="Recycling">
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Binding="{Binding EventName}" Header="Event Name" />
                                 </DataGrid.Columns>
@@ -89,7 +91,9 @@
                                 AutoGenerateColumns="False"
                                 Background="Transparent"
                                 IsReadOnly="True"
-                                ItemsSource="{Binding EngagedEmployees}">
+                                ItemsSource="{Binding EngagedEmployees}"
+                                VirtualizingStackPanel.IsVirtualizing="True"
+                                VirtualizingStackPanel.VirtualizationMode="Recycling">
                                 <DataGrid.Columns>
                                     <DataGridTextColumn
                                         Width="auto"
