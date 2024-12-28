@@ -97,11 +97,22 @@
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
-        <TextBlock
-            x:Name="userRole"
+        <Border
             Grid.Row="1"
-            Margin="25"
-            HorizontalAlignment="Right" />
+            Width="150"
+            Height="150"
+            Margin="0,45,55,0"
+            HorizontalAlignment="Right"
+            Background="White"
+            CornerRadius="16">
+            <TextBlock
+                x:Name="userRole"
+                Margin="20"
+                FontSize="22"
+                Style="{StaticResource txt_header}"
+                TextWrapping="Wrap" />
+        </Border>
+
         <StackPanel
             Grid.Row="1"
             Margin="0,35,245,0"
