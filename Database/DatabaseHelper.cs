@@ -19,7 +19,7 @@ namespace OOP_EventsManagementSystem.Database
             ConnectionString = configuration.GetConnectionString("DefaultConnection");
         }
 
-        private const string DatabaseName = "eventmanadb";
+        private const string DatabaseName = "eventmanadbcloud";
 
         public static void InitializeDatabase()
         {
