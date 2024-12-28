@@ -69,7 +69,7 @@ namespace OOP_EventsManagementSystem.ViewModel
                 OnPropertyChanged(nameof(ShowsPagination));
             }
         }
-     
+
         private ObservableCollection<FilteredEmployeeRole> _filteredEmployeeRoles;
         public ObservableCollection<FilteredEmployeeRole> FilteredEmployeeRoles
         {
@@ -321,6 +321,7 @@ namespace OOP_EventsManagementSystem.ViewModel
                 OnPropertyChanged(nameof(SelectedSponsors));
             }
         }
+
         // Dữ liệu gốc chưa bị lọc
         private ObservableCollection<Model.Show> _allShows;
         public ObservableCollection<Model.Show> AllShows
@@ -437,7 +438,7 @@ namespace OOP_EventsManagementSystem.ViewModel
                     // Remove the Show itself
                     _context.Shows.Remove(show);
                 }
-               
+
                 // Save changes to the database
                 _context.SaveChanges();
 
@@ -475,7 +476,6 @@ namespace OOP_EventsManagementSystem.ViewModel
 
                 // Trigger UI update
                 OnPropertyChanged(nameof(ShowsPagination));
-               
             }
         }
 
@@ -495,8 +495,11 @@ namespace OOP_EventsManagementSystem.ViewModel
                     .ToList();
 
                 // Xóa các sponsor trong bảng IsSponsor liên quan đến sự kiện hiện tại
-                var isSponsorRecords = _context.IsSponsors
-                    .Where(isSponsor => sponsorsToDelete.Contains(isSponsor.SponsorId) && isSponsor.EventId == SelectedEventId)
+                var isSponsorRecords = _context
+                    .IsSponsors.Where(isSponsor =>
+                        sponsorsToDelete.Contains(isSponsor.SponsorId)
+                        && isSponsor.EventId == SelectedEventId
+                    )
                     .ToList();
 
                 if (isSponsorRecords.Any())
@@ -525,7 +528,12 @@ namespace OOP_EventsManagementSystem.ViewModel
             if (UserAccount.PermissionId == 3)
             {
                 // Show a message saying the user doesn't have permission
-                MessageBox.Show("Bạn không có quyền để thực hiện hành động này.", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(
+                    "Bạn không có quyền để thực hiện hành động này.",
+                    "Thông báo",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning
+                );
                 return; // Do not proceed with toggling the editing state
             }
 
@@ -870,7 +878,7 @@ namespace OOP_EventsManagementSystem.ViewModel
                     .ToList();
 
                 SponsorsPagination = new PaginationHelper<FilteredSponsor>(filteredSponsors, 8); // Set the number of items per page
-                
+
                 // Open the EventDetails window
                 var eventDetailsWindow = new EventDetails
                 {
@@ -889,8 +897,8 @@ namespace OOP_EventsManagementSystem.ViewModel
             // Use UserAccount.PermissionId instead of PermissionId
             if (UserAccount.PermissionId == 3) // Only show events the employee is engaged in
             {
-                var engagedEventIds = _context.Engageds
-                    .Where(e => e.Account.EmployeeId == UserAccount.EmployeeId) // Filter by logged-in employee's ID
+                var engagedEventIds = _context
+                    .Engageds.Where(e => e.Account.EmployeeId == UserAccount.EmployeeId) // Filter by logged-in employee's ID
                     .Select(e => e.EventId)
                     .ToList();
 
@@ -921,7 +929,6 @@ namespace OOP_EventsManagementSystem.ViewModel
                 engagedEvents.Where(e => e.EndDate.ToDateTime(TimeOnly.MinValue) < DateTime.Now),
                 9
             );
-
 
             // Load shows và lưu vào AllShows
             var shows = _context.Shows.Include(s => s.Performer).Include(s => s.Genre).ToList();
@@ -996,14 +1003,12 @@ namespace OOP_EventsManagementSystem.ViewModel
             {
                 // Lọc các show cho sự kiện cụ thể
                 var showIds = _context
-                    .ShowSchedules
-                    .Where(ss => ss.EventId == selectedEventId)
+                    .ShowSchedules.Where(ss => ss.EventId == selectedEventId)
                     .Select(ss => ss.ShowId)
                     .ToList();
 
                 var filteredShows = _context
-                    .Shows
-                    .Include(s => s.Performer)
+                    .Shows.Include(s => s.Performer)
                     .Include(s => s.Genre)
                     .Where(s => showIds.Contains(s.ShowId))
                     .ToList();
@@ -1021,45 +1026,49 @@ namespace OOP_EventsManagementSystem.ViewModel
                 MessageBox.Show($"Error loading shows for event: {ex.Message}");
             }
         }
+
         public void LoadSponsorsForEvent(int selectedEventId)
         {
             try
             {
                 // Lọc các sponsorId và sponsorTierId cho sự kiện cụ thể từ bảng IsSponsor
                 var sponsorsWithTierIds = _context
-                    .IsSponsors
-                    .Where(isSponsor => isSponsor.EventId == selectedEventId)
-                    .Select(isSponsor => new
-                    {
-                        isSponsor.SponsorId,
-                        isSponsor.SponsorTierId
-                    })
+                    .IsSponsors.Where(isSponsor => isSponsor.EventId == selectedEventId)
+                    .Select(isSponsor => new { isSponsor.SponsorId, isSponsor.SponsorTierId })
                     .ToList(); // Execute the query and bring the results into memory
 
                 // Lọc các sponsor từ bảng Sponsor theo sponsorId đã chọn
                 var filteredSponsors = _context
-                    .Sponsors
-                    .Where(s => sponsorsWithTierIds.Select(x => x.SponsorId).Contains(s.SponsorId))
+                    .Sponsors.Where(s =>
+                        sponsorsWithTierIds.Select(x => x.SponsorId).Contains(s.SponsorId)
+                    )
                     .ToList(); // Load the filtered Sponsors into memory
 
                 // Lọc các SponsorTier từ bảng SponsorTier theo sponsorTierId đã chọn
                 var sponsorTiers = _context
-                    .SponsorTiers
-                    .Where(st => sponsorsWithTierIds.Select(x => x.SponsorTierId).Contains(st.SponsorTierId))
+                    .SponsorTiers.Where(st =>
+                        sponsorsWithTierIds.Select(x => x.SponsorTierId).Contains(st.SponsorTierId)
+                    )
                     .ToList(); // Load the SponsorTiers into memory
 
                 // Kết hợp thông tin từ Sponsor và SponsorTier để tạo thành FilteredSponsor
                 var filteredSponsorList = filteredSponsors
-                    .Join(sponsorTiers,
-                          sponsor => sponsorsWithTierIds.FirstOrDefault(x => x.SponsorId == sponsor.SponsorId)?.SponsorTierId,
-                          sponsorTier => sponsorTier.SponsorTierId,
-                          (sponsor, sponsorTier) => new FilteredSponsor
-                          {
-                              SponsorId = sponsor.SponsorId,
-                              SponsorName = sponsor.SponsorName,
-                              TierName = sponsorTier.TierName, // Get TierName from SponsorTier
-                                                               // Add any other properties you want to copy here
-                          })
+                    .Join(
+                        sponsorTiers,
+                        sponsor =>
+                            sponsorsWithTierIds
+                                .FirstOrDefault(x => x.SponsorId == sponsor.SponsorId)
+                                ?.SponsorTierId,
+                        sponsorTier => sponsorTier.SponsorTierId,
+                        (sponsor, sponsorTier) =>
+                            new FilteredSponsor
+                            {
+                                SponsorId = sponsor.SponsorId,
+                                SponsorName = sponsor.SponsorName,
+                                TierName = sponsorTier.TierName, // Get TierName from SponsorTier
+                                // Add any other properties you want to copy here
+                            }
+                    )
                     .ToList();
 
                 // Giả sử bạn có một ObservableCollection để hiển thị danh sách sponsors
@@ -1078,7 +1087,6 @@ namespace OOP_EventsManagementSystem.ViewModel
                 MessageBox.Show($"Error loading sponsors for event: {ex.Message}");
             }
         }
-
 
         private void ExecuteNextPage(object parameter)
         {
@@ -1108,7 +1116,6 @@ namespace OOP_EventsManagementSystem.ViewModel
                 SponsorsPagination.PreviousPage();
         }
 
-        
         // Implementation of INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -1139,6 +1146,5 @@ namespace OOP_EventsManagementSystem.ViewModel
         public int SponsorId { get; set; }
         public string SponsorName { get; set; }
         public string TierName { get; set; }
-
     }
 }

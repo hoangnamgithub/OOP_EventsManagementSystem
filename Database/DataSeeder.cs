@@ -23,11 +23,11 @@ namespace OOP_EventsManagementSystem.Database
                 SeedEmployeeRoles(context); //6
 
                 SeedEmployeeData(context); //7
-                AssignRandomManagers(context); //7
+                var managerIds = AssignRandomManagers(context); //7
 
                 SeedPermissions(context); //9
 
-                SeedAccounts(context); //10
+                SeedAccounts(context, managerIds); //10
 
                 SeedSponsorTierData(context); //11
 
@@ -418,20 +418,24 @@ namespace OOP_EventsManagementSystem.Database
             }
         }
 
-        private static void AssignRandomManagers(EventManagementDbContext context)
+        private static List<int> AssignRandomManagers(EventManagementDbContext context)
         {
             var employees = context.Employees.ToList();
             var random = new Random();
+            var managerIds = new List<int>();
 
             // Assign random managers to each role
             foreach (var role in context.EmployeeRoles.Where(r => r.RoleName != "Manager"))
             {
                 var manager = employees[random.Next(employees.Count)];
                 role.ManagerId = manager.EmployeeId;
+                managerIds.Add(manager.EmployeeId);
             }
 
             context.SaveChanges();
             Console.WriteLine("Assigned random managers to roles successfully.");
+
+            return managerIds;
         }
 
         private static void SeedPermissions(EventManagementDbContext context)
@@ -455,7 +459,7 @@ namespace OOP_EventsManagementSystem.Database
             Console.WriteLine("Seeded permission data successfully.");
         }
 
-        private static void SeedAccounts(EventManagementDbContext context)
+        private static void SeedAccounts(EventManagementDbContext context, List<int> managerIds)
         {
             if (context.Accounts.Any())
             {
@@ -487,12 +491,11 @@ namespace OOP_EventsManagementSystem.Database
                 // Special case for Admin, permission = 1
                 if (employee.Role.RoleName == "Admin")
                 {
-                    permissionId = 1; // Set permission to 1 for CEOs
+                    permissionId = 1; // Set permission to 1 for Admins
                 }
 
                 // Check if the employee is a manager
-                bool isManager = roles.Any(r => r.ManagerId == employee.EmployeeId);
-                if (isManager)
+                if (managerIds.Contains(employee.EmployeeId))
                 {
                     permissionId =
                         permissions.FirstOrDefault(p => p.Permission1 == "Manager")?.PermissionId
