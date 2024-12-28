@@ -60,7 +60,7 @@ public class MainWindowVM : INotifyPropertyChanged
         if (permissionId == 1)
         {
             // Đặt view mặc định là Home
-        CurrentView = _homeView.Value;
+            CurrentView = new Home();
         }
         else if ( permissionId ==2)
         {

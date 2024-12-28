@@ -66,7 +66,7 @@ namespace OOP_EventsManagementSystem.View
                 .Accounts.Include(a => a.Employee)
                 .Include(a => a.Permission)
                 .Include(a => a.Employee.Role) // Bao gồm Role để lấy RoleName
-                .Where(a => a.PermissionId == 3)
+                .Where(a => a.PermissionId != 1)
                 .Select(a => new AccountViewModel
                 {
                     FullName = a.Employee.FullName,
@@ -74,7 +74,8 @@ namespace OOP_EventsManagementSystem.View
                     Password = a.Password,
                     RoleName = a.Employee.Role.RoleName, // Gán RoleName từ Employee.Role
                     Contact = a.Employee.Contact, // Lấy Contact từ bảng Employee
-                    Permission = a.Permission.Permission1 // Thêm Permission1 từ bảng Permission
+                    Permission = a.Permission.Permission1, // Thêm Permission1 từ bảng Permission
+                    PermissionID = a.PermissionId
                 })
                 .ToList();
 
@@ -359,6 +360,7 @@ namespace OOP_EventsManagementSystem.View
             public string RoleName { get; set; }
             public string Contact { get; set; }
             public string Permission { get; set; } // Thêm thuộc tính Permission
+            public int PermissionID { get; set; }
         }       
 
     }
