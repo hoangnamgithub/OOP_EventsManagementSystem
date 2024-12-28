@@ -28,6 +28,7 @@ namespace OOP_EventsManagementSystem.ViewModel
             LoadEquipments();
             LoadVenues();
             LoadEventTypes();
+            TierOptions = new ObservableCollection<int> { 1, 2, 3, 4, 5, 6 }; // Initialize tier options
         }
 
         public ICommand ConfirmCommand { get; }
@@ -37,6 +38,9 @@ namespace OOP_EventsManagementSystem.ViewModel
         public int ExpectedAttendee { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
+
+        public ObservableCollection<int> TierOptions { get; set; } =
+            new ObservableCollection<int> { 1, 2, 3, 4, 5, 6 };
 
         private void SaveData(Window window)
         {
@@ -60,48 +64,33 @@ namespace OOP_EventsManagementSystem.ViewModel
             _context.SaveChanges();
 
             // Hiển thị thông báo về việc đã có Event
-            MessageBox.Show("Event created successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show(
+                "Event created successfully!",
+                "Success",
+                MessageBoxButton.OK,
+                MessageBoxImage.Information
+            );
 
             // Lưu các sponsor đã chọn vào database
             foreach (var sponsorWrapper in Sponsors)
             {
-                // Kiểm tra xem SponsorTierId có giá trị hợp lệ không (không phải null)
-                if (!sponsorWrapper.SponsorTierId.HasValue)
+                // Chỉ lưu các sponsor có SponsorTierId hợp lệ
+                if (
+                    sponsorWrapper.SponsorTierId.HasValue
+                    && sponsorWrapper.SponsorTierId >= 1
+                    && sponsorWrapper.SponsorTierId <= 6
+                )
                 {
-                    // Hiển thị thông báo lỗi nếu SponsorTierId không có giá trị
-                    MessageBox.Show($"Sponsor {sponsorWrapper.SponsorName} is missing a valid SponsorTierId", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return; // Dừng lại nếu không có giá trị hợp lệ
+                    var isSponsor = new IsSponsor
+                    {
+                        EventId = newEvent.EventId,
+                        SponsorId = sponsorWrapper.SponsorId,
+                        SponsorTierId = sponsorWrapper.SponsorTierId.Value,
+                    };
+
+                    _context.IsSponsors.Add(isSponsor);
                 }
-
-                // Lấy Sponsor từ SponsorWrapper
-                var sponsor = new Sponsor
-                {
-                    SponsorId = sponsorWrapper.SponsorId,
-                    SponsorName = sponsorWrapper.SponsorName,
-                };
-
-                // Lưu IsSponsor vào database
-                var isSponsor = new IsSponsor
-                {
-                    EventId = newEvent.EventId,
-                    SponsorId = sponsor.SponsorId,
-                    SponsorTierId = sponsorWrapper.SponsorTierId.Value,
-                    Event = newEvent,  // Liên kết với Event
-                    Sponsor = sponsor, // Liên kết với Sponsor
-                    SponsorTier = _context.SponsorTiers.FirstOrDefault(st => st.SponsorTierId == sponsorWrapper.SponsorTierId)
-                };
-
-                // Kiểm tra xem SponsorTier có tồn tại trong cơ sở dữ liệu không
-                if (isSponsor.SponsorTier == null)
-                {
-                    MessageBox.Show($"Sponsor Tier not found for {sponsorWrapper.SponsorName}", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return; // Dừng lại nếu không tìm thấy SponsorTier
-                }
-
-                // Thêm IsSponsor vào cơ sở dữ liệu
-                _context.IsSponsors.Add(isSponsor);
             }
-
 
             // Save checked shows
             foreach (var show in Shows.Where(s => s.IsChecked))
@@ -140,11 +129,21 @@ namespace OOP_EventsManagementSystem.ViewModel
 
             _context.SaveChanges();
 
-            // Hiển thị thông báo đã lưu thành công các sponsor
-            MessageBox.Show("Sponsors saved successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-
             // Hiển thị thông báo thành công sau khi tất cả đã được lưu
-            MessageBox.Show("Event and related data have been saved successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show(
+                "Event and related data have been saved successfully!",
+                "Success",
+                MessageBoxButton.OK,
+                MessageBoxImage.Information
+            );
+
+            // Reload data in EventVM
+            var eventVM =
+                Application
+                    .Current.Windows.OfType<Window>()
+                    .FirstOrDefault(w => w.DataContext is EventVM)
+                    ?.DataContext as EventVM;
+            eventVM?.LoadData();
 
             // Close the window
             window?.Close();
@@ -269,9 +268,7 @@ namespace OOP_EventsManagementSystem.ViewModel
         {
             using (var context = new EventManagementDbContext()) // Sử dụng context của bạn để truy vấn cơ sở dữ liệu
             {
-                SponsorTiers = new ObservableCollection<SponsorTier>(
-                    context.SponsorTiers.ToList()
-                );
+                SponsorTiers = new ObservableCollection<SponsorTier>(context.SponsorTiers.ToList());
             }
         }
 
@@ -284,13 +281,10 @@ namespace OOP_EventsManagementSystem.ViewModel
                         SponsorId = s.SponsorId,
                         SponsorName = s.SponsorName,
                         SponsorTierId = null,
-                       
                     })
                     .ToList()
             );
         }
-
-
 
         private void LoadEmployeeRoles()
         {
