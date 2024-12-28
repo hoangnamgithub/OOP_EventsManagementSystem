@@ -366,6 +366,10 @@ namespace OOP_EventsManagementSystem.ViewModel
         //--------------------------------------------------------------
         private void ExecuteDeleteEventCommand(object parameter)
         {
+            if (UserAccount.PermissionId ==1 )
+            {
+
+            
             // Show a confirmation message box
             MessageBoxResult result = MessageBox.Show(
                 "Are you sure you want to delete this event?",
@@ -420,6 +424,15 @@ namespace OOP_EventsManagementSystem.ViewModel
                         .SingleOrDefault(w => w.IsActive)
                         ?.Close();
                 }
+            }
+            }
+            else
+            {
+                MessageBox.Show(
+                                    "You do not have the required permissions to delete an event.", "Permission Denied",
+                                    MessageBoxButton.OK,
+                                    MessageBoxImage.Warning
+                                );
             }
         }
 
@@ -587,21 +600,24 @@ namespace OOP_EventsManagementSystem.ViewModel
         private void ToggleEditing()
         {
             // Check if the PermissionId is 3 (or any other value you want to block)
-            if (UserAccount.PermissionId == 3)
+            if (UserAccount.PermissionId == 1)
+            {
+                // If the user has permission, toggle the editing state
+                IsEditing = !IsEditing;
+                OnPropertyChanged(nameof(IsEditing));
+            }
+            else
             {
                 // Show a message saying the user doesn't have permission
                 MessageBox.Show(
-                    "Bạn không có quyền để thực hiện hành động này.",
-                    "Thông báo",
+                    "You do not have the required permissions to edit an event.", "Permission Denied",
                     MessageBoxButton.OK,
                     MessageBoxImage.Warning
                 );
-                return; // Do not proceed with toggling the editing state
             }
+            
 
-            // If the user has permission, toggle the editing state
-            IsEditing = !IsEditing;
-            OnPropertyChanged(nameof(IsEditing));
+            
         }
 
         private bool ValidateAttendeeCount()
@@ -960,16 +976,30 @@ namespace OOP_EventsManagementSystem.ViewModel
             if (UserAccount.PermissionId == 3) // Only show events the employee is engaged in
             {
                 var engagedEventIds = _context
-                    .Engageds.Where(e => e.Account.EmployeeId == UserAccount.EmployeeId) // Filter by logged-in employee's ID
+                    .Engageds
+                    .Where(e => e.Account.EmployeeId == UserAccount.EmployeeId) // Filter by logged-in employee's ID
                     .Select(e => e.EventId)
                     .ToList();
 
                 engagedEvents = allEvents.Where(e => engagedEventIds.Contains(e.EventId));
             }
-            else
+            else if (UserAccount.PermissionId == 1)
             {
                 engagedEvents = allEvents; // Show all events if not PermissionId == 3
             }
+            else
+            {
+                // Get all events engaged by employees with the same RoleName as UserAccount
+                var engagedEventIds = _context
+                    .Engageds
+                    .Where(e => e.Account.Employee.Role.RoleName == UserAccount.RoleName) // Filter by RoleName
+                    .Select(e => e.EventId)
+                    .Distinct()
+                    .ToList();
+
+                engagedEvents = allEvents.Where(e => engagedEventIds.Contains(e.EventId));
+            }
+
 
             // Filter upcoming events
             UpcomingPagination = new PaginationHelper<Model.Event>(

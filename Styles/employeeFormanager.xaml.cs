@@ -28,6 +28,7 @@ namespace OOP_EventsManagementSystem.Styles
         {
             InitializeComponent();
             LoadEvents();
+            userRole.Text = UserAccount.RoleName;
         }
 
         private void LoadEvents()

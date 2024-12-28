@@ -57,7 +57,7 @@ public class MainWindowVM : INotifyPropertyChanged
         }
         else if (permissionId == 2)
         {
-            CurrentView = new Home();
+            CurrentView = new OOP_EventsManagementSystem.View.Event();
         }
         else if (permissionId == 3)
         {

@@ -28,6 +28,11 @@ namespace OOP_EventsManagementSystem.View
             this.DataContext = new EventVM();
             AddButton.IsEnabled = true;
             CurrentDateTextBlock.Text = DateTime.Now.ToString("dd-MM-yyyy");
+            if (UserAccount.PermissionId == 2)
+            {
+                completedEvent.Visibility = Visibility.Collapsed;
+            }
+            
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)

@@ -97,6 +97,11 @@
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
+        <TextBlock
+            x:Name="userRole"
+            Grid.Row="1"
+            Margin="25"
+            HorizontalAlignment="Right" />
         <StackPanel
             Grid.Row="1"
             Margin="0,35,245,0"
