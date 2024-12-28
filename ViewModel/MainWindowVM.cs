@@ -1,7 +1,7 @@
-﻿using OOP_EventsManagementSystem.Model;
-using OOP_EventsManagementSystem.View;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Windows.Input;
+using OOP_EventsManagementSystem.Model;
+using OOP_EventsManagementSystem.View;
 
 public class MainWindowVM : INotifyPropertyChanged
 {
@@ -9,6 +9,13 @@ public class MainWindowVM : INotifyPropertyChanged
     private int _permissionId; // Thêm thuộc tính PermissionId
     private readonly EventManagementDbContext _context; // Khai báo DbContext
 
+    private Lazy<Home> _homeView;
+    private Lazy<Partner> _partnerView;
+    private Lazy<Location> _locationView;
+    private Lazy<OOP_EventsManagementSystem.View.Event> _eventView;
+    private Lazy<OOP_EventsManagementSystem.View.Show> _showView;
+    private Lazy<OOP_EventsManagementSystem.View.Employee> _employeeView;
+    private Lazy<OOP_EventsManagementSystem.View.Equipment> _equipmentView;
     public object CurrentView
     {
         get => _currentView;
@@ -51,54 +58,74 @@ public class MainWindowVM : INotifyPropertyChanged
         EquipmentCommand = new RelayCommand(ExecuteEquipmentCommand, CanExecuteEquipmentCommand);
         LocationCommand = new RelayCommand(ExecuteLocationCommand, CanExecuteLocationCommand);
 
+        _homeView = new Lazy<Home>(() => new Home());
+        _eventView = new Lazy<OOP_EventsManagementSystem.View.Event>(
+            () => new OOP_EventsManagementSystem.View.Event()
+        );
+        _showView = new Lazy<OOP_EventsManagementSystem.View.Show>(
+            () => new OOP_EventsManagementSystem.View.Show()
+        );
+        _partnerView = new Lazy<Partner>(() => new Partner());
+        _employeeView = new Lazy<OOP_EventsManagementSystem.View.Employee>(
+            () => new OOP_EventsManagementSystem.View.Employee()
+        );
+        _equipmentView = new Lazy<OOP_EventsManagementSystem.View.Equipment>(
+            () => new OOP_EventsManagementSystem.View.Equipment()
+        );
+        _locationView = new Lazy<Location>(() => new Location());
         // Đặt view mặc định là Home
-        CurrentView = new Home();
+        CurrentView = _homeView.Value;
     }
 
     private void ExecuteHomeCommand(object parameter)
     {
-        CurrentView = new Home();
+        CurrentView = _homeView.Value;
     }
 
     private void ExecuteEventCommand(object parameter)
     {
-        CurrentView = new OOP_EventsManagementSystem.View.Event();
+        CurrentView = _eventView.Value;
     }
 
     private void ExecuteShowCommand(object parameter)
     {
-        CurrentView = new OOP_EventsManagementSystem.View.Show();
+        CurrentView = _showView.Value;
     }
 
     private void ExecutePartnerCommand(object parameter)
     {
-        CurrentView = new Partner();
+        CurrentView = _partnerView.Value;
     }
 
     private void ExecuteEmployeeCommand(object parameter)
     {
-        CurrentView = new OOP_EventsManagementSystem.View.Employee();
+        CurrentView = _employeeView.Value;
     }
 
     private void ExecuteEquipmentCommand(object parameter)
     {
-        CurrentView = new OOP_EventsManagementSystem.View.Equipment();
+        CurrentView = _equipmentView.Value;
     }
 
     private void ExecuteLocationCommand(object parameter)
     {
-        CurrentView = new Location();
+        CurrentView = _locationView.Value;
     }
 
     // Các phương thức CanExecute kiểm tra quyền của người dùng dựa trên PermissionId
     private bool CanExecuteHomeCommand(object parameter) => true; // Nút Home luôn có thể thực thi
+
     private bool CanExecuteEventCommand(object parameter) => true; // Nút Event luôn có thể thực thi
 
     // Các nút khác chỉ có thể thực thi nếu PermissionId khác 3
     private bool CanExecuteShowCommand(object parameter) => PermissionId != 3;
+
     private bool CanExecutePartnerCommand(object parameter) => PermissionId != 3;
+
     private bool CanExecuteEmployeeCommand(object parameter) => PermissionId != 3;
+
     private bool CanExecuteEquipmentCommand(object parameter) => PermissionId != 3;
+
     private bool CanExecuteLocationCommand(object parameter) => PermissionId != 3;
 
     // Cập nhật quyền truy cập của các lệnh khi PermissionId thay đổi
@@ -113,6 +140,7 @@ public class MainWindowVM : INotifyPropertyChanged
     }
 
     public event PropertyChangedEventHandler PropertyChanged;
+
     protected virtual void OnPropertyChanged(string propertyName)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

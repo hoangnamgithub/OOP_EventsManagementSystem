@@ -27,9 +27,8 @@ namespace OOP_EventsManagementSystem.Styles
         {
             InitializeComponent();
             this.DataContext = this;
-            
         }
-        
+
         private void AccountButton_Click(object sender, RoutedEventArgs e)
         {
             AccountContextMenu.IsOpen = true;
@@ -51,12 +50,19 @@ namespace OOP_EventsManagementSystem.Styles
             Account accountWindow = new Account();
 
             // Truyền thông tin tài khoản vào Account Window
-            accountWindow.SetAccountInfo(fullName,contact, employeeId, roleName, email, password, permission);
+            accountWindow.SetAccountInfo(
+                fullName,
+                contact,
+                employeeId,
+                roleName,
+                email,
+                password,
+                permission
+            );
 
             // Hiển thị cửa sổ Account
             accountWindow.Show();
         }
-
 
         private void EditAccount_Click(object sender, RoutedEventArgs e)
         {
@@ -67,7 +73,12 @@ namespace OOP_EventsManagementSystem.Styles
         private void Logout_Click(object sender, RoutedEventArgs e)
         {
             // Hiển thị hộp thoại xác nhận
-            MessageBoxResult result = MessageBox.Show("Bạn có chắc chắn muốn đăng xuất không?", "Xác nhận đăng xuất", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            MessageBoxResult result = MessageBox.Show(
+                "Bạn có chắc chắn muốn đăng xuất không?",
+                "Xác nhận đăng xuất",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question
+            );
 
             // Nếu người dùng chọn Yes, thực hiện đăng xuất
             if (result == MessageBoxResult.Yes)
@@ -83,14 +94,13 @@ namespace OOP_EventsManagementSystem.Styles
                 }
 
                 // Sau khi đóng các cửa sổ, mở cửa sổ đăng ký (SignUp)
-                SignUp signupWindow = new SignUp();  // Đảm bảo rằng SignUp là lớp của cửa sổ Signup.xaml
+                SignUp signupWindow = new SignUp(); // Đảm bảo rằng SignUp là lớp của cửa sổ Signup.xaml
                 signupWindow.Show(); // Hiển thị cửa sổ SignUp
 
                 // Đóng cửa sổ hiện tại (cửa sổ đang thực thi đăng xuất)
                 Window.GetWindow(this).Close();
             }
         }
-
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -106,17 +116,15 @@ namespace OOP_EventsManagementSystem.Styles
             // Set the background color of the clicked button
             if (sender is Button clickedButton)
             {
-                clickedButton.Foreground = Brushes.Red;
+                clickedButton.Background = Brushes.Red;
             }
         }
     }
+
     // Trong code-behind của cả Account.xaml.cs và NavigateBar.xaml.cs
 
     public static class User
     {
         public static string AvatarPath { get; set; } = string.Empty; // Đường dẫn tạm thời cho avatar
     }
-
-
 }
-

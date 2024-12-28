@@ -19,7 +19,7 @@ namespace OOP_EventsManagementSystem.Styles
     /// </summary>
     public partial class EventDetails : Window
     {
-        public int SelectedEventId { get; set; }  // Thuộc tính để lưu EventId đã chọn
+        public int SelectedEventId { get; set; } // Thuộc tính để lưu EventId đã chọn
 
         public EventDetails()
         {
@@ -109,13 +109,13 @@ namespace OOP_EventsManagementSystem.Styles
                     "You have unsaved changes. Are you sure you want to close without confirming?",
                     "Unsaved Changes",
                     MessageBoxButton.YesNo,
-                    MessageBoxImage.Warning);
+                    MessageBoxImage.Warning
+                );
                 eventVM.IsEditing = false; // Ensure the window remains in edit mode
 
                 // If the user clicks "No", switch back to edit mode
                 if (result == MessageBoxResult.No)
                 {
-                    
                     return; // This prevents the close action from happening
                 }
             }
@@ -123,7 +123,6 @@ namespace OOP_EventsManagementSystem.Styles
             // If user clicks Yes or IsEditing is false, proceed to close the window
             this.Close();
         }
-
 
         // Xử lý tìm kiếm
         private void btn_search_Click(object sender, RoutedEventArgs e)
@@ -182,11 +181,13 @@ namespace OOP_EventsManagementSystem.Styles
             {
                 string searchText = SearchBox_show.Text.ToLower(); // Lấy văn bản tìm kiếm từ TextBox
 
-                var filteredShows = eventVM.AllShows
-                    .Where(show => show.ShowName.ToLower().Contains(searchText) ||
-                                   show.Cost.ToString().ToLower().Contains(searchText) ||
-                                   show.Performer.FullName.ToLower().Contains(searchText) ||
-                                   show.Genre.Genre1.ToLower().Contains(searchText))
+                var filteredShows = eventVM
+                    .AllShows.Where(show =>
+                        show.ShowName.ToLower().Contains(searchText)
+                        || show.Cost.ToString().ToLower().Contains(searchText)
+                        || show.Performer.FullName.ToLower().Contains(searchText)
+                        || show.Genre.Genre1.ToLower().Contains(searchText)
+                    )
                     .ToList();
 
                 if (filteredShows.Count == 0)
@@ -213,9 +214,11 @@ namespace OOP_EventsManagementSystem.Styles
             {
                 string searchText = SearchBox_sponsor.Text.ToLower(); // Lấy văn bản tìm kiếm từ TextBox
 
-                var filteredSponsors = eventVM.SponsorsPagination.PagedCollection
-                    .Where(sponsor => sponsor.SponsorName.ToLower().Contains(searchText) ||
-                                      sponsor.TierName.ToLower().Contains(searchText))
+                var filteredSponsors = eventVM
+                    .SponsorsPagination.PagedCollection.Where(sponsor =>
+                        sponsor.SponsorName.ToLower().Contains(searchText)
+                        || sponsor.TierName.ToLower().Contains(searchText)
+                    )
                     .ToList();
 
                 // Kiểm tra tính toàn vẹn của dữ liệu sau khi lọc
@@ -234,12 +237,14 @@ namespace OOP_EventsManagementSystem.Styles
                 }
 
                 // Nếu cần, cập nhật lại PaginationHelper để tái phân trang
-                eventVM.SponsorsPagination = new PaginationHelper<FilteredSponsor>(filteredSponsors, 9);
+                eventVM.SponsorsPagination = new PaginationHelper<FilteredSponsor>(
+                    filteredSponsors,
+                    9
+                );
 
                 // Thông báo cho giao diện biết rằng dữ liệu đã thay đổi
                 eventVM.OnPropertyChanged(nameof(eventVM.SponsorsPagination.PagedCollection));
             }
         }
-
     }
 }
