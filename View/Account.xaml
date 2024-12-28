@@ -261,6 +261,49 @@
                                     </Grid>
                                 </Border>
 
+                                <!--  Edit Button  -->
+                                <Border
+                                    x:Name="edit"
+                                    Width="30"
+                                    Height="30"
+                                    Margin="5"
+                                    Background="#FFDCDCE6"
+                                    CornerRadius="16"
+                                    Visibility="Visible">
+                                    <Grid>
+                                        <Image Margin="6" Source="pack://application:,,,/Resources/Images/pencil-outline.png" />
+                                        <Button
+                                            x:Name="btn_editShow"
+                                            Width="20"
+                                            Height="20"
+                                            Background="{x:Null}"
+                                            BorderBrush="{x:Null}"
+                                            Click="edit_btn_Click" />
+                                    </Grid>
+                                </Border>
+
+                                <!--  Confirm Button  -->
+                                <Border
+                                    x:Name="comfirm"
+                                    Width="30"
+                                    Height="30"
+                                    Margin="5"
+                                    Background="#FFDCDCE6"
+                                    CornerRadius="16"
+                                    Visibility="Visible">
+                                    <Grid>
+                                        <Image Margin="6" Source="pack://application:,,,/Resources/Images/check-mark.png" />
+                                        <Button
+                                            x:Name="btn_comfirmShow"
+                                            Width="20"
+                                            Height="20"
+                                            Background="{x:Null}"
+                                            BorderBrush="{x:Null}"
+                                            Click="comfirm_btn_Click" />
+                                    </Grid>
+                                </Border>
+
+                                <!--  Delete Button  -->
                                 <Border
                                     x:Name="delete"
                                     Width="30"
@@ -268,7 +311,7 @@
                                     Margin="5"
                                     Background="#FFDCDCE6"
                                     CornerRadius="16"
-                                    Visibility="Collapsed">
+                                    Visibility="Visible">
                                     <Grid>
                                         <Image Margin="6" Source="pack://application:,,,/Resources/Images/delete-outline.png" />
                                         <Button
@@ -280,8 +323,9 @@
                                             Click="BtnDelete_Click" />
                                     </Grid>
                                 </Border>
-
                             </StackPanel>
+
+                            <!--  DataGrid  -->
                             <DataGrid
                                 x:Name="dataGrid"
                                 Margin="5,45,5,5"
@@ -299,29 +343,43 @@
                                         Width="auto"
                                         Binding="{Binding Contact}"
                                         Header="Contact" />
+
+                                    <!--  Role column  -->
+                                    <DataGridTemplateColumn Width="100" Header="Role">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Permission}" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                        <DataGridTemplateColumn.CellEditingTemplate>
+                                            <DataTemplate>
+                                                <ComboBox
+                                                    DisplayMemberPath="Permission1"
+                                                    ItemsSource="{Binding DataContext.Permissions, RelativeSource={RelativeSource AncestorType=Window}}"
+                                                    SelectedValue="{Binding Permission}"
+                                                    SelectedValuePath="Permission1" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellEditingTemplate>
+                                    </DataGridTemplateColumn>
+
                                     <DataGridTextColumn
-                                        Width="180"
-                                        Binding="{Binding Permission}"
-                                        Header="Permission" />
-                                    <DataGridTextColumn
-                                        Width="180"
+                                        Width="auto"
                                         Binding="{Binding Email}"
                                         Header="Email" />
                                     <DataGridTextColumn
                                         Width="auto"
                                         Binding="{Binding Password}"
                                         Header="Password" />
-                                    <!--  ComboBox column for RoleName  -->
                                     <DataGridTemplateColumn Width="190" Header="Role">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
-                                                <!--  Hiển thị RoleName khi không chỉnh sửa  -->
+                                                <!--  Display RoleName when not editing  -->
                                                 <TextBlock Text="{Binding RoleName}" />
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
                                         <DataGridTemplateColumn.CellEditingTemplate>
                                             <DataTemplate>
-                                                <!--  ComboBox hiển thị danh sách RoleName khi chỉnh sửa  -->
+                                                <!--  ComboBox to select RoleName during editing  -->
                                                 <ComboBox
                                                     DisplayMemberPath="RoleName"
                                                     ItemsSource="{Binding DataContext.EmployeeRoles, RelativeSource={RelativeSource AncestorType=Window}}"
@@ -330,6 +388,8 @@
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellEditingTemplate>
                                     </DataGridTemplateColumn>
+
+
 
                                 </DataGrid.Columns>
                             </DataGrid>

@@ -34,6 +34,7 @@
     <None Remove="Resources\Images\audio.png" />
     <None Remove="Resources\Images\auxiliary.png" />
     <None Remove="Resources\Images\catering.png" />
+    <None Remove="Resources\Images\check-mark.png" />
     <None Remove="Resources\Images\communication.png" />
     <None Remove="Resources\Images\crown.png" />
     <None Remove="Resources\Images\decoration.png" />
@@ -100,6 +101,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Images\catering.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\check-mark.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Images\communication.png">

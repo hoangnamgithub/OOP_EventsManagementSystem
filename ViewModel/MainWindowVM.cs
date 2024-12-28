@@ -57,7 +57,7 @@ public class MainWindowVM : INotifyPropertyChanged
         }
         else if (permissionId == 2)
         {
-            CurrentView = new OOP_EventsManagementSystem.View.Employee();
+            CurrentView = new Home();
         }
         else if (permissionId == 3)
         {
@@ -104,7 +104,7 @@ public class MainWindowVM : INotifyPropertyChanged
     // Các phương thức CanExecute kiểm tra quyền của người dùng dựa trên PermissionId
     private bool CanExecuteHomeCommand(object parameter) => PermissionId == 1; // Nút Home luôn có thể thực thi
 
-    private bool CanExecuteEventCommand(object parameter) => PermissionId != 2; // Nút Event luôn có thể thực thi
+    private bool CanExecuteEventCommand(object parameter) => true; // Nút Event luôn có thể thực thi
 
     // Các nút khác chỉ có thể thực thi nếu PermissionId khác 3
     private bool CanExecuteShowCommand(object parameter) => PermissionId == 1;

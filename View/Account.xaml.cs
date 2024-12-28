@@ -21,19 +21,22 @@ namespace OOP_EventsManagementSystem.View
     {
         private EventManagementDbContext _context;
         public ObservableCollection<EmployeeRole> EmployeeRoles { get; set; }
+        public ObservableCollection<Permission> Permissions { get; set; }
         private List<AccountViewModel> allAccounts;
         public bool IsVisible { get; set; }
+        private bool isEditing = false;
         public Account()
         {
             _context = new EventManagementDbContext();
             InitializeComponent();
             LoadAccountData();
             LoadEmployeeRoles();
+            
             // Kiểm tra PermissionId và thiết lập IsVisible
             if (UserAccount.PermissionId == 1)
             {
                 dtgr.Visibility = Visibility.Visible; // Nếu PermissionId = 1, hiển thị phần tử
-                border.Height = 850 ;
+                border.Height = 550 ;
             }
             else
             {
@@ -88,6 +91,7 @@ namespace OOP_EventsManagementSystem.View
         {
             // Khởi tạo ObservableCollection với dữ liệu từ bảng EmployeeRole
             EmployeeRoles = new ObservableCollection<EmployeeRole>(_context.EmployeeRoles.ToList());
+            Permissions = new ObservableCollection<Permission>(_context.Permissions.ToList());
             DataContext = this; // Đặt DataContext để sử dụng trong XAML
         }
 
@@ -147,11 +151,7 @@ namespace OOP_EventsManagementSystem.View
             txtPermission.IsEnabled = false;
             txtRole.IsEnabled = false;
 
-            // Bật chỉnh sửa trong DataGrid
-            dataGrid.IsReadOnly = false;
-            dataGrid.SelectionMode = DataGridSelectionMode.Single;
-
-            delete.Visibility = Visibility.Visible;
+            
         }
 
         private void btnConfirm_Click(object sender, RoutedEventArgs e)
@@ -248,7 +248,7 @@ namespace OOP_EventsManagementSystem.View
             txtPassword.IsEnabled = false;
             btnConfirm.Visibility = Visibility.Collapsed;
             btn_Edit.Visibility = Visibility.Visible;
-            dataGrid.IsReadOnly = true;
+            
         }
 
         // Kiểm tra định dạng email có đuôi ".easys.com"
@@ -335,6 +335,83 @@ namespace OOP_EventsManagementSystem.View
             txtPassword.Text = password;
             txtPermission.Text = permission;
 
+        }
+        private void edit_btn_Click(object sender, RoutedEventArgs e)
+        {
+            // Enable DataGrid editing and disable Edit button
+            dataGrid.IsReadOnly = false;
+            btn_editShow.IsEnabled = false; // Disable Edit button
+            btn_comfirmShow.IsEnabled = true; // Enable Confirm button
+            isEditing = true;
+        }
+
+        // Confirm Button Click - Save Changes
+        private void comfirm_btn_Click(object sender, RoutedEventArgs e)
+        {
+            // Save changes to the database
+            SaveChangesToDatabase();
+
+            // Disable DataGrid editing and disable Confirm button
+            dataGrid.IsReadOnly = true;
+            btn_editShow.IsEnabled = true; // Re-enable Edit button
+            btn_comfirmShow.IsEnabled = false; // Disable Confirm button
+            isEditing = false;
+        }
+
+        // Save Changes to Database (Example method)
+        private void SaveChangesToDatabase()
+        {
+            try
+            {
+                // First, ensure that the currently selected account in the DataGrid has been modified
+                // Iterate through the rows of the DataGrid to check for any changes made
+                foreach (var item in dataGrid.ItemsSource.Cast<AccountViewModel>())
+                {
+                    var account = _context.Accounts
+                        .Include(a => a.Employee) // Include Employee for full access
+                        .Include(a => a.Employee.Role) // Include Role for full access
+                        .FirstOrDefault(a => a.Employee.FullName == item.FullName);
+
+                    if (account != null)
+                    {
+                        // Update the account and employee properties based on the values from the DataGrid
+                        account.Email = item.Email;
+                        account.Password = item.Password;
+                        account.Employee.FullName = item.FullName;
+                        account.Employee.Contact = item.Contact;
+
+                        // If you are editing the role, update it as well
+                        var selectedRole = _context.EmployeeRoles
+                            .FirstOrDefault(r => r.RoleName == item.RoleName);
+                        if (selectedRole != null)
+                        {
+                            account.Employee.RoleId = selectedRole.RoleId; // Update RoleId
+                        }
+
+                        // Update Permission if necessary (e.g., Permission ID change)
+                        var selectedPermission = _context.Permissions
+                            .FirstOrDefault(p => p.Permission1 == item.Permission);
+                        if (selectedPermission != null)
+                        {
+                            account.PermissionId = selectedPermission.PermissionId;
+                        }
+                    }
+                }
+
+                // Save all changes to the database
+                _context.SaveChanges();
+
+                // Notify user that the changes have been saved
+                MessageBox.Show("Account information updated successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                // Reload account data to reflect changes in the DataGrid
+                LoadAccountData();
+            }
+            catch (Exception ex)
+            {
+                // Handle any errors during the save process
+                MessageBox.Show($"An error occurred while saving changes: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void Border_MouseLeftButtonDown(
