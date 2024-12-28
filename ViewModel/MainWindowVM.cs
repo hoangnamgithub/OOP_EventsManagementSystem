@@ -63,8 +63,7 @@ public class MainWindowVM : INotifyPropertyChanged
         {
             CurrentView = new OOP_EventsManagementSystem.View.Event();
         }
-        // Đặt view mặc định là Home
-        CurrentView = new Home();
+        
     }
 
     private void ExecuteHomeCommand(object parameter)

@@ -109,12 +109,12 @@ namespace OOP_EventsManagementSystem.Styles
                 };
                 context.Engageds.Add(newEngaged);
 
-                // Lưu thay đổi
+                // Lưu thay đổi vào cơ sở dữ liệu
                 context.SaveChanges();
 
                 MessageBox.Show("Employee successfully added to the event.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                // Gọi lại phương thức LoadEmployees trong employeeFormanager
+                // Gọi lại phương thức LoadEmployees trong employeeFormanager để cập nhật lại DataGrid
                 _employeeFormanager.LoadEmployees(eventId, RoleName); // Sử dụng RoleName từ đối tượng hiện tại
 
                 // Đóng cửa sổ

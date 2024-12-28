@@ -104,7 +104,7 @@ namespace OOP_EventsManagementSystem.Styles
         {
             if (NeedDataGrid.SelectedItem == null)
             {
-                
+
                 return;
             }
 
