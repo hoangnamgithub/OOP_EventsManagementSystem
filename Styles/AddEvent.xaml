@@ -375,6 +375,42 @@
                                                         Style="{StaticResource PurpleButton}" />
                                                 </StackPanel>
                                             </StackPanel>
+                                            <StackPanel
+                                                Name="tierList"
+                                                Margin="5,0,5,0"
+                                                HorizontalAlignment="Center"
+                                                Orientation="Horizontal">
+                                                <TextBlock
+                                                    Margin="5,0,5,0"
+                                                    FontFamily="Bahnschrift SemiBold"
+                                                    FontSize="16"
+                                                    Text="1.Title" />
+                                                <TextBlock
+                                                    Margin="5,0,5,0"
+                                                    FontFamily="Bahnschrift SemiBold"
+                                                    FontSize="16"
+                                                    Text="2.Platinum" />
+                                                <TextBlock
+                                                    Margin="5,0,5,0"
+                                                    FontFamily="Bahnschrift SemiBold"
+                                                    FontSize="16"
+                                                    Text="3.Gold" />
+                                                <TextBlock
+                                                    Margin="5,0,5,0"
+                                                    FontFamily="Bahnschrift SemiBold"
+                                                    FontSize="16"
+                                                    Text="4.Silver" />
+                                                <TextBlock
+                                                    Margin="5,0,5,0"
+                                                    FontFamily="Bahnschrift SemiBold"
+                                                    FontSize="16"
+                                                    Text="5.Bronze" />
+                                                <TextBlock
+                                                    Margin="5,0,5,0"
+                                                    FontFamily="Bahnschrift SemiBold"
+                                                    FontSize="16"
+                                                    Text="6.Supporting" />
+                                            </StackPanel>
                                             <Border Height="300" Background="White">
                                                 <DataGrid
                                                     Name="dtgrd_sponsors"
@@ -386,13 +422,6 @@
                                                     VirtualizingStackPanel.IsVirtualizing="True"
                                                     VirtualizingStackPanel.VirtualizationMode="Recycling">
                                                     <DataGrid.Columns>
-                                                        <DataGridTemplateColumn Header="Check">
-                                                            <DataGridTemplateColumn.CellTemplate>
-                                                                <DataTemplate>
-                                                                    <CheckBox IsChecked="{Binding IsChecked, Mode=TwoWay}" />
-                                                                </DataTemplate>
-                                                            </DataGridTemplateColumn.CellTemplate>
-                                                        </DataGridTemplateColumn>
                                                         <DataGridTextColumn
                                                             Binding="{Binding SponsorId}"
                                                             Header="ID"
@@ -401,20 +430,16 @@
                                                             Binding="{Binding SponsorName}"
                                                             Header="Sponsor"
                                                             IsReadOnly="True" />
-                                                        <DataGridTemplateColumn Header="Tier" IsReadOnly="False">
+                                                        <DataGridTemplateColumn Header="Tier">
                                                             <DataGridTemplateColumn.CellTemplate>
                                                                 <DataTemplate>
-                                                                    <ComboBox
-                                                                        DisplayMemberPath="TierName"
-                                                                        ItemsSource="{Binding DataContext.SponsorTiers, RelativeSource={RelativeSource AncestorType=Window}}"
-                                                                        SelectedValue="{Binding SponsorTierId, Mode=TwoWay}"
-                                                                        SelectedValuePath="SponsorTierId" />
-
+                                                                    <ComboBox ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=DataGrid}, Path=DataContext.TierOptions}" SelectedValue="{Binding SponsorTierId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                                                 </DataTemplate>
                                                             </DataGridTemplateColumn.CellTemplate>
                                                         </DataGridTemplateColumn>
                                                     </DataGrid.Columns>
                                                 </DataGrid>
+
 
                                             </Border>
                                         </StackPanel>

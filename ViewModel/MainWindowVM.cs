@@ -9,13 +9,6 @@ public class MainWindowVM : INotifyPropertyChanged
     private int _permissionId; // Thêm thuộc tính PermissionId
     private readonly EventManagementDbContext _context; // Khai báo DbContext
 
-    private Lazy<Home> _homeView;
-    private Lazy<Partner> _partnerView;
-    private Lazy<Location> _locationView;
-    private Lazy<OOP_EventsManagementSystem.View.Event> _eventView;
-    private Lazy<OOP_EventsManagementSystem.View.Show> _showView;
-    private Lazy<OOP_EventsManagementSystem.View.Employee> _employeeView;
-    private Lazy<OOP_EventsManagementSystem.View.Equipment> _equipmentView;
     public object CurrentView
     {
         get => _currentView;
@@ -62,7 +55,7 @@ public class MainWindowVM : INotifyPropertyChanged
             // Đặt view mặc định là Home
             CurrentView = new Home();
         }
-        else if ( permissionId ==2)
+        else if (permissionId == 2)
         {
             CurrentView = new OOP_EventsManagementSystem.View.Employee();
         }
@@ -70,71 +63,59 @@ public class MainWindowVM : INotifyPropertyChanged
         {
             CurrentView = new OOP_EventsManagementSystem.View.Event();
         }
-
-
-
-        _homeView = new Lazy<Home>(() => new Home());
-        _eventView = new Lazy<OOP_EventsManagementSystem.View.Event>(
-            () => new OOP_EventsManagementSystem.View.Event()
-        );
-        _showView = new Lazy<OOP_EventsManagementSystem.View.Show>(
-            () => new OOP_EventsManagementSystem.View.Show()
-        );
-        _partnerView = new Lazy<Partner>(() => new Partner());
-        _employeeView = new Lazy<OOP_EventsManagementSystem.View.Employee>(
-            () => new OOP_EventsManagementSystem.View.Employee()
-        );
-        _equipmentView = new Lazy<OOP_EventsManagementSystem.View.Equipment>(
-            () => new OOP_EventsManagementSystem.View.Equipment()
-        );
-        _locationView = new Lazy<Location>(() => new Location());
-        
+        // Đặt view mặc định là Home
+        CurrentView = new Home();
     }
 
     private void ExecuteHomeCommand(object parameter)
     {
-        CurrentView = _homeView.Value;
+        CurrentView = new Home();
     }
 
     private void ExecuteEventCommand(object parameter)
     {
-        CurrentView = _eventView.Value;
+        CurrentView = new OOP_EventsManagementSystem.View.Event();
     }
 
     private void ExecuteShowCommand(object parameter)
     {
-        CurrentView = _showView.Value;
+        CurrentView = new OOP_EventsManagementSystem.View.Show();
     }
 
     private void ExecutePartnerCommand(object parameter)
     {
-        CurrentView = _partnerView.Value;
+        CurrentView = new Partner();
     }
 
     private void ExecuteEmployeeCommand(object parameter)
     {
-        CurrentView = _employeeView.Value;
+        CurrentView = new OOP_EventsManagementSystem.View.Employee();
     }
 
     private void ExecuteEquipmentCommand(object parameter)
     {
-        CurrentView = _equipmentView.Value;
+        CurrentView = new OOP_EventsManagementSystem.View.Equipment();
     }
 
     private void ExecuteLocationCommand(object parameter)
     {
-        CurrentView = _locationView.Value;
+        CurrentView = new Location();
     }
 
     // Các phương thức CanExecute kiểm tra quyền của người dùng dựa trên PermissionId
     private bool CanExecuteHomeCommand(object parameter) => PermissionId == 1; // Nút Home luôn có thể thực thi
+
     private bool CanExecuteEventCommand(object parameter) => PermissionId != 2; // Nút Event luôn có thể thực thi
 
     // Các nút khác chỉ có thể thực thi nếu PermissionId khác 3
     private bool CanExecuteShowCommand(object parameter) => PermissionId == 1;
+
     private bool CanExecutePartnerCommand(object parameter) => PermissionId == 1;
+
     private bool CanExecuteEmployeeCommand(object parameter) => PermissionId != 3;
+
     private bool CanExecuteEquipmentCommand(object parameter) => PermissionId == 1;
+
     private bool CanExecuteLocationCommand(object parameter) => PermissionId == 1;
 
     // Cập nhật quyền truy cập của các lệnh khi PermissionId thay đổi
