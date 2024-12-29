@@ -332,7 +332,9 @@
                                 AutoGenerateColumns="False"
                                 Background="Transparent"
                                 IsReadOnly="True"
-                                SelectionMode="Extended">
+                                SelectionMode="Extended"
+                                VirtualizingStackPanel.IsVirtualizing="True"
+                                VirtualizingStackPanel.VirtualizationMode="Recycling">
                                 <DataGrid.Columns>
                                     <DataGridTextColumn
                                         Width="auto"

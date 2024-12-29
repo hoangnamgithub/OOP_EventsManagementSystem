@@ -25,26 +25,27 @@ namespace OOP_EventsManagementSystem.View
         private List<AccountViewModel> allAccounts;
         public bool IsVisible { get; set; }
         private bool isEditing = false;
+
         public Account()
         {
             _context = new EventManagementDbContext();
             InitializeComponent();
             LoadAccountData();
             LoadEmployeeRoles();
-            
+
             // Kiểm tra PermissionId và thiết lập IsVisible
             if (UserAccount.PermissionId == 1)
             {
                 dtgr.Visibility = Visibility.Visible; // Nếu PermissionId = 1, hiển thị phần tử
-                border.Height = 550 ;
+                border.Height = 550;
             }
             else
             {
                 dtgr.Visibility = Visibility.Collapsed;
-                border.Height = 410;// Nếu PermissionId khác 1, ẩn phần tử
+                border.Height = 410; // Nếu PermissionId khác 1, ẩn phần tử
             }
-
         }
+
         // Sự kiện TextChanged của TextBox tìm kiếm
         private void SearchBox_show_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -52,17 +53,18 @@ namespace OOP_EventsManagementSystem.View
 
             var filteredAccounts = allAccounts
                 .Where(account =>
-                    account.FullName.ToLower().Contains(searchTerm) ||
-                    account.Contact.ToLower().Contains(searchTerm) ||
-                    account.Email.ToLower().Contains(searchTerm) ||
-                    account.Password.ToLower().Contains(searchTerm) ||
-                    account.Permission.ToLower().Contains(searchTerm) ||
-                    account.RoleName.ToLower().Contains(searchTerm)
+                    account.FullName.ToLower().Contains(searchTerm)
+                    || account.Contact.ToLower().Contains(searchTerm)
+                    || account.Email.ToLower().Contains(searchTerm)
+                    || account.Password.ToLower().Contains(searchTerm)
+                    || account.Permission.ToLower().Contains(searchTerm)
+                    || account.RoleName.ToLower().Contains(searchTerm)
                 )
                 .ToList();
 
             dataGrid.ItemsSource = filteredAccounts; // Cập nhật lại DataGrid với dữ liệu đã lọc
         }
+
         private void LoadAccountData()
         {
             // Lấy danh sách Account và hiển thị
@@ -79,7 +81,7 @@ namespace OOP_EventsManagementSystem.View
                     RoleName = a.Employee.Role.RoleName, // Gán RoleName từ Employee.Role
                     Contact = a.Employee.Contact, // Lấy Contact từ bảng Employee
                     Permission = a.Permission.Permission1, // Thêm Permission1 từ bảng Permission
-                    PermissionID = a.PermissionId
+                    PermissionID = a.PermissionId,
                 })
                 .ToList();
 
@@ -137,7 +139,6 @@ namespace OOP_EventsManagementSystem.View
 
         private void btnEdit_Click(object sender, RoutedEventArgs e)
         {
-
             btn_Edit.Visibility = Visibility.Collapsed;
             btnConfirm.Visibility = Visibility.Visible;
 
@@ -150,8 +151,6 @@ namespace OOP_EventsManagementSystem.View
             // Không cho phép chỉnh sửa các trường khác
             txtPermission.IsEnabled = false;
             txtRole.IsEnabled = false;
-
-            
         }
 
         private void btnConfirm_Click(object sender, RoutedEventArgs e)
@@ -166,22 +165,37 @@ namespace OOP_EventsManagementSystem.View
             // Kiểm tra định dạng email
             if (!IsValidEmail(email))
             {
-                MessageBox.Show("Email must have the domain .easys.com", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(
+                    "Email must have the domain .easys.com",
+                    "Validation Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
                 return;
             }
 
             // Kiểm tra các trường không được để trống
-            if (string.IsNullOrEmpty(fullName) || string.IsNullOrEmpty(email) || string.IsNullOrEmpty(contact) || string.IsNullOrEmpty(password))
+            if (
+                string.IsNullOrEmpty(fullName)
+                || string.IsNullOrEmpty(email)
+                || string.IsNullOrEmpty(contact)
+                || string.IsNullOrEmpty(password)
+            )
             {
-                MessageBox.Show("Please fill in all fields before confirming.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(
+                    "Please fill in all fields before confirming.",
+                    "Validation Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
                 return;
             }
 
             try
             {
                 // Tìm kiếm tài khoản dựa trên EmployeeId
-                var account = _context.Accounts
-                    .Include(a => a.Employee) // Bao gồm thông tin Employee
+                var account = _context
+                    .Accounts.Include(a => a.Employee) // Bao gồm thông tin Employee
                     .Include(a => a.Employee.Role) // Bao gồm Role
                     .FirstOrDefault(a => a.Employee.EmployeeId == employeeId); // Tìm kiếm theo EmployeeId
 
@@ -198,8 +212,9 @@ namespace OOP_EventsManagementSystem.View
                         account.Employee.Contact = contact;
 
                         // Cập nhật Role nếu cần thiết
-                        var selectedRole = _context.EmployeeRoles
-                            .FirstOrDefault(r => r.RoleName == txtRole.Text.Trim());
+                        var selectedRole = _context.EmployeeRoles.FirstOrDefault(r =>
+                            r.RoleName == txtRole.Text.Trim()
+                        );
 
                         if (selectedRole != null)
                         {
@@ -208,7 +223,12 @@ namespace OOP_EventsManagementSystem.View
                     }
                     else
                     {
-                        MessageBox.Show("Employee record not found.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show(
+                            "Employee record not found.",
+                            "Error",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Error
+                        );
                         return;
                     }
 
@@ -216,7 +236,12 @@ namespace OOP_EventsManagementSystem.View
                     _context.SaveChanges();
 
                     // Hiển thị thông báo thành công
-                    MessageBox.Show("Your account information has been updated successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show(
+                        "Your account information has been updated successfully.",
+                        "Success",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Information
+                    );
 
                     // Cập nhật lại giao diện
                     txtfull_name.Text = account.Employee.FullName;
@@ -232,13 +257,23 @@ namespace OOP_EventsManagementSystem.View
                 }
                 else
                 {
-                    MessageBox.Show("Account not found.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(
+                        "Account not found.",
+                        "Error",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Error
+                    );
                 }
             }
             catch (Exception ex)
             {
                 // Hiển thị thông báo lỗi
-                MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(
+                    $"An error occurred: {ex.Message}",
+                    "Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
             }
 
             // Vô hiệu hóa các TextBox và hiển thị lại nút "Edit"
@@ -248,7 +283,6 @@ namespace OOP_EventsManagementSystem.View
             txtPassword.IsEnabled = false;
             btnConfirm.Visibility = Visibility.Collapsed;
             btn_Edit.Visibility = Visibility.Visible;
-            
         }
 
         // Kiểm tra định dạng email có đuôi ".easys.com"
@@ -278,8 +312,8 @@ namespace OOP_EventsManagementSystem.View
                         foreach (var selectedAccount in selectedAccounts)
                         {
                             // Tìm tài khoản trong cơ sở dữ liệu bằng Email hoặc FullName
-                            var accountToDelete = _context.Accounts
-                                .Include(a => a.Employee)
+                            var accountToDelete = _context
+                                .Accounts.Include(a => a.Employee)
                                 .FirstOrDefault(a => a.Email == selectedAccount.Email);
 
                             if (accountToDelete != null)
@@ -326,7 +360,15 @@ namespace OOP_EventsManagementSystem.View
             }
         }
 
-        public void SetAccountInfo(string fullName, string contact, int? employeeId, string roleName, string email, string password, string permission)
+        public void SetAccountInfo(
+            string fullName,
+            string contact,
+            int? employeeId,
+            string roleName,
+            string email,
+            string password,
+            string permission
+        )
         {
             txtfull_name.Text = fullName;
             txtContact.Text = contact;
@@ -334,8 +376,8 @@ namespace OOP_EventsManagementSystem.View
             txtEmail.Text = email;
             txtPassword.Text = password;
             txtPermission.Text = permission;
-
         }
+
         private void edit_btn_Click(object sender, RoutedEventArgs e)
         {
             // Enable DataGrid editing and disable Edit button
@@ -367,8 +409,8 @@ namespace OOP_EventsManagementSystem.View
                 // Iterate through the rows of the DataGrid to check for any changes made
                 foreach (var item in dataGrid.ItemsSource.Cast<AccountViewModel>())
                 {
-                    var account = _context.Accounts
-                        .Include(a => a.Employee) // Include Employee for full access
+                    var account = _context
+                        .Accounts.Include(a => a.Employee) // Include Employee for full access
                         .Include(a => a.Employee.Role) // Include Role for full access
                         .FirstOrDefault(a => a.Employee.FullName == item.FullName);
 
@@ -381,16 +423,18 @@ namespace OOP_EventsManagementSystem.View
                         account.Employee.Contact = item.Contact;
 
                         // If you are editing the role, update it as well
-                        var selectedRole = _context.EmployeeRoles
-                            .FirstOrDefault(r => r.RoleName == item.RoleName);
+                        var selectedRole = _context.EmployeeRoles.FirstOrDefault(r =>
+                            r.RoleName == item.RoleName
+                        );
                         if (selectedRole != null)
                         {
                             account.Employee.RoleId = selectedRole.RoleId; // Update RoleId
                         }
 
                         // Update Permission if necessary (e.g., Permission ID change)
-                        var selectedPermission = _context.Permissions
-                            .FirstOrDefault(p => p.Permission1 == item.Permission);
+                        var selectedPermission = _context.Permissions.FirstOrDefault(p =>
+                            p.Permission1 == item.Permission
+                        );
                         if (selectedPermission != null)
                         {
                             account.PermissionId = selectedPermission.PermissionId;
@@ -402,7 +446,12 @@ namespace OOP_EventsManagementSystem.View
                 _context.SaveChanges();
 
                 // Notify user that the changes have been saved
-                MessageBox.Show("Account information updated successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show(
+                    "Account information updated successfully.",
+                    "Success",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information
+                );
 
                 // Reload account data to reflect changes in the DataGrid
                 LoadAccountData();
@@ -410,7 +459,12 @@ namespace OOP_EventsManagementSystem.View
             catch (Exception ex)
             {
                 // Handle any errors during the save process
-                MessageBox.Show($"An error occurred while saving changes: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(
+                    $"An error occurred while saving changes: {ex.Message}",
+                    "Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
             }
         }
 
@@ -439,7 +493,6 @@ namespace OOP_EventsManagementSystem.View
             public string Contact { get; set; }
             public string Permission { get; set; } // Thêm thuộc tính Permission
             public int PermissionID { get; set; }
-        }       
-
+        }
     }
 }
